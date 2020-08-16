@@ -158,12 +158,22 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Business Account
     -   [x] Seeder For Business
 
-*   [ ] **Role Permission Management**
-    -   [ ] Create Role
-    -   [ ] Edit Role
-    -   [ ] Details Role
+#### Role Permission & User Management System
+
+-   [ ] **Role**
+
+    -   [ ] Create Role with Permission
+    -   [ ] Edit Role with Permission
+    -   [ ] Details Role with Permission
     -   [ ] Delete Role
-    -   [ ] Seeder For Items Attribute with Value
+    -   [ ] Seeder Role
+
+-   [ ] **User Management**
+    -   [ ] Create User
+    -   [ ] Edit User
+    -   [ ] Details User
+    -   [ ] Delete Role
+    -   [ ] Seeder Role
 
 #### Customer
 

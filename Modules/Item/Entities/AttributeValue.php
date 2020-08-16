@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Business\Entities;
+namespace Modules\Item\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaxRate extends Model
+class AttributeValue extends Model
 {
     protected $fillable = [];
 }

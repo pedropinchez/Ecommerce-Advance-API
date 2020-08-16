@@ -10,5 +10,6 @@
     "Expense": true,
     "User": true,
     "Role": true,
-    "Statistic": true
+    "Statistic": true,
+    "Analytics": true
 }

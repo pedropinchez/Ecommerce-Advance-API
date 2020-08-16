@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\Business\Entities;
+namespace Modules\Customer\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TaxRate extends Model
+class CustomerGroup extends Model
 {
     protected $fillable = [];
 }

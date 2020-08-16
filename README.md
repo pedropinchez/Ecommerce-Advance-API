@@ -158,6 +158,13 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Business Account
     -   [x] Seeder For Business
 
+*   [ ] **Role Permission Management**
+    -   [ ] Create Role
+    -   [ ] Edit Role
+    -   [ ] Details Role
+    -   [ ] Delete Role
+    -   [ ] Seeder For Items Attribute with Value
+
 #### Customer
 
 -   [x] **Customer**
@@ -204,8 +211,16 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Seeder For Units
 
 -   [ ] **Item**
+
     -   [ ] Create Item
     -   [ ] Edit Item
     -   [ ] Details Item
     -   [ ] Delete Item
     -   [ ] Seeder For Items
+
+-   [ ] **Item Attribute**
+    -   [ ] Create Item Attribute with Value
+    -   [ ] Edit Item Attribute with Value
+    -   [ ] Details Item Attribute with Value
+    -   [ ] Delete Item Attribute with Value
+    -   [ ] Seeder For Items Attribute with Value

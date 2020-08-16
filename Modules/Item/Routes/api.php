@@ -13,13 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::post('login', 'LoginController@login');
-    Route::post('register', 'RegisterController@register');
-
-    Route::group(['middleware' => 'auth:api'], function () {
-        Route::get('getUserProfile', 'AuthController@getUserProfile');
-        Route::put('updateUserProfile', 'AuthController@updateUserProfile');
-        Route::delete('deleteUserAccount', 'AuthController@deleteUserAccount');
-    });
-});
+Route::apiResource('brands', 'BrandController');
+Route::apiResource('categories', 'CategoryController');
+Route::apiResource('units', 'UnitController');
+Route::apiResource('items', 'ItemController');

@@ -8,7 +8,7 @@
 
 #### 1) Clone Project
 
-`git clone https://tfs2019.akij.net/WebApplicationCollection/iAppsAPI/_git/iAppsAPI`
+`git clone https://github.com/ManiruzzamanAkash/Ecommerce-Advance-API.git`
 
 #### 2) Update Composer
 
@@ -35,13 +35,31 @@ Run migration command to migarte into database
 php artisan migrate
 ```
 
-#### 5) Run Seeder
+#### 5) Clear the cache and update everything
+
+Run migration command to migarte into database
+
+```
+composer dump-autoload
+```
+
+```
+php artisan optimize
+```
+
+#### 6) Install Passport Cliend ID's
+
+```
+php artisan passport:install
+```
+
+#### 7) Run Seeder
 
 ```
 php artisan db:seed
 ```
 
-#### 6) Run Project
+#### 8) Run Project
 
 ```
 php artisan serve
@@ -85,27 +103,47 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 1. Never Trust User. Never trust any of the values/requests from the user.
 1. Always Maintain The Architecture, Never Violates. If there is proper suggestion, it's Welcomed.
 
+# Feature Analysis
+
+---
+
+1. **Basic Ecommerce Website Features**
+1. **Multivendor Ecommerce Design**
+1. Product List, with Details View
+1. Product Filtering throw Category, Brand, Price, Attributes
+1. User Authentication -
+    1. Email / Mobile Number Verified Registration
+1. Cashback System
+1. Voucher System
+1. First purchase discount
+1. Referral program
+1. Make a wallet inside in website
+1. Add Payment Gateway Visa, Master Card etc
+1. After delivery Review product and Photo Ppload system for user
+
 # API Development
 
 ---
 
 #### User Account
 
--   [ ] **User Account** - @Maniruzzaman Akash
+-   [ ] **User Account** -
     -   [x] Register User Account
+    -   [ ] Register User Account Email & Phone
     -   [x] Login
     -   [ ] Forget Password
     -   [x] Profile View
     -   [x] Authenticate API Route
+    -   [x] Profile Update
     -   [ ] Social Authentication
 
 #### Business
 
--   [ ] **Currencies** - @Farid Uddin
+-   [ ] **Currencies**
 
     -   [ ] Data Import / Seeder For Currencies Table
 
--   [ ] **Tax Rate** - @Farid Uddin
+-   [ ] **Tax Rate**
 
     -   [ ] Create Tax Rate
     -   [ ] Edit Tax Rate
@@ -122,7 +160,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Customer
 
--   [x] **Customer** - @Farid Uddin
+-   [x] **Customer**
 
     -   [x] Create Customer
     -   [x] Edit Customer
@@ -132,7 +170,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Supplier
 
--   [ ] **Supplier** - @Farid Uddin
+-   [ ] **Supplier**
     -   [ ] Create Supplier
     -   [ ] Edit Supplier
     -   [ ] Details Supplier
@@ -141,7 +179,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Item
 
--   [ ] **Brand** - @Monirul Islam
+-   [ ] **Brand**
 
     -   [ ] Create Brand
     -   [ ] Edit Brand
@@ -149,7 +187,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Delete Brand
     -   [ ] Seeder For Brands
 
--   [ ] **Category** - @Monirul Islam
+-   [ ] **Category**
 
     -   [ ] Create Category
     -   [ ] Edit Category
@@ -157,7 +195,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Delete Category
     -   [ ] Seeder For Categories
 
--   [ ] **Unit** - @Monirul Islam
+-   [ ] **Unit**
 
     -   [ ] Create Unit
     -   [ ] Edit Unit
@@ -165,7 +203,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Delete Unit
     -   [ ] Seeder For Units
 
--   [ ] **Item** - @Farid Uddin
+-   [ ] **Item**
     -   [ ] Create Item
     -   [ ] Edit Item
     -   [ ] Details Item

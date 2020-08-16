@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel</title>
+    <title>Ecommerce API Documentation</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -64,6 +64,13 @@
         .m-b-md {
             margin-bottom: 30px;
         }
+        .btn-info {
+            background: rgb(192, 7, 167);
+            padding: 15px 30px!important;
+            border: 0px;
+            border-radius: 28px;
+            color: #fff!important;
+        }
     </style>
 </head>
 
@@ -85,18 +92,11 @@
 
         <div class="content">
             <div class="title m-b-md">
-                Laravel
+                Ecommerce API Project
             </div>
 
             <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
-                <a href="https://laracasts.com">Laracasts</a>
-                <a href="https://laravel-news.com">News</a>
-                <a href="https://blog.laravel.com">Blog</a>
-                <a href="https://nova.laravel.com">Nova</a>
-                <a href="https://forge.laravel.com">Forge</a>
-                <a href="https://vapor.laravel.com">Vapor</a>
-                <a href="https://github.com/laravel/laravel">GitHub</a>
+                <a href="/api/documentation" class="btn btn-info">Open Swagger</a>
             </div>
         </div>
     </div>

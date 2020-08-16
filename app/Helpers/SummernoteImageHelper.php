@@ -1,5 +1,6 @@
 <?php
-namespace app\Helpers
+
+namespace App\Helpers;
 
 
 class SummernoteImageHelper
@@ -24,7 +25,7 @@ class SummernoteImageHelper
             $path = public_path() . '/images/posts/' . $image_name;
             file_put_contents($path, $data);
             $img->removeattribute('src');
-            $img->setattribute('src', $image_name);      
+            $img->setattribute('src', $image_name);
         }
         return $dom;
     }

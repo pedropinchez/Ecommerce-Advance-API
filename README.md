@@ -92,7 +92,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     1. Bracket Pair Colorizer
 1. Composer Packages
 
-#### Used 3rd Party Verfied Packages While Developing
+#### Used 3rd Party Verfied Packages While Developement
 
 1. Laravel Modules to Make Domain Driven Design: https://nwidart.com/laravel-modules/v6/introduction
 1. Laravel Passport Authentication to make secured Oath2 Token Based Server Implementation - https://laravel.com/docs/7.x/passport#introduction

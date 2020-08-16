@@ -152,11 +152,19 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Seeder For Business
 
 -   [x] **Business** - @Maniruzzaman Akash
+
     -   [x] Create Business Account
     -   [x] Edit Business Account
     -   [x] Details Business Account
     -   [x] Delete Business Account
-    -   [x] Seeder For Business
+    -   [ ] Seeder For Business
+
+-   [ ] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module
+    -   [ ] Create Business Location
+    -   [ ] Edit Business Location
+    -   [ ] Details Business Location
+    -   [ ] Delete Business Location
+    -   [ ] Seeder For Business
 
 #### Role Permission & User Management System
 
@@ -234,3 +242,39 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Details Item Attribute with Value
     -   [ ] Delete Item Attribute with Value
     -   [ ] Seeder For Items Attribute with Value
+
+#### Sales
+
+-   [ ] **Discount Type**
+
+    -   [ ] Create Discount Type
+    -   [ ] Edit Discount Type
+    -   [ ] Details Discount Type
+    -   [ ] Delete Discount Type
+    -   [ ] Seeder For Discount Type
+
+*   [ ] **Sales**
+
+    -   [ ] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
+    -   [ ] Edit Sales Order
+    -   [ ] Details Sales Order
+    -   [ ] Delete Sales Order
+    -   [ ] Seeder For Sales Orders
+
+#### Business Extra
+
+-   [ ] **Slider**
+
+    -   [ ] Create Slider
+    -   [ ] Edit Slider
+    -   [ ] Details Slider
+    -   [ ] Delete Slider
+    -   [ ] Seeder Slider
+
+-   [ ] **Page**
+
+    -   [ ] Create Page
+    -   [ ] Edit Page
+    -   [ ] Details Page
+    -   [ ] Delete Page
+    -   [ ] Seeder Page

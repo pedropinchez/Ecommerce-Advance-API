@@ -1,0 +1,14 @@
+{
+    "Auth": true,
+    "Business": true,
+    "Item": true,
+    "Customer": true,
+    "Supplier": true,
+    "Sales": true,
+    "Purchase": true,
+    "Accounts": true,
+    "Expense": true,
+    "User": true,
+    "Role": true,
+    "Statistic": true
+}

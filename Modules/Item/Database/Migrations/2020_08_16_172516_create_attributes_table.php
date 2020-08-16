@@ -17,8 +17,10 @@ class CreateAttributesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->unsignedBigInteger('business_id');
             $table->unique(array('id', 'slug'));
             $table->timestamps();
+            $table->foreign('business_id')->references('id')->on('business');
         });
     }
 

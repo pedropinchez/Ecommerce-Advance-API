@@ -204,13 +204,13 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Item
 
--   [ ] **Brand**
+-   [x] **Brand**
 
-    -   [ ] Create Brand
-    -   [ ] Edit Brand
-    -   [ ] Details Brand
-    -   [ ] Delete Brand
-    -   [ ] Seeder For Brands
+    -   [x] Create Brand
+    -   [x] Edit Brand
+    -   [x] Details Brand
+    -   [x] Delete Brand
+    -   [x] Seeder For Brands
 
 -   [ ] **Category**
 

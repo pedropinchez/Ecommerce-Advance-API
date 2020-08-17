@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributeValue extends Model
 {
-    protected $fillable = [];
+    protected $fillable = [
+        'value',
+        'code',
+        'attribute_id'
+    ];
 }

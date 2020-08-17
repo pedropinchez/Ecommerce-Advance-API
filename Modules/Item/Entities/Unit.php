@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    protected $fillable = [];
+    protected $fillable = [
+        'business_id',
+        'actual_name',
+        'short_name',
+        'allow_decimal',
+        'created_by',
+    ];
 }

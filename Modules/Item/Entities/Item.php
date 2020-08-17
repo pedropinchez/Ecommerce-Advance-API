@@ -14,6 +14,17 @@ class Item extends Model
     protected $fillable = [
         'business_id',
         'name',
-        // Need to add others
+        'unit_id',
+        'brand_id',
+        'category_id',
+        'sub_category_id',
+        'tax',
+        'tax_type',
+        'enable_stock',
+        'alert_quantity',
+        'sku',
+        'barcode_type',
+        'sku_manual',
+        'created_by'
     ];
 }

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::apiResource('brands', 'BrandController');
+Route::get('business/{business_id}', 'BusinessController@getBrandByBusiness');
 Route::apiResource('categories', 'CategoryController');
 Route::apiResource('units', 'UnitController');
 Route::apiResource('items', 'ItemController');

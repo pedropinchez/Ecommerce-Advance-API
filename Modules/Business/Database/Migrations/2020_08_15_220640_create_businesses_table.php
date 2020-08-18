@@ -37,7 +37,8 @@ class CreateBusinessesTable extends Migration
             $table->foreign('currency_id')->references('id')->on('currencies');
             $table->string('logo')->nullable();
             $table->string('sku_prefix')->nullable();
-            $table->boolean('enable_tooltip')->default(1);
+            $table->boolean('enable_tooltip')->default(true);
+            $table->boolean('enable_referrel_system')->default(false);
             $table->timestamps();
         });
     }

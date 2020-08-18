@@ -4,7 +4,7 @@ namespace Modules\Item\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BrandRequest extends FormRequest
+class UnitRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,8 +14,10 @@ class BrandRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'actual_name' => 'required',
             'business_id' => 'required',
+            'short_name' => 'required',
+            'allow_decimal' => 'boolean',
             'created_by' => 'required'
         ];
     }
@@ -37,8 +39,10 @@ class BrandRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Brand name is required',
+            'actual_name.required' => 'Unit name is required',
             'business_id.required' => 'Business is required',
+            'short_name.required' => 'Short name is required',
+            'allow_decimal.required' => 'Allow decimal is required',
             'created_by.required' => 'Whom created is required'
         ];
     }

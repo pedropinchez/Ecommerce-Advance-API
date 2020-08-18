@@ -148,7 +148,7 @@ class BrandController extends Controller
      *     description="Delete Brand",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     operationId="destroy",
-     *      @OA\Response( response=200, description="Delete Business" ),
+     *      @OA\Response( response=200, description="Delete Brand" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )

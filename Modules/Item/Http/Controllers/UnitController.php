@@ -2,78 +2,190 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use App\Repositories\ResponseRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Item\Http\Requests\UnitRequest;
+use Modules\Item\Repositories\UnitRepository;
 
 class UnitController extends Controller
 {
+    private $unitRepository;
+    private $responseRepository;
+    public function __construct(UnitRepository $unitRepository, ResponseRepository $responseRepository)
+    {
+        $this->unitRepository = $unitRepository;
+        $this->responseRepository = $responseRepository;
+    }
+
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/units",
+     *     tags={"Units"},
+     *     summary="Get Unit List",
+     *     description="Get Unit List",
+     *     security={{"bearer": {}}},
+     *     operationId="index",
+     *      @OA\Response( response=200, description="Get Unit List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function index()
     {
-        return view('item::index');
+        try {
+            $units = $this->unitRepository->index();
+            return $this->responseRepository->ResponseSuccess($units, 'Unit Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('item::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
+     * @OA\POST(
+     *     path="/api/v1/units",
+     *     tags={"Units"},
+     *     summary="Create New Unit",
+     *     description="Create New Unit",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
+     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="short_name", type="string", example="kg"),
+     *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
+     *              @OA\Property(property="created_by", type="int", example="1")
+     *      ),
+     *     operationId="store",
+     *      @OA\Response( response=200, description="Create New Unit" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $unitRequest = new UnitRequest();
+            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
+            if($validator->fails()){
+                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $unit = $this->unitRepository->store($data);
+            return $this->responseRepository->ResponseSuccess($unit, 'Unit Created Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/units/{id}",
+     *     tags={"Unit"},
+     *     summary="Get Unit By ID",
+     *     description="Get Unit By ID",
+     *     security={{"bearer": {}}},
+     *     operationId="show",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Response( response=200, description="Get Unit By ID" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function show($id)
     {
-        return view('item::show');
+        try {
+            $unit = $this->unitRepository->show($id);
+            return $this->responseRepository->ResponseSuccess($unit, 'Unit Details By ID');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('item::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
+     * @OA\PUT(
+     *     path="/api/v1/units/{id}",
+     *     tags={"Units"},
+     *     summary="Update Unit",
+     *     description="Update Unit",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
+     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="short_name", type="string", example="kg"),
+     *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
+     *              @OA\Property(property="created_by", type="int", example="1")
+     *      ),
+     *     operationId="update",
+     *      @OA\Response( response=200, description="Update Unit" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $unitRequest = new UnitRequest();
+            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
+            if($validator->fails()){
+                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $unit = $this->unitRepository->update($id, $data);
+            return $this->responseRepository->ResponseSuccess($unit, 'Unit Updated Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     * @OA\DELETE(
+     *     path="/api/v1/units/{id}",
+     *     tags={"Units"},
+     *     summary="Delete Unit",
+     *     description="Delete Unit",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     operationId="destroy",
+     *      @OA\Response( response=200, description="Delete Unit" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function destroy($id)
     {
-        //
+        try {
+            $unit = $this->unitRepository->destroy($id);
+            return $this->responseRepository->ResponseSuccess($unit, 'Unit Deleted Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/units/business/{business_id}",
+     *     tags={"Units"},
+     *     summary="Get Unit List of Business",
+     *     description="Get Unit List of Business",
+     *     security={{"bearer": {}}},
+     *     operationId="getUnitByBusiness",
+     *      @OA\Parameter( name="business_id", description="business_id, eg; int", required=true, in="path", @OA\Schema(type="int")),
+     *      @OA\Response( response=200, description="Get Unit List of Business"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getUnitByBusiness($businessId)
+    {
+        try {
+            $unit = $this->unitRepository->getUnitByBusiness($businessId);
+            return $this->responseRepository->ResponseSuccess($unit, 'Unit By Business ID');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

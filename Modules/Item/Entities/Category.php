@@ -13,4 +13,13 @@ class Category extends Model
         'parent_id',
         'created_by'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * get the childs of a category
+     */
+    public function childs()
+    {
+        return $this->hasMany(\Modules\Item\Entities\Category::class, 'parent_id');
+    }
 }

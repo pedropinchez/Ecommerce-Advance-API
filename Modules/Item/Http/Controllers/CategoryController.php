@@ -2,78 +2,190 @@
 
 namespace Modules\Item\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
+use App\Repositories\ResponseRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Item\Http\Requests\CategoryRequest;
+use Modules\Item\Repositories\CategoryRepository;
 
 class CategoryController extends Controller
 {
+    private $categoryRepository;
+    private $responseRepository;
+    public function __construct(CategoryRepository $categoryRepository, ResponseRepository $responseRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+        $this->responseRepository = $responseRepository;
+    }
+
     /**
-     * Display a listing of the resource.
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/categories",
+     *     tags={"Categories"},
+     *     summary="Get Category List",
+     *     description="Get Category List",
+     *     security={{"bearer": {}}},
+     *     operationId="index",
+     *      @OA\Response( response=200, description="Get Category List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function index()
     {
-        return view('item::index');
+        try {
+            $categories = $this->categoryRepository->index();
+            return $this->responseRepository->ResponseSuccess($categories, 'Category Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('item::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
+     * @OA\POST(
+     *     path="/api/v1/categories",
+     *     tags={"Categories"},
+     *     summary="Create New Category",
+     *     description="Create New Category",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="name", type="string", example="Clothing"),
+     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="short_code", type="string", example="Clothing"),
+     *              @OA\Property(property="parent_id", type="int", example="1"),
+     *              @OA\Property(property="created_by", type="int", example="1")
+     *      ),
+     *     operationId="store",
+     *      @OA\Response( response=200, description="Create New Category" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+            $categoryRequest = new CategoryRequest();
+            $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
+            if($validator->fails()){
+                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $category = $this->categoryRepository->store($data);
+            return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/categories/{id}",
+     *     tags={"Category"},
+     *     summary="Get Category By ID",
+     *     description="Get Category By ID",
+     *     security={{"bearer": {}}},
+     *     operationId="show",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Response( response=200, description="Get Category By ID" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function show($id)
     {
-        return view('item::show');
+        try {
+            $category = $this->categoryRepository->show($id);
+            return $this->responseRepository->ResponseSuccess($category, 'Category Details By ID');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('item::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
+     * @OA\PUT(
+     *     path="/api/v1/categories/{id}",
+     *     tags={"Categories"},
+     *     summary="Update Category",
+     *     description="Update Category",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="name", type="string", example="Clothing"),
+     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="short_code", type="string", example="Clothing"),
+     *              @OA\Property(property="parent_id", type="int", example="1"),
+     *              @OA\Property(property="created_by", type="int", example="1")
+     *      ),
+     *     operationId="update",
+     *      @OA\Response( response=200, description="Update Category" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $categoryRequest = new CategoryRequest();
+            $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
+            if($validator->fails()){
+                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            $category = $this->categoryRepository->update($id, $data);
+            return $this->responseRepository->ResponseSuccess($category, 'Category Updated Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     * @OA\DELETE(
+     *     path="/api/v1/categories/{id}",
+     *     tags={"Categories"},
+     *     summary="Delete Category",
+     *     description="Delete Category",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     operationId="destroy",
+     *      @OA\Response( response=200, description="Delete Category" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
     public function destroy($id)
     {
-        //
+        try {
+            $category = $this->categoryRepository->destroy($id);
+            return $this->responseRepository->ResponseSuccess($category, 'Category Deleted Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/categories/business/{business_id}",
+     *     tags={"Categories"},
+     *     summary="Get Category List of Business",
+     *     description="Get Category List of Business",
+     *     security={{"bearer": {}}},
+     *     operationId="getCategoryByBusiness",
+     *      @OA\Parameter( name="business_id", description="business_id, eg; int", required=true, in="path", @OA\Schema(type="int")),
+     *      @OA\Response( response=200, description="Get Category List of Business"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getCategoryByBusiness($businessId)
+    {
+        try {
+            $category = $this->categoryRepository->getCategoryByBusiness($businessId);
+            return $this->responseRepository->ResponseSuccess($category, 'Category By Business ID');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

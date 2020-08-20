@@ -62,12 +62,11 @@ class UnitController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function store(Request $request)
+    public function store(UnitRequest $request)
     {
         try {
             $data = $request->all();
-            $unitRequest = new UnitRequest();
-            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
+            $validator = \Validator::make($data, $request->rules(), $request->messages());
             if($validator->fails()){
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
@@ -123,12 +122,11 @@ class UnitController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update(Request $request, $id)
+    public function update(UnitRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $unitRequest = new UnitRequest();
-            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
+            $validator = \Validator::make($data, $request->rules(), $request->messages());
             if($validator->fails()){
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }

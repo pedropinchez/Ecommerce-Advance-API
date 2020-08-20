@@ -61,12 +61,11 @@ class BrandController extends Controller
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
         try {
             $data = $request->all();
-            $brandRequest = new BrandRequest();
-            $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
+            $validator = \Validator::make($data, $request->rules(), $request->messages());
             if($validator->fails()){
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
@@ -121,12 +120,11 @@ class BrandController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $brandRequest = new BrandRequest();
-            $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
+            $validator = \Validator::make($data, $request->rules(), $request->messages());
             if($validator->fails()){
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }

@@ -11,5 +11,6 @@
     "User": true,
     "Role": true,
     "Statistic": true,
-    "Analytics": true
+    "Analytics": true,
+    "Referral": true
 }

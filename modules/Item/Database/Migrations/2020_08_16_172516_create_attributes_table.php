@@ -18,9 +18,11 @@ class CreateAttributesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->unsignedBigInteger('business_id');
+            $table->unsignedBigInteger('category_id');
             $table->unique(array('business_id', 'slug'));
             $table->timestamps();
             $table->foreign('business_id')->references('id')->on('business');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

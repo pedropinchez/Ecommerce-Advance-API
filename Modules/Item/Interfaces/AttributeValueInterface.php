@@ -13,4 +13,6 @@ interface AttributeValueInterface
     public function update($id, $data);
 
     public function destroy($id);
+
+    public function getAttributeValueByAttribute($attributeId);
 }

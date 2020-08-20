@@ -15,4 +15,8 @@ interface AttributeInterface
     public function destroy($id);
 
     public function getAttributeByBusiness($businessId);
+
+    public function getAttributeByCategory($categoryId);
+
+    public function getAttributeByCategoryAndBusiness($businessId, $categoryId);
 }

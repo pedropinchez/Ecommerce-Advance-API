@@ -63,11 +63,6 @@ class AttributeValueController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $attribute = $this->attributeValueRepository->store($data);
             return $this->responseRepository->ResponseSuccess($attribute, 'Attribute Value Created Successfully');
         } catch (\Exception $exception) {
@@ -121,11 +116,6 @@ class AttributeValueController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $attribute = $this->attributeValueRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($attribute, 'Attribute Value Updated Successfully');
         } catch (\Exception $exception) {

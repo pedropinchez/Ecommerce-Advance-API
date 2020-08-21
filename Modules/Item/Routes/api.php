@@ -31,3 +31,8 @@ Route::apiResource('attribute/values', 'AttributeValueController');
 Route::get('attribute/{attribute_id}/values', 'AttributeValueController@getAttributeValueByAttribute');
 
 Route::apiResource('items', 'ItemController');
+Route::get('items/business/{business_id}', 'ItemController@getItemByBusiness');
+Route::get('items/category/{category_id}', 'ItemController@getItemByCategory');
+Route::get('items/subcategory/{sub_category_id}', 'ItemController@getItemBySubCategory');
+Route::get('items/brand/{brand_id}', 'ItemController@getItemByBrand');
+Route::put('items/attribute/{item_id}', 'ItemController@updateItemAttribute');

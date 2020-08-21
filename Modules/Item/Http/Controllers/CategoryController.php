@@ -66,11 +66,6 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $category = $this->categoryRepository->store($data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');
         } catch (\Exception $exception) {
@@ -126,11 +121,6 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $category = $this->categoryRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Updated Successfully');
         } catch (\Exception $exception) {

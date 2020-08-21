@@ -66,11 +66,6 @@ class UnitController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $unit = $this->unitRepository->store($data);
             return $this->responseRepository->ResponseSuccess($unit, 'Unit Created Successfully');
         } catch (\Exception $exception) {
@@ -126,11 +121,6 @@ class UnitController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $unit = $this->unitRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($unit, 'Unit Updated Successfully');
         } catch (\Exception $exception) {

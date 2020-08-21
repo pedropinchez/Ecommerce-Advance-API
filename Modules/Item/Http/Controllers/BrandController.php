@@ -4,7 +4,6 @@ namespace Modules\Item\Http\Controllers;
 
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Item\Http\Requests\BrandRequest;
 use Modules\Item\Repositories\BrandRepository;
@@ -65,11 +64,6 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $brand = $this->brandRepository->store($data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Created Successfully');
         } catch (\Exception $exception) {
@@ -124,11 +118,6 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            $validator = \Validator::make($data, $request->rules(), $request->messages());
-            if($validator->fails()){
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $brand = $this->brandRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Updated Successfully');
         } catch (\Exception $exception) {

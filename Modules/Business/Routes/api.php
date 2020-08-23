@@ -15,3 +15,6 @@ use Illuminate\Http\Request;
 
 Route::apiResource('business', 'BusinessController');
 Route::get('business/bin/{id}', 'BusinessController@getBusinessByBin');
+
+Route::apiResource('tax', 'TaxController');
+Route::get('tax/business/{business_id}', 'TaxController@getTaxByBusiness');

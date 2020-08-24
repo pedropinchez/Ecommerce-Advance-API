@@ -179,7 +179,7 @@ class TaxController extends Controller
      *     summary="Get Tax By Business",
      *     description="Get Tax By Business",
      *     security={{"bearer": {}}},
-     *     operationId="getTaxByBin",
+     *     operationId="getTaxByBusiness",
      *     @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Tax By Business" ),
      *      @OA\Response(response=400, description="Bad request"),

@@ -139,8 +139,11 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Business
 
--   [ ] **Currencies**
-
+-   [] **Currencies** @Mahmud Hasan Shakkhor
+    -   [x] Create Tax Rate
+    -   [x] Edit Tax Rate
+    -   [x] Details Tax Rate
+    -   [x] Delete Tax Rate
     -   [ ] Data Import / Seeder For Currencies Table
 
 -   [ ] **Tax Rate** @Mahmud Hasan Shakkhor
@@ -159,11 +162,11 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Business Account
     -   [ ] Seeder For Business
 
--   [ ] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module
-    -   [ ] Create Business Location
-    -   [ ] Edit Business Location
-    -   [ ] Details Business Location
-    -   [ ] Delete Business Location
+-   [x] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module @Mahmud Hasan Shakkhor
+    -   [x] Create Business Location
+    -   [x] Edit Business Location
+    -   [x] Details Business Location
+    -   [x] Delete Business Location
     -   [ ] Seeder For Business
 
 #### Role Permission & User Management System

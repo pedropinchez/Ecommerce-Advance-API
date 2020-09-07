@@ -20,7 +20,7 @@ class CreateReferralRulesTable extends Migration
 
             $table->boolean('enable_purchase_referral')->default(false);
             $table->float('purchase_referral_amount')->comment('purchase Referral Amount')->default(0);
-            $table->enum('purchase_referral_amount_type', ['fixed', 'purchase', 'item'])->comment('purchase Referral Amount purchase_referral_amount_type')->default(0);
+            $table->enum('purchase_referral_amount_type', ['fixed', 'purchase', 'item'])->comment('purchase Referral Amount purchase_referral_amount_type')->default('fixed');
             $table->timestamps();
         });
     }

@@ -52,9 +52,10 @@ class BrandController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="int", example=1),
      *              @OA\Property(property="description", type="string", example="A reputaed brand"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *              @OA\Property(property="created_by", type="int", example=1)
+     *          ),
      *      ),
      *     operationId="store",
      *      @OA\Response( response=200, description="Create New Brand" ),
@@ -68,7 +69,7 @@ class BrandController extends Controller
             $data = $request->all();
             $brandRequest = new BrandRequest();
             $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 
@@ -113,9 +114,10 @@ class BrandController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="int", example=1),
      *              @OA\Property(property="description", type="string", example="A reputaed brand"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *              @OA\Property(property="created_by", type="int", example=1)
+     *          ),
      *      ),
      *     operationId="update",
      *      @OA\Response( response=200, description="Update Brand" ),
@@ -129,7 +131,7 @@ class BrandController extends Controller
             $data = $request->all();
             $brandRequest = new BrandRequest();
             $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 

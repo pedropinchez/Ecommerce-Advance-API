@@ -56,6 +56,7 @@ class UnitController extends Controller
      *              @OA\Property(property="short_name", type="string", example="kg"),
      *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
      *              @OA\Property(property="created_by", type="int", example="1")
+     *          ),
      *      ),
      *     operationId="store",
      *      @OA\Response( response=200, description="Create New Unit" ),
@@ -69,7 +70,7 @@ class UnitController extends Controller
             $data = $request->all();
             $unitRequest = new UnitRequest();
             $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 
@@ -118,6 +119,7 @@ class UnitController extends Controller
      *              @OA\Property(property="short_name", type="string", example="kg"),
      *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
      *              @OA\Property(property="created_by", type="int", example="1")
+     *          ),
      *      ),
      *     operationId="update",
      *      @OA\Response( response=200, description="Update Unit" ),
@@ -131,7 +133,7 @@ class UnitController extends Controller
             $data = $request->all();
             $unitRequest = new UnitRequest();
             $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 

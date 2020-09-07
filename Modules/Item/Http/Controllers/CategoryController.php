@@ -56,6 +56,7 @@ class CategoryController extends Controller
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
      *              @OA\Property(property="created_by", type="int", example="1")
+     *          ),
      *      ),
      *     operationId="store",
      *      @OA\Response( response=200, description="Create New Category" ),
@@ -69,7 +70,7 @@ class CategoryController extends Controller
             $data = $request->all();
             $categoryRequest = new CategoryRequest();
             $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 
@@ -118,6 +119,7 @@ class CategoryController extends Controller
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
      *              @OA\Property(property="created_by", type="int", example="1")
+     *          ),
      *      ),
      *     operationId="update",
      *      @OA\Response( response=200, description="Update Category" ),
@@ -131,7 +133,7 @@ class CategoryController extends Controller
             $data = $request->all();
             $categoryRequest = new CategoryRequest();
             $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
             }
 

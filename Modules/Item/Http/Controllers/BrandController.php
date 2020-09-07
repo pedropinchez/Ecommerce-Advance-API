@@ -4,7 +4,6 @@ namespace Modules\Item\Http\Controllers;
 
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Item\Http\Requests\BrandRequest;
 use Modules\Item\Repositories\BrandRepository;
@@ -57,22 +56,15 @@ class BrandController extends Controller
      *              @OA\Property(property="created_by", type="int", example=1)
      *          ),
      *      ),
-     *     operationId="store",
-     *      @OA\Response( response=200, description="Create New Brand" ),
-     *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="Resource Not Found"),
+     *     @OA\Response( response=200, description="Create New Brand" ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function store(Request $request)
+    public function store(BrandRequest $request)
     {
         try {
             $data = $request->all();
-            $brandRequest = new BrandRequest();
-            $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $brand = $this->brandRepository->store($data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Created Successfully');
         } catch (\Exception $exception) {
@@ -119,22 +111,15 @@ class BrandController extends Controller
      *              @OA\Property(property="created_by", type="int", example=1)
      *          ),
      *      ),
-     *     operationId="update",
      *      @OA\Response( response=200, description="Update Brand" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update(Request $request, $id)
+    public function update(BrandRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $brandRequest = new BrandRequest();
-            $validator = \Validator::make($data, $brandRequest->rules(), $brandRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $brand = $this->brandRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Updated Successfully');
         } catch (\Exception $exception) {
@@ -173,7 +158,7 @@ class BrandController extends Controller
      *     description="Get Brand List of Business",
      *     security={{"bearer": {}}},
      *     operationId="getBrandByBusiness",
-     *      @OA\Parameter( name="business_id", description="business_id, eg; int", required=true, in="path", @OA\Schema(type="int")),
+     *      @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Brand List of Business"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

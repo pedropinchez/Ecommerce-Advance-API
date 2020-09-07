@@ -4,5 +4,19 @@ namespace Modules\Item\Interfaces;
 
 interface AttributeInterface
 {
+    public function index();
 
+    public function store($data);
+
+    public function show($id);
+
+    public function update($id, $data);
+
+    public function destroy($id);
+
+    public function getAttributeByBusiness($businessId);
+
+    public function getAttributeByCategory($categoryId);
+
+    public function getAttributeByCategoryAndBusiness($businessId, $categoryId);
 }

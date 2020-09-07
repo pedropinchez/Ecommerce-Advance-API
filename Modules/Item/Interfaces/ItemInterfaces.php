@@ -6,33 +6,23 @@ use Illuminate\Http\Request;
 
 interface ItemInterfaces
 {
-    /**
-     * checkIfAuthenticated
-     * 
-     * Check if an user is authenticated or not by request
-     *
-     * @param Request $request
-     * @return bool -> true if authenticated, false if not
-     */
-    public function checkIfAuthenticated(Request $request);
+    public function index();
 
-    /**
-     * registerUser
-     * 
-     * Register a User By Request Form
-     *
-     * @param Request $request
-     * @return obj $user object
-     */
-    public function registerUser(Request $request);
+    public function show($id);
 
-    /**
-     * findUserByEmailAddress
-     * 
-     * Find an user by email address
-     *
-     * @param string $email
-     * @return obj $user object
-     */
-    public function findUserByEmailAddress($email);
+    public function store($data);
+
+    public function update($id, $data);
+
+    public function destroy($id);
+
+    public function getItemByBusiness($sectionId);
+
+    public function getItemByCategory($categoryId);
+
+    public function getItemBySubCategory($subCategoryId);
+
+    public function getItemByBrand($brandId);
+
+    public function updateItemAttribute($id, $data);
 }

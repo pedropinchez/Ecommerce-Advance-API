@@ -574,6 +574,267 @@
                 ]
             }
         },
+        "/api/v1/locations": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get Location List",
+                "description": "Get Location List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Location List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Register New Location",
+                "description": "Register New Location",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    },
+                                    "zip_code": {
+                                        "type": "string"
+                                    },
+                                    "landmark": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "alternate_number": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Location"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/locations/{id}": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get Location By ID",
+                "description": "Get Location By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Location By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Update Location",
+                "description": "Update Location",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "state": {
+                                        "type": "string"
+                                    },
+                                    "zip_code": {
+                                        "type": "string"
+                                    },
+                                    "landmark": {
+                                        "type": "string"
+                                    },
+                                    "city": {
+                                        "type": "string"
+                                    },
+                                    "mobile": {
+                                        "type": "string"
+                                    },
+                                    "alternate_number": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Location"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Delete Location",
+                "description": "Delete Location",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Location"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/locations/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Get Location By Business",
+                "description": "Get Location By Business",
+                "operationId": "findLocationByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Location By Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/currencies/store": {
             "post": {
                 "tags": [
@@ -769,6 +1030,465 @@
                 "responses": {
                     "200": {
                         "description": "Deleted Supplier Account"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/currencies": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Get Currency List",
+                "description": "Get Currency List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Currency List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Register New Currency",
+                "description": "Register New Currency",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "symbol": {
+                                        "type": "string"
+                                    },
+                                    "thousand_separator": {
+                                        "type": "string"
+                                    },
+                                    "decimal_separator": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Currency"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/currencies/{id}": {
+            "get": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Get Currency By ID",
+                "description": "Get Currency By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Currency By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Update Currency",
+                "description": "Update Currency",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "country": {
+                                        "type": "string"
+                                    },
+                                    "currency": {
+                                        "type": "string"
+                                    },
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "symbol": {
+                                        "type": "string"
+                                    },
+                                    "thousand_separator": {
+                                        "type": "string"
+                                    },
+                                    "decimal_separator": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Currency"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Currency"
+                ],
+                "summary": "Delete Currency",
+                "description": "Delete Currency",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Currency"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/tax": {
+            "get": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Get Tax List",
+                "description": "Get Tax List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Tax List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Register New Tax",
+                "description": "Register New Tax",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Tax"
+                                    },
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2020-01-01"
+                                    },
+                                    "calculation_type": {
+                                        "type": "string",
+                                        "example": "Tax"
+                                    },
+                                    "amount": {
+                                        "type": "string",
+                                        "example": "10.00"
+                                    },
+                                    "is_tax_group": {
+                                        "type": "boolean"
+                                    },
+                                    "rounding_type": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Tax"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/tax/{id}": {
+            "get": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Get Tax By ID",
+                "description": "Get Tax By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Tax By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Update Tax",
+                "description": "Update Tax",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Tax"
+                                    },
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2020-01-01"
+                                    },
+                                    "calculation_type": {
+                                        "type": "string",
+                                        "example": "Tax"
+                                    },
+                                    "amount": {
+                                        "type": "string",
+                                        "example": "10.00"
+                                    },
+                                    "is_tax_group": {
+                                        "type": "boolean"
+                                    },
+                                    "rounding_type": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Tax"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Delete Tax",
+                "description": "Delete Tax",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Tax"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/tax/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Tax"
+                ],
+                "summary": "Get Tax By Business",
+                "description": "Get Tax By Business",
+                "operationId": "getTaxByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Tax By Business"
                     },
                     "400": {
                         "description": "Bad request"
@@ -1016,6 +1736,513 @@
                 ]
             }
         },
+        "/api/v1/attributes": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute List",
+                "description": "Get Attribute List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Create New Attribute",
+                "description": "Create New Attribute",
+                "operationId": "Modules\\Item\\Http\\Controllers\\AttributeController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Attribute"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/attributes/{id}": {
+            "get": {
+                "tags": [
+                    "Attribute"
+                ],
+                "summary": "Get Attribute By ID",
+                "description": "Get Attribute By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Update Attribute",
+                "description": "Update Attribute",
+                "operationId": "Modules\\Item\\Http\\Controllers\\AttributeController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Attribute"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Delete Attribute",
+                "description": "Delete Attribute",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Attribute"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/attributes/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute List of Business",
+                "description": "Get Attribute List of Business",
+                "operationId": "getAttributeByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attributes/business/category/{category_id}": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute List of Category",
+                "description": "Get Attribute List of Category",
+                "operationId": "getAttributeByCategory",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "category_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute List of Category"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attributes/business/{business_id}/{category_id}": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute List of Business & Category",
+                "description": "Get Attribute List of Business & Category",
+                "operationId": "getAttributeByCategoryAndBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "category_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute List of Business & Category"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/attributes/values": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute Value List",
+                "description": "Get Attribute Value List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute Value List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Create New Attribute Value",
+                "description": "Create New Attribute Value",
+                "operationId": "Modules\\Item\\Http\\Controllers\\AttributeValueController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "color"
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "example": "#ffffff"
+                                    },
+                                    "attribute_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Attribute Value"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/attributes/values/{id}": {
+            "get": {
+                "tags": [
+                    "Attribute"
+                ],
+                "summary": "Get Attribute Value By ID",
+                "description": "Get Attribute Value By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute Value By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Update Attribute Value",
+                "description": "Update Attribute Value",
+                "operationId": "Modules\\Item\\Http\\Controllers\\AttributeValueController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "value": {
+                                        "type": "string"
+                                    },
+                                    "attribute_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Attribute Value"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Delete Attribute Value",
+                "description": "Delete Attribute Value",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Attribute Value"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/attributes/values/{attribute_id}": {
+            "get": {
+                "tags": [
+                    "Attributes"
+                ],
+                "summary": "Get Attribute Value List of Business",
+                "description": "Get Attribute Value List of Business",
+                "operationId": "getAttributeValueByAttribute",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "attribute_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Attribute Value List of Attribute"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/brands": {
             "get": {
                 "tags": [
@@ -1047,7 +2274,7 @@
                 ],
                 "summary": "Create New Brand",
                 "description": "Create New Brand",
-                "operationId": "store",
+                "operationId": "Modules\\Item\\Http\\Controllers\\BrandController::store",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1129,7 +2356,7 @@
                 ],
                 "summary": "Update Brand",
                 "description": "Update Brand",
-                "operationId": "update",
+                "operationId": "Modules\\Item\\Http\\Controllers\\BrandController::update",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1211,10 +2438,10 @@
                     {
                         "name": "business_id",
                         "in": "path",
-                        "description": "business_id, eg; int",
+                        "description": "business_id, eg; 1",
                         "required": true,
                         "schema": {
-                            "type": "int"
+                            "type": "integer"
                         }
                     }
                 ],
@@ -1267,7 +2494,7 @@
                 ],
                 "summary": "Create New Category",
                 "description": "Create New Category",
-                "operationId": "store",
+                "operationId": "Modules\\Item\\Http\\Controllers\\CategoryController::store",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1278,8 +2505,8 @@
                                         "example": "Clothing"
                                     },
                                     "business_id": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "short_code": {
                                         "type": "string",
@@ -1354,7 +2581,7 @@
                 ],
                 "summary": "Update Category",
                 "description": "Update Category",
-                "operationId": "update",
+                "operationId": "Modules\\Item\\Http\\Controllers\\CategoryController::update",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1365,8 +2592,8 @@
                                         "example": "Clothing"
                                     },
                                     "business_id": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "short_code": {
                                         "type": "string",
@@ -1441,16 +2668,450 @@
                     {
                         "name": "business_id",
                         "in": "path",
-                        "description": "business_id, eg; int",
+                        "description": "business_id, eg; 1",
                         "required": true,
                         "schema": {
-                            "type": "int"
+                            "type": "integer"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "Get Category List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List",
+                "description": "Get Item List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Item List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Create New Item",
+                "description": "Create New Item",
+                "operationId": "Modules\\Item\\Http\\Controllers\\ItemController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "sub_category_id": {
+                                        "type": "integer"
+                                    },
+                                    "brand_id": {
+                                        "type": "integer"
+                                    },
+                                    "unit_id": {
+                                        "type": "integer"
+                                    },
+                                    "tax": {
+                                        "type": "integer"
+                                    },
+                                    "tax_type": {
+                                        "type": "string"
+                                    },
+                                    "enable_stock": {
+                                        "type": "boolean"
+                                    },
+                                    "alert_quantity": {
+                                        "type": "integer"
+                                    },
+                                    "sku": {
+                                        "type": "string"
+                                    },
+                                    "barcode_type": {
+                                        "type": "string"
+                                    },
+                                    "sku_manual": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/items/{id}": {
+            "get": {
+                "tags": [
+                    "Item"
+                ],
+                "summary": "Get Item By ID",
+                "description": "Get Item By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Update Item",
+                "description": "Update Item",
+                "operationId": "Modules\\Item\\Http\\Controllers\\ItemController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "category_id": {
+                                        "type": "integer"
+                                    },
+                                    "sub_category_id": {
+                                        "type": "integer"
+                                    },
+                                    "brand_id": {
+                                        "type": "integer"
+                                    },
+                                    "unit_id": {
+                                        "type": "integer"
+                                    },
+                                    "tax": {
+                                        "type": "integer"
+                                    },
+                                    "tax_type": {
+                                        "type": "string"
+                                    },
+                                    "enable_stock": {
+                                        "type": "boolean"
+                                    },
+                                    "alert_quantity": {
+                                        "type": "integer"
+                                    },
+                                    "sku": {
+                                        "type": "string"
+                                    },
+                                    "barcode_type": {
+                                        "type": "string"
+                                    },
+                                    "sku_manual": {
+                                        "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Delete Item",
+                "description": "Delete Item",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/items/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List of Business",
+                "description": "Get Item List of Business",
+                "operationId": "getItemByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items/attribute/{id}": {
+            "put": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Update Item Attribute",
+                "description": "Update Item Attribute",
+                "operationId": "Modules\\Item\\Http\\Controllers\\ItemController::updateItemAttribute",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "attribute_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "attribute_values": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Item Attribute"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/items/category/{category_id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List of Category",
+                "description": "Get Item List of Category",
+                "operationId": "getItemByCategory",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "category_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List of Category"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items/subcategory/{sub_category_id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List of Sub Category",
+                "description": "Get Item List of Sub Category",
+                "operationId": "getItemBySubCategory",
+                "parameters": [
+                    {
+                        "name": "sub_category_id",
+                        "in": "path",
+                        "description": "sub_category_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List of Sub Category"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/items/brand/{brand_id}": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List of Brand",
+                "description": "Get Item List of Brand",
+                "operationId": "getItemByBrand",
+                "parameters": [
+                    {
+                        "name": "brand_id",
+                        "in": "path",
+                        "description": "brand_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List of Brand"
                     },
                     "400": {
                         "description": "Bad request"
@@ -1497,7 +3158,7 @@
                 ],
                 "summary": "Create New Unit",
                 "description": "Create New Unit",
-                "operationId": "store",
+                "operationId": "Modules\\Item\\Http\\Controllers\\UnitController::store",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1508,8 +3169,8 @@
                                         "example": "Kilo gram"
                                     },
                                     "business_id": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "short_name": {
                                         "type": "string",
@@ -1584,7 +3245,7 @@
                 ],
                 "summary": "Update Unit",
                 "description": "Update Unit",
-                "operationId": "update",
+                "operationId": "Modules\\Item\\Http\\Controllers\\UnitController::update",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -1595,8 +3256,8 @@
                                         "example": "Kilo gram"
                                     },
                                     "business_id": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "short_name": {
                                         "type": "string",
@@ -1671,10 +3332,10 @@
                     {
                         "name": "business_id",
                         "in": "path",
-                        "description": "business_id, eg; int",
+                        "description": "business_id, eg; 1",
                         "required": true,
                         "schema": {
-                            "type": "int"
+                            "type": "integer"
                         }
                     }
                 ],

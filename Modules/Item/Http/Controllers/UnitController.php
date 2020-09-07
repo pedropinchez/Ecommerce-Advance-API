@@ -52,28 +52,21 @@ class UnitController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_name", type="string", example="kg"),
      *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *     operationId="store",
      *      @OA\Response( response=200, description="Create New Unit" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function store(Request $request)
+    public function store(UnitRequest $request)
     {
         try {
             $data = $request->all();
-            $unitRequest = new UnitRequest();
-            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $unit = $this->unitRepository->store($data);
             return $this->responseRepository->ResponseSuccess($unit, 'Unit Created Successfully');
         } catch (\Exception $exception) {
@@ -115,28 +108,21 @@ class UnitController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_name", type="string", example="kg"),
      *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *     operationId="update",
      *      @OA\Response( response=200, description="Update Unit" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update(Request $request, $id)
+    public function update(UnitRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $unitRequest = new UnitRequest();
-            $validator = \Validator::make($data, $unitRequest->rules(), $unitRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $unit = $this->unitRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($unit, 'Unit Updated Successfully');
         } catch (\Exception $exception) {
@@ -175,7 +161,7 @@ class UnitController extends Controller
      *     description="Get Unit List of Business",
      *     security={{"bearer": {}}},
      *     operationId="getUnitByBusiness",
-     *      @OA\Parameter( name="business_id", description="business_id, eg; int", required=true, in="path", @OA\Schema(type="int")),
+     *      @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Unit List of Business"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

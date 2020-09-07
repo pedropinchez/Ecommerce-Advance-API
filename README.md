@@ -139,16 +139,19 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Business
 
--   [ ] **Currencies**
-
+-   [] **Currencies** @Mahmud Hasan Shakkhor
+    -   [x] Create Tax Rate
+    -   [x] Edit Tax Rate
+    -   [x] Details Tax Rate
+    -   [x] Delete Tax Rate
     -   [ ] Data Import / Seeder For Currencies Table
 
--   [ ] **Tax Rate**
+-   [ ] **Tax Rate** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create Tax Rate
-    -   [ ] Edit Tax Rate
-    -   [ ] Details Tax Rate
-    -   [ ] Delete Tax Rate
+    -   [x] Create Tax Rate
+    -   [x] Edit Tax Rate
+    -   [x] Details Tax Rate
+    -   [x] Delete Tax Rate
     -   [ ] Seeder For Business
 
 -   [x] **Business** - @Maniruzzaman Akash
@@ -159,11 +162,11 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Business Account
     -   [ ] Seeder For Business
 
--   [ ] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module
-    -   [ ] Create Business Location
-    -   [ ] Edit Business Location
-    -   [ ] Details Business Location
-    -   [ ] Delete Business Location
+-   [x] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module @Mahmud Hasan Shakkhor
+    -   [x] Create Business Location
+    -   [x] Edit Business Location
+    -   [x] Details Business Location
+    -   [x] Delete Business Location
     -   [ ] Seeder For Business
 
 #### Role Permission & User Management System
@@ -180,8 +183,8 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Create User
     -   [ ] Edit User
     -   [ ] Details User
-    -   [ ] Delete Role
-    -   [ ] Seeder Role
+    -   [ ] Delete User
+    -   [ ] Seeder User
 
 #### Customer
 
@@ -204,7 +207,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Item
 
--   [ ] **Brand**
+-   [ ] **Brand** @Mahmud Hasan Shakkhor
 
     -   [x] Create Brand
     -   [x] Edit Brand
@@ -212,7 +215,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Brand
     -   [ ] Seeder For Brands
 
--   [ ] **Category**
+-   [ ] **Category** @Mahmud Hasan Shakkhor
 
     -   [x] Create Category
     -   [x] Edit Category
@@ -220,7 +223,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Category
     -   [ ] Seeder For Categories
 
--   [ ] **Unit**
+-   [ ] **Unit** @Mahmud Hasan Shakkhor
 
     -   [x] Create Unit
     -   [x] Edit Unit
@@ -228,19 +231,19 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Unit
     -   [ ] Seeder For Units
 
--   [ ] **Item**
+-   [ ] **Item** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create Item
-    -   [ ] Edit Item
-    -   [ ] Details Item
-    -   [ ] Delete Item
+    -   [x] Create Item
+    -   [x] Edit Item
+    -   [x] Details Item
+    -   [x] Delete Item
     -   [ ] Seeder For Items
 
--   [ ] **Item Attribute**
-    -   [ ] Create Item Attribute with Value
-    -   [ ] Edit Item Attribute with Value
-    -   [ ] Details Item Attribute with Value
-    -   [ ] Delete Item Attribute with Value
+-   [ ] **Item Attribute** @Mahmud Hasan Shakkhor
+    -   [x] Create Item Attribute with Value
+    -   [x] Edit Item Attribute with Value
+    -   [x] Details Item Attribute with Value
+    -   [x] Delete Item Attribute with Value
     -   [ ] Seeder For Items Attribute with Value
 
 #### Sales

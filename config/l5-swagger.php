@@ -84,7 +84,7 @@ return [
             base_path('app'),
 
             // Modules Path Also Generate Swagger
-            base_path('modules'),
+            base_path('Modules'),
         ],
 
         /*

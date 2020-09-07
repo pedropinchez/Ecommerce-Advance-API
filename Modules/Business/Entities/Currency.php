@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Currency extends Model
 {
-    use SoftDeletes;
     protected $table = "currencies";
     protected $connection = 'DB_iApps';
     protected $primaryKey = 'id';

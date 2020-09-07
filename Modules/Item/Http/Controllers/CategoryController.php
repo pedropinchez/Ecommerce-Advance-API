@@ -52,28 +52,21 @@ class CategoryController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="name", type="string", example="Clothing"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *     operationId="store",
      *      @OA\Response( response=200, description="Create New Category" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         try {
             $data = $request->all();
-            $categoryRequest = new CategoryRequest();
-            $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $category = $this->categoryRepository->store($data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');
         } catch (\Exception $exception) {
@@ -115,28 +108,21 @@ class CategoryController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="name", type="string", example="Clothing"),
-     *              @OA\Property(property="business_id", type="int", example="1"),
+     *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *     operationId="update",
      *      @OA\Response( response=200, description="Update Category" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $categoryRequest = new CategoryRequest();
-            $validator = \Validator::make($data, $categoryRequest->rules(), $categoryRequest->messages());
-            if ($validator->fails()) {
-                return $this->responseRepository->ResponseError(null, $validator->getMessageBag()->first(), JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
-            }
-
             $category = $this->categoryRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Updated Successfully');
         } catch (\Exception $exception) {
@@ -175,7 +161,7 @@ class CategoryController extends Controller
      *     description="Get Category List of Business",
      *     security={{"bearer": {}}},
      *     operationId="getCategoryByBusiness",
-     *      @OA\Parameter( name="business_id", description="business_id, eg; int", required=true, in="path", @OA\Schema(type="int")),
+     *      @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Category List of Business"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

@@ -140,6 +140,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 #### Business
 
 -   [] **Currencies** @Mahmud Hasan Shakkhor
+
     -   [x] Create Tax Rate
     -   [x] Edit Tax Rate
     -   [x] Details Tax Rate
@@ -281,3 +282,18 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Details Page
     -   [ ] Delete Page
     -   [ ] Seeder Page
+
+## **New in 7 September 2020**
+
+-   [ ] **Gift Card / Vourchar** (in Promotional module)
+
+    -   [ ] Gift Card CRUD Operation
+    -   [ ] Gift Card Purchase By Customer
+    -   [ ] Gift Card Transactions
+
+-   [ ] **Poll / Voting System** (in Promotional module)
+    -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values
+    -   [ ] Poll Response by customers -
+        -   [ ] Store Response,
+        -   [ ] View Response List,
+        -   [ ] View Response Details By Poll

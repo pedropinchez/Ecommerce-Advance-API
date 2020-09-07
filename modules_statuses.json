@@ -12,5 +12,6 @@
     "Role": true,
     "Statistic": true,
     "Analytics": true,
-    "Referral": true
+    "Referral": true,
+    "Promotional": true
 }

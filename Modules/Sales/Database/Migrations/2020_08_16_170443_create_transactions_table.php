@@ -16,10 +16,18 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('business_id');
-            $table->enum('type', ['purchase', 'sell', 'opening_stock'])->index();
+            $table->enum(
+                'type',
+                [
+                    'purchase', 'sell', 'opening_stock', 'purchase_return', 'sell_return', 'cashback',
+                    'cashback_transfer_wallet', 'voucher', 'voucher_transfer_wallet',
+                    'gift_card', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
+                ]
+            )->index();
             $table->boolean('status')->default(1)->comment('1=>active, 0=>inactive');
             $table->enum('delivery_status', ['delivered', 'not_delivered']);
             $table->enum('payment_status', ['paid', 'due']);
+            $table->string('title')->nullable()->comment('Title needed for all other transactions which needs to store a default title');
             $table->string('invoice_no')->nullable();
             $table->string('ref_no')->nullable();
             $table->dateTime('transaction_date');

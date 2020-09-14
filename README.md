@@ -285,11 +285,17 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [ ] **Gift Card / Vourchar** (in Promotional module)
+-   [ ] **Gift Card** (in Promotional module)
 
     -   [ ] Gift Card CRUD Operation
     -   [ ] Gift Card Purchase By Customer
     -   [ ] Gift Card Transactions
+
+-   [ ] **Vourchar** (in Promotional module)
+
+    -   [ ] Vourchar CRUD Operation
+    -   [ ] Vourchar Purchase By Customer
+    -   [ ] Vourchar Transactions
 
 -   [ ] **Poll / Voting System** (in Promotional module)
     -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values

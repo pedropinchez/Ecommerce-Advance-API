@@ -285,15 +285,39 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [ ] **Gift Card / Vourchar** (in Promotional module)
+-   [ ] **Gift Card** (in Promotional module)
 
     -   [ ] Gift Card CRUD Operation
     -   [ ] Gift Card Purchase By Customer
     -   [ ] Gift Card Transactions
 
+-   [ ] **Vourchar** (in Promotional module)
+
+    -   [ ] Vourchar CRUD Operation
+    -   [ ] Vourchar Purchase By Customer
+    -   [ ] Vourchar Transactions
+
 -   [ ] **Poll / Voting System** (in Promotional module)
+
     -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values
     -   [ ] Poll Response by customers -
         -   [ ] Store Response,
         -   [ ] View Response List,
         -   [ ] View Response Details By Poll
+
+-   [ ] **Transaction API** (for all types of transaction, `Copy the Sales Transaction Api`)
+    -   [ ] Create Transaction [with title and type and all other data for any type of transaction]
+
+# Notes For API Developer (New Fields May Needs to add in some tables)
+
+-   [ ] Product wise Delivery system disable/enable ->> Like, In pen, there will be no cash in delivery, business has also that column in business table for globally by default
+-   [ ] For Any User's Purchase, check he/she's referrel user, then add `1%` of any purchase to referres account
+-   [ ] in transactions table
+    1. Added one column - title
+    2. more enum values has been added for `type` column -
+    ```
+    'purchase', 'sell', 'opening_stock', 'purchase_return', 'sell_return',
+    'cashback', 'cashback_transfer_wallet', 'voucher', 'voucher_transfer_wallet',
+    'gift_card', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
+    ```
+-   [ ]

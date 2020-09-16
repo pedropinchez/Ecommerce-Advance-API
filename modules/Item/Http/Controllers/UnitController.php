@@ -5,6 +5,7 @@ namespace Modules\Item\Http\Controllers;
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Item\Http\Requests\UnitRequest;
 use Modules\Item\Repositories\UnitRepository;
@@ -166,6 +167,8 @@ class UnitController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param $businessId
+     * @return Response
      */
     public function getUnitByBusiness($businessId)
     {

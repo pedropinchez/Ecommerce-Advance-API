@@ -285,9 +285,9 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [ ] **Gift Card** (in Promotional module)
+-   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Gift Card CRUD Operation
+    -   [x] Gift Card CRUD Operation
     -   [ ] Gift Card Purchase By Customer
     -   [ ] Gift Card Transactions
 

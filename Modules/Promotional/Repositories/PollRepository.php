@@ -2,6 +2,7 @@
 
 namespace Modules\Promotional\Repositories;
 
+use App\Helpers\StringHelper;
 use Modules\Promotional\Entities\Poll;
 use Modules\Promotional\Entities\PollOption;
 
@@ -19,6 +20,7 @@ class PollRepository
 
     public function store($data)
     {
+        $data['slug'] = $this->generateSlug($data['title']);
         return Poll::create($data);
     }
 
@@ -48,9 +50,14 @@ class PollRepository
         return PollOption::create($data);
     }
 
+    public function getPollOptionRow($id)
+    {
+        return PollOption::find($id);
+    }
+
     public function updatePollOption($id, $data)
     {
-        $pollOption = PollOption::where('poll_id', $id)->first();
+        $pollOption = PollOption::where('id', $id)->first();
         if($pollOption) {
             $pollOption->update($data);
         }
@@ -58,8 +65,31 @@ class PollRepository
         return $pollOption;
     }
 
-    public function getPollOption($customerId)
+    public function deletePollOption($id)
+    {
+        $pollOption = PollOption::where('id', $id)->first();
+        if($pollOption) {
+            $pollOption->delete();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getCustomerPolls($customerId)
     {
 
+    }
+
+    /**
+     * @param $value
+     * @return string|string[]|null
+     * @throws Exception
+     * @throws \Exception
+     * generate slug
+     */
+    public function generateSlug($value)
+    {
+        return StringHelper::createSlug($value, 'Modules\Promotional\Entities\Poll', 'slug');
     }
 }

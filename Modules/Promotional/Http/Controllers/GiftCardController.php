@@ -57,7 +57,6 @@ class GiftCardController extends Controller
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="gift_card"),
      *              @OA\Property(property="status", type="boolean", example=1),
-     *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="created_by", type="integer", example=1)
      *          ),
      *      ),
@@ -118,7 +117,6 @@ class GiftCardController extends Controller
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="gift_card"),
-     *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="created_by", type="integer", example=1),
      *              @OA\Property(property="updated_by", type="integer", example=2),

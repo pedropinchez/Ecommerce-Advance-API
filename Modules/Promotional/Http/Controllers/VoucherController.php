@@ -37,7 +37,7 @@ class VoucherController extends Controller
     {
         try {
             $vouchers = $this->voucherRepository->index();
-            return $this->responseRepository->ResponseSuccess($vouchers, 'Gift Card Fetched Successfully');
+            return $this->responseRepository->ResponseSuccess($vouchers, 'Voucher Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -57,7 +57,6 @@ class VoucherController extends Controller
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="vouchar"),
-     *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="created_by", type="integer", example=1)
      *          ),
@@ -119,7 +118,6 @@ class VoucherController extends Controller
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="vouchar"),
-     *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="created_by", type="integer", example=1),
      *              @OA\Property(property="updated_by", type="integer", example=2),

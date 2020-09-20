@@ -20,4 +20,9 @@ class Poll extends Model
         'updated_by',
         'deleted_by'
     ];
+
+    public function pollResponse()
+    {
+        return $this->hasMany(PollResponse::class);
+    }
 }

@@ -15,5 +15,6 @@ use Illuminate\Http\Request;
 Route::apiResource('giftcards', 'GiftCardController');
 Route::apiResource('vouchers', 'VoucherController');
 Route::apiResource('polls', 'PollController');
+Route::get('polls/customer/{id}', 'PollController@getByCustomerId');
 Route::apiResource('poll-options', 'PollOptionController');
-Route::apiResource('poll-responses', 'PollResponseController');
+Route::post('polls-response', 'PollResponseController@store');

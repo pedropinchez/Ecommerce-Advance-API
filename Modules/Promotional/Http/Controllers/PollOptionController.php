@@ -4,11 +4,9 @@ namespace Modules\Promotional\Http\Controllers;
 
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Promotional\Http\Requests\PollOptionRequest;
-use Modules\Promotional\Http\Requests\PollRequest;
 use Modules\Promotional\Repositories\PollRepository;
 
 class PollOptionController extends Controller

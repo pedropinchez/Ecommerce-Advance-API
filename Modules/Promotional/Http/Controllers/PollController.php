@@ -170,4 +170,28 @@ class PollController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/polls/customer{id}",
+     *     tags={"Polls"},
+     *     summary="Get Poll By customer id",
+     *     description="Get Poll By customer id",
+     *     security={{"bearer": {}}},
+     *     operationId="getByCustomerId",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Response( response=200, description="Get Poll By customer id" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getByCustomerId($id)
+    {
+        try {
+            $poll= $this->pollRepository->getCustomerPolls($id);
+            return $this->responseRepository->ResponseSuccess($poll, 'Poll Details By customer id');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

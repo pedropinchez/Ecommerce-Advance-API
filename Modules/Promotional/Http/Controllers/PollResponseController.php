@@ -2,78 +2,55 @@
 
 namespace Modules\Promotional\Http\Controllers;
 
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
+use App\Repositories\ResponseRepository;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Promotional\Http\Requests\PollResponseRequest;
+use Modules\Promotional\Repositories\PollRepository;
 
 class PollResponseController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    private $pollRepository;
+    private $responseRepository;
+    public function __construct(PollRepository $pollRepository, ResponseRepository $responseRepository)
     {
-        return view('promotional::index');
+        $this->pollRepository = $pollRepository;
+        $this->responseRepository = $responseRepository;
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     * @OA\POST(
+     *     path="/api/v1/polls-response",
+     *     tags={"Poll Responses"},
+     *     summary="Create New Poll Response",
+     *     description="Create New Poll Response",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *             @OA\Property(property="poll_id", type="integer"),
+     *              @OA\Property(property="item_id", type="integer"),
+     *              @OA\Property(property="user_id", type="integer"),
+     *              @OA\Property(property="ip_address", type="string"),
+     *              @OA\Property(property="poll_option_id", type="integer")
+     *          ),
+     *      ),
+     *      operationId="store",
+     *      @OA\Response( response=200, description="Create New Poll Response"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     * @param PollResponseRequest $request
+     * @return Response
      */
-    public function create()
+    public function store(PollResponseRequest $request)
     {
-        return view('promotional::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
-    {
-        return view('promotional::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('promotional::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
-    {
-        //
+        try {
+            $data = $request->all();
+            $poll = $this->pollRepository->createPollResponse($data);
+            return $this->responseRepository->ResponseSuccess($poll, 'Poll Response Created Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace Modules\Promotional\Repositories;
 use App\Helpers\StringHelper;
 use Modules\Promotional\Entities\Poll;
 use Modules\Promotional\Entities\PollOption;
+use Modules\Promotional\Entities\PollResponse;
 
 class PollRepository
 {
@@ -15,7 +16,7 @@ class PollRepository
 
     public function view($id)
     {
-        return Poll::where('id', $id)->orWhere('slug', $id)->first();
+        return Poll::with('pollResponse')->where('id', $id)->orWhere('slug', $id)->first();
     }
 
     public function store($data)
@@ -76,9 +77,15 @@ class PollRepository
         }
     }
 
+    public function createPollResponse($data)
+    {
+        return PollResponse::create($data);
+    }
+
     public function getCustomerPolls($customerId)
     {
-
+        $attendedPoll = PollResponse::with(['poll'])->where('user_id', $customerId)->get();
+        return $attendedPoll;
     }
 
     /**

@@ -291,19 +291,19 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Gift Card Purchase By Customer
     -   [ ] Gift Card Transactions
 
--   [ ] **Vourchar** (in Promotional module)
+-   [ ] **Vourchar** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Vourchar CRUD Operation
+    -   [x] Vourchar CRUD Operation
     -   [ ] Vourchar Purchase By Customer
     -   [ ] Vourchar Transactions
 
--   [ ] **Poll / Voting System** (in Promotional module)
+-   [x] **Poll / Voting System** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values
-    -   [ ] Poll Response by customers -
-        -   [ ] Store Response,
-        -   [ ] View Response List,
-        -   [ ] View Response Details By Poll
+    -   [x] Poll System CRUD, multiple poll option, poll can be on items or normal values
+    -   [x] Poll Response by customers -
+        -   [x] Store Response,
+        -   [x] View Response List,
+        -   [x] View Response Details By Poll
 
 -   [ ] **Transaction API** (for all types of transaction, `Copy the Sales Transaction Api`)
     -   [ ] Create Transaction [with title and type and all other data for any type of transaction]

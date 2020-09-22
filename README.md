@@ -288,14 +288,14 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 -   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
 
     -   [x] Gift Card CRUD Operation
-    -   [ ] Gift Card Purchase By Customer
-    -   [ ] Gift Card Transactions
+    -   [x] Gift Card Purchase By Customer
+    -   [x] Gift Card Transactions
 
 -   [ ] **Vourchar** (in Promotional module) @Mahmud Hasan Shakkhor
 
     -   [x] Vourchar CRUD Operation
-    -   [ ] Vourchar Purchase By Customer
-    -   [ ] Vourchar Transactions
+    -   [x] Vourchar Purchase By Customer
+    -   [x] Vourchar Transactions
 
 -   [x] **Poll / Voting System** (in Promotional module) @Mahmud Hasan Shakkhor
 

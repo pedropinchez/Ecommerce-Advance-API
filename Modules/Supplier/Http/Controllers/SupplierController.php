@@ -21,10 +21,7 @@ class SupplierController extends Controller
         $this->supplierRepository = $supplierRepository;
         $this->responseRepository = $responseRepository;
     }
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
+
     public function index()
     {
         // return view('supplier::index');

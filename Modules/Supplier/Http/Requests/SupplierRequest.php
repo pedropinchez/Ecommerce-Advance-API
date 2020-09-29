@@ -16,7 +16,8 @@ class SupplierRequest extends FormRequest
         return [
             'business_id' => 'required',
             'name' => 'required',
-            'mobile' => 'required'
+            'mobile' => 'required',
+            'created_by' => 'required'
         ];
     }
 
@@ -39,7 +40,8 @@ class SupplierRequest extends FormRequest
         return [
             'name.required' => 'Supplier name is required',
             'business_id.required' => 'Business is required',
-            'mobile.required' => 'Mobile is required'
+            'mobile.required' => 'Mobile is required',
+            'created_by.required' => 'By Whom created is required is required'
         ];
     }
 }

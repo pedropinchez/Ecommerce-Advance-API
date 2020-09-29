@@ -3,11 +3,12 @@
 namespace Modules\Supplier\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Repositories\ResponseRepository;
-use Modules\Supplier\Entities\Supplier;
+use Modules\Supplier\Http\Requests\SupplierRequest;
 use Modules\Supplier\Repositories\SupplierRepository;
 
 class SupplierController extends Controller
@@ -22,19 +23,27 @@ class SupplierController extends Controller
         $this->responseRepository = $responseRepository;
     }
 
+    /**
+     * @OA\GET(
+     *     path="/api/v1/suppliers",
+     *     tags={"Supplier"},
+     *     summary="Get Supplier List",
+     *     description="Get Supplier List",
+     *     security={{"bearer": {}}},
+     *     operationId="index",
+     *      @OA\Response( response=200, description="Get Supplier List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
     public function index()
     {
-        // return view('supplier::index');
-        return 'farid';
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
-    public function create()
-    {
-        return view('supplier::create');
+        try {
+            $items = $this->supplierRepository->index();
+            return $this->responseRepository->ResponseSuccess($items, 'Supplier Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -65,6 +74,7 @@ class SupplierController extends Controller
      *              @OA\Property(property="alternate_number", type="string"),
      *              @OA\Property(property="pay_term_number", type="integer"),
      *              @OA\Property(property="pay_term_type", type="string"),
+     *              @OA\Property(property="created_by", type="integer")
      *          )
      *      ),
      *     operationId="store",
@@ -72,11 +82,14 @@ class SupplierController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param SupplierRequest $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(SupplierRequest $request)
     {
         try {
-            $supplier = $this->supplierRepository->store($request);
+            $data = $request->all();
+            $supplier = $this->supplierRepository->store($data);
             return $this->responseRepository->ResponseSuccess($supplier, 'Supplier created successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -90,7 +103,7 @@ class SupplierController extends Controller
      */
     /**
      * @OA\GET(
-     *     path="/api/v1/supplier/show",
+     *     path="/api/v1/suppliers/{id}",
      *     tags={"Supplier"},
      *     summary="Get Supplier",
      *     description="Get Supplier",
@@ -100,25 +113,17 @@ class SupplierController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param $id
+     * @return Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
         try {
-            $user = $request->user();
-            return $this->responseRepository->ResponseSuccess($user, 'Supplier  Details');
+            $supplier = $this->supplierRepository->show($id);
+            return $this->responseRepository->ResponseSuccess($supplier, 'Supplier  Details');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function edit($id)
-    {
-        return view('supplier::edit');
     }
 
     /**
@@ -129,7 +134,7 @@ class SupplierController extends Controller
      */
     /**
      * @OA\PUT(
-     *     path="/api/v1/supplier/update",
+     *     path="/api/v1/suppliers/{id}",
      *     tags={"Supplier"},
      *     summary="Update Supplier",
      *     description="Update Supplier",
@@ -151,6 +156,7 @@ class SupplierController extends Controller
      *              @OA\Property(property="alternate_number", type="string"),
      *              @OA\Property(property="pay_term_number", type="integer"),
      *              @OA\Property(property="pay_term_type", type="string"),
+     *              @OA\Property(property="created_by", type="integer")
      *          )
      *      ),
      *     operationId="updateMasterAccount",
@@ -158,12 +164,15 @@ class SupplierController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param SupplierRequest $request
+     * @param $id
+     * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(SupplierRequest $request, $id)
     {
         try {
-            $user = $request->user();
-            $supplier = $this->supplierRepository->update($request, $user->id);
+            $data = $request->all();
+            $supplier = $this->supplierRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($supplier, 'Supplier has been updated successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -177,7 +186,7 @@ class SupplierController extends Controller
      */
     /**
      * @OA\DELETE(
-     *     path="/api/v1/supplier/destroy",
+     *     path="/api/v1/suppliers/{id}",
      *     tags={"Supplier"},
      *     summary="Delete Supplier",
      *     description="Delete Account",
@@ -188,17 +197,41 @@ class SupplierController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-            $user = $request->user();
-            $supplier = $this->supplierRepository->delete($user->id);
-            if (is_null($supplier)) {
+            $supplier = $this->supplierRepository->destroy($id);
+            if (!$supplier) {
                 return $this->responseRepository->ResponseError(null, 'Supplier Not found', Response::HTTP_NOT_FOUND);
             }
             return $this->responseRepository->ResponseSuccess($supplier, 'Supplier deleted successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/suppliers/business/{id}",
+     *     tags={"Supplier"},
+     *     summary="Get Supplier List By Business",
+     *     description="Get Supplier List By Business",
+     *     security={{"bearer": {}}},
+     *     operationId="index",
+     *      @OA\Response( response=200, description="Get Supplier List By Business" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     * @param $businessId
+     * @return Response
+     */
+    public function getSupplierByBusiness($businessId)
+    {
+        try {
+            $items = $this->supplierRepository->getSupplierByBusiness($businessId);
+            return $this->responseRepository->ResponseSuccess($items, 'Supplier Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

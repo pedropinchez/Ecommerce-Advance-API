@@ -14,7 +14,9 @@ class DiscountRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'business_id' => 'required',
+            'created_by' => 'required'
         ];
     }
 
@@ -26,5 +28,18 @@ class DiscountRequest extends FormRequest
     public function authorize()
     {
         return true;
+    }
+
+    /**
+     * @return array
+     * Custom validation message
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Item name is required',
+            'business_id.required' => 'Business is required',
+            'created_by.required' => 'Whom created is required'
+        ];
     }
 }

@@ -199,12 +199,12 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Supplier
 
--   [ ] **Supplier**
-    -   [ ] Create Supplier
-    -   [ ] Edit Supplier
-    -   [ ] Details Supplier
-    -   [ ] Delete Supplier
-    -   [ ] Seeder For Suppliers
+-   [ ] **Supplier** @Mahmud Hasan Shakkhor
+    -   [x] Create Supplier
+    -   [x] Edit Supplier
+    -   [x] Details Supplier
+    -   [x] Delete Supplier
+    -   [x] Seeder For Suppliers
 
 #### Item
 

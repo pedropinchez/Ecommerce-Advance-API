@@ -249,20 +249,20 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Sales
 
--   [ ] **Discount Type**
+-   [x] **Discount Type** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create Discount Type
-    -   [ ] Edit Discount Type
-    -   [ ] Details Discount Type
-    -   [ ] Delete Discount Type
+    -   [x] Create Discount Type
+    -   [x] Edit Discount Type
+    -   [x] Details Discount Type
+    -   [x] Delete Discount Type
     -   [ ] Seeder For Discount Type
 
-*   [ ] **Sales**
+*   [ ] **Sales** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
+    -   [x] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
     -   [ ] Edit Sales Order
-    -   [ ] Details Sales Order
-    -   [ ] Delete Sales Order
+    -   [x] Details Sales Order
+    -   [x] Delete Sales Order
     -   [ ] Seeder For Sales Orders
 
 #### Business Extra

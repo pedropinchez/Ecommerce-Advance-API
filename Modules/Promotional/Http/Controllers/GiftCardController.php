@@ -1,34 +1,33 @@
 <?php
 
-namespace Modules\Item\Http\Controllers;
+namespace Modules\Promotional\Http\Controllers;
 
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\Item\Http\Requests\UnitRequest;
-use Modules\Item\Repositories\UnitRepository;
+use Modules\Promotional\Http\Requests\GiftCardRequest;
+use Modules\Promotional\Repositories\GiftCardRepository;
 
-class UnitController extends Controller
+class GiftCardController extends Controller
 {
-    private $unitRepository;
+    private $giftCardRepository;
     private $responseRepository;
-    public function __construct(UnitRepository $unitRepository, ResponseRepository $responseRepository)
+    public function __construct(GiftCardRepository $giftCardRepository, ResponseRepository $responseRepository)
     {
-        $this->unitRepository = $unitRepository;
+        $this->giftCardRepository = $giftCardRepository;
         $this->responseRepository = $responseRepository;
     }
 
     /**
      * @OA\GET(
-     *     path="/api/v1/units",
-     *     tags={"Units"},
-     *     summary="Get Unit List",
-     *     description="Get Unit List",
+     *     path="/api/v1/gift-cards",
+     *     tags={"Gift Cards"},
+     *     summary="Get Gift Card List",
+     *     description="Get Gift Card List",
      *     security={{"bearer": {}}},
      *     operationId="index",
-     *      @OA\Response( response=200, description="Get Unit List" ),
+     *      @OA\Response( response=200, description="Get Gift Card List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -36,8 +35,8 @@ class UnitController extends Controller
     public function index()
     {
         try {
-            $units = $this->unitRepository->index();
-            return $this->responseRepository->ResponseSuccess($units, 'Unit Fetched Successfully');
+            $giftCards = $this->giftCardRepository->index();
+            return $this->responseRepository->ResponseSuccess($giftCards, 'Gift Card Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -45,10 +44,10 @@ class UnitController extends Controller
 
     /**
      * @OA\POST(
-     *     path="/api/v1/units",
-     *     tags={"Units"},
-     *     summary="Create New Unit",
-     *     description="Create New Unit",
+     *     path="/api/v1/gift-cards",
+     *     tags={"Gift Cards"},
+     *     summary="Create New Gift Card",
+     *     description="Create New Gift Card",
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
@@ -59,17 +58,20 @@ class UnitController extends Controller
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *      @OA\Response( response=200, description="Create New Unit" ),
+     *      operationId="store",
+     *      @OA\Response( response=200, description="Create New Gift Card" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param GiftCardRequest $request
+     * @return Response
      */
-    public function store(UnitRequest $request)
+    public function store(GiftCardRequest $request)
     {
         try {
             $data = $request->all();
-            $unit = $this->unitRepository->store($data);
-            return $this->responseRepository->ResponseSuccess($unit, 'Unit Created Successfully');
+            $giftCard = $this->giftCardRepository->store($data);
+            return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Created Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -77,14 +79,14 @@ class UnitController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/units/{id}",
-     *     tags={"Unit"},
-     *     summary="Get Unit By ID",
-     *     description="Get Unit By ID",
+     *     path="/api/v1/gift-cards/{id}",
+     *     tags={"Gift Card"},
+     *     summary="Get Gift Card By ID",
+     *     description="Get Gift Card By ID",
      *     security={{"bearer": {}}},
      *     operationId="show",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
-     *      @OA\Response( response=200, description="Get Unit By ID" ),
+     *      @OA\Response( response=200, description="Get Gift Card By ID" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -92,8 +94,8 @@ class UnitController extends Controller
     public function show($id)
     {
         try {
-            $unit = $this->unitRepository->show($id);
-            return $this->responseRepository->ResponseSuccess($unit, 'Unit Details By ID');
+            $giftCard= $this->giftCardRepository->show($id);
+            return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Details By ID');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -101,10 +103,10 @@ class UnitController extends Controller
 
     /**
      * @OA\PUT(
-     *     path="/api/v1/units/{id}",
-     *     tags={"Units"},
-     *     summary="Update Unit",
-     *     description="Update Unit",
+     *     path="/api/v1/gift-cards/{id}",
+     *     tags={"Gift Cards"},
+     *     summary="Update Gift Card",
+     *     description="Update Gift Card",
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
@@ -115,17 +117,21 @@ class UnitController extends Controller
      *              @OA\Property(property="created_by", type="int", example="1")
      *          ),
      *      ),
-     *      @OA\Response( response=200, description="Update Unit" ),
+     *      operationId="update",
+     *      @OA\Response( response=200, description="Update Gift Card" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param GiftCardRequest $request
+     * @param $id
+     * @return Response
      */
-    public function update(UnitRequest $request, $id)
+    public function update(GiftCardRequest $request, $id)
     {
         try {
             $data = $request->all();
-            $unit = $this->unitRepository->update($id, $data);
-            return $this->responseRepository->ResponseSuccess($unit, 'Unit Updated Successfully');
+            $giftCard = $this->giftCardRepository->update($id, $data);
+            return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Updated Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -133,48 +139,24 @@ class UnitController extends Controller
 
     /**
      * @OA\DELETE(
-     *     path="/api/v1/units/{id}",
-     *     tags={"Units"},
-     *     summary="Delete Unit",
-     *     description="Delete Unit",
+     *     path="/api/v1/gift-cards/{id}",
+     *     tags={"Gift Cards"},
+     *     summary="Delete Gift Card",
+     *     description="Delete Gift Card",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     operationId="destroy",
-     *      @OA\Response( response=200, description="Delete Unit" ),
+     *      @OA\Response( response=200, description="Delete Gift Card" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param $id
+     * @return Response
      */
     public function destroy($id)
     {
         try {
-            $unit = $this->unitRepository->destroy($id);
-            return $this->responseRepository->ResponseSuccess($unit, 'Unit Deleted Successfully');
-        } catch (\Exception $exception) {
-            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
-     * @OA\GET(
-     *     path="/api/v1/units/business/{business_id}",
-     *     tags={"Units"},
-     *     summary="Get Unit List of Business",
-     *     description="Get Unit List of Business",
-     *     security={{"bearer": {}}},
-     *     operationId="getUnitByBusiness",
-     *      @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
-     *      @OA\Response( response=200, description="Get Unit List of Business"),
-     *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="Resource Not Found"),
-     * )
-     * @param $businessId
-     * @return Response
-     */
-    public function getUnitByBusiness($businessId)
-    {
-        try {
-            $unit = $this->unitRepository->getUnitByBusiness($businessId);
-            return $this->responseRepository->ResponseSuccess($unit, 'Unit By Business ID');
+            $giftCard = $this->giftCardRepository->destroy($id);
+            return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Deleted Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

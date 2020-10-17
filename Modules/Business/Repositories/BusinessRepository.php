@@ -21,7 +21,7 @@ class BusinessRepository
      */
     public function all()
     {
-        $Businesses =  DB::table('business')->get();
+        $Businesses =  DB::table('business')->orderByDesc('id')->get();
         return $Businesses;
     }
 

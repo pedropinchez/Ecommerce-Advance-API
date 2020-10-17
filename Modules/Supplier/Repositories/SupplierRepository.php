@@ -15,6 +15,7 @@ class SupplierRepository
 
     public function store(Request $request)
     {
+
         $customerId = DB::table("suppliers")->insertGetId(
             [
 
@@ -23,8 +24,8 @@ class SupplierRepository
                 'bin' => $request->bin,
                 'name' => $request->name,
                 'tax_number' => $request->tax_number,
-                'email' => $request->email,
-                'city' => $request->city,
+                // 'email' => $request->email,
+                // 'city' => $request->city,
                 'state' => $request->state,
                 'country' => $request->country,
                 'landmark' => $request->landmark,
@@ -35,6 +36,8 @@ class SupplierRepository
                 'pay_term_type' => $request->pay_term_type,
             ]
         );
+
+
         $customer = $this->findSupplierById($customerId);
         return $customer;
     }

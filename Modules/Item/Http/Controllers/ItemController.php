@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Image;
 use Modules\Auth\Repositories\AuthRepository;
 use Modules\Item\Http\Requests\ItemAttributeRequest;
 use Modules\Item\Http\Requests\ItemRequest;
@@ -80,6 +81,21 @@ class ItemController extends Controller
     {
         try {
             $data = $request->all();
+
+            $imageData = [];
+            $files = $request->file('image');
+            foreach ($files as $file) {
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $image = public_path().$fileName;
+                $imageData[] = $image;
+            }
+
+            if($imageData) {
+                $data['image_data'] = $imageData;
+            }
+
             $item = $this->itemRepository->store($data);
             return $this->responseRepository->ResponseSuccess($item, 'Item Created Successfully');
         } catch (\Exception $exception) {
@@ -145,6 +161,20 @@ class ItemController extends Controller
     {
         try {
             $data = $request->all();
+            $imageData = [];
+            $files = $request->file('image');
+            foreach ($files as $file) {
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $image = public_path().$fileName;
+                $imageData[] = $image;
+            }
+
+            if($imageData) {
+                $data['image_data'] = $imageData;
+            }
+
             $item = $this->itemRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($item, 'Item Updated Successfully');
         } catch (\Exception $exception) {
@@ -297,6 +327,69 @@ class ItemController extends Controller
         try {
             $item = $this->itemRepository->getItemByBrand($brandId);
             return $this->responseRepository->ResponseSuccess($item, 'Item By Brand');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\POST(
+     *     path="/api/v1/items/{id}/upload",
+     *     tags={"Items"},
+     *     summary="Upload New Image to Item",
+     *     description="Upload New Image to Item",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="image[]", type="integer", example=1)
+     *          ),
+     *      ),
+     *     @OA\Response( response=200, description="Upload New Image to Item" ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function uploadFile(Request $request, $id)
+    {
+        try {
+            $item = null;
+            $files = $request->file('image');
+            foreach ($files as $file) {
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $image = public_path().$fileName;
+                $imageData = array(
+                    'item_id' => $id,
+                    'file_name'   => $image
+                );
+
+                $item = $this->itemRepository->uploadImage($imageData);
+            }
+            return $this->responseRepository->ResponseSuccess($item, 'Item Image Uploaded Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\DELETE(
+     *     path="/api/v1/items/image/{id}/delete",
+     *     tags={"Items"},
+     *     summary="Delete Item Image",
+     *     description="Delete Item Image",
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     operationId="destroyImage",
+     *      @OA\Response( response=200, description="Delete Item Image" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function destroyImage($id)
+    {
+        try {
+            $item = $this->itemRepository->destroyImage($id);
+            return $this->responseRepository->ResponseSuccess($item, 'Item Image Deleted Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

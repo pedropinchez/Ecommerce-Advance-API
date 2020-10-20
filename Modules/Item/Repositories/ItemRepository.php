@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Item\Entities\Item;
 
 use Modules\Item\Entities\ItemAttribute;
+use Modules\Item\Entities\ItemImage;
 use Modules\Item\Interfaces\ItemInterfaces;
 
 class ItemRepository implements ItemInterfaces
@@ -44,6 +45,14 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         $item = Item::create($data);
+        if(isset($data['image_data']) && $item) {
+            foreach ($data['image_data'] as $image) {
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'file_name' => $image
+                ]);
+            }
+        }
         return $item;
     }
 
@@ -58,6 +67,14 @@ class ItemRepository implements ItemInterfaces
         $item = Item::find($id);
         if($item) {
             $item->update($data);
+            if(isset($data['image_data'])) {
+                foreach ($data['image_data'] as $image) {
+                    ItemImage::create([
+                        'item_id' => $item->id,
+                        'file_name' => $image
+                    ]);
+                }
+            }
         }
 
         return $item;
@@ -139,5 +156,26 @@ class ItemRepository implements ItemInterfaces
     {
         $items = Item::where('brand_id', $brandId)->get();
         return $items;
+    }
+
+    public function uploadImage($data)
+    {
+        $itemFile = ItemImage::create($data);
+        if($itemFile) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function destroyImage($id)
+    {
+        $itemFile = ItemImage::find($id);
+        if($itemFile) {
+            $itemFile->delete();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

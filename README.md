@@ -238,6 +238,8 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Item
     -   [x] Details Item
     -   [x] Delete Item
+    -   [x] Upload Item Image
+    -   [x] Delete Item Image
     -   [ ] Seeder For Items
 
 -   [ ] **Item Attribute** @Mahmud Hasan Shakkhor

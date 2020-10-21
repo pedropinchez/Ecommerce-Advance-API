@@ -21,7 +21,7 @@ class GiftCardController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/giftcards",
+     *     path="/api/v1/gift-cards",
      *     tags={"Gift Cards"},
      *     summary="Get Gift Card List",
      *     description="Get Gift Card List",
@@ -44,7 +44,7 @@ class GiftCardController extends Controller
 
     /**
      * @OA\POST(
-     *     path="/api/v1/giftcards",
+     *     path="/api/v1/gift-cards",
      *     tags={"Gift Cards"},
      *     summary="Create New Gift Card",
      *     description="Create New Gift Card",
@@ -81,7 +81,7 @@ class GiftCardController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/giftcards/{id}",
+     *     path="/api/v1/gift-cards/{id}",
      *     tags={"Gift Card"},
      *     summary="Get Gift Card By ID",
      *     description="Get Gift Card By ID",
@@ -105,14 +105,14 @@ class GiftCardController extends Controller
 
     /**
      * @OA\PUT(
-     *     path="/api/v1/giftcards/{id}",
+     *     path="/api/v1/gift-cards/{id}",
      *     tags={"Gift Cards"},
      *     summary="Update Gift Card",
      *     description="Update Gift Card",
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
+     *             @OA\Property(property="title", type="string", example="Boishakhi Card"),
      *              @OA\Property(property="image", type="string", example='filename'),
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
@@ -145,7 +145,7 @@ class GiftCardController extends Controller
 
     /**
      * @OA\DELETE(
-     *     path="/api/v1/giftcards/{id}",
+     *     path="/api/v1/gift-cards/{id}",
      *     tags={"Gift Cards"},
      *     summary="Delete Gift Card",
      *     description="Delete Gift Card",

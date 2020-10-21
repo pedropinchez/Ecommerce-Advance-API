@@ -12,5 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('suppliers', 'SupplierController');
+
+Route::apiResource('supplier', 'SupplierController');
 Route::get('suppliers/business/{id}', 'SupplierController@getSupplierByBusiness');

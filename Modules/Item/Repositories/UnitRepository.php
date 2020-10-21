@@ -58,7 +58,7 @@ class UnitRepository implements UnitInterface
     public function destroy($id)
     {
         $unit = Unit::find($id);
-        if($unit) {
+        if ($unit) {
             $unit->delete();
             return true;
         } else {

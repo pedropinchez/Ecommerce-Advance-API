@@ -60,6 +60,8 @@ class BrandController extends Controller
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param BrandRequest $request
+     * @return \Illuminate\Http\Response
      */
     public function store(BrandRequest $request)
     {
@@ -115,6 +117,9 @@ class BrandController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param BrandRequest $request
+     * @param $id
+     * @return \Illuminate\Http\Response
      */
     public function update(BrandRequest $request, $id)
     {

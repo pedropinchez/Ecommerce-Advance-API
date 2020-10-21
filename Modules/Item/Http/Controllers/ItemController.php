@@ -69,7 +69,10 @@ class ItemController extends Controller
      *              @OA\Property(property="sku", type="string"),
      *              @OA\Property(property="barcode_type", type="string"),
      *              @OA\Property(property="sku_manual", type="string"),
-     *              @OA\Property(property="created_by", type="integer", example=1)
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(property="image", type="array",
+     *                  @OA\Items(type="string", format="binary")
+     *              )
      *          ),
      *      ),
      *     @OA\Response( response=200, description="Create New Item" ),
@@ -88,7 +91,7 @@ class ItemController extends Controller
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().$fileName;
+                $image = public_path().'/'.$fileName;
                 $imageData[] = $image;
             }
 
@@ -149,7 +152,10 @@ class ItemController extends Controller
      *              @OA\Property(property="sku", type="string"),
      *              @OA\Property(property="barcode_type", type="string"),
      *              @OA\Property(property="sku_manual", type="string"),
-     *              @OA\Property(property="created_by", type="integer", example=1)
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(property="image", type="array",
+     *                  @OA\Items(type="string", format="binary")
+     *              )
      *          ),
      *      ),
      *      @OA\Response( response=200, description="Update Item" ),
@@ -167,7 +173,7 @@ class ItemController extends Controller
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().$fileName;
+                $image = public_path().'/'.$fileName;
                 $imageData[] = $image;
             }
 
@@ -341,7 +347,9 @@ class ItemController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="image[]", type="integer", example=1)
+     *              @OA\Property(property="image", type="array",
+     *                  @OA\Items(type="string", format="binary")
+     *              )
      *          ),
      *      ),
      *     @OA\Response( response=200, description="Upload New Image to Item" ),
@@ -358,7 +366,7 @@ class ItemController extends Controller
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().$fileName;
+                $image = public_path().'/'.$fileName;
                 $imageData = array(
                     'item_id' => $id,
                     'file_name'   => $image

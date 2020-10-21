@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use App\Repositories\ResponseRepository;
 use Modules\Supplier\Http\Requests\SupplierRequest;
 use Modules\Supplier\Repositories\SupplierRepository;
+use Image;
 
 class SupplierController extends Controller
 {
@@ -74,7 +75,8 @@ class SupplierController extends Controller
      *              @OA\Property(property="alternate_number", type="string"),
      *              @OA\Property(property="pay_term_number", type="integer"),
      *              @OA\Property(property="pay_term_type", type="string"),
-     *              @OA\Property(property="created_by", type="integer")
+     *              @OA\Property(property="created_by", type="integer"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          )
      *      ),
      *     operationId="store",
@@ -89,6 +91,13 @@ class SupplierController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'suppliers/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $supplier = $this->supplierRepository->store($data);
             return $this->responseRepository->ResponseSuccess($supplier, 'Supplier created successfully');
         } catch (\Exception $e) {
@@ -156,7 +165,8 @@ class SupplierController extends Controller
      *              @OA\Property(property="alternate_number", type="string"),
      *              @OA\Property(property="pay_term_number", type="integer"),
      *              @OA\Property(property="pay_term_type", type="string"),
-     *              @OA\Property(property="created_by", type="integer")
+     *              @OA\Property(property="created_by", type="integer"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          )
      *      ),
      *     operationId="updateMasterAccount",
@@ -172,6 +182,13 @@ class SupplierController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'suppliers/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $supplier = $this->supplierRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($supplier, 'Supplier has been updated successfully');
         } catch (\Exception $e) {

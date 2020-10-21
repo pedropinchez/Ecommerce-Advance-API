@@ -75,6 +75,16 @@ class SalesController extends Controller
      *              @OA\Property(property="paid_total", type="string"),
      *              @OA\Property(property="due_total", type="string"),
      *              @OA\Property(property="final_total", type="string"),
+     *              @OA\Property(property="sale_lines", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="item_id", type="integer"),
+     *                      @OA\Property(property="quantity", type="string"),
+     *                      @OA\Property(property="unit_price", type="string"),
+     *                      @OA\Property(property="unit_price_inc_tax", type="string"),
+     *                      @OA\Property(property="discount_amount", type="string"),
+     *                      @OA\Property(property="item_tax", type="string")
+     *                  )
+     *              )
      *          ),
      *      ),
      *     @OA\Response( response=200, description="Create New Sale" ),

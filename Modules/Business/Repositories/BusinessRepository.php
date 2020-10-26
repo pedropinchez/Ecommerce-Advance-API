@@ -21,7 +21,11 @@ class BusinessRepository
      */
     public function all()
     {
-        $Businesses =  DB::table('business')->orderByDesc('id')->get();
+        $Businesses = DB::table('business')
+            ->join('currencies', 'business.currency_id', '=', 'currencies.id')
+            ->select('business.*', 'currencies.currency')
+            ->orderBy('id', 'desc')
+            ->get();
         return $Businesses;
     }
 

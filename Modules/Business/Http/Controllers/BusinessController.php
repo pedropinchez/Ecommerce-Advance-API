@@ -39,7 +39,7 @@ class BusinessController extends Controller
             $businesses = $this->businessRepository->all();
             return $this->responseRepository->ResponseSuccess($businesses, 'Business List');
         } catch (\Exception $e) {
-            return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseRepository->ResponseError(null,  $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

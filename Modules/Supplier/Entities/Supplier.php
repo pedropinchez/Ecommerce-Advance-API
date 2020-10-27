@@ -31,4 +31,9 @@ class Supplier extends Model
         'is_default',
         'image'
     ];
+
+    public function business()
+    {
+        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+    }
 }

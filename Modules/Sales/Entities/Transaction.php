@@ -37,4 +37,9 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionSellLine::class);
     }
+
+    public function business()
+    {
+        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+    }
 }

@@ -17,4 +17,9 @@ class TransactionSellLine extends Model
         'item_tax',
         'created_by'
     ];
+
+    public function business()
+    {
+        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+    }
 }

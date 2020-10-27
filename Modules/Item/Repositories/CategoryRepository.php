@@ -34,7 +34,7 @@ class CategoryRepository implements CategoryInterface
      */
     public function show($id)
     {
-        return Category::with(['childs'])->find($id);
+        return Category::with(['childs', 'business'])->find($id);
     }
 
     /**
@@ -73,6 +73,6 @@ class CategoryRepository implements CategoryInterface
      */
     public function getCategoryByBusiness($businessId)
     {
-        return Category::where('business_id', $businessId)->get();
+        return Category::with(['childs', 'business'])->where('business_id', $businessId)->get();
     }
 }

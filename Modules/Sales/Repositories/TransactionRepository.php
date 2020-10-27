@@ -14,7 +14,7 @@ class TransactionRepository
 
     public function show($id)
     {
-        return Transaction::with(['saleLines'])->find($id);
+        return Transaction::with(['saleLines', 'business'])->find($id);
     }
 
     public function store($data)
@@ -52,6 +52,6 @@ class TransactionRepository
 
     public function getTransactionByBusiness($businessId)
     {
-        return Transaction::with(['saleLines'])->where('business_id', $businessId)->paginate(20);
+        return Transaction::with(['saleLines', 'business'])->where('business_id', $businessId)->paginate(20);
     }
 }

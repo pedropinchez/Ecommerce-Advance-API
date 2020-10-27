@@ -22,6 +22,6 @@ class TransactionDetailsRepository
 
     public function getGiftCardByCustomer($customerId)
     {
-        return TransactionDetail::with(['giftCard', 'user'])->where('user_id', $customerId)->get();
+        return TransactionDetail::with(['giftCard', 'user', 'business'])->where('user_id', $customerId)->get();
     }
 }

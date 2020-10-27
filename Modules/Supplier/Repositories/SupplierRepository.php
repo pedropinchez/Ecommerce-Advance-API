@@ -18,7 +18,7 @@ class SupplierRepository
 
     public function show($id)
     {
-        return Supplier::find($id);
+        return Supplier::with(['business'])->find($id);
     }
 
     public function store($data)
@@ -50,7 +50,7 @@ class SupplierRepository
 
     public function getSupplierByBusiness($businessId)
     {
-        $suppliers = Supplier::where('business_id', $businessId)->get();
+        $suppliers = Supplier::with(['business'])->where('business_id', $businessId)->get();
         return $suppliers;
     }
 }

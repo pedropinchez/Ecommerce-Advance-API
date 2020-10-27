@@ -34,7 +34,7 @@ class UnitRepository implements UnitInterface
      */
     public function show($id)
     {
-        return Unit::find($id);
+        return Unit::with(['business'])->find($id);
     }
 
     /**
@@ -73,6 +73,6 @@ class UnitRepository implements UnitInterface
      */
     public function getUnitByBusiness($businessId)
     {
-        return Unit::where('business_id', $businessId)->get();
+        return Unit::with(['business'])->where('business_id', $businessId)->get();
     }
 }

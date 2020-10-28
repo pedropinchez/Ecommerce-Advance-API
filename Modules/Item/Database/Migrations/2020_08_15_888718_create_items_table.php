@@ -16,6 +16,10 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
+            
+            $table->string('featured_image')->nullable();
+            $table->string('short_resolation_image')->nullable();
+
             $table->unsignedBigInteger('business_id');
             $table->unsignedBigInteger('unit_id');
             $table->unsignedBigInteger('brand_id')->nullable();

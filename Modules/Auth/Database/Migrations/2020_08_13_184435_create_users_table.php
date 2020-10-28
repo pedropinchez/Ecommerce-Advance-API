@@ -13,7 +13,7 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::connection('DB_iApps')->create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
             $table->id();
 
             $table->unsignedBigInteger('business_id')
@@ -28,6 +28,10 @@ class CreateUsersTable extends Migration
             $table->string('phone_no')->nullable();
             $table->string('password');
             $table->char('language', 4)->default('en');
+            
+            $table->string('avatar')->nullable();
+            $table->string('banner')->nullable();
+
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
@@ -44,6 +48,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::connection('DB_iApps')->dropIfExists('users');
+        Schema::dropIfExists('users');
     }
 }

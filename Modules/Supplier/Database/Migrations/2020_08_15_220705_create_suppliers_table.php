@@ -20,6 +20,8 @@ class CreateSuppliersTable extends Migration
             $table->string('supplier_business_name')->nullable();
             $table->string('bin')->nullable()->comment('BIN = Business Identification Number');
             $table->string('name');
+            $table->string('profile')->nullable();
+            $table->string('banner')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();

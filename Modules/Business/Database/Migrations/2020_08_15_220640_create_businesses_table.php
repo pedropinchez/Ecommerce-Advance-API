@@ -25,7 +25,6 @@ class CreateBusinessesTable extends Migration
             $table->string('tax_number_2', 100)->nullable();
             $table->string('tax_label_2', 10)->nullable();
             $table->float('default_profit_percent', 5, 2)->default(0);
-
             $table->unsignedBigInteger('owner_id')->nullable();
             $table->foreign('owner_id')->references('id')->on('users');
 
@@ -36,6 +35,7 @@ class CreateBusinessesTable extends Migration
             $table->enum('sell_price_tax', ['includes', 'excludes'])->default('includes');
             $table->foreign('currency_id')->references('id')->on('currencies');
             $table->string('logo')->nullable();
+            $table->string('banner')->nullable();
             $table->string('sku_prefix')->nullable();
             $table->boolean('enable_tooltip')->default(true);
             $table->boolean('enable_referrel_system')->default(false);

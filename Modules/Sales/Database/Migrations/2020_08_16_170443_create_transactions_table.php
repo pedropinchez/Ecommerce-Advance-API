@@ -27,7 +27,8 @@ class CreateTransactionsTable extends Migration
             $table->boolean('status')->default(1)->comment('1=>active, 0=>inactive');
             $table->enum('delivery_status', ['delivered', 'not_delivered']);
             $table->enum('payment_status', ['paid', 'due']);
-            $table->string('title')->nullable()->comment('Title needed for all other transactions which needs to store a default title');
+            $table->string('title')->nullable()
+            ->comment('Title needed for all other transactions which needs to store a default title');
             $table->string('invoice_no')->nullable();
             $table->string('ref_no')->nullable();
             $table->dateTime('transaction_date');

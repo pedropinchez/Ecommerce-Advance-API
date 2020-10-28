@@ -82,7 +82,7 @@ class GiftCardController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/gift-cards/{id}",
-     *     tags={"Gift Card"},
+     *     tags={"Gift Cards"},
      *     summary="Get Gift Card By ID",
      *     description="Get Gift Card By ID",
      *     security={{"bearer": {}}},

@@ -19,6 +19,8 @@ class CreateCategoriesTable extends Migration
             $table->unsignedBigInteger('business_id')->unsigned();
             $table->foreign('business_id')->references('id')->on('business');
             $table->string('short_code')->nullable();
+            $table->string('image')->nullable();
+            $table->string('banner')->nullable();
             $table->unsignedBigInteger('parent_id')->nullable()->comment('If Parent is null, it is the parent');
             $table->unsignedBigInteger('created_by')->unsigned();
             $table->foreign('created_by')->references('id')->on('users');

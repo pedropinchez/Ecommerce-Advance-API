@@ -3436,7 +3436,7 @@
         "/api/v1/gift-cards/{id}": {
             "get": {
                 "tags": [
-                    "Gift Card"
+                    "Gift Cards"
                 ],
                 "summary": "Get Gift Card By ID",
                 "description": "Get Gift Card By ID",

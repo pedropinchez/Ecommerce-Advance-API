@@ -178,7 +178,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Edit Role with Permission
     -   [ ] Details Role with Permission
     -   [ ] Delete Role
-    -   [ ] Seeder Role
+    -   [ ] Seeder For Basic Rules
 
 -   [ ] **User Management**
     -   [ ] Create User
@@ -195,15 +195,15 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Customer
     -   [x] Details Customer
     -   [x] Delete Customer
-    -   [x] Seeder For Customers
+    -   [ ] Seeder For Customers
 
 #### Supplier
 
--   [ ] **Supplier**
-    -   [ ] Create Supplier
-    -   [ ] Edit Supplier
-    -   [ ] Details Supplier
-    -   [ ] Delete Supplier
+-   [x] **Supplier**
+    -   [x] Create Supplier
+    -   [x] Edit Supplier
+    -   [x] Details Supplier
+    -   [x] Delete Supplier
     -   [ ] Seeder For Suppliers
 
 #### Item
@@ -247,7 +247,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Item Attribute with Value
     -   [ ] Seeder For Items Attribute with Value
 
-#### Sales
+#### Sales (Urgent)
 
 -   [ ] **Discount Type**
 
@@ -263,7 +263,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Edit Sales Order
     -   [ ] Details Sales Order
     -   [ ] Delete Sales Order
-    -   [ ] Seeder For Sales Orders
+    -   [ ] Seeder For Fake Sales Orders
 
 #### Business Extra
 
@@ -285,17 +285,17 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [ ] **Gift Card** (in Promotional module)
+-   [x] **Gift Card** (in Promotional module)
 
-    -   [ ] Gift Card CRUD Operation
+    -   [x] Gift Card CRUD Operation
     -   [ ] Gift Card Purchase By Customer
-    -   [ ] Gift Card Transactions
+    -   [ ] Gift Card Transactions **New table added gift_cards_transactions, Please check**
 
--   [ ] **Vourchar** (in Promotional module)
+-   [ ] **Voucher** (in Promotional module)
 
-    -   [ ] Vourchar CRUD Operation
-    -   [ ] Vourchar Purchase By Customer
-    -   [ ] Vourchar Transactions
+    -   [ ] Voucher CRUD Operation
+    -   [ ] Voucher Purchase By Customer
+    -   [ ] Voucher Transactions **New table added voucher_transactions, Please check**
 
 -   [ ] **Poll / Voting System** (in Promotional module)
 
@@ -312,12 +312,3 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 -   [ ] Product wise Delivery system disable/enable ->> Like, In pen, there will be no cash in delivery, business has also that column in business table for globally by default
 -   [ ] For Any User's Purchase, check he/she's referrel user, then add `1%` of any purchase to referres account
--   [ ] in transactions table
-    1. Added one column - title
-    2. more enum values has been added for `type` column -
-    ```
-    'purchase', 'sell', 'opening_stock', 'purchase_return', 'sell_return',
-    'cashback', 'cashback_transfer_wallet', 'voucher', 'voucher_transfer_wallet',
-    'gift_card', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
-    ```
--   [ ]

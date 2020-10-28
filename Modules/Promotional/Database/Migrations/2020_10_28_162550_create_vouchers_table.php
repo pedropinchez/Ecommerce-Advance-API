@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGiftCardsTable extends Migration
+class CreateVouchersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateGiftCardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('gift_cards', function (Blueprint $table) {
+        Schema::create('vouchers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->string('slug');
@@ -42,6 +42,6 @@ class CreateGiftCardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gift_cards');
+        Schema::dropIfExists('vouchers');
     }
 }

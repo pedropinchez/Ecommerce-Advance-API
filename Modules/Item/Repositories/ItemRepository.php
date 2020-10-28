@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Item\Entities\Item;
 
 use Modules\Item\Entities\ItemAttribute;
+use Modules\Item\Entities\ItemImage;
 use Modules\Item\Interfaces\ItemInterfaces;
 
 class ItemRepository implements ItemInterfaces
@@ -32,7 +33,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function show($id)
     {
-        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes'])->find($id);
+        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->find($id);
         return $item;
     }
 
@@ -44,6 +45,14 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         $item = Item::create($data);
+        if(isset($data['image_data']) && $item) {
+            foreach ($data['image_data'] as $image) {
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'file_name' => $image
+                ]);
+            }
+        }
         return $item;
     }
 
@@ -58,6 +67,14 @@ class ItemRepository implements ItemInterfaces
         $item = Item::find($id);
         if($item) {
             $item->update($data);
+            if(isset($data['image_data'])) {
+                foreach ($data['image_data'] as $image) {
+                    ItemImage::create([
+                        'item_id' => $item->id,
+                        'file_name' => $image
+                    ]);
+                }
+            }
         }
 
         return $item;
@@ -87,7 +104,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function getItemByBusiness($businessId)
     {
-        $items = Item::where('business_id', $businessId)->get();
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->where('business_id', $businessId)->get();
         return $items;
     }
 
@@ -115,7 +132,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function getItemByCategory($categoryId)
     {
-        $items = Item::where('category_id', $categoryId)->get();
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->where('category_id', $categoryId)->get();
         return $items;
     }
 
@@ -126,7 +143,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function getItemBySubCategory($subCategoryId)
     {
-        $items = Item::where('sub_category_id', $subCategoryId)->get();
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->where('sub_category_id', $subCategoryId)->get();
         return $items;
     }
 
@@ -137,7 +154,28 @@ class ItemRepository implements ItemInterfaces
      */
     public function getItemByBrand($brandId)
     {
-        $items = Item::where('brand_id', $brandId)->get();
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->where('brand_id', $brandId)->get();
         return $items;
+    }
+
+    public function uploadImage($data)
+    {
+        $itemFile = ItemImage::create($data);
+        if($itemFile) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function destroyImage($id)
+    {
+        $itemFile = ItemImage::find($id);
+        if($itemFile) {
+            $itemFile->delete();
+            return true;
+        } else {
+            return false;
+        }
     }
 }

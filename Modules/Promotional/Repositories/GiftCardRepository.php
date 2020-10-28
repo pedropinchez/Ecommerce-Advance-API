@@ -25,6 +25,7 @@ class GiftCardRepository implements GiftCardInterface
      */
     public function show($id)
     {
+        return GiftCard::with(['transactions'])->where('id', $id)->orWhere('slug', $id)->first();
         return GiftCard::where('id', $id)->orWhere('slug', $id)->first();
     }
 

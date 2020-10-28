@@ -35,6 +35,7 @@ class CreateItemsTable extends Migration
             $table->string('sku_manual')->nullable()->index();
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('business_id')->references('id')->on('business');
             $table->foreign('unit_id')->references('id')->on('units');

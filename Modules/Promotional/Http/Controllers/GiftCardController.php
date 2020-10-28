@@ -51,11 +51,13 @@ class GiftCardController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
-     *              @OA\Property(property="business_id", type="integer", example=1),
-     *              @OA\Property(property="short_name", type="string", example="kg"),
-     *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
+     *              @OA\Property(property="image", type="string", example="filename"),
+     *              @OA\Property(property="price_value_for", type="string", example="5000"),
+     *              @OA\Property(property="change_price_value", type="string", example="6500"),
+     *              @OA\Property(property="card_type", type="string", example="gift_card"),
+     *              @OA\Property(property="status", type="boolean", example=1),
+     *              @OA\Property(property="created_by", type="integer", example=1)
      *          ),
      *      ),
      *      operationId="store",
@@ -110,11 +112,15 @@ class GiftCardController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="actual_name", type="string", example="Kilo gram"),
-     *              @OA\Property(property="business_id", type="integer", example=1),
-     *              @OA\Property(property="short_name", type="string", example="kg"),
-     *              @OA\Property(property="allow_decimal", type="boolean", example="true"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *             @OA\Property(property="title", type="string", example="Boishakhi Card"),
+     *              @OA\Property(property="image", type="string", example="filename"),
+     *              @OA\Property(property="price_value_for", type="string", example="5000"),
+     *              @OA\Property(property="change_price_value", type="string", example="6500"),
+     *              @OA\Property(property="card_type", type="string", example="gift_card"),
+     *              @OA\Property(property="status", type="boolean", example=1),
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(property="updated_by", type="integer", example=2),
+     *              @OA\Property(property="deleted_by", type="integer", example=2)
      *          ),
      *      ),
      *      operationId="update",

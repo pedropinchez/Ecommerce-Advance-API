@@ -17,4 +17,9 @@ class TaxRate extends Model
         'rounding_type',
         'created_by'
     ];
+
+    public function business()
+    {
+        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+    }
 }

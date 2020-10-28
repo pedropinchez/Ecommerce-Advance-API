@@ -199,12 +199,12 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Supplier
 
--   [x] **Supplier**
+-   [ ] **Supplier** @Mahmud Hasan Shakkhor
     -   [x] Create Supplier
     -   [x] Edit Supplier
     -   [x] Details Supplier
     -   [x] Delete Supplier
-    -   [ ] Seeder For Suppliers
+    -   [x] Seeder For Suppliers
 
 #### Item
 
@@ -238,6 +238,8 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Item
     -   [x] Details Item
     -   [x] Delete Item
+    -   [x] Upload Item Image
+    -   [x] Delete Item Image
     -   [ ] Seeder For Items
 
 -   [ ] **Item Attribute** @Mahmud Hasan Shakkhor
@@ -249,21 +251,21 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Sales (Urgent)
 
--   [ ] **Discount Type**
+-   [x] **Discount Type** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create Discount Type
-    -   [ ] Edit Discount Type
-    -   [ ] Details Discount Type
-    -   [ ] Delete Discount Type
+    -   [x] Create Discount Type
+    -   [x] Edit Discount Type
+    -   [x] Details Discount Type
+    -   [x] Delete Discount Type
     -   [ ] Seeder For Discount Type
 
-*   [ ] **Sales**
+*   [ ] **Sales** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
+    -   [x] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
     -   [ ] Edit Sales Order
-    -   [ ] Details Sales Order
-    -   [ ] Delete Sales Order
-    -   [ ] Seeder For Fake Sales Orders
+    -   [x] Details Sales Order
+    -   [x] Delete Sales Order
+    -   [ ] Seeder For Sales Orders
 
 #### Business Extra
 
@@ -285,25 +287,25 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [x] **Gift Card** (in Promotional module)
+-   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
 
     -   [x] Gift Card CRUD Operation
-    -   [ ] Gift Card Purchase By Customer
-    -   [ ] Gift Card Transactions **New table added gift_cards_transactions, Please check**
+    -   [x] Gift Card Purchase By Customer
+    -   [ ] Gift Card Transactions **New table added gift_transactions, Please check**
 
--   [ ] **Voucher** (in Promotional module)
+-   [ ] **Voucher** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Voucher CRUD Operation
-    -   [ ] Voucher Purchase By Customer
+    -   [x] Voucher CRUD Operation
+    -   [x] Voucher Purchase By Customer
     -   [ ] Voucher Transactions **New table added voucher_transactions, Please check**
 
--   [ ] **Poll / Voting System** (in Promotional module)
+-   [x] **Poll / Voting System** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values
-    -   [ ] Poll Response by customers -
-        -   [ ] Store Response,
-        -   [ ] View Response List,
-        -   [ ] View Response Details By Poll
+    -   [x] Poll System CRUD, multiple poll option, poll can be on items or normal values
+    -   [x] Poll Response by customers -
+        -   [x] Store Response,
+        -   [x] View Response List,
+        -   [x] View Response Details By Poll
 
 -   [ ] **Transaction API** (for all types of transaction, `Copy the Sales Transaction Api`)
     -   [ ] Create Transaction [with title and type and all other data for any type of transaction]

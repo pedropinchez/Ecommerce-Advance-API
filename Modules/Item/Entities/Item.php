@@ -34,6 +34,8 @@ class Item extends Model
         'created_by'
     ];
 
+    protected $with = ['images'];
+
     /**
      * @return BelongsTo
      * get the related business with item
@@ -104,5 +106,10 @@ class Item extends Model
     public function attributes()
     {
         return $this->hasMany(ItemAttribute::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class);
     }
 }

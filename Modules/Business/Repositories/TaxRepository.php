@@ -23,7 +23,7 @@ class TaxRepository implements TaxInterface
      */
     public function show($id)
     {
-        return TaxRate::find($id);
+        return TaxRate::with(['business'])->find($id);
     }
 
     /**
@@ -75,6 +75,6 @@ class TaxRepository implements TaxInterface
      */
     public function getTaxByBusiness($businessId)
     {
-        return TaxRate::where('business_id', $businessId)->get();
+        return TaxRate::with(['business'])->where('business_id', $businessId)->get();
     }
 }

@@ -28,6 +28,12 @@ class Supplier extends Model
         'pay_term_number',
         'pay_term_type',
         'created_by',
-        'is_default'
+        'is_default',
+        'image'
     ];
+
+    public function business()
+    {
+        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+    }
 }

@@ -2773,6 +2773,13 @@
                                     "created_by": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "image": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -2884,6 +2891,13 @@
                                     "created_by": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "image": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -3125,6 +3139,77 @@
                         "bearer": []
                     }
                 ]
+            }
+        },
+        "/api/v1/items/{id}/upload": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Upload New Image to Item",
+                "description": "Upload New Image to Item",
+                "operationId": "Modules\\Item\\Http\\Controllers\\ItemController::uploadFile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "image": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string",
+                                            "format": "binary"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Upload New Image to Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/items/image/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Delete Item Image",
+                "description": "Delete Item Image",
+                "operationId": "destroyImage",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Item Image"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
             }
         },
         "/api/v1/units": {
@@ -3394,25 +3479,33 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "actual_name": {
+                                    "title": {
                                         "type": "string",
-                                        "example": "Kilo gram"
+                                        "example": "Boishakhi Card"
                                     },
-                                    "business_id": {
-                                        "type": "integer",
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "price_value_for": {
+                                        "type": "string",
+                                        "example": "5000"
+                                    },
+                                    "change_price_value": {
+                                        "type": "string",
+                                        "example": "6500"
+                                    },
+                                    "card_type": {
+                                        "type": "string",
+                                        "example": "gift_card"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
                                         "example": 1
                                     },
-                                    "short_name": {
-                                        "type": "string",
-                                        "example": "kg"
-                                    },
-                                    "allow_decimal": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
                                     "created_by": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     }
                                 },
                                 "type": "object"
@@ -3481,25 +3574,41 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "actual_name": {
+                                    "title": {
                                         "type": "string",
-                                        "example": "Kilo gram"
+                                        "example": "Boishakhi Card"
                                     },
-                                    "business_id": {
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "price_value_for": {
+                                        "type": "string",
+                                        "example": "5000"
+                                    },
+                                    "change_price_value": {
+                                        "type": "string",
+                                        "example": "6500"
+                                    },
+                                    "card_type": {
+                                        "type": "string",
+                                        "example": "gift_card"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "created_by": {
                                         "type": "integer",
                                         "example": 1
                                     },
-                                    "short_name": {
-                                        "type": "string",
-                                        "example": "kg"
+                                    "updated_by": {
+                                        "type": "integer",
+                                        "example": 2
                                     },
-                                    "allow_decimal": {
-                                        "type": "boolean",
-                                        "example": "true"
-                                    },
-                                    "created_by": {
-                                        "type": "int",
-                                        "example": "1"
+                                    "deleted_by": {
+                                        "type": "integer",
+                                        "example": 2
                                     }
                                 },
                                 "type": "object"
@@ -3548,6 +3657,1289 @@
                         "description": "Resource Not Found"
                     }
                 }
+            }
+        },
+        "/api/v1/polls": {
+            "get": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Get poll List",
+                "description": "Get poll List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get poll List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Create New poll",
+                "description": "Create New poll",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Service"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "enable_item_comparison": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New poll"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/polls/{id}": {
+            "get": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Get Poll By ID",
+                "description": "Get Poll By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Poll By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Update poll",
+                "description": "Update poll",
+                "operationId": "update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Service"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "enable_item_comparison": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "updated_by": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "deleted_by": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update poll"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Delete poll",
+                "description": "Delete poll",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete poll"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/polls/customer{id}": {
+            "get": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Get Poll By customer id",
+                "description": "Get Poll By customer id",
+                "operationId": "getByCustomerId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Poll By customer id"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/poll-options": {
+            "post": {
+                "tags": [
+                    "Poll Options"
+                ],
+                "summary": "Create New Poll Option",
+                "description": "Create New Poll Option",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "value": {
+                                        "type": "string",
+                                        "example": "title"
+                                    },
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "poll_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Poll Option"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/poll-options/{id}": {
+            "get": {
+                "tags": [
+                    "Polls"
+                ],
+                "summary": "Get Poll Option By ID",
+                "description": "Get Poll Option By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Poll Option By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Poll Options"
+                ],
+                "summary": "Update Poll Option",
+                "description": "Update Poll Option",
+                "operationId": "update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "value": {
+                                        "type": "string",
+                                        "example": "title"
+                                    },
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "poll_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Poll Option"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/poll-optionss/{id}": {
+            "delete": {
+                "tags": [
+                    "Poll Opptions"
+                ],
+                "summary": "Delete Poll Opption",
+                "description": "Delete Poll Opption",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Poll Option"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/polls-response": {
+            "post": {
+                "tags": [
+                    "Poll Responses"
+                ],
+                "summary": "Create New Poll Response",
+                "description": "Create New Poll Response",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "poll_id": {
+                                        "type": "integer"
+                                    },
+                                    "item_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "ip_address": {
+                                        "type": "string"
+                                    },
+                                    "poll_option_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Poll Response"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/giftcards/transactions": {
+            "post": {
+                "tags": [
+                    "Gift Cards"
+                ],
+                "summary": "Purchase New Gift Card / Voucher",
+                "description": "Purchase New Gift Card / Voucher",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "gift_card_id": {
+                                        "type": "integer"
+                                    },
+                                    "order_quantity": {
+                                        "type": "string"
+                                    },
+                                    "paid_total": {
+                                        "type": "string"
+                                    },
+                                    "payment_status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Purchase New Gift Card / Voucher"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/giftcards/user/{id}": {
+            "get": {
+                "tags": [
+                    "Gift Card"
+                ],
+                "summary": "Get Gift Card / Voucher Payment Status By Customer ID",
+                "description": "Get Gift Card / Voucher Payment Status By Customer ID",
+                "operationId": "getGiftCardByCustomer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Gift Card / Voucher Payment Status By Customer ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/giftcards/transactions/{id}": {
+            "put": {
+                "tags": [
+                    "Gift Cards"
+                ],
+                "summary": "Update Gift Card / Voucher Payment Status",
+                "description": "Update Gift Card / Voucher Payment Status",
+                "operationId": "updatePaymentStatus",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "example": "paid"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Gift Card"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/vouchers": {
+            "get": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Get voucher List",
+                "description": "Get voucher List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get voucher List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Create New voucher",
+                "description": "Create New voucher",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Boishakhi Card"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "price_value_for": {
+                                        "type": "string",
+                                        "example": "5000"
+                                    },
+                                    "change_price_value": {
+                                        "type": "string",
+                                        "example": "6500"
+                                    },
+                                    "card_type": {
+                                        "type": "string",
+                                        "example": "vouchar"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New voucher"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/vouchers/{id}": {
+            "get": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Get Voucher By ID",
+                "description": "Get Voucher By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Voucher By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Update voucher",
+                "description": "Update voucher",
+                "operationId": "update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Boishakhi Card"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "filename"
+                                    },
+                                    "price_value_for": {
+                                        "type": "string",
+                                        "example": "5000"
+                                    },
+                                    "change_price_value": {
+                                        "type": "string",
+                                        "example": "6500"
+                                    },
+                                    "card_type": {
+                                        "type": "string",
+                                        "example": "vouchar"
+                                    },
+                                    "status": {
+                                        "type": "boolean",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "updated_by": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "deleted_by": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update voucher"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Delete voucher",
+                "description": "Delete voucher",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete voucher"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/discount-types": {
+            "get": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Get Discount Type List",
+                "description": "Get Discount Type List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Discount Type List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Create New Discount Type",
+                "description": "Create New Discount Type",
+                "operationId": "Modules\\Sales\\Http\\Controllers\\DiscountController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Discount"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/discount-types/{id}": {
+            "get": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Get Discount Type By ID",
+                "description": "Get Discount Type By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Discount Type By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Update Discount Type",
+                "description": "Update Discount Type",
+                "operationId": "Modules\\Sales\\Http\\Controllers\\DiscountController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Discount Type"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Delete Discount Type",
+                "description": "Delete Discount Type",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Discount Type"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/discount-types/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Discount Types"
+                ],
+                "summary": "Get Discount Type List of Business",
+                "description": "Get Discount Type List of Business",
+                "operationId": "getDiscountByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Discount Type List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/sales": {
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Get Sales List",
+                "description": "Get Sales List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Sales List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Create New Sale",
+                "description": "Create New Sale",
+                "operationId": "Modules\\Sales\\Http\\Controllers\\SalesController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "status": {
+                                        "type": "string"
+                                    },
+                                    "delivery_status": {
+                                        "type": "string"
+                                    },
+                                    "payment_status": {
+                                        "type": "string"
+                                    },
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "invoice_no": {
+                                        "type": "string"
+                                    },
+                                    "ref_no": {
+                                        "type": "string"
+                                    },
+                                    "transaction_date": {
+                                        "type": "string"
+                                    },
+                                    "total_before_tax": {
+                                        "type": "string"
+                                    },
+                                    "tax_amount": {
+                                        "type": "string"
+                                    },
+                                    "discount_type_id": {
+                                        "type": "string"
+                                    },
+                                    "tax_id": {
+                                        "type": "string"
+                                    },
+                                    "discount_amount": {
+                                        "type": "string"
+                                    },
+                                    "shipping_details": {
+                                        "type": "string"
+                                    },
+                                    "order_quantity": {
+                                        "type": "string"
+                                    },
+                                    "shipping_charges": {
+                                        "type": "string"
+                                    },
+                                    "additional_notes": {
+                                        "type": "string"
+                                    },
+                                    "staff_note": {
+                                        "type": "string"
+                                    },
+                                    "paid_total": {
+                                        "type": "string"
+                                    },
+                                    "due_total": {
+                                        "type": "string"
+                                    },
+                                    "final_total": {
+                                        "type": "string"
+                                    },
+                                    "sale_lines": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "item_id": {
+                                                    "type": "integer"
+                                                },
+                                                "quantity": {
+                                                    "type": "string"
+                                                },
+                                                "unit_price": {
+                                                    "type": "string"
+                                                },
+                                                "unit_price_inc_tax": {
+                                                    "type": "string"
+                                                },
+                                                "discount_amount": {
+                                                    "type": "string"
+                                                },
+                                                "item_tax": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Sale"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/sales/{id}": {
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Get Sale By ID",
+                "description": "Get Sale By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Sale By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Delete Sales",
+                "description": "Delete Sales",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Sales"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/sales/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Get Sales List of Business",
+                "description": "Get Sales List of Business",
+                "operationId": "getDiscountByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Sales List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Get Supplier List",
+                "description": "Get Supplier List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Supplier List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/supplier/store": {
@@ -3601,6 +4993,13 @@
                                     },
                                     "pay_term_type": {
                                         "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -3621,7 +5020,7 @@
                 }
             }
         },
-        "/api/v1/supplier/show": {
+        "/api/v1/suppliers/{id}": {
             "get": {
                 "tags": [
                     "Supplier"
@@ -3645,9 +5044,7 @@
                         "bearer": []
                     }
                 ]
-            }
-        },
-        "/api/v1/supplier/update": {
+            },
             "put": {
                 "tags": [
                     "Supplier"
@@ -3709,6 +5106,13 @@
                                     },
                                     "pay_term_type": {
                                         "type": "string"
+                                    },
+                                    "created_by": {
+                                        "type": "integer"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -3732,9 +5136,7 @@
                         "bearer": []
                     }
                 ]
-            }
-        },
-        "/api/v1/supplier/destroy": {
+            },
             "delete": {
                 "tags": [
                     "Supplier"
@@ -3745,6 +5147,32 @@
                 "responses": {
                     "200": {
                         "description": "Deleted Supplier Account"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/suppliers/business/{id}": {
+            "get": {
+                "tags": [
+                    "Supplier"
+                ],
+                "summary": "Get Supplier List By Business",
+                "description": "Get Supplier List By Business",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Supplier List By Business"
                     },
                     "400": {
                         "description": "Bad request"

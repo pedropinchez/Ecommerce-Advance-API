@@ -89,7 +89,7 @@ class TransactionDetailController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="status", type="string", example='paid')
+     *              @OA\Property(property="status", type="string", example="paid")
      *          ),
      *      ),
      *      operationId="updatePaymentStatus",

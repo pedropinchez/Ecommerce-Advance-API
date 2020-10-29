@@ -55,7 +55,7 @@ class PollController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Service"),
-     *              @OA\Property(property="image", type="string", example='filename'),
+     *              @OA\Property(property="image", type="string", example="filename"),
      *              @OA\Property(property="description", type="string"),
      *              @OA\Property(property="type", type="string"),
      *              @OA\Property(property="status", type="boolean", example=1),
@@ -116,7 +116,7 @@ class PollController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Service"),
-     *              @OA\Property(property="image", type="string", example='filename'),
+     *              @OA\Property(property="image", type="string", example="filename"),
      *              @OA\Property(property="description", type="string"),
      *              @OA\Property(property="type", type="string"),
      *              @OA\Property(property="status", type="boolean", example=1),

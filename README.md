@@ -204,7 +204,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Supplier
     -   [x] Details Supplier
     -   [x] Delete Supplier
-    -   [x] Seeder For Suppliers
+    -   [ ] Seeder For Suppliers
 
 #### Item
 
@@ -265,7 +265,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Edit Sales Order
     -   [x] Details Sales Order
     -   [x] Delete Sales Order
-    -   [ ] Seeder For Sales Orders
+    -   [ ] Seeder For Fake Sales Orders
 
 #### Business Extra
 
@@ -287,6 +287,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
+<<<<<<<<< Temporary merge branch 1
 -   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
 
     -   [x] Gift Card CRUD Operation

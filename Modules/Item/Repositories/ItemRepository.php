@@ -46,10 +46,13 @@ class ItemRepository implements ItemInterfaces
     {
         $item = Item::create($data);
         if(isset($data['image_data']) && $item) {
-            foreach ($data['image_data'] as $image) {
+            foreach ($data['image_data'] as $imageRow) {
                 ItemImage::create([
                     'item_id' => $item->id,
-                    'file_name' => $image
+                    'business_id' => $item->business_id,
+                    'image' => $imageRow['image'],
+                    'image_size' => $imageRow['image_size'],
+                    'image_title' => $imageRow['image_title']
                 ]);
             }
         }

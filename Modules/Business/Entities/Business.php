@@ -25,5 +25,6 @@ class Business extends Model
         'logo',
         'sku_prefix',
         'enable_tooltip',
+        'banner'
     ];
 }

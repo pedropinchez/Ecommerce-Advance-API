@@ -70,7 +70,8 @@ class BusinessController extends Controller
      *              @OA\Property(property="currency_id", type="integer", example=2),
      *              @OA\Property(property="logo", type="string"),
      *              @OA\Property(property="sku_prefix", type="string"),
-     *              @OA\Property(property="enable_tooltip", type="boolean", example=true)
+     *              @OA\Property(property="enable_tooltip", type="boolean", example=true),
+     *              @OA\Property(property="banner", type="string", format="binary")
      *          )
      *      ),
      *     operationId="store",
@@ -78,11 +79,21 @@ class BusinessController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
         try {
-            $business = $this->businessRepository->create($request);
+            $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'businesses/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+            $business = $this->businessRepository->create($data);
             return $this->responseRepository->ResponseSuccess($business, 'Business Created');
         } catch (\Exception $e) {
             // return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -166,7 +177,8 @@ class BusinessController extends Controller
      *              @OA\Property(property="currency_id", type="integer", example=2),
      *              @OA\Property(property="logo", type="string"),
      *              @OA\Property(property="sku_prefix", type="string"),
-     *              @OA\Property(property="enable_tooltip", type="boolean", example=true)
+     *              @OA\Property(property="enable_tooltip", type="boolean", example=true),
+     *              @OA\Property(property="banner", type="string", format="binary")
      *          )
      *      ),
      *     operationId="update",
@@ -174,11 +186,22 @@ class BusinessController extends Controller
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
+     * @param Request $request
+     * @param $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
         try {
-            $business = $this->businessRepository->updateBusiness($request, $id);
+            $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'businesses/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+            $business = $this->businessRepository->updateBusiness($data, $id);
             if (is_null($business)) {
                 return $this->responseRepository->ResponseError(null, 'No Business Found', Response::HTTP_NOT_FOUND);
             }

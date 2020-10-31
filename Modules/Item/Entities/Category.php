@@ -12,7 +12,9 @@ class Category extends Model
         'business_id',
         'short_code',
         'parent_id',
-        'created_by'
+        'created_by',
+        'image',
+        'banner'
     ];
 
     /**

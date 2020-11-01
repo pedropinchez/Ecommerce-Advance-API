@@ -14,9 +14,11 @@ use Illuminate\Http\Request;
 */
 Route::apiResource('giftcards', 'GiftCardController');
 Route::apiResource('vouchers', 'VoucherController');
-Route::post('giftcards/transactions', 'TransactionDetailController@store');
+Route::post('giftcards/transactions', 'TransactionDetailController@giftCardStore');
+Route::post('vouchers/transactions', 'TransactionDetailController@voucherStore');
 Route::put('giftcards/transactions/{id}', 'TransactionDetailController@updatePaymentStatus');
 Route::get('giftcards/user/{user_id}', 'TransactionDetailController@getGiftCardByCustomer');
+Route::get('vouchers/user/{user_id}', 'TransactionDetailController@getVoucherByCustomer');
 Route::apiResource('polls', 'PollController');
 Route::get('polls/customer/{id}', 'PollController@getByCustomerId');
 Route::apiResource('poll-options', 'PollOptionController');

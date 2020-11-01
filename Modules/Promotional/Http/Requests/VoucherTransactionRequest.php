@@ -4,7 +4,7 @@ namespace Modules\Promotional\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TransactionDetailRequest extends FormRequest
+class VoucherTransactionRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -16,7 +16,7 @@ class TransactionDetailRequest extends FormRequest
         return [
             'user_id' => 'required',
             'business_id' => 'required',
-            'gift_card_id' => 'required',
+            'voucher_id' => 'required',
             'paid_total' => 'required',
             'payment_status' => 'required'
         ];

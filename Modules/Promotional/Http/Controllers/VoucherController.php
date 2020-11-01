@@ -58,7 +58,8 @@ class VoucherController extends Controller
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="vouchar"),
      *              @OA\Property(property="status", type="boolean", example=1),
-     *              @OA\Property(property="created_by", type="integer", example=1)
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *      operationId="store",
@@ -73,6 +74,13 @@ class VoucherController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'vouchers/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $voucher = $this->voucherRepository->store($data);
             return $this->responseRepository->ResponseSuccess($voucher, 'Voucher Created Successfully');
         } catch (\Exception $exception) {
@@ -121,7 +129,8 @@ class VoucherController extends Controller
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="created_by", type="integer", example=1),
      *              @OA\Property(property="updated_by", type="integer", example=2),
-     *              @OA\Property(property="deleted_by", type="integer", example=2)
+     *              @OA\Property(property="deleted_by", type="integer", example=2),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *      operationId="update",
@@ -137,6 +146,13 @@ class VoucherController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'vouchers/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $voucher = $this->voucherRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($voucher, 'Voucher Updated Successfully');
         } catch (\Exception $exception) {

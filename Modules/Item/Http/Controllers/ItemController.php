@@ -103,6 +103,22 @@ class ItemController extends Controller
                 $data['image_data'] = $imageData;
             }
 
+            if($request->hasFile('featured_image'))  {
+                $file = $request->file('featured_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['featured_image'] = public_path().'/'.$fileName;
+            }
+
+            if($request->hasFile('short_resolation_image'))  {
+                $file = $request->file('short_resolation_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['short_resolation_image'] = public_path().'/'.$fileName;
+            }
+
             $item = $this->itemRepository->store($data);
             return $this->responseRepository->ResponseSuccess($item, 'Item Created Successfully');
         } catch (\Exception $exception) {
@@ -187,6 +203,22 @@ class ItemController extends Controller
 
             if($imageData) {
                 $data['image_data'] = $imageData;
+            }
+
+            if($request->hasFile('featured_image'))  {
+                $file = $request->file('featured_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['featured_image'] = public_path().'/'.$fileName;
+            }
+
+            if($request->hasFile('short_resolation_image'))  {
+                $file = $request->file('short_resolation_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['short_resolation_image'] = public_path().'/'.$fileName;
             }
 
             $item = $this->itemRepository->update($id, $data);

@@ -70,7 +70,9 @@ class ItemController extends Controller
      *              @OA\Property(property="barcode_type", type="string"),
      *              @OA\Property(property="sku_manual", type="string"),
      *              @OA\Property(property="created_by", type="integer", example=1),
-     *              @OA\Property(property="image", type="array",
+     *              @OA\Property(property="featured_image", type="string", format="binary"),
+     *              @OA\Property(property="short_resolation_image", type="string", format="binary"),
+     *              @OA\Property(property="images", type="array",
      *                  @OA\Items(type="string", format="binary")
      *              )
      *          ),
@@ -86,17 +88,35 @@ class ItemController extends Controller
             $data = $request->all();
 
             $imageData = [];
-            $files = $request->file('image');
+            $files = $request->file('images');
             foreach ($files as $file) {
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().'/'.$fileName;
-                $imageData[] = $image;
+                $tempImage['image'] = public_path().'/'.$fileName;
+                $tempImage['image_title'] = $file->getClientOriginalName();
+                $tempImage['image_size'] = $originalImage->filesize();
+                $imageData[] = $tempImage;
             }
 
             if($imageData) {
                 $data['image_data'] = $imageData;
+            }
+
+            if($request->hasFile('featured_image'))  {
+                $file = $request->file('featured_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['featured_image'] = public_path().'/'.$fileName;
+            }
+
+            if($request->hasFile('short_resolation_image'))  {
+                $file = $request->file('short_resolation_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['short_resolation_image'] = public_path().'/'.$fileName;
             }
 
             $item = $this->itemRepository->store($data);
@@ -153,7 +173,9 @@ class ItemController extends Controller
      *              @OA\Property(property="barcode_type", type="string"),
      *              @OA\Property(property="sku_manual", type="string"),
      *              @OA\Property(property="created_by", type="integer", example=1),
-     *              @OA\Property(property="image", type="array",
+     *              @OA\Property(property="featured_image", type="string", format="binary"),
+     *              @OA\Property(property="short_resolation_image", type="string", format="binary"),
+     *              @OA\Property(property="images", type="array",
      *                  @OA\Items(type="string", format="binary")
      *              )
      *          ),
@@ -168,17 +190,35 @@ class ItemController extends Controller
         try {
             $data = $request->all();
             $imageData = [];
-            $files = $request->file('image');
+            $files = $request->file('images');
             foreach ($files as $file) {
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().'/'.$fileName;
-                $imageData[] = $image;
+                $tempImage['image'] = public_path().'/'.$fileName;
+                $tempImage['image_title'] = $file->getClientOriginalName();
+                $tempImage['image_size'] = $originalImage->filesize();
+                $imageData[] = $tempImage;
             }
 
             if($imageData) {
                 $data['image_data'] = $imageData;
+            }
+
+            if($request->hasFile('featured_image'))  {
+                $file = $request->file('featured_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['featured_image'] = public_path().'/'.$fileName;
+            }
+
+            if($request->hasFile('short_resolation_image'))  {
+                $file = $request->file('short_resolation_image');;
+                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['short_resolation_image'] = public_path().'/'.$fileName;
             }
 
             $item = $this->itemRepository->update($id, $data);
@@ -361,6 +401,7 @@ class ItemController extends Controller
     {
         try {
             $item = null;
+            $itemRow = $this->itemRepository->show($id);
             $files = $request->file('image');
             foreach ($files as $file) {
                 $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
@@ -369,7 +410,10 @@ class ItemController extends Controller
                 $image = public_path().'/'.$fileName;
                 $imageData = array(
                     'item_id' => $id,
-                    'file_name'   => $image
+                    'business_id' => $itemRow->business_id,
+                    'image'   => $image,
+                    'image_title'  => $file->getClientOriginalName(),
+                    'image_size'   => $originalImage->filesize(),
                 );
 
                 $item = $this->itemRepository->uploadImage($imageData);

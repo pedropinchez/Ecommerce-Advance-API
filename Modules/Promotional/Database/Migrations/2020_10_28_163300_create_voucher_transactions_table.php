@@ -17,6 +17,7 @@ class CreateVoucherTransactionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('voucher_id');
+            $table->unsignedBigInteger('transaction_id');
             $table->float('price_value_for')->default(0);
             $table->float('change_price_value')->default(0);
 

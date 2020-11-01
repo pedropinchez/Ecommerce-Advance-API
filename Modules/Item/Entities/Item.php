@@ -31,7 +31,9 @@ class Item extends Model
         'sku',
         'barcode_type',
         'sku_manual',
-        'created_by'
+        'created_by',
+        'featured_image',
+        'short_resolation_image'
     ];
 
     protected $with = ['images'];

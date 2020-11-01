@@ -34,8 +34,7 @@ class TransactionDetailController extends Controller
      *              @OA\Property(property="gift_card_id", type="integer"),
      *              @OA\Property(property="order_quantity", type="string"),
      *              @OA\Property(property="paid_total", type="string"),
-     *              @OA\Property(property="payment_status", type="string"),
-     *              @OA\Property(property="tax_id", type="integer")
+     *              @OA\Property(property="payment_status", type="string")
      *          ),
      *      ),
      *      operationId="giftCardStore",
@@ -74,8 +73,7 @@ class TransactionDetailController extends Controller
      *              @OA\Property(property="voucher_id", type="integer"),
      *              @OA\Property(property="order_quantity", type="string"),
      *              @OA\Property(property="paid_total", type="string"),
-     *              @OA\Property(property="payment_status", type="string"),
-     *              @OA\Property(property="tax_id", type="integer")
+     *              @OA\Property(property="payment_status", type="string")
      *          ),
      *      ),
      *      operationId="voucherStore",

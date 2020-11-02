@@ -53,7 +53,6 @@ class VoucherController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
-     *              @OA\Property(property="image", type="string", example="filename"),
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="vouchar"),
@@ -122,7 +121,6 @@ class VoucherController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
-     *              @OA\Property(property="image", type="string", example="filename"),
      *              @OA\Property(property="price_value_for", type="string", example="5000"),
      *              @OA\Property(property="change_price_value", type="string", example="6500"),
      *              @OA\Property(property="card_type", type="string", example="vouchar"),

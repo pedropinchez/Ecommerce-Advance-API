@@ -126,7 +126,7 @@ class TransactionDetailController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/giftcards/user/{id}",
+     *     path="/api/v1/vouchers/user/{id}",
      *     tags={"Vocuhers"},
      *     summary="Get Voucher By Customer ID",
      *     description="Get Voucher By Customer ID",

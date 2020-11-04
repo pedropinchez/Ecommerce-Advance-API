@@ -147,7 +147,7 @@ class CustomerController extends Controller
     {
         try {
             $user = $request->user();
-            $customer = $this->customerRepository->update($request, $user->id);
+            $customer = $this->customerRepository->update($request, $id);
             return $this->responseRepository->ResponseSuccess($customer, 'Customer has been updated successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);

@@ -4,6 +4,7 @@ namespace Modules\Promotional\Repositories;
 
 use App\Helpers\StringHelper;
 use Modules\Promotional\Entities\GiftCard;
+use Modules\Promotional\Entities\Voucher;
 use Modules\Promotional\Interfaces\GiftCardInterface;
 
 class VoucherRepository implements GiftCardInterface
@@ -14,7 +15,7 @@ class VoucherRepository implements GiftCardInterface
      */
     public function index()
     {
-        return GiftCard::get();
+        return Voucher::get();
     }
 
     /**
@@ -24,7 +25,7 @@ class VoucherRepository implements GiftCardInterface
      */
     public function show($id)
     {
-        return GiftCard::where('id', $id)->orWhere('slug', $id)->first();
+        return Voucher::where('id', $id)->orWhere('slug', $id)->first();
     }
 
     /**
@@ -37,7 +38,7 @@ class VoucherRepository implements GiftCardInterface
     public function store($data)
     {
         $data['slug'] = $this->generateSlug($data['title']);
-        return GiftCard::create($data);
+        return Voucher::create($data);
     }
 
     /**
@@ -48,7 +49,7 @@ class VoucherRepository implements GiftCardInterface
      */
     public function update($id, $data)
     {
-        $voucher = GiftCard::find($id);
+        $voucher = Voucher::find($id);
         if($voucher) {
             $voucher->update($data);
         }
@@ -63,7 +64,7 @@ class VoucherRepository implements GiftCardInterface
      */
     public function destroy($id)
     {
-        $voucher = GiftCard::find($id);
+        $voucher = Voucher::find($id);
         if($voucher) {
             $voucher->delete();
             return true;
@@ -81,6 +82,6 @@ class VoucherRepository implements GiftCardInterface
      */
     public function generateSlug($value)
     {
-        return StringHelper::createSlug($value, 'Modules\Promotional\Entities\GiftCard', 'slug');
+        return StringHelper::createSlug($value, 'Modules\Promotional\Entities\Voucher', 'slug');
     }
 }

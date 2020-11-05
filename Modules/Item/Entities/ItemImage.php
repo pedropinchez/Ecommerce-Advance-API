@@ -8,6 +8,10 @@ class ItemImage extends Model
 {
     protected $fillable = [
         'item_id',
-        'file_name'
+        'business_id',
+        'image',
+        'image_size',
+        'image_title',
+        'image_description'
     ];
 }

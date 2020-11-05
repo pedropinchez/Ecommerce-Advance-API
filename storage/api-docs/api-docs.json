@@ -59,6 +59,14 @@
                                     },
                                     "language": {
                                         "type": "string"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -344,6 +352,10 @@
                                     "enable_tooltip": {
                                         "type": "boolean",
                                         "example": true
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -487,6 +499,10 @@
                                     "enable_tooltip": {
                                         "type": "boolean",
                                         "example": true
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -2289,6 +2305,14 @@
                                     "created_by": {
                                         "type": "int",
                                         "example": 1
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -2371,6 +2395,14 @@
                                     "created_by": {
                                         "type": "int",
                                         "example": 1
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -2514,6 +2546,14 @@
                                     "created_by": {
                                         "type": "int",
                                         "example": "1"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -2601,6 +2641,14 @@
                                     "created_by": {
                                         "type": "int",
                                         "example": "1"
+                                    },
+                                    "banner": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -2769,7 +2817,15 @@
                                         "type": "integer",
                                         "example": 1
                                     },
-                                    "image": {
+                                    "featured_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "short_resolation_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "images": {
                                         "type": "array",
                                         "items": {
                                             "type": "string",
@@ -2887,7 +2943,15 @@
                                         "type": "integer",
                                         "example": 1
                                     },
-                                    "image": {
+                                    "featured_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "short_resolation_image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "images": {
                                         "type": "array",
                                         "items": {
                                             "type": "string",
@@ -3478,10 +3542,6 @@
                                         "type": "string",
                                         "example": "Boishakhi Card"
                                     },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "filename"
-                                    },
                                     "price_value_for": {
                                         "type": "string",
                                         "example": "5000"
@@ -3501,6 +3561,10 @@
                                     "created_by": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -3573,10 +3637,6 @@
                                         "type": "string",
                                         "example": "Boishakhi Card"
                                     },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "filename"
-                                    },
                                     "price_value_for": {
                                         "type": "string",
                                         "example": "5000"
@@ -3604,6 +3664,10 @@
                                     "deleted_by": {
                                         "type": "integer",
                                         "example": 2
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -4107,9 +4171,9 @@
                 "tags": [
                     "Gift Cards"
                 ],
-                "summary": "Purchase New Gift Card / Voucher",
-                "description": "Purchase New Gift Card / Voucher",
-                "operationId": "store",
+                "summary": "Purchase New Gift Card",
+                "description": "Purchase New Gift Card",
+                "operationId": "giftCardStore",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -4141,7 +4205,57 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Purchase New Gift Card / Voucher"
+                        "description": "Purchase New Gift Card "
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/vouchers/transactions": {
+            "post": {
+                "tags": [
+                    "Vouchers"
+                ],
+                "summary": "Purchase New Voucher",
+                "description": "Purchase New Voucher",
+                "operationId": "voucherStore",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer"
+                                    },
+                                    "user_id": {
+                                        "type": "integer"
+                                    },
+                                    "voucher_id": {
+                                        "type": "integer"
+                                    },
+                                    "order_quantity": {
+                                        "type": "string"
+                                    },
+                                    "paid_total": {
+                                        "type": "string"
+                                    },
+                                    "payment_status": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Purchase New Voucher "
                     },
                     "400": {
                         "description": "Bad request"
@@ -4155,10 +4269,10 @@
         "/api/v1/giftcards/user/{id}": {
             "get": {
                 "tags": [
-                    "Gift Card"
+                    "Gift Cards"
                 ],
-                "summary": "Get Gift Card / Voucher Payment Status By Customer ID",
-                "description": "Get Gift Card / Voucher Payment Status By Customer ID",
+                "summary": "Get Gift Card By Customer ID",
+                "description": "Get Gift Card By Customer ID",
                 "operationId": "getGiftCardByCustomer",
                 "parameters": [
                     {
@@ -4173,7 +4287,44 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Get Gift Card / Voucher Payment Status By Customer ID"
+                        "description": "Get Gift Card By Customer ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/vouchers/user/{id}": {
+            "get": {
+                "tags": [
+                    "Vocuhers"
+                ],
+                "summary": "Get Voucher By Customer ID",
+                "description": "Get Voucher By Customer ID",
+                "operationId": "getVoucherByCustomer",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Voucher By Customer ID"
                     },
                     "400": {
                         "description": "Bad request"
@@ -4202,7 +4353,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "status": {
+                                    "payment_status": {
                                         "type": "string",
                                         "example": "paid"
                                     }
@@ -4266,10 +4417,6 @@
                                         "type": "string",
                                         "example": "Boishakhi Card"
                                     },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "filename"
-                                    },
                                     "price_value_for": {
                                         "type": "string",
                                         "example": "5000"
@@ -4289,6 +4436,10 @@
                                     "created_by": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"
@@ -4361,10 +4512,6 @@
                                         "type": "string",
                                         "example": "Boishakhi Card"
                                     },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "filename"
-                                    },
                                     "price_value_for": {
                                         "type": "string",
                                         "example": "5000"
@@ -4392,6 +4539,10 @@
                                     "deleted_by": {
                                         "type": "integer",
                                         "example": 2
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
                                     }
                                 },
                                 "type": "object"

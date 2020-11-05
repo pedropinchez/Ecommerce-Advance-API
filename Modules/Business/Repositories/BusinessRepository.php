@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Interfaces\AuthInterface;
+use Modules\Business\Entities\Business;
 
 class BusinessRepository
 {
@@ -92,39 +93,18 @@ class BusinessRepository
     /**
      * update Business
      *
-     * @param Request $request
+     * @param $data
      * @param integer $id
      * @return object $user
      */
-    public function updateBusiness(Request $request, $id)
+    public function updateBusiness($data, $id)
     {
-        $business = $this->findBusinessById($id);
-        DB::table("business")
-            ->where('id', $id)
-            ->update(
-                [
-                    'name' => $request->name,
-                    'bin' => $request->bin,
-                    'start_date' => $request->start_date,
-                    'tax_number_1' => $request->tax_number_1,
-                    'tax_number_2' => $request->tax_number_2,
-                    'tax_label_1' => $request->tax_label_1,
-                    'tax_label_2' => $request->tax_label_2,
-                    'default_profit_percent' => $request->default_profit_percent,
-                    'owner_id' => $request->owner_id,
-                    'time_zone' => $request->time_zone,
-                    'fy_start_month' => $request->fy_start_month,
-                    'default_sales_discount' => $request->default_sales_discount,
-                    'accounting_method' => $request->accounting_method,
-                    'sell_price_tax' => $request->sell_price_tax,
-                    'currency_id' => $request->currency_id,
-                    'logo' => $request->logo,
-                    'sku_prefix' => $request->sku_prefix,
-                    'enable_tooltip' => $request->enable_tooltip
-                ]
-            );
+        $business = Business::find($id);
+        if($business) {
+            $business->update($data);
+        }
 
-        return $this->findBusinessById($id);
+        return $business;
     }
 
     /**

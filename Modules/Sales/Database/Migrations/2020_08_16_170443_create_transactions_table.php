@@ -21,11 +21,11 @@ class CreateTransactionsTable extends Migration
                 [
                     'purchase', 'sell', 'opening_stock', 'purchase_return', 'sell_return', 'cashback',
                     'cashback_transfer_wallet', 'voucher', 'voucher_transfer_wallet',
-                    'gift_card', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
+                    'gift_card', 'voucher', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
                 ]
             )->index();
             $table->boolean('status')->default(1)->comment('1=>active, 0=>inactive');
-            $table->enum('delivery_status', ['delivered', 'not_delivered']);
+            $table->enum('delivery_status', ['delivered', 'not_delivered'])->nullable();
             $table->enum('payment_status', ['paid', 'due']);
             $table->string('title')->nullable()
             ->comment('Title needed for all other transactions which needs to store a default title');
@@ -34,8 +34,8 @@ class CreateTransactionsTable extends Migration
             $table->dateTime('transaction_date');
             $table->decimal('total_before_tax', 8, 2)->default(0)->comment('Total before the purchase/invoice tax, this includeds the indivisual product tax');
             $table->decimal('tax_amount', 8, 2)->default(0);
-            $table->unsignedBigInteger('discount_type_id');
-            $table->unsignedBigInteger('tax_id');
+            $table->unsignedBigInteger('discount_type_id')->nullable();
+            $table->unsignedBigInteger('tax_id')->nullable();
             $table->string('discount_amount', 10)->nullable();
             $table->string('shipping_details')->nullable();
             $table->string('order_quantity')->nullable();

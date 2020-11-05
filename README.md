@@ -145,7 +145,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Tax Rate
     -   [x] Details Tax Rate
     -   [x] Delete Tax Rate
-    -   [ ] Data Import / Seeder For Currencies Table
+    -   [x] Data Import / Seeder For Currencies Table
 
 -   [ ] **Tax Rate** @Mahmud Hasan Shakkhor
 
@@ -161,7 +161,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Business Account
     -   [x] Details Business Account
     -   [x] Delete Business Account
-    -   [ ] Seeder For Business
+    -   [x] Seeder For Business
 
 -   [x] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module @Mahmud Hasan Shakkhor
     -   [x] Create Business Location
@@ -200,12 +200,6 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 #### Supplier
 
 -   [ ] **Supplier** @Mahmud Hasan Shakkhor
-    -   [x] Create Supplier
-    -   [x] Edit Supplier
-    -   [x] Details Supplier
-    -   [x] Delete Supplier
-    -   [ ] Seeder For Suppliers
--   [x] **Supplier**
     -   [x] Create Supplier
     -   [x] Edit Supplier
     -   [x] Details Supplier
@@ -257,7 +251,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 #### Sales (Urgent)
 
--   [x] **Discount Type** @Mahmud Hasan Shakkhor
+-   [ ] **Discount Type** @Mahmud Hasan Shakkhor
 
     -   [x] Create Discount Type
     -   [x] Edit Discount Type
@@ -271,7 +265,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Edit Sales Order
     -   [x] Details Sales Order
     -   [x] Delete Sales Order
-    -   [ ] Seeder For Sales Orders
+    -   [ ] Seeder For Fake Sales Orders
 
 #### Business Extra
 
@@ -294,17 +288,16 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 ## **New in 7 September 2020**
 
 -   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
--   [x] **Gift Card** (in Promotional module)
 
     -   [x] Gift Card CRUD Operation
     -   [x] Gift Card Purchase By Customer
     -   [x] Gift Card Transactions
 
--   [ ] **Vourchar** (in Promotional module) @Mahmud Hasan Shakkhor
+-   [x] **Vouchar** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [x] Vourchar CRUD Operation
-    -   [x] Vourchar Purchase By Customer
-    -   [x] Vourchar Transactions
+    -   [x] Voucher CRUD Operation
+    -   [x] Voucher Purchase By Customer
+    -   [ ] Voucher Transactions **New table added voucher_transactions, Please check**
 
 -   [x] **Poll / Voting System** (in Promotional module) @Mahmud Hasan Shakkhor
 

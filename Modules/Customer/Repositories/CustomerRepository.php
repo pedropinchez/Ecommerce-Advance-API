@@ -51,30 +51,13 @@ class CustomerRepository
 
     public function update(Request $request, $intCusID)
     {
-        return 'farid';
-        DB::table("customers")
-            ->where('intCusID', $intCusID)
-            ->update(
-                [
-                    'business_id' => $request->business_id,
-                    'bin' => $request->bin,
-                    'name' => $request->name,
-                    'tax_number' => $request->tax_number,
-                    'city' => $request->city,
-                    'state' => $request->state,
-                    'country' => $request->country,
-                    'landmark' => $request->landmark,
-                    'mobile' => $request->mobile,
-                    'landline' => $request->landline,
-                    'alternate_number' => $request->alternate_number,
-                    'pay_term_number' => $request->pay_term_number,
-                    'pay_term_type' => $request->pay_term_type,
-                    'created_by' => $request->created_by,
-                    'is_default' => $request->is_default,
-                ]
-            );
+        $data = $request->all();
+        $customer = Customer::find($intCusID);
+        if ($customer) {
+            $customer->update($data);
+        }
 
-        return $this->findCustomerById($intCusID);
+        return $customer;
     }
 
     public function delete($id)

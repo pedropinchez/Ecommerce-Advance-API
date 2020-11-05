@@ -38,6 +38,8 @@ class AuthController extends Controller
      *              @OA\Property(property="phone_no", type="string"),
      *              @OA\Property(property="password", type="string"),
      *              @OA\Property(property="language", type="string"),
+     *              @OA\Property(property="avatar", type="string", format="binary"),
+     *              @OA\Property(property="banner", type="string", format="binary")
      *          )
      *      ),
      *     operationId="updateUserProfile",
@@ -50,7 +52,24 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
-            $user = $this->authRepository->updateUserProfile($request, $user->id);
+            $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'users/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+
+            if ($request->hasFile('avatar')){
+                $file = $request->file('avatar');;
+                $fileName = 'users/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['avatar'] = public_path().'/'.$fileName;
+            }
+
+            $user = $this->authRepository->updateUserProfile($data, $user->id);
             return $this->responseRepository->ResponseSuccess($user, 'User Account has been updated successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);

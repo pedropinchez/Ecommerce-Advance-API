@@ -22,6 +22,11 @@ class TransactionDetail extends Model
         return $this->belongsTo(GiftCard::class);
     }
 
+    public function voucher()
+    {
+        return $this->belongsTo(Voucher::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

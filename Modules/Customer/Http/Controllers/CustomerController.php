@@ -108,7 +108,7 @@ class CustomerController extends Controller
     public function show(Request $request, $id)
     {
         try {
-            $user = $request->user();
+            $user = $this->customerRepository->findCustomerById($id);
             return $this->responseRepository->ResponseSuccess($user, 'Customer  Details');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -153,7 +153,7 @@ class CustomerController extends Controller
     {
         try {
             $user = $request->user();
-            $customer = $this->customerRepository->update($request,  $user->id);
+            $customer = $this->customerRepository->update($request, $id);
             return $this->responseRepository->ResponseSuccess($customer, 'Customer has been updated successfully');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -174,11 +174,11 @@ class CustomerController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
         try {
             $user = $request->user();
-            $customer = $this->customerRepository->delete($user->id);
+            $customer = $this->customerRepository->delete($id);
             if (is_null($customer)) {
                 return $this->responseRepository->ResponseError(null, 'Customer Not found', Response::HTTP_NOT_FOUND);
             }

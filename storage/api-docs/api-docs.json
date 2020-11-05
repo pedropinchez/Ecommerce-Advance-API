@@ -1630,7 +1630,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "query",
+                        "in": "path",
                         "description": "id, eg; 1",
                         "required": true,
                         "schema": {
@@ -1704,12 +1704,7 @@
                     "404": {
                         "description": "Resource Not Found"
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             },
             "delete": {
                 "tags": [

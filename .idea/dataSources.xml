@@ -7,5 +7,11 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/advance_ecommerce</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="axion_game@localhost" uuid="5a2d6500-0800-43d5-b210-be91e9883353">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/axion_game</jdbc-url>
+    </data-source>
   </component>
 </project>

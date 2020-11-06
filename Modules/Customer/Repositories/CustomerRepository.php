@@ -12,6 +12,16 @@ use Modules\Customer\Entities\Customer;
 class CustomerRepository
 {
 
+    public function all()
+    {
+        $customer = DB::table('customers')
+            ->join('business', 'customers.business_id', '=', 'business.id')
+            ->select('customers.*', 'business.name as  busienssname')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $customer;
+    }
+
 
     public function store(Request $request)
     {
@@ -43,7 +53,7 @@ class CustomerRepository
     {
         $data = $request->all();
         $customer = Customer::find($intCusID);
-        if($customer) {
+        if ($customer) {
             $customer->update($data);
         }
 

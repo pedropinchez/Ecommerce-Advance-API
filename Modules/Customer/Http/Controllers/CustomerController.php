@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use App\Repositories\ResponseRepository;
+use Illuminate\Support\Facades\DB;
 use Modules\Customer\Entities\Customer;
 use Modules\Customer\Repositories\CustomerRepository;
 
@@ -38,8 +39,14 @@ class CustomerController extends Controller
 
     public function index()
     {
-        $customer = Customer::get();
-        return $customer;
+
+
+        try {
+            $customer = $this->customerRepository->all();
+            return $this->responseRepository->ResponseSuccess($customer, 'Customer List');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null,  $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -115,8 +122,7 @@ class CustomerController extends Controller
      *     tags={"Customer"},
      *     summary="Update Customer",
      *     description="Update Customer",
-     *     security={{"bearer": {}}},
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="query", @OA\Schema(type="integer")),
+     *    @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",

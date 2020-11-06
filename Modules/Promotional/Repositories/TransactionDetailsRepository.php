@@ -13,6 +13,7 @@ class TransactionDetailsRepository
     {
         $transaction = Transaction::create($data);
         if($transaction) {
+            TransactionDetail::create($data);
             $data['transaction_id'] = $transaction->id;
             GiftCardTransaction::create($data);
         }
@@ -23,6 +24,7 @@ class TransactionDetailsRepository
     {
         $transaction = Transaction::create($data);
         if($transaction) {
+            TransactionDetail::create($data);
             $data['transaction_id'] = $transaction->id;
             VoucherTransaction::create($data);
         }

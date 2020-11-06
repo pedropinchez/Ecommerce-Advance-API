@@ -2,6 +2,7 @@
 
 namespace Modules\Business\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Business\Entities\BusinessLocation;
 use Modules\Business\interfaces\BusinessLocationInterface;
 
@@ -13,7 +14,13 @@ class BusinessLocationRepository implements BusinessLocationInterface
      */
     public function index()
     {
-        return BusinessLocation::get();
+        // return BusinessLocation::get();
+        $Businesses = DB::table('business_locations')
+            ->join('business', 'business_locations.business_id', '=', 'business.id')
+            ->select('business_locations.*', 'business.name as businessName')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $Businesses;
     }
 
     /**
@@ -46,7 +53,7 @@ class BusinessLocationRepository implements BusinessLocationInterface
     public function update($id, $data)
     {
         $location = BusinessLocation::find($id);
-        if($location) {
+        if ($location) {
             $location->update($data);
         }
 
@@ -61,7 +68,7 @@ class BusinessLocationRepository implements BusinessLocationInterface
     public function destroy($id)
     {
         $location = BusinessLocation::find($id);
-        if($location) {
+        if ($location) {
             $location->delete();
             return true;
         } else {

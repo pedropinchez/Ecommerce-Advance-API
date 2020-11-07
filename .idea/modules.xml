@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Ecommerce-Advance-API.iml" filepath="$PROJECT_DIR$/.idea/Ecommerce-Advance-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../axionwalletapi/.idea/axonapi.iml" filepath="$PROJECT_DIR$/../axionwalletapi/.idea/axonapi.iml" />
     </modules>
   </component>
 </project>

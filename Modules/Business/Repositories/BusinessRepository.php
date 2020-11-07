@@ -119,4 +119,13 @@ class BusinessRepository
         DB::table("business")->where('id', $id)->delete();
         return $user;
     }
+
+    public function getShopList()
+    {
+        return DB::table('business')
+            ->join('currencies', 'business.currency_id', '=', 'currencies.id')
+            ->select('business.*', 'currencies.currency')
+            ->orderBy('id', 'desc')
+            ->paginate(30);
+    }
 }

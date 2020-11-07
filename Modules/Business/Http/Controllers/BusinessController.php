@@ -237,4 +237,26 @@ class BusinessController extends Controller
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *      path="/api/v1/shops",
+     *      tags={"Business"},
+     *      summary="Get Shop List",
+     *      description="Get Shop List",
+     *      operationId="index",
+     *      @OA\Response( response=200, description="Get Shop List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getShopList()
+    {
+        try {
+            $businesses = $this->businessRepository->getShopList();
+            return $this->responseRepository->ResponseSuccess($businesses, 'Shop List');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null,  $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

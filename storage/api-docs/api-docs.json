@@ -590,6 +590,27 @@
                 ]
             }
         },
+        "/api/v1/shops": {
+            "get": {
+                "tags": [
+                    "Business"
+                ],
+                "summary": "Get Shop List",
+                "description": "Get Shop List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Shop List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/locations": {
             "get": {
                 "tags": [
@@ -3261,6 +3282,27 @@
                 "responses": {
                     "200": {
                         "description": "Delete Item Image"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/get-items": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Item List Frontend",
+                "description": "Get Item List Frontend",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Item List Frontend"
                     },
                     "400": {
                         "description": "Bad request"

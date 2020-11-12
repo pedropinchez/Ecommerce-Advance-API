@@ -446,4 +446,26 @@ class ItemController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *      path="/api/v1/get-items",
+     *      tags={"Items"},
+     *      summary="Get Item List Frontend",
+     *      description="Get Item List Frontend",
+     *      operationId="index",
+     *      @OA\Response( response=200, description="Get Item List Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getProductList()
+    {
+        try {
+            $items = $this->itemRepository->getProductList();
+            return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

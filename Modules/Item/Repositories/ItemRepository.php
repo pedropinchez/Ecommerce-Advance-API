@@ -181,4 +181,13 @@ class ItemRepository implements ItemInterfaces
             return false;
         }
     }
+
+    /**
+     * @return mixed
+     * get items
+     */
+    public function getProductList()
+    {
+        return Item::with(['category', 'subCategory', 'brand'])->paginate(40);
+    }
 }

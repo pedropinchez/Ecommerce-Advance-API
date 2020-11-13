@@ -3295,7 +3295,7 @@
         "/api/v1/get-items": {
             "get": {
                 "tags": [
-                    "Items"
+                    "Items - Frontend"
                 ],
                 "summary": "Get Item List Frontend",
                 "description": "Get Item List Frontend",

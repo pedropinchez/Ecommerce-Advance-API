@@ -450,7 +450,7 @@ class ItemController extends Controller
     /**
      * @OA\GET(
      *      path="/api/v1/get-items",
-     *      tags={"Items"},
+     *      tags={"Items - Frontend"},
      *      summary="Get Item List Frontend",
      *      description="Get Item List Frontend",
      *      operationId="index",

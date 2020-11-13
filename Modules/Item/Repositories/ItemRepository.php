@@ -188,6 +188,12 @@ class ItemRepository implements ItemInterfaces
      */
     public function getProductList()
     {
-        return Item::with(['category', 'subCategory', 'brand'])->paginate(40);
+        return Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+            ])
+        // ->withCount('average_rating')
+        ->paginate(40);
     }
 }

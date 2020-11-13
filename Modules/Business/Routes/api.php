@@ -22,4 +22,4 @@ Route::get('tax/business/{business_id}', 'TaxController@getTaxByBusiness');
 Route::apiResource('locations', 'BusinessLocationController');
 Route::get('locations/business/{business_id}', 'BusinessLocationController@findLocationByBusiness');
 
-Route::apiResource('currencies', 'CurrencyController');
+Route::apiResource('currencies', 'CurrenciesController');

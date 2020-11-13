@@ -56,7 +56,7 @@ class ItemRepository implements ItemInterfaces
     public function update($id, $data)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->update($data);
         }
 
@@ -71,7 +71,7 @@ class ItemRepository implements ItemInterfaces
     public function destroy($id)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->delete();
             $item->attributes()->delete();
             return true;
@@ -100,7 +100,7 @@ class ItemRepository implements ItemInterfaces
     public function updateItemAttribute($id, $data)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->attributes()->delete();
             ItemAttribute::insert($data);
         }

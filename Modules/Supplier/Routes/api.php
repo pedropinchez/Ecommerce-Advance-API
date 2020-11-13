@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::apiResource('supplier', 'SupplierController');
+Route::get('suppliers/business/{id}', 'SupplierController@getSupplierByBusiness');

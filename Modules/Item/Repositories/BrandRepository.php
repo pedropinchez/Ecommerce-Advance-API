@@ -35,7 +35,7 @@ class BrandRepository implements BrandInterface
      */
     public function show($id)
     {
-        return Brand::find($id);
+        return Brand::with(['business'])->find($id);
     }
 
     /**
@@ -74,6 +74,6 @@ class BrandRepository implements BrandInterface
      */
     public function getBrandByBusiness($businessId)
     {
-        return Brand::where('business_id', $businessId)->get();
+        return Brand::with(['business'])->where('business_id', $businessId)->get();
     }
 }

@@ -21,7 +21,6 @@ class CreateGiftCardsTable extends Migration
             $table->float('price_value_for')->default(0)->comment('What Price value it will take from customer');
             $table->float('change_price_value')->default(0)->comment('What Price will return customer as card value');
 
-            $table->enum('card_type', ['gift_card', 'vouchar'])->default('gift_card')->index();
             $table->boolean('status')->default(1)->comment('1=>active, 0=>inactive');
             $table->softDeletes('deleted_at', 0);
 

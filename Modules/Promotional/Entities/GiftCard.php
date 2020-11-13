@@ -20,4 +20,9 @@ class GiftCard extends Model
         'updated_by',
         'deleted_by'
     ];
+
+    public function transactions()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 }

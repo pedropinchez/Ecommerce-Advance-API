@@ -10,7 +10,9 @@ class Brand extends Model
         'business_id',
         'name',
         'description',
-        'created_by'
+        'created_by',
+        'banner',
+        'image'
     ];
 
     /**

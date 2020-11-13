@@ -55,7 +55,9 @@ class CategoryController extends Controller
      *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *              @OA\Property(property="created_by", type="int", example="1"),
+     *              @OA\Property(property="banner", type="string", format="binary"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *      @OA\Response( response=200, description="Create New Category" ),
@@ -67,6 +69,21 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $category = $this->categoryRepository->store($data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');
         } catch (\Exception $exception) {
@@ -111,7 +128,9 @@ class CategoryController extends Controller
      *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
      *              @OA\Property(property="parent_id", type="int", example="1"),
-     *              @OA\Property(property="created_by", type="int", example="1")
+     *              @OA\Property(property="created_by", type="int", example="1"),
+     *              @OA\Property(property="banner", type="string", format="binary"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *      @OA\Response( response=200, description="Update Category" ),
@@ -123,6 +142,21 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $category = $this->categoryRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Updated Successfully');
         } catch (\Exception $exception) {
@@ -172,6 +206,30 @@ class CategoryController extends Controller
         try {
             $category = $this->categoryRepository->getCategoryByBusiness($businessId);
             return $this->responseRepository->ResponseSuccess($category, 'Category By Business ID');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/get-category-products/{no}",
+     *     tags={"Frontend Items"},
+     *     summary="getCategoryByProductForHomePage",
+     *     description="getCategoryByProductForHomePage",
+     *     security={{"bearer": {}}},
+     *     operationId="getCategoryByProductForHomePage",
+     *      @OA\Parameter( name="no", description="no, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Response( response=200, description="getCategoryByProductForHomePage"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getCategoryByProductForHomePage($no)
+    {
+        try {
+            $category = $this->categoryRepository->getCategoryByProductForHomePage($no);
+            return $this->responseRepository->ResponseSuccess($category, 'Category By Product For Home Page');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

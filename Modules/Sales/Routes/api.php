@@ -12,3 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::apiResource('discount-types', 'DiscountController');
+Route::get('discount-types/business/{business_id}', 'DiscountController@getDiscountByBusiness');
+Route::apiResource('sales', 'SalesController');
+Route::get('sales/business/{business_id}', 'SalesController@getSaleByBusiness');

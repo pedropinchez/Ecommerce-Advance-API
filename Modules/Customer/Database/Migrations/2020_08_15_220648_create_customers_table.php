@@ -31,6 +31,8 @@ class CreateCustomersTable extends Migration
             $table->enum('pay_term_type', ['days', 'months'])->nullable();
             $table->unsignedBigInteger('created_by');
             $table->boolean('is_default')->default(0);
+            $table->string('profile')->nullable();
+            $table->string('banner')->nullable();
             $table->softDeletes();
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();

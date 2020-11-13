@@ -15,7 +15,7 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = "users";
-    protected $connection = 'DB_iApps';
+//    protected $connection = 'DB_iApps';
     protected $primaryKey = 'id';
     protected $fillable = [
         'first_name',
@@ -25,7 +25,9 @@ class User extends Authenticatable
         'email',
         'phone_no',
         'password',
-        'language'
+        'language',
+        'avatar',
+        'banner'
     ];
 
 

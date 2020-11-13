@@ -36,3 +36,11 @@ Route::get('items/category/{category_id}', 'ItemController@getItemByCategory');
 Route::get('items/subcategory/{sub_category_id}', 'ItemController@getItemBySubCategory');
 Route::get('items/brand/{brand_id}', 'ItemController@getItemByBrand');
 Route::put('items/attribute/{item_id}', 'ItemController@updateItemAttribute');
+Route::post('items/{item_id}/upload', 'ItemController@uploadFile');
+Route::delete('items/image/{image_id}/delete', 'ItemController@destroyImage');
+
+/**
+ * Frontend Routes
+ */
+Route::get('get-items', 'ItemController@getProductList');
+Route::get('get-category-products/{no}', 'CategoryController@getCategoryByProductForHomePage');

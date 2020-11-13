@@ -2,6 +2,7 @@
 
 namespace Modules\Business\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Business\Entities\TaxRate;
 use Modules\Business\interfaces\TaxInterface;
 
@@ -13,7 +14,13 @@ class TaxRepository implements TaxInterface
      */
     public function index()
     {
-        return TaxRate::get();
+        // return TaxRate::get();
+        $tax_rate = DB::table('tax_rates')
+            ->join('business', 'tax_rates.id', '=', 'business.id')
+            ->select('tax_rates.*', 'business.name as businessname')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $tax_rate;
     }
 
     /**
@@ -23,7 +30,7 @@ class TaxRepository implements TaxInterface
      */
     public function show($id)
     {
-        return TaxRate::find($id);
+        return TaxRate::with(['business'])->find($id);
     }
 
     /**
@@ -46,7 +53,7 @@ class TaxRepository implements TaxInterface
     public function update($id, $data)
     {
         $tax = TaxRate::find($id);
-        if($tax) {
+        if ($tax) {
             $tax->update($data);
         }
 
@@ -61,10 +68,11 @@ class TaxRepository implements TaxInterface
     public function destroy($id)
     {
         $tax = TaxRate::find($id);
-        if($tax) {
+        if ($tax) {
             $tax->delete();
             return true;
-        } else {}
+        } else {
+        }
         return false;
     }
 
@@ -75,6 +83,6 @@ class TaxRepository implements TaxInterface
      */
     public function getTaxByBusiness($businessId)
     {
-        return TaxRate::where('business_id', $businessId)->get();
+        return TaxRate::with(['business'])->where('business_id', $businessId)->get();
     }
 }

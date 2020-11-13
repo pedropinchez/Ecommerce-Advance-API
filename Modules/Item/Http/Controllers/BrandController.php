@@ -53,7 +53,9 @@ class BrandController extends Controller
      *              @OA\Property(property="name", type="string"),
      *              @OA\Property(property="business_id", type="int", example=1),
      *              @OA\Property(property="description", type="string", example="A reputaed brand"),
-     *              @OA\Property(property="created_by", type="int", example=1)
+     *              @OA\Property(property="created_by", type="int", example=1),
+     *              @OA\Property(property="banner", type="string", format="binary"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *     @OA\Response( response=200, description="Create New Brand" ),
@@ -67,6 +69,21 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $brand = $this->brandRepository->store($data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Created Successfully');
         } catch (\Exception $exception) {
@@ -110,7 +127,9 @@ class BrandController extends Controller
      *              @OA\Property(property="name", type="string"),
      *              @OA\Property(property="business_id", type="int", example=1),
      *              @OA\Property(property="description", type="string", example="A reputaed brand"),
-     *              @OA\Property(property="created_by", type="int", example=1)
+     *              @OA\Property(property="created_by", type="int", example=1),
+     *              @OA\Property(property="banner", type="string", format="binary"),
+     *              @OA\Property(property="image", type="string", format="binary")
      *          ),
      *      ),
      *      @OA\Response( response=200, description="Update Brand" ),
@@ -125,6 +144,21 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
+            if ($request->hasFile('banner')){
+                $file = $request->file('banner');;
+                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['banner'] = public_path().'/'.$fileName;
+            }
+
+            if ($request->hasFile('image')){
+                $file = $request->file('image');;
+                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $originalImage = Image::make($file);
+                $originalImage->save($fileName);
+                $data['image'] = public_path().'/'.$fileName;
+            }
             $brand = $this->brandRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Updated Successfully');
         } catch (\Exception $exception) {

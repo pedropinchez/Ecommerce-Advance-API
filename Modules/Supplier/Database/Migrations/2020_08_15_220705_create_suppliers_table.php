@@ -20,6 +20,8 @@ class CreateSuppliersTable extends Migration
             $table->string('supplier_business_name')->nullable();
             $table->string('bin')->nullable()->comment('BIN = Business Identification Number');
             $table->string('name');
+            $table->string('profile')->nullable();
+            $table->string('banner')->nullable();
             $table->string('tax_number')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
@@ -32,6 +34,7 @@ class CreateSuppliersTable extends Migration
             $table->enum('pay_term_type', ['days', 'months'])->nullable();
             $table->unsignedBigInteger('created_by');
             $table->boolean('is_default')->default(0);
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();

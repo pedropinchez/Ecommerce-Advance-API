@@ -28,6 +28,8 @@ class Customer extends Model
         'pay_term_number',
         'pay_term_type',
         'created_by',
-        'is_default'
+        'is_default',
+        'banner',
+        'image'
     ];
 }

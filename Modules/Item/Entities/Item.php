@@ -31,8 +31,13 @@ class Item extends Model
         'sku',
         'barcode_type',
         'sku_manual',
-        'created_by'
+        'created_by',
+        'featured_image',
+        'short_resolation_image'
     ];
+
+    protected $with = ['images'];
+    protected $appends = ['average_rating'];
 
     /**
      * @return BelongsTo
@@ -104,5 +109,24 @@ class Item extends Model
     public function attributes()
     {
         return $this->hasMany(ItemAttribute::class);
+    }
+
+
+    public function ratings()
+    {
+        return $this->hasMany(ItemRating::class);
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        $rating = $this->ratings()->average('rating_value');
+
+        if(is_null($rating)) return 0;
+        return $rating;
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class);
     }
 }

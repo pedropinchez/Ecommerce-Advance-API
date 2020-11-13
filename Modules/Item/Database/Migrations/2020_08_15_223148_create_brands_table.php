@@ -18,6 +18,8 @@ class CreateBrandsTable extends Migration
             $table->unsignedBigInteger('business_id');
             $table->foreign('business_id')->references('id')->on('business');
             $table->string('name');
+            $table->string('image')->nullable();
+            $table->string('banner')->nullable();
             $table->text('description')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');

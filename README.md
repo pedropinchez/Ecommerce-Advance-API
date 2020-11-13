@@ -145,7 +145,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Tax Rate
     -   [x] Details Tax Rate
     -   [x] Delete Tax Rate
-    -   [ ] Data Import / Seeder For Currencies Table
+    -   [x] Data Import / Seeder For Currencies Table
 
 -   [ ] **Tax Rate** @Mahmud Hasan Shakkhor
 
@@ -161,7 +161,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Business Account
     -   [x] Details Business Account
     -   [x] Delete Business Account
-    -   [ ] Seeder For Business
+    -   [x] Seeder For Business
 
 -   [x] **Business Location (Multiple Store of a Business)** - BusinessLocation Model --> Business Module @Mahmud Hasan Shakkhor
     -   [x] Create Business Location
@@ -178,7 +178,7 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [ ] Edit Role with Permission
     -   [ ] Details Role with Permission
     -   [ ] Delete Role
-    -   [ ] Seeder Role
+    -   [ ] Seeder For Basic Rules
 
 -   [ ] **User Management**
     -   [ ] Create User
@@ -195,15 +195,15 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Customer
     -   [x] Details Customer
     -   [x] Delete Customer
-    -   [x] Seeder For Customers
+    -   [ ] Seeder For Customers
 
 #### Supplier
 
--   [ ] **Supplier**
-    -   [ ] Create Supplier
-    -   [ ] Edit Supplier
-    -   [ ] Details Supplier
-    -   [ ] Delete Supplier
+-   [ ] **Supplier** @Mahmud Hasan Shakkhor
+    -   [x] Create Supplier
+    -   [x] Edit Supplier
+    -   [x] Details Supplier
+    -   [x] Delete Supplier
     -   [ ] Seeder For Suppliers
 
 #### Item
@@ -238,6 +238,8 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Edit Item
     -   [x] Details Item
     -   [x] Delete Item
+    -   [x] Upload Item Image
+    -   [x] Delete Item Image
     -   [ ] Seeder For Items
 
 -   [ ] **Item Attribute** @Mahmud Hasan Shakkhor
@@ -247,23 +249,23 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
     -   [x] Delete Item Attribute with Value
     -   [ ] Seeder For Items Attribute with Value
 
-#### Sales
+#### Sales (Urgent)
 
--   [ ] **Discount Type**
+-   [ ] **Discount Type** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create Discount Type
-    -   [ ] Edit Discount Type
-    -   [ ] Details Discount Type
-    -   [ ] Delete Discount Type
+    -   [x] Create Discount Type
+    -   [x] Edit Discount Type
+    -   [x] Details Discount Type
+    -   [x] Delete Discount Type
     -   [ ] Seeder For Discount Type
 
-*   [ ] **Sales**
+*   [ ] **Sales** @Mahmud Hasan Shakkhor
 
-    -   [ ] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
+    -   [x] Create New Sales Order --> transactions and transaction_sell_lines table -> Sales Module
     -   [ ] Edit Sales Order
-    -   [ ] Details Sales Order
-    -   [ ] Delete Sales Order
-    -   [ ] Seeder For Sales Orders
+    -   [x] Details Sales Order
+    -   [x] Delete Sales Order
+    -   [ ] Seeder For Fake Sales Orders
 
 #### Business Extra
 
@@ -285,25 +287,25 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 ## **New in 7 September 2020**
 
--   [ ] **Gift Card** (in Promotional module)
+-   [ ] **Gift Card** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Gift Card CRUD Operation
-    -   [ ] Gift Card Purchase By Customer
-    -   [ ] Gift Card Transactions
+    -   [x] Gift Card CRUD Operation
+    -   [x] Gift Card Purchase By Customer
+    -   [x] Gift Card Transactions
 
--   [ ] **Vourchar** (in Promotional module)
+-   [x] **Vouchar** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Vourchar CRUD Operation
-    -   [ ] Vourchar Purchase By Customer
-    -   [ ] Vourchar Transactions
+    -   [x] Voucher CRUD Operation
+    -   [x] Voucher Purchase By Customer
+    -   [ ] Voucher Transactions **New table added voucher_transactions, Please check**
 
--   [ ] **Poll / Voting System** (in Promotional module)
+-   [x] **Poll / Voting System** (in Promotional module) @Mahmud Hasan Shakkhor
 
-    -   [ ] Poll System CRUD, multiple poll option, poll can be on items or normal values
-    -   [ ] Poll Response by customers -
-        -   [ ] Store Response,
-        -   [ ] View Response List,
-        -   [ ] View Response Details By Poll
+    -   [x] Poll System CRUD, multiple poll option, poll can be on items or normal values
+    -   [x] Poll Response by customers -
+        -   [x] Store Response,
+        -   [x] View Response List,
+        -   [x] View Response Details By Poll
 
 -   [ ] **Transaction API** (for all types of transaction, `Copy the Sales Transaction Api`)
     -   [ ] Create Transaction [with title and type and all other data for any type of transaction]
@@ -312,12 +314,3 @@ Open browser the URL: http://127.0.0.1:8000/api/documentation
 
 -   [ ] Product wise Delivery system disable/enable ->> Like, In pen, there will be no cash in delivery, business has also that column in business table for globally by default
 -   [ ] For Any User's Purchase, check he/she's referrel user, then add `1%` of any purchase to referres account
--   [ ] in transactions table
-    1. Added one column - title
-    2. more enum values has been added for `type` column -
-    ```
-    'purchase', 'sell', 'opening_stock', 'purchase_return', 'sell_return',
-    'cashback', 'cashback_transfer_wallet', 'voucher', 'voucher_transfer_wallet',
-    'gift_card', 'gift_card_transfer_wallet', 'referrel', 'referrel_transfer_wallet'
-    ```
--   [ ]

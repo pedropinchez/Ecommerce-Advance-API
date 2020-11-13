@@ -4,6 +4,7 @@ namespace Modules\Auth\Repositories;
 
 use App\Helpers\StringHelper;
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class AuthRepository implements AuthInterface
      * check if user is authenticated
      *
      * @param Request $request
-     * @return boolean 
+     * @return boolean
      */
     public function checkIfAuthenticated(Request $request)
     {
@@ -36,6 +37,7 @@ class AuthRepository implements AuthInterface
      *
      * @param Request $request
      * @return object $user
+     * @throws Exception
      */
     public function registerUser(Request $request)
     {
@@ -96,29 +98,22 @@ class AuthRepository implements AuthInterface
     /**
      * update User Profile
      *
-     * @param Request $request
+     * @param $data
      * @param integer $id
-     * @return object $user
+     * @return void $user
      */
-    public function updateUserProfile(Request $request, $id)
+    public function updateUserProfile($data, $id)
     {
-        $user = $this->findUserById($id);
-        DB::table("users")
-            ->where('id', $id)
-            ->update(
-                [
-                    'first_name'  => $request->first_name,
-                    'surname'  => $request->surname,
-                    'last_name'  => $request->last_name,
-                    'username'  => $request->username,
-                    'email'  => $request->email,
-                    'phone_no'  => $request->phone_no,
-                    'password'  => $request->password ? Hash::make($request->password) : $user->password,
-                    'language' => $request->language ? $request->language :  'en'
-                ]
-            );
+        if(isset($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        }
 
-        return $this->findUserById($id);
+        $user = User::find($id);
+        if($user) {
+            $user->update($data);
+        }
+
+        return $user;
     }
 
     /**

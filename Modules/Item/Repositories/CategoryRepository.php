@@ -75,4 +75,31 @@ class CategoryRepository implements CategoryInterface
     {
         return Category::with(['childs', 'business'])->where('business_id', $businessId)->get();
     }
+
+    /**
+     * @return mixed
+     * get all the categories with business
+     */
+    public function getCategoryByProductForHomePage($categoryNo)
+    {
+        $data = [
+            'category' => null,
+            'products' => [],
+        ];
+
+        $categories = Category::where('is_visible_homepage', 1)->get();
+        for ($i=1; $i <= count($categories); $i++) { 
+            if($i == $categoryNo){
+                $category = $categories[$i-1];
+                $itemRepo = new ItemRepository();
+                $products = $itemRepo->getProductListByCategory($category->id);
+                $data = [
+                    'category' => $category,
+                    'products' => $products,
+                ];
+                return $data;
+            }
+        }
+        return $data;
+    }
 }

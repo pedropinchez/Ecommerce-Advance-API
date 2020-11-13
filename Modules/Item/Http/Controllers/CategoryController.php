@@ -210,4 +210,28 @@ class CategoryController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/get-category-products/{no}",
+     *     tags={"Frontend Items"},
+     *     summary="getCategoryByProductForHomePage",
+     *     description="getCategoryByProductForHomePage",
+     *     security={{"bearer": {}}},
+     *     operationId="getCategoryByProductForHomePage",
+     *      @OA\Parameter( name="no", description="no, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Response( response=200, description="getCategoryByProductForHomePage"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getCategoryByProductForHomePage($no)
+    {
+        try {
+            $category = $this->categoryRepository->getCategoryByProductForHomePage($no);
+            return $this->responseRepository->ResponseSuccess($category, 'Category By Product For Home Page');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

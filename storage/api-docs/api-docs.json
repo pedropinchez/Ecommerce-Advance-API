@@ -2757,6 +2757,43 @@
                 ]
             }
         },
+        "/api/v1/get-category-products/{no}": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "getCategoryByProductForHomePage",
+                "description": "getCategoryByProductForHomePage",
+                "operationId": "getCategoryByProductForHomePage",
+                "parameters": [
+                    {
+                        "name": "no",
+                        "in": "path",
+                        "description": "no, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "getCategoryByProductForHomePage"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/items": {
             "get": {
                 "tags": [
@@ -3295,7 +3332,7 @@
         "/api/v1/get-items": {
             "get": {
                 "tags": [
-                    "Items - Frontend"
+                    "Frontend Items"
                 ],
                 "summary": "Get Item List Frontend",
                 "description": "Get Item List Frontend",

@@ -193,7 +193,22 @@ class ItemRepository implements ItemInterfaces
             'subCategory', 
             'brand',
             ])
-        // ->withCount('average_rating')
+        ->paginate(40);
+    }
+
+    /**
+     * @return mixed
+     * get items
+     */
+    public function getProductListByCategory($category_id)
+    {
+        return Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+            ])
+            ->where('category_id', $category_id)
+            ->orWhere('sub_category_id', $category_id)
         ->paginate(40);
     }
 }

@@ -207,8 +207,25 @@ class ItemRepository implements ItemInterfaces
             'subCategory', 
             'brand',
             ])
-            ->where('category_id', $category_id)
-            ->orWhere('sub_category_id', $category_id)
-        ->paginate(40);
+        ->where('category_id', $category_id)
+        ->orderBy('id', 'desc')
+        ->limit(15)
+        ->get();
+    }
+
+    public function getFlashSaleItems($sortBy)
+    {
+        $query = Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+        ])
+        ->where('is_offer_enable', true)
+        ->where('offer_selling_price', '!=', null)
+        ->orderBy('id', $sortBy)
+        ->limit(4);
+
+        $items = $query->get();
+        return $items;
     }
 }

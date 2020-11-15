@@ -3350,6 +3350,39 @@
                 }
             }
         },
+        "/api/v1/get-flash-sale-items/{sortBy}": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "Get Item List Flash Sale Frontend",
+                "description": "Get Item List Flash Sale Frontend",
+                "operationId": "getFlashSaleItems",
+                "parameters": [
+                    {
+                        "name": "sortBy",
+                        "in": "path",
+                        "description": "sortBy, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "asc"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List Flash Sale Frontend"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/units": {
             "get": {
                 "tags": [

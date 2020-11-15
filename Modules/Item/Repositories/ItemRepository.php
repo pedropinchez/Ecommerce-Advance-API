@@ -45,7 +45,7 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         $item = Item::create($data);
-        if(isset($data['image_data']) && $item) {
+        if (isset($data['image_data']) && $item) {
             foreach ($data['image_data'] as $imageRow) {
                 ItemImage::create([
                     'item_id' => $item->id,
@@ -70,7 +70,7 @@ class ItemRepository implements ItemInterfaces
         $item = Item::find($id);
         if ($item) {
             $item->update($data);
-            if(isset($data['image_data'])) {
+            if (isset($data['image_data'])) {
                 foreach ($data['image_data'] as $image) {
                     ItemImage::create([
                         'item_id' => $item->id,
@@ -164,7 +164,7 @@ class ItemRepository implements ItemInterfaces
     public function uploadImage($data)
     {
         $itemFile = ItemImage::create($data);
-        if($itemFile) {
+        if ($itemFile) {
             return true;
         } else {
             return false;
@@ -174,7 +174,7 @@ class ItemRepository implements ItemInterfaces
     public function destroyImage($id)
     {
         $itemFile = ItemImage::find($id);
-        if($itemFile) {
+        if ($itemFile) {
             $itemFile->delete();
             return true;
         } else {
@@ -189,11 +189,11 @@ class ItemRepository implements ItemInterfaces
     public function getProductList()
     {
         return Item::with([
-            'category', 
-            'subCategory', 
+            'category',
+            'subCategory',
             'brand',
-            ])
-        ->paginate(40);
+        ])
+            ->paginate(40);
     }
 
     /**
@@ -203,12 +203,12 @@ class ItemRepository implements ItemInterfaces
     public function getProductListByCategory($category_id)
     {
         return Item::with([
-            'category', 
-            'subCategory', 
+            'category',
+            'subCategory',
             'brand',
-            ])
+        ])
             ->where('category_id', $category_id)
             ->orWhere('sub_category_id', $category_id)
-        ->paginate(40);
+            ->paginate(40);
     }
 }

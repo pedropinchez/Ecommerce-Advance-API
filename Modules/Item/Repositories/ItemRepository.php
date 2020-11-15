@@ -68,7 +68,7 @@ class ItemRepository implements ItemInterfaces
     public function update($id, $data)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->update($data);
             if(isset($data['image_data'])) {
                 foreach ($data['image_data'] as $image) {
@@ -91,7 +91,7 @@ class ItemRepository implements ItemInterfaces
     public function destroy($id)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->delete();
             $item->attributes()->delete();
             return true;
@@ -120,7 +120,7 @@ class ItemRepository implements ItemInterfaces
     public function updateItemAttribute($id, $data)
     {
         $item = Item::find($id);
-        if($item) {
+        if ($item) {
             $item->attributes()->delete();
             ItemAttribute::insert($data);
         }
@@ -188,6 +188,44 @@ class ItemRepository implements ItemInterfaces
      */
     public function getProductList()
     {
-        return Item::with(['category', 'subCategory', 'brand'])->paginate(40);
+        return Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+            ])
+        ->paginate(40);
+    }
+
+    /**
+     * @return mixed
+     * get items
+     */
+    public function getProductListByCategory($category_id)
+    {
+        return Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+            ])
+        ->where('category_id', $category_id)
+        ->orderBy('id', 'desc')
+        ->limit(15)
+        ->get();
+    }
+
+    public function getFlashSaleItems($sortBy)
+    {
+        $query = Item::with([
+            'category', 
+            'subCategory', 
+            'brand',
+        ])
+        ->where('is_offer_enable', true)
+        ->where('offer_selling_price', '!=', null)
+        ->orderBy('id', $sortBy)
+        ->limit(4);
+
+        $items = $query->get();
+        return $items;
     }
 }

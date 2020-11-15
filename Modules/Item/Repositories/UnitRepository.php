@@ -2,6 +2,7 @@
 
 namespace Modules\Item\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Item\Entities\Unit;
 use Modules\Item\Interfaces\UnitInterface;
 
@@ -13,7 +14,14 @@ class UnitRepository implements UnitInterface
      */
     public function index()
     {
-        return Unit::get();
+        // return Unit::get();
+
+        $units = DB::table('units')
+            ->join('business', 'units.business_id', '=', 'business.id')
+            ->select('units.*', 'business.name as  busienssname')
+            ->orderBy('id', 'desc')
+            ->get();
+        return $units;
     }
 
     /**

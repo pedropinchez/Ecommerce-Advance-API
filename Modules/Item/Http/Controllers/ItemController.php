@@ -450,7 +450,7 @@ class ItemController extends Controller
     /**
      * @OA\GET(
      *      path="/api/v1/get-items",
-     *      tags={"Items"},
+     *      tags={"Frontend Items"},
      *      summary="Get Item List Frontend",
      *      description="Get Item List Frontend",
      *      operationId="index",
@@ -464,6 +464,29 @@ class ItemController extends Controller
         try {
             $items = $this->itemRepository->getProductList();
             return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *      path="/api/v1/get-flash-sale-items/{sortBy}",
+     *      tags={"Frontend Items"},
+     *      summary="Get Item List Flash Sale Frontend",
+     *      description="Get Item List Flash Sale Frontend",
+     *      operationId="getFlashSaleItems",
+     *      @OA\Parameter( name="sortBy", description="sortBy, eg; 1", example="asc", required=true, in="path", @OA\Schema(type="string")),
+     *      @OA\Response( response=200, description="Get Item List Flash Sale Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getFlashSaleItems(Request $request)
+    {
+        try {
+            $items = $this->itemRepository->getFlashSaleItems($request->sortBy);
+            return $this->responseRepository->ResponseSuccess($items, 'Flash Sales Item Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

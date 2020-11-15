@@ -16,6 +16,7 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index();
+            $table->text('description')->nullable();
             
             $table->string('featured_image')->nullable();
             $table->string('short_resolation_image')->nullable();
@@ -33,6 +34,12 @@ class CreateItemsTable extends Migration
             $table->string('sku')->index();
             $table->enum('barcode_type', ['C39', 'C128', 'EAN-13', 'EAN-8', 'UPC-A', 'UPC-E', 'ITF-14']);
             $table->string('sku_manual')->nullable()->index();
+
+            $table->unsignedBigInteger('current_stock')->default(0);
+            $table->float('default_selling_price')->default(0);
+            $table->float('offer_selling_price')->default(0)->nullable();
+            $table->boolean('is_offer_enable')->default(false);
+
             $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();

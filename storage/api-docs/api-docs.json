@@ -590,6 +590,27 @@
                 ]
             }
         },
+        "/api/v1/shops": {
+            "get": {
+                "tags": [
+                    "Business"
+                ],
+                "summary": "Get Shop List",
+                "description": "Get Shop List",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Shop List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/locations": {
             "get": {
                 "tags": [
@@ -2736,6 +2757,43 @@
                 ]
             }
         },
+        "/api/v1/get-category-products/{no}": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "getCategoryByProductForHomePage",
+                "description": "getCategoryByProductForHomePage",
+                "operationId": "getCategoryByProductForHomePage",
+                "parameters": [
+                    {
+                        "name": "no",
+                        "in": "path",
+                        "description": "no, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "getCategoryByProductForHomePage"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/items": {
             "get": {
                 "tags": [
@@ -3261,6 +3319,60 @@
                 "responses": {
                     "200": {
                         "description": "Delete Item Image"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/get-items": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "Get Item List Frontend",
+                "description": "Get Item List Frontend",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Item List Frontend"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/get-flash-sale-items/{sortBy}": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "Get Item List Flash Sale Frontend",
+                "description": "Get Item List Flash Sale Frontend",
+                "operationId": "getFlashSaleItems",
+                "parameters": [
+                    {
+                        "name": "sortBy",
+                        "in": "path",
+                        "description": "sortBy, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "asc"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item List Flash Sale Frontend"
                     },
                     "400": {
                         "description": "Bad request"

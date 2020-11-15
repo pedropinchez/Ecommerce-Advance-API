@@ -37,6 +37,7 @@ class Item extends Model
     ];
 
     protected $with = ['images'];
+    protected $appends = ['average_rating'];
 
     /**
      * @return BelongsTo
@@ -108,6 +109,20 @@ class Item extends Model
     public function attributes()
     {
         return $this->hasMany(ItemAttribute::class);
+    }
+
+
+    public function ratings()
+    {
+        return $this->hasMany(ItemRating::class);
+    }
+
+    public function getAverageRatingAttribute()
+    {
+        $rating = $this->ratings()->average('rating_value');
+
+        if(is_null($rating)) return 0;
+        return $rating;
     }
 
     public function images()

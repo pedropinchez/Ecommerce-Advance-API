@@ -2,6 +2,7 @@
 
 namespace Modules\Item\Http\Controllers;
 
+use App\Helpers\ImageUploadHelper;
 use Illuminate\Contracts\Support\Renderable;
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
@@ -84,39 +85,47 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
+        // return $request->images;
         try {
             $data = $request->all();
 
             $imageData = [];
-            $files = $request->file('images');
-            foreach ($files as $file) {
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $tempImage['image'] = public_path().'/'.$fileName;
-                $tempImage['image_title'] = $file->getClientOriginalName();
-                $tempImage['image_size'] = $originalImage->filesize();
-                $imageData[] = $tempImage;
+            $i = 1;
+            // $files = $request->file('images');
+            foreach ($request->images as $images) {
+                return $images;
+                // $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+                // $originalImage = Image::make($file);
+                // $originalImage->save($fileName);
+                // $tempImage['image'] = public_path() . '/' . $fileName;
+                // $tempImage['image_title'] = $file->getClientOriginalName();
+                // $tempImage['image_size'] = $originalImage->filesize();
+                // $imageData[] = $tempImage;
+                $image_names = ImageUploadHelper::upload('images', $images, $i . '-' . 'image-' . time(), 'public/images/products');
+                $imageData[] = $image_names;
+                $i++;
             }
 
-            if($imageData) {
+            if ($imageData) {
+                return $imageData;
                 $data['image_data'] = $imageData;
             }
 
-            if($request->hasFile('featured_image'))  {
+
+            if ($request->hasFile('featured_image')) {
                 $file = $request->file('featured_image');;
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['featured_image'] = public_path().'/'.$fileName;
+                $data['featured_image'] = public_path() . '/' . $fileName;
             }
 
-            if($request->hasFile('short_resolation_image'))  {
+            if ($request->hasFile('short_resolation_image')) {
                 $file = $request->file('short_resolation_image');;
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['short_resolation_image'] = public_path().'/'.$fileName;
+                $data['short_resolation_image'] = public_path() . '/' . $fileName;
             }
 
             $item = $this->itemRepository->store($data);
@@ -192,33 +201,33 @@ class ItemController extends Controller
             $imageData = [];
             $files = $request->file('images');
             foreach ($files as $file) {
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $tempImage['image'] = public_path().'/'.$fileName;
+                $tempImage['image'] = public_path() . '/' . $fileName;
                 $tempImage['image_title'] = $file->getClientOriginalName();
                 $tempImage['image_size'] = $originalImage->filesize();
                 $imageData[] = $tempImage;
             }
 
-            if($imageData) {
+            if ($imageData) {
                 $data['image_data'] = $imageData;
             }
 
-            if($request->hasFile('featured_image'))  {
+            if ($request->hasFile('featured_image')) {
                 $file = $request->file('featured_image');;
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['featured_image'] = public_path().'/'.$fileName;
+                $data['featured_image'] = public_path() . '/' . $fileName;
             }
 
-            if($request->hasFile('short_resolation_image'))  {
+            if ($request->hasFile('short_resolation_image')) {
                 $file = $request->file('short_resolation_image');;
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['short_resolation_image'] = public_path().'/'.$fileName;
+                $data['short_resolation_image'] = public_path() . '/' . $fileName;
             }
 
             $item = $this->itemRepository->update($id, $data);
@@ -404,10 +413,10 @@ class ItemController extends Controller
             $itemRow = $this->itemRepository->show($id);
             $files = $request->file('image');
             foreach ($files as $file) {
-                $fileName = 'products/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $image = public_path().'/'.$fileName;
+                $image = public_path() . '/' . $fileName;
                 $imageData = array(
                     'item_id' => $id,
                     'business_id' => $itemRow->business_id,

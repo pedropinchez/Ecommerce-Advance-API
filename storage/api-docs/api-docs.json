@@ -3350,6 +3350,39 @@
                 }
             }
         },
+        "/api/v1/get-item-detail/{slug}": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "Get Item Detail Frontend",
+                "description": "Get Item Detail Frontend",
+                "operationId": "getProductDetail",
+                "parameters": [
+                    {
+                        "name": "slug",
+                        "in": "path",
+                        "description": "slug, eg; shirt-check",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "shirt-check"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item Detail Frontend"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/get-flash-sale-items/{sortBy}": {
             "get": {
                 "tags": [

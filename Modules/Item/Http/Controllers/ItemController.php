@@ -478,6 +478,30 @@ class ItemController extends Controller
         }
     }
 
+
+    /**
+     * @OA\GET(
+     *      path="/api/v1/get-item-detail/{slug}",
+     *      tags={"Frontend Items"},
+     *      summary="Get Item Detail Frontend",
+     *      description="Get Item Detail Frontend",
+     *      operationId="getProductDetail",
+     *     @OA\Parameter( name="slug", description="slug, eg; shirt-check", example="shirt-check", required=true, in="path", @OA\Schema(type="string")),
+     *      @OA\Response( response=200, description="Get Item Detail Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getProductDetail($slug)
+    {
+        try {
+            $items = $this->itemRepository->showBySlug($slug);
+            return $this->responseRepository->ResponseSuccess($items, 'Item Deatils Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
     /**
      * @OA\GET(
      *      path="/api/v1/get-flash-sale-items/{sortBy}",

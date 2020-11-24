@@ -37,6 +37,20 @@ class ItemRepository implements ItemInterfaces
         return $item;
     }
 
+
+    /**
+     * @param $slug
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * get a specific item with relation
+     */
+    public function showBySlug($slug)
+    {
+        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
+        ->where('sku', $slug)
+        ->first();
+        return $item;
+    }
+
     /**
      * @param $data
      * @return mixed

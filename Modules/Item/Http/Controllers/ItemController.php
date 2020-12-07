@@ -85,48 +85,61 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-        // return $request->images;
-        try {
-            $data = $request->all();
 
-            $imageData = [];
-            $i = 1;
-            // $files = $request->file('images');
-            foreach ($request->images as $images) {
-                return $images;
-                // $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                // $originalImage = Image::make($file);
+        // return  $request->featured_image;
+
+        try {
+             $data = $request->all();
+
+            // $imageData = [];
+            // $i = 1;
+            //  $files = $request->file('images');
+            //  return  $files;
+
+            // foreach ($request->images as $images) {
+
+            //     $imagesdata = ImageUploadHelper::upload('images', $request->images, 'product-' . time(), 'images/products');
+            //     return $imagesdata;
+
+                // $fileName = 'products/' . time() . '_' . $files->getClientOriginalName();
+                // $originalImage = Image::make($files);
                 // $originalImage->save($fileName);
                 // $tempImage['image'] = public_path() . '/' . $fileName;
-                // $tempImage['image_title'] = $file->getClientOriginalName();
+                // $tempImage['image_title'] = $files->getClientOriginalName();
                 // $tempImage['image_size'] = $originalImage->filesize();
                 // $imageData[] = $tempImage;
-                $image_names = ImageUploadHelper::upload('images', $images, $i . '-' . 'image-' . time(), 'public/images/products');
-                $imageData[] = $image_names;
-                $i++;
-            }
+                // $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
+                // $data['featured_image'] =  $featured_image;
+                // $imageData[] = $image_names;
+                // $i++;
+            // }
 
-            if ($imageData) {
-                return $imageData;
-                $data['image_data'] = $imageData;
-            }
+            // if ($imageData) {
+            //     return $imageData;
+            //     $data['image_data'] = $imageData;
+            // }
 
 
-            if ($request->hasFile('featured_image')) {
-                $file = $request->file('featured_image');;
-                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['featured_image'] = public_path() . '/' . $fileName;
-            }
+            // if ($request->hasFile('featured_image')) {
+            //     $file = $request->file('featured_image');;
+            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+            //     $originalImage = Image::make($file);
+            //     $originalImage->save($fileName);
+            //     $data['featured_image'] = public_path() . '/' . $fileName;
+            // }
 
-            if ($request->hasFile('short_resolation_image')) {
-                $file = $request->file('short_resolation_image');;
-                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['short_resolation_image'] = public_path() . '/' . $fileName;
-            }
+            // if ($request->hasFile('short_resolation_image')) {
+            //     $file = $request->file('short_resolation_image');;
+            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+            //     $originalImage = Image::make($file);
+            //     $originalImage->save($fileName);
+            //     $data['short_resolation_image'] = public_path() . '/' . $fileName;
+            // }
+
+            $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
+            $data['featured_image'] =  $featured_image;
+            $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/short_resolation_image');
+            $data['short_resolation_image'] =  $short_resolation_image;
 
             $item = $this->itemRepository->store($data);
             return $this->responseRepository->ResponseSuccess($item, 'Item Created Successfully');

@@ -16,8 +16,9 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
         "laravel/framework": "^7.24",
-        "laravel/passport": "^9.3",
+        "laravel/passport": "9.3.0",
         "laravel/tinker": "^2.0",
+        "lcobucci/jwt": "^3.3.0",
         "nwidart/laravel-modules": "^7.2",
         "pusher/pusher-php-server": "~4.0",
         "spatie/laravel-permission": "^3.13"

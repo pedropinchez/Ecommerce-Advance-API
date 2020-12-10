@@ -25,6 +25,16 @@ class ItemRepository implements ItemInterfaces
         $items = Item::get();
         return $items;
     }
+    /**
+     * @return mixed
+     * get all the items by pagination
+     */
+    public function indexByPaginate($perPage=20)
+    {
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
+        ->paginate($perPage);
+        return $items;
+    }
 
     /**
      * @param $id

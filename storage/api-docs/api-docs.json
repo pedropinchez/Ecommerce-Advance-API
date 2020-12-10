@@ -2802,6 +2802,17 @@
                 "summary": "Get Item List",
                 "description": "Get Item List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Item List"

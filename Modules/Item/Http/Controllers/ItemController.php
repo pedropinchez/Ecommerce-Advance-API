@@ -33,15 +33,17 @@ class ItemController extends Controller
      *     description="Get Item List",
      *     security={{"bearer": {}}},
      *     operationId="index",
+     *     @OA\Parameter( name="page", description="page, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Item List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->page;
         try {
-            $items = $this->itemRepository->index();
+            $items = $this->itemRepository->indexByPaginate($perPage);
             return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

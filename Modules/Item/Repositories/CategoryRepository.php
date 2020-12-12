@@ -2,6 +2,8 @@
 
 namespace Modules\Item\Repositories;
 
+use App\Helpers\ImageUploadHelper;
+use App\Helpers\StringHelper;
 use Modules\Item\Entities\Category;
 use Modules\Item\Interfaces\CategoryInterface;
 
@@ -23,6 +25,18 @@ class CategoryRepository implements CategoryInterface
      */
     public function store($data)
     {
+        if(is_null($data['short_code']) || $data['short_code'] === ""){
+            $data['short_code'] = substr(StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Category', 'short_code'), 0, 20);
+        }
+        if($data['is_visible_homepage'] === false){
+            $data['is_visible_homepage'] = 0;
+        }else{
+            $data['is_visible_homepage'] = 1;
+        }
+        
+        $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories');
+        $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories');
+        
         $category = Category::create($data);
         return $category;
     }

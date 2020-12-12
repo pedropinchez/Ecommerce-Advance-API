@@ -75,13 +75,6 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
-            $data['banner'] = ImageUploadHelper::upload('banner', $request->banner, 'category-banner-' . time(), 'images/categories');
-            $data['image'] = ImageUploadHelper::upload('image', $request->image, 'category-' . time(), 'images/categories');
-            if($request->is_visible_homepage === false){
-                $data['is_visible_homepage'] = 0;
-            }else{
-                $data['is_visible_homepage'] = 1;
-            }
             $category = $this->categoryRepository->store($data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');
         } catch (\Exception $exception) {

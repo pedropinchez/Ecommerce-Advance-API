@@ -2,12 +2,14 @@
 
 namespace Modules\Item\Http\Controllers;
 
+use App\Helpers\ImageUploadHelper;
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Item\Http\Requests\CategoryRequest;
 use Modules\Item\Repositories\CategoryRepository;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -54,8 +56,12 @@ class CategoryController extends Controller
      *              @OA\Property(property="name", type="string", example="Clothing"),
      *              @OA\Property(property="business_id", type="integer", example=1),
      *              @OA\Property(property="short_code", type="string", example="Clothing"),
-     *              @OA\Property(property="parent_id", type="int", example="1"),
-     *              @OA\Property(property="created_by", type="int", example="1"),
+     *              @OA\Property(property="description", type="string", example="Clothing"),
+     *              @OA\Property(property="short_description", type="string", example="Clothing"),
+     *              @OA\Property(property="parent_id", type="integer", example=1),
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(property="priority", type="integer", example=1),
+     *              @OA\Property(property="is_visible_homepage", type="integer", example=1),
      *              @OA\Property(property="banner", type="string", format="binary"),
      *              @OA\Property(property="image", type="string", format="binary")
      *          ),
@@ -69,20 +75,12 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
-                $file = $request->file('banner');;
-                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
-            }
-
-            if ($request->hasFile('image')){
-                $file = $request->file('image');;
-                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
+            $data['banner'] = ImageUploadHelper::upload('banner', $request->banner, 'category-banner-' . time(), 'images/categories');
+            $data['image'] = ImageUploadHelper::upload('image', $request->image, 'category-' . time(), 'images/categories');
+            if($request->is_visible_homepage === false){
+                $data['is_visible_homepage'] = 0;
+            }else{
+                $data['is_visible_homepage'] = 1;
             }
             $category = $this->categoryRepository->store($data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Created Successfully');

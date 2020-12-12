@@ -2561,12 +2561,12 @@
                                         "example": "Clothing"
                                     },
                                     "parent_id": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "created_by": {
-                                        "type": "int",
-                                        "example": "1"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "banner": {
                                         "type": "string",

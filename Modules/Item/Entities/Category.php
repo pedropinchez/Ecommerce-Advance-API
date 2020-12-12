@@ -11,10 +11,14 @@ class Category extends Model
         'name',
         'business_id',
         'short_code',
+        'short_description',
+        'description',
         'parent_id',
         'created_by',
         'image',
-        'banner'
+        'banner',
+        'priority',
+        'is_visible_homepage'
     ];
 
     /**

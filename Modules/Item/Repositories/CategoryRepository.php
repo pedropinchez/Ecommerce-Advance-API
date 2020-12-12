@@ -13,7 +13,7 @@ class CategoryRepository implements CategoryInterface
      */
     public function index()
     {
-        return Category::get();
+        return Category::orderBy('id', 'desc')->get();
     }
 
     /**

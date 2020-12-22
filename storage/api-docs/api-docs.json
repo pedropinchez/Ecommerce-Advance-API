@@ -2560,11 +2560,27 @@
                                         "type": "string",
                                         "example": "Clothing"
                                     },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Clothing"
+                                    },
+                                    "short_description": {
+                                        "type": "string",
+                                        "example": "Clothing"
+                                    },
                                     "parent_id": {
                                         "type": "integer",
                                         "example": 1
                                     },
                                     "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "priority": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "is_visible_homepage": {
                                         "type": "integer",
                                         "example": 1
                                     },

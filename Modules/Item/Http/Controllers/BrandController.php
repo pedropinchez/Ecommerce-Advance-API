@@ -7,6 +7,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Modules\Item\Http\Requests\BrandRequest;
 use Modules\Item\Repositories\BrandRepository;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class BrandController extends Controller
 {

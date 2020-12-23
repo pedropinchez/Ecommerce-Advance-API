@@ -30,6 +30,11 @@ class Category extends Model
         return $this->hasMany(\Modules\Item\Entities\Category::class, 'parent_id');
     }
 
+    public function parent_category()
+    {
+        return $this->belongsTo(\Modules\Item\Entities\Category::class, 'parent_id', 'id');
+    }
+
     public function business()
     {
         return $this->belongsTo(\Modules\Business\Entities\Business::class);

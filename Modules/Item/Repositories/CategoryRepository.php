@@ -48,7 +48,7 @@ class CategoryRepository implements CategoryInterface
      */
     public function show($id)
     {
-        return Category::with(['childs', 'business'])->find($id);
+        return Category::with(['childs', 'business', 'parent_category'])->find($id);
     }
 
     /**

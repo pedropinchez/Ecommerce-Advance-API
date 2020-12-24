@@ -32,7 +32,9 @@ class ImageUploadHelper
   {
     if(Request::hasFile($image)){
       $filename = $name. '.'.$file->getClientOriginalExtension();
-      File::delete($target_location.'/'.$old_location);
+      if(File::exists($target_location.'/'.$old_location)){
+        File::delete($target_location.'/'.$old_location);
+      }
       $location = ($target_location.'/'.$filename);
       Image::make($file)->save($location);
       return $filename;

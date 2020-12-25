@@ -20,6 +20,7 @@ class Category extends Model
         'priority',
         'is_visible_homepage'
     ];
+    protected $appends = ['image_url', 'banner_url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -39,4 +40,15 @@ class Category extends Model
     {
         return $this->belongsTo(\Modules\Business\Entities\Business::class);
     }
+
+    public function getImageUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/').'/images/categories/'.$this->image;
+    }
+
+    public function getBannerUrlAttribute()
+    {
+        return is_null($this->banner) ? null : url('/').'/images/categories/'.$this->banner;
+    }
+
 }

@@ -133,21 +133,6 @@ class CategoryController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
-                $file = $request->file('banner');;
-                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
-            }
-
-            if ($request->hasFile('image')){
-                $file = $request->file('image');;
-                $fileName = 'categories/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
-            }
             $category = $this->categoryRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($category, 'Category Updated Successfully');
         } catch (\Exception $exception) {

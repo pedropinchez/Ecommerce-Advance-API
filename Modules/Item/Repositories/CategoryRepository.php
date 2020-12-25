@@ -63,23 +63,9 @@ class CategoryRepository implements CategoryInterface
         if(is_null($data['short_code']) || $data['short_code'] === ""){
             $data['short_code'] = substr(StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Category', 'short_code'), 0, 20);
         }
-        if($data['is_visible_homepage'] === false){
-            $data['is_visible_homepage'] = 0;
-        }else{
-            $data['is_visible_homepage'] = 1;
-        }
-        
-        if(!is_null($data['banner'])){
-            $data['banner'] = ImageUploadHelper::update('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories', $category->banner_image);
-        }else{
-            $data['banner'] = $category->banner_image;
-        }
-        if(!is_null($data['image'])){
-            $data['image'] = ImageUploadHelper::update('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories', $category->image);
-        }else{
-            $data['image'] = $category->image;
-        }
-
+        $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
+        $data['banner'] = is_null($data['banner']) ? $category->banner : ImageUploadHelper::update('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories', $category->banner);
+        $data['image'] = is_null($data['image']) ? $category->image : ImageUploadHelper::update('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories', $category->image);
         $category->update($data);
         return $category;
     }

@@ -3,10 +3,12 @@
 namespace Modules\Item\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Business\Entities\Business;
 
 class Category extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'name',
         'business_id',

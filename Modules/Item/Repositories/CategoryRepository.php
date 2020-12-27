@@ -15,7 +15,26 @@ class CategoryRepository implements CategoryInterface
      */
     public function index()
     {
-        return Category::orderBy('id', 'desc')->get();
+        $query = Category::select('*');
+       
+        if(request()->status){
+            if(request()->status == "1"){
+                $query->where('deleted_at', null);
+            }else if(request()->status == "0"){
+                $query->where('deleted_at', '!=', null);
+            }else{
+                $query->withTrashed();
+            }
+        }else{
+            $query->withTrashed();
+        }
+
+        if(request()->searchText){
+            $query->where('name', 'like', '%'.request()->searchText.'%');
+        }
+
+        $query->orderBy('id', 'desc');
+        return $query->get();
     }
 
     /**
@@ -28,12 +47,7 @@ class CategoryRepository implements CategoryInterface
         if(is_null($data['short_code']) || $data['short_code'] === ""){
             $data['short_code'] = substr(StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Category', 'short_code'), 0, 20);
         }
-        if($data['is_visible_homepage'] === false){
-            $data['is_visible_homepage'] = 0;
-        }else{
-            $data['is_visible_homepage'] = 1;
-        }
-        
+        $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
         $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories');
         $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories');
         

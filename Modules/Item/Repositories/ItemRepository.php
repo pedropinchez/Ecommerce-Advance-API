@@ -68,9 +68,6 @@ class ItemRepository implements ItemInterfaces
      */
     public function store($data)
     {
-
-
-
         $item = Item::create($data);
         if (isset($data['image_data']) && $item) {
             foreach ($data['image_data'] as $imageRow) {

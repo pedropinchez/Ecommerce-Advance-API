@@ -121,26 +121,9 @@ class ItemController extends Controller
             //     $data['image_data'] = $imageData;
             // }
 
-
-            // if ($request->hasFile('featured_image')) {
-            //     $file = $request->file('featured_image');;
-            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-            //     $originalImage = Image::make($file);
-            //     $originalImage->save($fileName);
-            //     $data['featured_image'] = public_path() . '/' . $fileName;
-            // }
-
-            // if ($request->hasFile('short_resolation_image')) {
-            //     $file = $request->file('short_resolation_image');;
-            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-            //     $originalImage = Image::make($file);
-            //     $originalImage->save($fileName);
-            //     $data['short_resolation_image'] = public_path() . '/' . $fileName;
-            // }
-
             $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
             $data['featured_image'] =  $featured_image;
-            $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/short_resolation_image');
+            $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/products/short_resolation');
             $data['short_resolation_image'] =  $short_resolation_image;
 
             $item = $this->itemRepository->store($data);

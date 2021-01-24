@@ -37,7 +37,12 @@ class Item extends Model
     ];
 
     protected $with = ['images'];
-    protected $appends = ['average_rating'];
+    protected $appends = ['average_rating', 'featured_url'];
+
+    public function getFeaturedUrlAttribute()
+    {
+        return is_null($this->featured_image) ? null : url('/').'/images/products/'.$this->featured_image;
+    }
 
     /**
      * @return BelongsTo

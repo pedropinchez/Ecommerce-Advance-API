@@ -31,8 +31,14 @@ class ItemRepository implements ItemInterfaces
      */
     public function indexByPaginate($perPage=20)
     {
-        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
-        ->paginate($perPage);
+        $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business']);
+
+        if (request()->search) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+            $query->orWhere('sku', 'like', '%' . request()->search . '%');
+        }
+
+        $items = $query->paginate($perPage);
         return $items;
     }
 

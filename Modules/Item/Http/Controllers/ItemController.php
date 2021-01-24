@@ -29,12 +29,13 @@ class ItemController extends Controller
      * @OA\GET(
      *     path="/api/v1/items",
      *     tags={"Items"},
-     *     summary="Get Item List",
-     *     description="Get Item List",
+     *     summary="Get Product List",
+     *     description="Get Product List",
      *     security={{"bearer": {}}},
      *     operationId="index",
      *     @OA\Parameter( name="page", description="page, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
-     *      @OA\Response( response=200, description="Get Item List" ),
+     *     @OA\Parameter( name="search", description="search, eg; samsung", required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Response( response=200, description="Get Product List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -262,12 +263,12 @@ class ItemController extends Controller
      * @OA\GET(
      *     path="/api/v1/items/business/{business_id}",
      *     tags={"Items"},
-     *     summary="Get Item List of Business",
-     *     description="Get Item List of Business",
+     *     summary="Get Products List of Business",
+     *     description="Get Products List of Business",
      *     security={{"bearer": {}}},
      *     operationId="getItemByBusiness",
      *      @OA\Parameter( name="business_id", description="business_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
-     *      @OA\Response( response=200, description="Get Item List of Business"),
+     *      @OA\Response( response=200, description="Get Products List of Business"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )

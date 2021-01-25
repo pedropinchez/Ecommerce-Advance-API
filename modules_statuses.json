@@ -13,5 +13,6 @@
     "Statistic": true,
     "Analytics": true,
     "Referral": true,
-    "Promotional": true
+    "Promotional": true,
+    "Document": true
 }

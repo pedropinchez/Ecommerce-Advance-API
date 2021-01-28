@@ -16,7 +16,7 @@ class CategoryRepository implements CategoryInterface
     public function index()
     {
         $query = Category::select('*');
-       
+
         if(request()->status){
             if(request()->status == "1"){
                 $query->where('deleted_at', null);
@@ -37,6 +37,19 @@ class CategoryRepository implements CategoryInterface
         return $query->get();
     }
 
+    public function categoryListFrontend()
+    {
+        $query = Category::with('childs')->select('id', 'name', 'parent_id', 'short_code');
+        $query->where('deleted_at', null);
+        $query->where('is_visible_homepage', 1);
+
+        if(request()->searchText){
+            $query->where('name', 'like', '%'.request()->searchText.'%');
+        }
+        $query->orderBy('id', 'desc');
+        return $query->get();
+    }
+
     /**
      * @param $data
      * @return mixed
@@ -50,7 +63,7 @@ class CategoryRepository implements CategoryInterface
         $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
         $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories');
         $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories');
-        
+
         $category = Category::create($data);
         return $category;
     }
@@ -122,7 +135,7 @@ class CategoryRepository implements CategoryInterface
         ];
 
         $categories = Category::where('is_visible_homepage', 1)->get();
-        for ($i=1; $i <= count($categories); $i++) { 
+        for ($i=1; $i <= count($categories); $i++) {
             if($i == $categoryNo){
                 $category = $categories[$i-1];
                 $itemRepo = new ItemRepository();

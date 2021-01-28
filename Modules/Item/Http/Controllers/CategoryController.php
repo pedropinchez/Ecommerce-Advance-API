@@ -23,6 +23,28 @@ class CategoryController extends Controller
 
     /**
      * @OA\GET(
+     *     path="/api/v1/frontend-categories",
+     *     tags={"Frontend Categories"},
+     *     summary="Get Category List Frontend",
+     *     description="Get Category List Frontend",
+     *     operationId="categoryListFrontend",
+     *      @OA\Response( response=200, description="Get Category List Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function categoryListFrontend()
+    {
+        try {
+            $categories = $this->categoryRepository->categoryListFrontend();
+            return $this->responseRepository->ResponseSuccess($categories, 'Category Fetched Successfully For Frontend');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
      *     path="/api/v1/categories",
      *     tags={"Categories"},
      *     summary="Get Category List",

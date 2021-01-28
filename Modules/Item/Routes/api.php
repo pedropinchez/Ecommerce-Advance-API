@@ -46,3 +46,4 @@ Route::get('get-items', 'ItemController@getProductList');
 Route::get('get-item-detail/{slug}', 'ItemController@getProductDetail');
 Route::get('get-flash-sale-items/{sortBy}', 'ItemController@getFlashSaleItems');
 Route::get('get-category-products/{no}', 'CategoryController@getCategoryByProductForHomePage');
+Route::get('frontend-categories', 'CategoryController@categoryListFrontend');

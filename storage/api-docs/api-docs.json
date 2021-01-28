@@ -2511,6 +2511,27 @@
                 ]
             }
         },
+        "/api/v1/frontend-categories": {
+            "get": {
+                "tags": [
+                    "Frontend Categories"
+                ],
+                "summary": "Get Category List Frontend",
+                "description": "Get Category List Frontend",
+                "operationId": "categoryListFrontend",
+                "responses": {
+                    "200": {
+                        "description": "Get Category List Frontend"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/categories": {
             "get": {
                 "tags": [

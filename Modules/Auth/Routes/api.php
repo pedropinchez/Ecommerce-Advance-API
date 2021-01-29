@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'LoginController@login');
     Route::post('register', 'RegisterController@register');
+    Route::post('check-user', 'UserController@checkUserIsUnique');
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('getUserProfile', 'AuthController@getUserProfile');

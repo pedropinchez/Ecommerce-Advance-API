@@ -251,6 +251,49 @@
                 }
             }
         },
+        "/api/v1/auth/check-user": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Check User Registration Status",
+                "description": "Check User Registration Status",
+                "operationId": "updateUserProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone_no": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check User Registration Status"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/business": {
             "get": {
                 "tags": [

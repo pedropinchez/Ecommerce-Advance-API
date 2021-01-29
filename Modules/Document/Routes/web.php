@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('document')->group(function() {
-    Route::get('/', 'DocumentController@index');
-});
+// Route::prefix('document')->group(function() {
+//     Route::get('/', 'DocumentController@index');
+// });

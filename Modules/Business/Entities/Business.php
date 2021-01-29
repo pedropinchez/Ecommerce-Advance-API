@@ -27,4 +27,11 @@ class Business extends Model
         'enable_tooltip',
         'banner'
     ];
+
+    protected $appends = ['logo_url'];
+
+    public function getLogoUrlAttribute()
+    {
+        return is_null($this->logo) ? null : url('/').'/images/vendors/'.$this->logo;
+    }
 }

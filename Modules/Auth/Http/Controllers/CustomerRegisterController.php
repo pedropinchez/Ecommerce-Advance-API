@@ -13,6 +13,7 @@ use Modules\Auth\Entities\Otp;
 use Modules\Auth\Entities\Sms;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Http\Requests\CustomerRegisterRequest;
+use Modules\Auth\Http\Requests\CustomerRegisterRequestNext;
 use Modules\Auth\Repositories\CustomerRepository;
 
 class CustomerRegisterController extends Controller
@@ -47,7 +48,7 @@ class CustomerRegisterController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function customerRegister(Request $request)
+    public function customerRegister(CustomerRegisterRequest $request)
     {
         try {
             $data = [
@@ -81,6 +82,64 @@ class CustomerRegisterController extends Controller
             } else {
                 $data['message'] = "Invalid Number given !";
             }
+            if ($data['status'])
+                return $this->responseRepository->ResponseSuccess(null, $data['message']);
+            else
+                return $this->responseRepository->ResponseError(null, $data['message'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, 'Something went wrong, Please try again.', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    /**
+     * @OA\POST(
+     *     path="/api/v1/auth/register-next",
+     *     tags={"Authentication"},
+     *     summary="Customer Register a user to the system Step 2",
+     *     description="Customer Register a user to the system Step 2",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="phone_no", type="string", example="01951233084"),
+     *              @OA\Property(property="otp", type="integer", example="129012"),
+     *              @OA\Property(property="password", type="string", example="12345678"),
+     *              @OA\Property(property="password_confirmation", type="string", example="12345678"),
+     *          )
+     *      ),
+     *     operationId="customerRegisterNext",
+     *      @OA\Response( response=200, description="Create New Customer Account" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function customerRegisterNext(CustomerRegisterRequestNext $request)
+    {
+        try {
+            $data = [
+                'status' => false,
+                'message' => ''
+            ];
+
+            $number = NumbersHelper::formattedCorrectNumber($request->phone_no);
+            $otpData = Otp::where('phone_no', $number)->first();
+            if(is_null($otpData)){
+                $data['message'] = 'Invalid OTP, Please give valid OTP.';
+            }else{
+                $user = $this->customerRepository->findUserByPhoneNo($request->phone_no);
+                $request->password = $request->otp;
+                if($otpData->otp !== $request->otp){
+                    $data['message'] = 'Invalid OTP, Please give valid OTP.';
+                }else{
+                    $data['status'] = true;
+                    // Update User Data
+                    $user->status = 'active';
+                    $user->password = Hash::make($request->password);
+                    $user->save();
+                    $data['message'] = 'Registration Successfull, Please login.';
+                }
+            }
+
             if ($data['status'])
                 return $this->responseRepository->ResponseSuccess(null, $data['message']);
             else

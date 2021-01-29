@@ -27,7 +27,8 @@ class CustomerRepository extends AuthRepository
                 'email'  => $request->email,
                 'phone_no'  => $request->phone_no,
                 'password'  => Hash::make($request->password),
-                'language' => 'en'
+                'language' => 'en',
+                'status' => 'inactive'
             ]
         );
         return $user;

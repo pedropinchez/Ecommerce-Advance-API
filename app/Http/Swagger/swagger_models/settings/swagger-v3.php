@@ -2,15 +2,15 @@
 
 /**
  * @OA\Info(
- *     description="API Documentation - iApp",
+ *     description="Ecommerce API Documentation",
  *     version="1.0.0",
- *     title="iApp API Documentation",
+ *     title="Ecommerce API Documentation",
  *     @OA\Contact(
  *         email="akash.corp@akij.net"
  *     ),
  *     @OA\License(
- *         name="@iapp.akij.net",
- *         url="https://iapp.akij.net"
+ *         name="@ecommerce.com",
+ *         url="https://api.allgeneration.com"
  *     )
  * )
  */

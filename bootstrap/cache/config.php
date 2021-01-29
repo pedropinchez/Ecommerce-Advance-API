@@ -84,6 +84,7 @@
       'View' => 'Illuminate\\Support\\Facades\\View',
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
+    'is_sms_send' => false,
   ),
   'auth' => 
   array (

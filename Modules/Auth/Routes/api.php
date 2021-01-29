@@ -15,9 +15,13 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'auth'], function () {
     Route::post('login', 'LoginController@login');
-    Route::post('register', 'RegisterController@register');
-    Route::post('check-user', 'UserController@checkUserIsUnique');
 
+    Route::post('register', 'CustomerRegisterController@customerRegister');
+    Route::post('register-next', 'CustomerRegisterController@customerRegisterNext');
+
+    Route::post('vendor-register', 'VendorRegisterController@vendorRegister');
+
+    Route::post('check-user', 'UserController@checkUserIsUnique');
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('getUserProfile', 'AuthController@getUserProfile');
         Route::put('updateUserProfile', 'AuthController@updateUserProfile');

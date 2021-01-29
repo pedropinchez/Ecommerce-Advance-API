@@ -28,9 +28,12 @@ class CreateUsersTable extends Migration
             $table->string('phone_no')->nullable();
             $table->string('password');
             $table->char('language', 4)->default('en');
-            
+
             $table->string('avatar')->nullable();
             $table->string('banner')->nullable();
+
+            $table->boolean('from_ecommerce')->default(1)->comment('1=>From Ecommerce, 0=> From Customer');
+            $table->enum('status', ['active', 'inactive', 'banned', 'account_deleted']);
 
             $table->rememberToken();
             $table->softDeletes();

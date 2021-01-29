@@ -233,4 +233,8 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
     ],
 
+    /**
+     * Check if SMS Send Mode is enable or not
+     */
+    'is_sms_send' => env('SEND_DUMMY_SMS', false)
 ];

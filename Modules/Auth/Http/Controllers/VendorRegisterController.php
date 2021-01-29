@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Modules\Auth\Http\Requests\RegisterRequest;
 use Modules\Auth\Repositories\AuthRepository;
 
-class RegisterController extends Controller
+class VendorRegisterController extends Controller
 {
     public $authRepository;
     public $responseRepository;
@@ -22,7 +22,7 @@ class RegisterController extends Controller
 
     /**
      * @OA\POST(
-     *     path="/api/v1/auth/register-all",
+     *     path="/api/v1/auth/vendor-register",
      *     tags={"Authentication"},
      *     summary="Register a user to the system",
      *     description="Register a user to the system",
@@ -39,13 +39,13 @@ class RegisterController extends Controller
      *              @OA\Property(property="language", type="string", example="en"),
      *          )
      *      ),
-     *     operationId="register",
+     *     operationId="vendorRegister",
      *      @OA\Response( response=200, description="Create New User Account" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function register(RegisterRequest $request)
+    public function vendorRegister(RegisterRequest $request)
     {
         try {
             $user = $this->authRepository->registerUser($request);

@@ -87,7 +87,8 @@ class CustomerRegisterController extends Controller
             else
                 return $this->responseRepository->ResponseError(null, $data['message'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
-            return $this->responseRepository->ResponseError(null, 'Something went wrong, Please try again.', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            // return $this->responseRepository->ResponseError(null, 'Something went wrong, Please try again.', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -145,7 +146,8 @@ class CustomerRegisterController extends Controller
             else
                 return $this->responseRepository->ResponseError(null, $data['message'], JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         } catch (\Exception $e) {
-            return $this->responseRepository->ResponseError(null, 'Something went wrong, Please try again.', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            // return $this->responseRepository->ResponseError(null, 'Something went wrong, Please try again.', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

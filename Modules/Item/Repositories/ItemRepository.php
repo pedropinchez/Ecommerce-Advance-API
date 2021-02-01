@@ -31,15 +31,20 @@ class ItemRepository implements ItemInterfaces
      */
     public function indexByPaginate($perPage=20)
     {
-        $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business']);
+        $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
+        ->orderBy('id', 'desc');
 
         if (request()->search) {
             $query->where('name', 'like', '%' . request()->search . '%');
             $query->orWhere('sku', 'like', '%' . request()->search . '%');
+            $query->orWhere('sku_manual', 'like', '%' . request()->search . '%');
         }
-
-        $items = $query->paginate($perPage);
-        return $items;
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**

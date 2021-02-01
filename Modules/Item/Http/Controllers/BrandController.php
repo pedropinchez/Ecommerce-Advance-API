@@ -26,6 +26,10 @@ class BrandController extends Controller
      *     summary="Get Brand List",
      *     description="Get Brand List",
      *     security={{"bearer": {}}},
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="status", description="status, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
      *     operationId="index",
      *      @OA\Response( response=200, description="Get Brand List" ),
      *      @OA\Response(response=400, description="Bad request"),
@@ -70,20 +74,20 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
+            if ($request->hasFile('banner')) {
                 $file = $request->file('banner');;
-                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
+                $data['banner'] = public_path() . '/' . $fileName;
             }
 
-            if ($request->hasFile('image')){
+            if ($request->hasFile('image')) {
                 $file = $request->file('image');;
-                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
+                $data['image'] = public_path() . '/' . $fileName;
             }
             $brand = $this->brandRepository->store($data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Created Successfully');
@@ -145,20 +149,20 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
+            if ($request->hasFile('banner')) {
                 $file = $request->file('banner');;
-                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
+                $data['banner'] = public_path() . '/' . $fileName;
             }
 
-            if ($request->hasFile('image')){
+            if ($request->hasFile('image')) {
                 $file = $request->file('image');;
-                $fileName = 'brands/'.time().'_'.$file->getClientOriginalName();
+                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
                 $originalImage = Image::make($file);
                 $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
+                $data['image'] = public_path() . '/' . $fileName;
             }
             $brand = $this->brandRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Updated Successfully');

@@ -15,22 +15,30 @@ class CategoryRepository implements CategoryInterface
      */
     public function index()
     {
-        $query = Category::select('*');
-
-        if(request()->status){
-            if(request()->status == "1"){
-                $query->where('deleted_at', null);
-            }else if(request()->status == "0"){
-                $query->where('deleted_at', '!=', null);
-            }else{
-                $query->withTrashed();
-            }
-        }else{
-            $query->withTrashed();
+        $query = Category::orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+            $query->orWhere('description', 'like', '%' . request()->search . '%');
+            $query->orWhere('short_code', 'like', '%' . request()->search . '%');
         }
 
-        if(request()->searchText){
-            $query->where('name', 'like', '%'.request()->searchText.'%');
+        // if (request()->status) {
+        //     if (request()->status == "1") {
+        //         $query->where('deleted_at', null);
+        //     } else if (request()->status == "0") {
+        //         $query->where('deleted_at', '!=', null);
+        //     } else {
+        //         $query->withTrashed();
+        //     }
+        // } else {
+        //     $query->withTrashed();
+        // }
+
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
         }
 
         $query->orderBy('id', 'desc');
@@ -43,8 +51,8 @@ class CategoryRepository implements CategoryInterface
         $query->where('deleted_at', null);
         $query->where('is_visible_homepage', 1);
 
-        if(request()->searchText){
-            $query->where('name', 'like', '%'.request()->searchText.'%');
+        if (request()->searchText) {
+            $query->where('name', 'like', '%' . request()->searchText . '%');
         }
         $query->orderBy('id', 'desc');
         return $query->get();
@@ -57,12 +65,12 @@ class CategoryRepository implements CategoryInterface
      */
     public function store($data)
     {
-        if(is_null($data['short_code']) || $data['short_code'] === ""){
+        if (is_null($data['short_code']) || $data['short_code'] === "") {
             $data['short_code'] = substr(StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Category', 'short_code'), 0, 20);
         }
         $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
-        $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories');
-        $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories');
+        $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' . $data['short_code'] . '-' . time(), 'images/categories');
+        $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' . $data['short_code'] . '-' . time(), 'images/categories');
 
         $category = Category::create($data);
         return $category;
@@ -87,12 +95,12 @@ class CategoryRepository implements CategoryInterface
     public function update($id, $data)
     {
         $category = Category::find($id);
-        if(is_null($data['short_code']) || $data['short_code'] === ""){
+        if (is_null($data['short_code']) || $data['short_code'] === "") {
             $data['short_code'] = substr(StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Category', 'short_code'), 0, 20);
         }
         $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
-        $data['banner'] = is_null($data['banner']) ? $category->banner : ImageUploadHelper::update('banner', $data['banner'], 'category-banner-' .$data['short_code'].'-'. time(), 'images/categories', $category->banner);
-        $data['image'] = is_null($data['image']) ? $category->image : ImageUploadHelper::update('image',  $data['image'], 'category-' .$data['short_code'].'-'. time(), 'images/categories', $category->image);
+        $data['banner'] = is_null($data['banner']) ? $category->banner : ImageUploadHelper::update('banner', $data['banner'], 'category-banner-' . $data['short_code'] . '-' . time(), 'images/categories', $category->banner);
+        $data['image'] = is_null($data['image']) ? $category->image : ImageUploadHelper::update('image',  $data['image'], 'category-' . $data['short_code'] . '-' . time(), 'images/categories', $category->image);
         $category->update($data);
         return $category;
     }
@@ -105,7 +113,7 @@ class CategoryRepository implements CategoryInterface
     public function destroy($id)
     {
         $category = Category::find($id);
-        if($category) {
+        if ($category) {
             $category->delete();
             return true;
         } else {
@@ -135,9 +143,9 @@ class CategoryRepository implements CategoryInterface
         ];
 
         $categories = Category::where('is_visible_homepage', 1)->get();
-        for ($i=1; $i <= count($categories); $i++) {
-            if($i == $categoryNo){
-                $category = $categories[$i-1];
+        for ($i = 1; $i <= count($categories); $i++) {
+            if ($i == $categoryNo) {
+                $category = $categories[$i - 1];
                 $itemRepo = new ItemRepository();
                 $products = $itemRepo->getProductListByCategory($category->id);
                 $data = [

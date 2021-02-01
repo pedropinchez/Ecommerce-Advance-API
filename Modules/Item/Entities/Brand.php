@@ -15,6 +15,14 @@ class Brand extends Model
         'image'
     ];
 
+    protected $appends = ['featured_url'];
+
+    public function getFeaturedUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/').'/images/brands/'.$this->image;
+    }
+
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      * Brand related to business

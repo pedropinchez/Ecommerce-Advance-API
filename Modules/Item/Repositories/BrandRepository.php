@@ -14,7 +14,17 @@ class BrandRepository implements BrandInterface
      */
     public function index()
     {
-        return Brand::get();
+        $query = Brand::orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+            $query->orWhere('description', 'like', '%' . request()->search . '%');
+        }
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**

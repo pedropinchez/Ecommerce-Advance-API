@@ -39,6 +39,27 @@ class ItemRepository implements ItemInterfaces
             $query->orWhere('sku', 'like', '%' . request()->search . '%');
             $query->orWhere('sku_manual', 'like', '%' . request()->search . '%');
         }
+
+        if (request()->category_id) {
+            $query->where('category_id', request()->category_id);
+        }
+
+        if (request()->sub_category_id) {
+            $query->where('sub_category_id', request()->sub_category_id);
+        }
+
+        if (request()->brand_id) {
+            $query->where('brand_id', request()->brand_id);
+        }
+
+        if (request()->unit_id) {
+            $query->where('unit_id', request()->unit_id);
+        }
+
+        if (request()->business_id) {
+            $query->where('business_id', request()->business_id);
+        }
+
         if (request()->isPaginated) {
             $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
             return $query->paginate($paginateNo);

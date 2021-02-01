@@ -15,11 +15,15 @@ class Brand extends Model
         'image'
     ];
 
-    protected $appends = ['featured_url'];
+    protected $appends = ["image_url", "banner_url"];
 
-    public function getFeaturedUrlAttribute()
+    public function getImageUrlAttribute()
     {
         return is_null($this->image) ? null : url('/').'/images/brands/'.$this->image;
+    }
+    public function getBannerUrlAttribute()
+    {
+        return is_null($this->banner) ? null : url('/').'/images/brands/'.$this->banner;
     }
 
 

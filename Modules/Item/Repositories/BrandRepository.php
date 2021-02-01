@@ -2,6 +2,8 @@
 
 namespace Modules\Item\Repositories;
 
+use App\Helpers\ImageUploadHelper;
+use App\Helpers\UploadHelper;
 use Modules\Item\Entities\Brand;
 use Modules\Item\Interfaces\BrandInterface;
 use Auth;
@@ -34,6 +36,8 @@ class BrandRepository implements BrandInterface
      */
     public function store($data)
     {
+        $data['banner'] = UploadHelper::upload('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands');
+        $data['image'] = UploadHelper::upload('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands');
         $brand = Brand::create($data);
         return $brand;
     }
@@ -57,6 +61,8 @@ class BrandRepository implements BrandInterface
     public function update($id, $data)
     {
         $brand = Brand::find($id);
+        $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands');
+        $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands');
         $brand->update($data);
         return $brand;
     }

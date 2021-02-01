@@ -74,21 +74,6 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')) {
-                $file = $request->file('banner');;
-                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path() . '/' . $fileName;
-            }
-
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');;
-                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path() . '/' . $fileName;
-            }
             $brand = $this->brandRepository->store($data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Created Successfully');
         } catch (\Exception $exception) {
@@ -149,21 +134,6 @@ class BrandController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')) {
-                $file = $request->file('banner');;
-                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path() . '/' . $fileName;
-            }
-
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');;
-                $fileName = 'brands/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path() . '/' . $fileName;
-            }
             $brand = $this->brandRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($brand, 'Brand Updated Successfully');
         } catch (\Exception $exception) {

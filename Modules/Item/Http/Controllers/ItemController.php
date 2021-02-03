@@ -90,8 +90,12 @@ class ItemController extends Controller
      *              @OA\Property(property="created_by", type="integer", example=1),
      *              @OA\Property(property="featured_image", type="string", format="binary"),
      *              @OA\Property(property="short_resolation_image", type="string", format="binary"),
-     *              @OA\Property(property="images", type="array",
-     *                  @OA\Items(type="string", format="binary")
+     *             @OA\Property(property="images", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="image", type="string", example="base64 image file"),
+     *                      @OA\Property(property="image_size", type="omer"),
+     *                      @OA\Property(property="image_title", type="string")
+     *                  )
      *              )
      *          ),
      *      ),

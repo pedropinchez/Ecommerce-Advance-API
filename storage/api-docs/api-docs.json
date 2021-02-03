@@ -3364,8 +3364,19 @@
                                     "images": {
                                         "type": "array",
                                         "items": {
-                                            "type": "string",
-                                            "format": "binary"
+                                            "properties": {
+                                                "image": {
+                                                    "type": "string",
+                                                    "example": "base64 image file"
+                                                },
+                                                "image_size": {
+                                                    "type": "omer"
+                                                },
+                                                "image_title": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
                                         }
                                     }
                                 },

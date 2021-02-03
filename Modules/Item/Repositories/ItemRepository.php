@@ -2,6 +2,7 @@
 
 namespace Modules\Item\Repositories;
 
+use App\Helpers\Base64Encoder;
 use App\Helpers\StringHelper;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -101,17 +102,21 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         $item = Item::create($data);
-        if (isset($data['image_data']) && $item) {
-            foreach ($data['image_data'] as $imageRow) {
-                ItemImage::create([
-                    'item_id' => $item->id,
-                    'business_id' => $item->business_id,
-                    'image' => $imageRow['image'],
-                    'image_size' => $imageRow['image_size'],
-                    'image_title' => $imageRow['image_title']
-                ]);
-            }
-        }
+        // if(!is_null($item)){
+        //     foreach ($data['images'] as $image) {
+        //         $fileName = null;
+        //         if (isset($image['imageFile']) && !is_null($image['imageFile']) && $image['imageFile'] !== "") {
+        //             $fileName = Base64Encoder::uploadBase64File($image['imageFile'], "/public/images/products/", time().$item->id, 'product');
+        //         }
+        //         ItemImage::create([
+        //             'item_id' => $item->id,
+        //             'business_id' => $item->business_id,
+        //             'image' => $fileName,
+        //             'image_size' => $image['imageSize'],
+        //             'image_title' => $image['imageTitle'],
+        //         ]);
+        //     }
+        // }
         return $item;
     }
 

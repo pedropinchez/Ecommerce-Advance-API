@@ -22,18 +22,6 @@ class CategoryRepository implements CategoryInterface
             $query->orWhere('short_code', 'like', '%' . request()->search . '%');
         }
 
-        // if (request()->status) {
-        //     if (request()->status == "1") {
-        //         $query->where('deleted_at', null);
-        //     } else if (request()->status == "0") {
-        //         $query->where('deleted_at', '!=', null);
-        //     } else {
-        //         $query->withTrashed();
-        //     }
-        // } else {
-        //     $query->withTrashed();
-        // }
-
         if (request()->isPaginated) {
             $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
             return $query->paginate($paginateNo);
@@ -42,6 +30,13 @@ class CategoryRepository implements CategoryInterface
         }
 
         $query->orderBy('id', 'desc');
+        return $query->get();
+    }
+
+    public function getSubCategoriesByParentID($parent_id)
+    {
+        $query = Category::where('parent_id')->select('id', 'name')
+        ->orderBy('name', 'asc');
         return $query->get();
     }
 

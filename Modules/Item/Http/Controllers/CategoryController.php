@@ -71,6 +71,30 @@ class CategoryController extends Controller
     }
 
     /**
+     * @OA\GET(
+     *     path="/api/v1/categories/sub-categories/{parent_id}",
+     *     tags={"Categories"},
+     *     summary="Get Sub Category List",
+     *     description="Get Sub Category List",
+     *     security={{"bearer": {}}},
+     *     @OA\Parameter( name="parent_id", description="parent_id, eg; 1", example=1, required=true, in="path", @OA\Schema(type="integer")),
+     *     operationId="getSubCategoriesByParentID",
+     *      @OA\Response( response=200, description="Get Category List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getSubCategoriesByParentID($parent_id)
+    {
+        try {
+            $categories = $this->categoryRepository->getSubCategoriesByParentID($parent_id);
+            return $this->responseRepository->ResponseSuccess($categories, 'SubCategory Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * @OA\POST(
      *     path="/api/v1/categories",
      *     tags={"Categories"},

@@ -2915,6 +2915,44 @@
                 }
             }
         },
+        "/api/v1/categories/sub-categories/{parent_id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Get Sub Category List",
+                "description": "Get Sub Category List",
+                "operationId": "getSubCategoriesByParentID",
+                "parameters": [
+                    {
+                        "name": "parent_id",
+                        "in": "path",
+                        "description": "parent_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Category List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/categories/{id}": {
             "get": {
                 "tags": [

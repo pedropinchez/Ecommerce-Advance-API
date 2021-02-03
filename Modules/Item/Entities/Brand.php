@@ -33,7 +33,7 @@ class Brand extends Model
      */
     public function business()
     {
-        return $this->belongsTo(\Modules\Business\Entities\Business::class);
+        return $this->belongsTo(\Modules\Business\Entities\Business::class)->select('id', 'name');
     }
 
     /**

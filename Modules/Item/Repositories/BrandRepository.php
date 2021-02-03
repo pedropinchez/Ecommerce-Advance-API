@@ -61,8 +61,9 @@ class BrandRepository implements BrandInterface
     public function update($id, $data)
     {
         $brand = Brand::find($id);
-        $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands');
-        $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands');
+
+        $data['banner'] = is_null($data['banner']) ? $brand->banner : UploadHelper::update('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands', $brand->banner);
+        $data['image'] = is_null($data['image']) ? $brand->image : UploadHelper::update('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands', $brand->image);
         $brand->update($data);
         return $brand;
     }

@@ -24,6 +24,7 @@ class Item extends Model
         'brand_id',
         'category_id',
         'sub_category_id',
+        'sub_category_id2',
         'tax',
         'tax_type',
         'enable_stock',
@@ -33,7 +34,12 @@ class Item extends Model
         'sku_manual',
         'created_by',
         'featured_image',
-        'short_resolation_image'
+        'short_resolation_image',
+        'current_stock',
+        'default_selling_price',
+        'offer_selling_price',
+        'is_offer_enable',
+        'description'
     ];
 
     protected $with = ['images'];

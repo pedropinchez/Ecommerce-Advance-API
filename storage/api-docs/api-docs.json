@@ -3303,6 +3303,9 @@
                                     "sub_category_id": {
                                         "type": "integer"
                                     },
+                                    "sub_category_id2": {
+                                        "type": "integer"
+                                    },
                                     "brand_id": {
                                         "type": "integer"
                                     },
@@ -3329,6 +3332,22 @@
                                     },
                                     "sku_manual": {
                                         "type": "string"
+                                    },
+                                    "current_stock": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "default_selling_price": {
+                                        "type": "string",
+                                        "example": 100
+                                    },
+                                    "is_offer_enable": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "offer_selling_price": {
+                                        "type": "string",
+                                        "example": 100
                                     },
                                     "created_by": {
                                         "type": "integer",
@@ -3417,41 +3436,56 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Test Product"
                                     },
                                     "business_id": {
                                         "type": "integer",
                                         "example": 1
                                     },
                                     "category_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 2
                                     },
                                     "sub_category_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 7
+                                    },
+                                    "sub_category_id2": {
+                                        "type": "integer",
+                                        "example": 20
                                     },
                                     "brand_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 2
                                     },
                                     "unit_id": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "tax": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "tax_type": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "inclusive"
                                     },
                                     "enable_stock": {
-                                        "type": "boolean"
+                                        "type": "integer",
+                                        "example": 1
                                     },
                                     "alert_quantity": {
-                                        "type": "integer"
+                                        "type": "integer",
+                                        "example": 10
                                     },
                                     "sku": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Item100"
                                     },
                                     "barcode_type": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "C39"
                                     },
                                     "sku_manual": {
                                         "type": "string"

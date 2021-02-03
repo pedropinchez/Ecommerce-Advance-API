@@ -35,7 +35,7 @@ class CategoryRepository implements CategoryInterface
 
     public function getSubCategoriesByParentID($parent_id)
     {
-        $query = Category::where('parent_id')->select('id', 'name')
+        $query = Category::where('parent_id', $parent_id)->select('id', 'name')
         ->orderBy('name', 'asc');
         return $query->get();
     }

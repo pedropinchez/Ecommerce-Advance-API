@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('name')->index();
             $table->text('description')->nullable();
-            
+
             $table->string('featured_image')->nullable();
             $table->string('short_resolation_image')->nullable();
 
@@ -26,6 +26,7 @@ class CreateItemsTable extends Migration
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('sub_category_id')->nullable();
+            $table->unsignedBigInteger('sub_category_id2')->nullable();
             $table->unsignedBigInteger('tax')->nullable();
             $table->foreign('tax')->references('id')->on('tax_rates');
             $table->enum('tax_type', ['inclusive', 'exclusive']);
@@ -49,6 +50,7 @@ class CreateItemsTable extends Migration
             $table->foreign('brand_id')->references('id')->on('brands');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->foreign('sub_category_id')->references('id')->on('categories');
+            $table->foreign('sub_category_id2')->references('id')->on('categories');
             $table->foreign('created_by')->references('id')->on('users');
         });
     }

@@ -140,13 +140,13 @@ class ItemController extends Controller
             //     $data['image_data'] = $imageData;
             // }
 
-            $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
-            $data['featured_image'] =  $featured_image;
-            $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/products/short_resolation');
-            $data['short_resolation_image'] =  $short_resolation_image;
+            // $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
+            // $data['featured_image'] =  $featured_image;
+            // $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/products/short_resolation');
+            // $data['short_resolation_image'] =  $short_resolation_image;
 
             $item = $this->itemRepository->store($data);
-            return $this->responseRepository->ResponseSuccess($item, 'Item Created Successfully');
+            return $this->responseRepository->ResponseSuccess($item, 'Product Created Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -216,37 +216,37 @@ class ItemController extends Controller
     {
         try {
             $data = $request->all();
-            $imageData = [];
-            $files = $request->file('images');
-            foreach ($files as $file) {
-                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $tempImage['image'] = public_path() . '/' . $fileName;
-                $tempImage['image_title'] = $file->getClientOriginalName();
-                $tempImage['image_size'] = $originalImage->filesize();
-                $imageData[] = $tempImage;
-            }
+            // $imageData = [];
+            // $files = $request->file('images');
+            // foreach ($files as $file) {
+            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+            //     $originalImage = Image::make($file);
+            //     $originalImage->save($fileName);
+            //     $tempImage['image'] = public_path() . '/' . $fileName;
+            //     $tempImage['image_title'] = $file->getClientOriginalName();
+            //     $tempImage['image_size'] = $originalImage->filesize();
+            //     $imageData[] = $tempImage;
+            // }
 
-            if ($imageData) {
-                $data['image_data'] = $imageData;
-            }
+            // if ($imageData) {
+            //     $data['image_data'] = $imageData;
+            // }
 
-            if ($request->hasFile('featured_image')) {
-                $file = $request->file('featured_image');;
-                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['featured_image'] = public_path() . '/' . $fileName;
-            }
+            // if ($request->hasFile('featured_image')) {
+            //     $file = $request->file('featured_image');;
+            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+            //     $originalImage = Image::make($file);
+            //     $originalImage->save($fileName);
+            //     $data['featured_image'] = public_path() . '/' . $fileName;
+            // }
 
-            if ($request->hasFile('short_resolation_image')) {
-                $file = $request->file('short_resolation_image');;
-                $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['short_resolation_image'] = public_path() . '/' . $fileName;
-            }
+            // if ($request->hasFile('short_resolation_image')) {
+            //     $file = $request->file('short_resolation_image');;
+            //     $fileName = 'products/' . time() . '_' . $file->getClientOriginalName();
+            //     $originalImage = Image::make($file);
+            //     $originalImage->save($fileName);
+            //     $data['short_resolation_image'] = public_path() . '/' . $fileName;
+            // }
 
             $item = $this->itemRepository->update($id, $data);
             return $this->responseRepository->ResponseSuccess($item, 'Item Updated Successfully');
@@ -272,7 +272,7 @@ class ItemController extends Controller
     {
         try {
             $item = $this->itemRepository->destroy($id);
-            return $this->responseRepository->ResponseSuccess($item, 'Item Deleted Successfully');
+            return $this->responseRepository->ResponseSuccess($item, 'Product Deleted Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

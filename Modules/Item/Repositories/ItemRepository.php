@@ -102,21 +102,29 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         $item = Item::create($data);
-        // if(!is_null($item)){
-        //     foreach ($data['images'] as $image) {
-        //         $fileName = null;
-        //         if (isset($image['imageFile']) && !is_null($image['imageFile']) && $image['imageFile'] !== "") {
-        //             $fileName = Base64Encoder::uploadBase64File($image['imageFile'], "/public/images/products/", time().$item->id, 'product');
-        //         }
-        //         ItemImage::create([
-        //             'item_id' => $item->id,
-        //             'business_id' => $item->business_id,
-        //             'image' => $fileName,
-        //             'image_size' => $image['imageSize'],
-        //             'image_title' => $image['imageTitle'],
-        //         ]);
-        //     }
-        // }
+        // Upload Featured and Short Resolution Images
+        $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/public/images/products/", 'featured-'.time().$item->id, 'product');
+        $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/public/images/products/", 'short-resolution-'.time().$item->id, 'product');
+        $item->featured_image = $featured_image;
+        $item->short_resolation_image = $short_resolation_image;
+        $item->save();
+
+        // Upload Multiple Images
+        if(!is_null($item) && count($data['images']) > 0){
+            foreach ($data['images'] as $image) {
+                $fileName = null;
+                if (isset($image['imageFile']) && !is_null($image['imageFile']) && $image['imageFile'] !== "") {
+                    $fileName = Base64Encoder::uploadBase64File($image['imageFile'], "/public/images/products/", time().$item->id, 'product');
+                }
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'business_id' => $item->business_id,
+                    'image' => $fileName,
+                    'image_size' => $image['imageSize'],
+                    'image_title' => $image['imageTitle'],
+                ]);
+            }
+        }
         return $item;
     }
 
@@ -131,14 +139,14 @@ class ItemRepository implements ItemInterfaces
         $item = Item::find($id);
         if ($item) {
             $item->update($data);
-            if (isset($data['image_data'])) {
-                foreach ($data['image_data'] as $image) {
-                    ItemImage::create([
-                        'item_id' => $item->id,
-                        'file_name' => $image
-                    ]);
-                }
-            }
+            // if (isset($data['image_data'])) {
+            //     foreach ($data['image_data'] as $image) {
+            //         ItemImage::create([
+            //             'item_id' => $item->id,
+            //             'file_name' => $image
+            //         ]);
+            //     }
+            // }
         }
 
         return $item;

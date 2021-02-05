@@ -2,78 +2,221 @@
 
 namespace Modules\Role\Http\Controllers;
 
+use App\Repositories\ResponseRepository;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Role\Repositories\RolesRepository;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
-    public function index()
+    public $rolesRepository;
+    public $responseRepository;
+
+
+    public function __construct(RolesRepository $rolesRepository, ResponseRepository $rp)
     {
-        return view('role::index');
+        $this->rolesRepository = $rolesRepository;
+        $this->responseRepository = $rp;
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/roles/getModulePermissionByUserTypeID",
+     *     tags={"Module Permission"},
+     *     summary="Get Module Permissions By User Type",
+     *     description="Get Module Permissions By User Type",
+     *     operationId="getModulePermissionByUserTypeID",
+     *      @OA\Parameter( name="intUserTypeID", description="intUserTypeID, eg; 1", required=true, in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(response=200,description="Get Module Permissions By User Type"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function create()
+    public function getModulePermissionByUserTypeID(Request $request)
     {
-        return view('role::create');
+        $intUserTypeID = $request->intUserTypeID;
+
+        try {
+            $data = $this->rolesRepository->getModulePermissionByUserTypeID($intUserTypeID);
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Module List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Module List Info');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/roles/getAllRoles",
+     *     tags={"Module Permission"},
+     *     summary="Get Module Permissions By User Type",
+     *     description="Get Module Permissions By User Type",
+     *     operationId="getModulePermissionByUserTypeID",
+     *     @OA\Response(response=200,description="Get Module Permissions By User Type"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function store(Request $request)
+    public function getAllRoles(Request $request)
     {
-        //
+        try {
+            $data = $this->rolesRepository->getAllRoles();
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Role List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Role List Info');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/roles/getModulePermissionByUser",
+     *     tags={"Module Permission"},
+     *     summary="Get Module Permissions By User ID and User Type",
+     *     description="Get Module Permissions By User ID and User Type",
+     *     operationId="getModulePermissionByUser",
+     *      @OA\Parameter( name="intUserTypeID", description="intUserTypeID, eg; 1", required=true, in="query", @OA\Schema(type="integer")),
+     *      @OA\Parameter( name="intUserID", description="intUserID, eg; 1", required=true, in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(response=200,description="Get Module Permissions By User ID and User Type"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function show($id)
+    public function getModulePermissionByUser(Request $request)
     {
-        return view('role::show');
+        $intUserTypeID = $request->intUserTypeID;
+        $intUserID = $request->intUserID;
+
+        try {
+            $data = $this->rolesRepository->getModulePermissionByUser($intUserID, $intUserTypeID);
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Module List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$intUserID);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/roles/getModuleList",
+     *     tags={"Module Permission"},
+     *     summary="Get Module Permissions By User ID and User Type",
+     *     description="Get Module Permissions By User ID and User Type",
+     *     operationId="getModuleList",
+     *     @OA\Response(response=200,description="Get Module Permissions By User ID and User Type"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function edit($id)
+    public function getModuleList(Request $request)
     {
-        return view('role::edit');
+        $intUserTypeID = $request->intUserTypeID;
+        $intUserID = $request->intUserID;
+
+        try {
+            $data = $this->rolesRepository->getModuleList($intUserID, $intUserTypeID);
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$intUserID);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
+     * @OA\GET(
+     *     path="/api/v1/roles/getUserTypeList",
+     *     tags={"Module Permission"},
+     *     summary="Get Module Permissions By User ID and User Type",
+     *     description="Get Module Permissions By User ID and User Type",
+     *     operationId="getUserTypeList",
+     *     @OA\Response(response=200,description="Get Module Permissions By User ID and User Type"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function update(Request $request, $id)
+    public function getUserTypeList(Request $request)
     {
-        //
+        $intUserTypeID = $request->intUserTypeID;
+        $intUserID = $request->intUserID;
+
+        try {
+            $data = $this->rolesRepository->getUserTypeList($intUserID, $intUserTypeID);
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$intUserID);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
+
+
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
+     * @OA\POST(
+     *     path="/api/v1/roles/appPermissionStore",
+     *     tags={"Module Permission"},
+     *     summary="Post Module Permissions",
+     *     description="Post Module Permissions By User ID and User Type",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="intAppsModuleID", type="integer", example=2),
+     *              @OA\Property(property="intUserTypeID", type="integer", example=1),
+     *              @OA\Property(property="intUserID", type="integer", example=2),
+     *              @OA\Property(property="intInsertedBy", type="integer", example=2),
+     *           )
+     *      ),
+     *      operationId="appPermissionStore",
+     *      @OA\Response(response=200,description="App Permission Created successfully !"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
      */
-    public function destroy($id)
+    public function appPermissionStore(Request $request)
     {
-        //
+        try {
+            $data = $this->rolesRepository->appPermissionStore($request);
+            return $this->responseRepository->ResponseSuccess($data, 'App Permission Created successfully !');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+     /**
+     * @OA\POST(
+     *     path="/api/v1/roles/multipleAppPermissionStore",
+     *     tags={"Module Permission"},
+     *     summary="Create Multiple Permissions",
+     *     description="Create Multiple Permissions",
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(
+     *                      property="permissions",
+     *                      type="array",
+     *                      @OA\Items(
+     *                                 @OA\Property(property="intAppsModuleID", type="integer", example=2),
+                *                      @OA\Property(property="intUserTypeID", type="integer", example=1),
+                *                      @OA\Property(property="intUserID", type="integer", example=2),
+                *                      @OA\Property(property="intInsertedBy", type="integer", example=2),
+     *                          ),
+     *                      ),
+     *              )
+     *      ),
+     *      operationId="multipleAppPermissionStore",
+     *      @OA\Response(response=200,description="Create Role Permissions"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function multipleAppPermissionStore(Request $request)
+    {
+        try {
+            $data = $this->rolesRepository->multipleAppPermissionStore($request);
+            return $this->responseRepository->ResponseSuccess($data, 'Multiple Permission Given successfully !');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

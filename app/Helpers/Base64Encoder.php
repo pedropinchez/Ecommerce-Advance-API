@@ -68,4 +68,41 @@ class Base64Encoder
         file_put_contents($imageOutput, $image_base64);
         return $fileName. '.' . $extension;
     }
+
+    /**
+     * Upload Base64 As Image
+     *
+     * @param string $requestImage Image file as Base 64 format
+     * @param string $targetPath
+     * @param string $fileName
+     * @param string $subName  like for profiling, param data will be profile
+     * @return string $imageOutput as output image name
+     */
+    public static function updateBase64File($requestImage, $targetPath, $fileName = null, $subName = null)
+    {
+        if(!is_null($fileName)){
+            // Delete the images first
+            if(File::exists(public_path($targetPath.$fileName))){
+                File::delete(public_path($targetPath.$fileName));
+            }
+        }
+        $fileName = 'image-' . time() . '-' . uniqid();
+
+        $folderPath = public_path() . $targetPath;
+        $image_parts = explode(";base64,", $requestImage);
+        $type = explode(";", $requestImage);
+        $extension = explode("/", $type[0])[1];
+        $fileName = trim(Str::substr(Str::slug($fileName), 0, 20));
+        $image_base64 = base64_decode($image_parts[1]);
+
+        if (is_null($fileName)) {
+            $fileName = $subName . '-' . uniqid() . '-' . time();
+        } else {
+            $fileName = $subName . '-' . $fileName . '-' . time();
+        }
+
+        $imageOutput = $folderPath . $fileName . '.' . $extension;
+        file_put_contents($imageOutput, $image_base64);
+        return $fileName. '.' . $extension;
+    }
 }

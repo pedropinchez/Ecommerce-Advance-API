@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2020 at 09:22 PM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Feb 05, 2021 at 01:27 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `attributes` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -45,8 +45,8 @@ CREATE TABLE `attributes` (
 
 CREATE TABLE `attribute_values` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `attribute_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -61,9 +61,9 @@ CREATE TABLE `attribute_values` (
 CREATE TABLE `brands` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -79,7 +79,9 @@ INSERT INTO `brands` (`id`, `business_id`, `name`, `image`, `banner`, `descripti
 (2, 1, 'Samsung', 'brand-samsung.png', NULL, 'Smart Phone', 1, NULL, '2020-11-12 12:30:34', '2020-11-12 12:30:34'),
 (3, 1, 'Apple', 'brand-apple.png', NULL, 'Apple Brand', 1, NULL, '2020-11-12 14:37:06', '2020-11-12 14:37:06'),
 (4, 1, 'HP', 'brand-hp.png', NULL, 'Apple Brand', 1, NULL, '2020-11-12 14:37:07', '2020-11-12 14:37:07'),
-(5, 1, 'ASUS', 'brand-asus.png', NULL, 'Asus Brand', 1, NULL, '2020-11-12 14:37:07', '2020-11-12 14:37:07');
+(5, 1, 'ASUS', 'brand-asus.png', NULL, 'Asus Brand', 1, NULL, '2020-11-12 14:37:07', '2020-11-12 14:37:07'),
+(10, 2, 'Test Brand', 'brand--1612330498.png', 'brand-banner--1612330498.jpg', 'Testing Description', 1, NULL, '2021-02-02 23:01:28', '2021-02-02 23:34:58'),
+(11, 3, 'Test brand', 'brand--1612330393.png', NULL, 'test descrioon', 1, NULL, '2021-02-02 23:17:19', '2021-02-02 23:33:13');
 
 -- --------------------------------------------------------
 
@@ -89,8 +91,8 @@ INSERT INTO `brands` (`id`, `business_id`, `name`, `image`, `banner`, `descripti
 
 CREATE TABLE `business` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bin` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Business Identification No',
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bin` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Business Identification No',
   `currency_id` bigint(20) UNSIGNED NOT NULL,
   `start_date` date DEFAULT NULL,
   `tax_number_1` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -99,14 +101,14 @@ CREATE TABLE `business` (
   `tax_label_2` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `default_profit_percent` double(5,2) NOT NULL DEFAULT 0.00,
   `owner_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `time_zone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Asia/Kolkata',
+  `time_zone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Asia/Kolkata',
   `fy_start_month` tinyint(4) NOT NULL DEFAULT 1,
   `accounting_method` enum('fifo','lifo','avco') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'fifo',
   `default_sales_discount` decimal(5,2) DEFAULT NULL,
   `sell_price_tax` enum('includes','excludes') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'includes',
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sku_prefix` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sku_prefix` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `enable_tooltip` tinyint(1) NOT NULL DEFAULT 1,
   `enable_referrel_system` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -138,9 +140,9 @@ CREATE TABLE `business_locations` (
   `state` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `city` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `zip_code` char(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alternate_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alternate_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -154,13 +156,13 @@ CREATE TABLE `business_locations` (
 
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `short_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `short_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent_id` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'If Parent is null, it is the parent',
   `is_visible_homepage` tinyint(1) NOT NULL DEFAULT 0,
   `priority` int(11) NOT NULL DEFAULT 10,
@@ -175,16 +177,17 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `short_description`, `description`, `business_id`, `short_code`, `image`, `banner`, `parent_id`, `is_visible_homepage`, `priority`, `created_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(2, 'Electronics', 'Your Most Favorite Electronic Products...', NULL, 1, NULL, NULL, NULL, NULL, 1, 1, 1, NULL, '2020-11-12 14:30:56', '2020-11-12 14:30:56'),
-(3, 'Laptop', NULL, NULL, 1, 'laptop', 'category-laptop.png', 'category-laptop-banner.png', 2, 0, 10, 1, NULL, '2020-11-12 14:31:26', '2020-11-12 14:31:26'),
+(2, 'Electronics', 'Your Most Favorite Electronic Products...', NULL, 1, 'electronics', 'category-electronics-1612337863.png', 'category-banner-electronics-1612337862.png', NULL, 1, 1, 1, NULL, '2020-11-12 14:30:56', '2021-02-03 01:37:43'),
+(3, 'Laptop', NULL, NULL, 1, 'laptop', 'category-laptop.png', 'category-banner-laptop-1612337875.jpg', 2, 0, 10, 1, NULL, '2020-11-12 14:31:26', '2021-02-03 01:37:55'),
 (4, 'SmartPhone', 'Your Most Favorite Smartphones here...', 'Your Most Favorite Smartphones here...', 1, 'smartphone', NULL, NULL, 2, 0, 2, 1, NULL, '2020-11-12 14:31:51', '2020-11-12 14:31:51'),
-(5, 'Samsung', NULL, NULL, 1, 'samsung', 'category-samsung.png', 'category-samsung-banner.png', 4, 0, 10, 1, NULL, '2020-11-12 14:32:29', '2020-11-12 14:32:29'),
+(5, 'Samsung', NULL, NULL, 1, 'samsung', 'category-samsung.png', 'category-banner-samsung-1612337838.png', 4, 0, 10, 1, NULL, '2020-11-12 14:32:29', '2021-02-03 01:37:18'),
 (6, 'Apple', NULL, NULL, 1, 'apple', NULL, NULL, 4, 0, 10, 1, NULL, '2020-11-12 14:32:44', '2020-11-12 14:32:44'),
-(7, 'Camera', NULL, NULL, 1, 'camera', NULL, NULL, 2, 0, 10, 1, NULL, '2020-11-12 14:33:07', '2020-11-12 14:33:07'),
-(8, 'Fashion', 'Your Fashion Store', 'Your Fashion Store', 1, 'fashion', 'category-fashion.png', NULL, NULL, 1, 1, 1, NULL, '2020-11-12 14:33:07', '2020-11-12 14:33:07'),
+(7, 'Camera', NULL, NULL, 1, 'camera', 'category-camera-1612337826.png', 'category-banner-camera-1612337826.jpg', 2, 0, 10, 1, NULL, '2020-11-12 14:33:07', '2021-02-03 01:37:06'),
+(8, 'Fashion', 'Your Fashion Store', '<p>Your Fashion Store</p>', 1, 'fashion', 'category-fashion-1612337382.jpg', NULL, NULL, 1, 1, 1, NULL, '2020-11-12 14:33:07', '2021-02-03 01:29:42'),
 (9, 'Gents Shirt', NULL, NULL, 1, 'gents-shirt', 'category-shirt.png', NULL, 8, 0, 10, 1, NULL, '2020-11-12 14:33:07', '2020-11-12 14:33:07'),
 (19, 'Baby Corner', 'Test', NULL, 1, 'baby-corner', 'category-1607804161.png', NULL, 8, 1, 1, 1, NULL, '2020-12-12 14:16:01', '2020-12-12 14:16:01'),
-(20, 'Sony Camera', 'Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in', '<p>Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in Bangladesh. Shop online or visit your nearest Star Tech</p>', 4, 'sony-camera', 'category-sony-camera-1607804501.jpg', NULL, 7, 1, 1, 1, NULL, '2020-12-12 14:21:41', '2020-12-12 14:21:41');
+(20, 'Sony Camera', 'Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in', '<p>Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in Bangladesh. Shop online or visit your nearest Star Tech</p>', 4, 'sony-camera', 'category-sony-camera-1612337279.png', NULL, 7, 1, 1, 1, NULL, '2020-12-12 14:21:41', '2021-02-03 01:27:59'),
+(21, 'Test Category', 'Testing now', '<p>Testing </p>', 3, '409', 'category-409-1612337359.png', NULL, 4, 1, 4, 1, NULL, '2021-02-03 01:29:19', '2021-02-03 01:29:19');
 
 -- --------------------------------------------------------
 
@@ -221,22 +224,22 @@ INSERT INTO `currencies` (`id`, `country`, `currency`, `code`, `symbol`, `thousa
 CREATE TABLE `customers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `bin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BIN = Business Identification Number',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `tax_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `landmark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `landline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alternate_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BIN = Business Identification Number',
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tax_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `landmark` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `landline` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alternate_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pay_term_number` bigint(20) UNSIGNED DEFAULT NULL,
   `pay_term_type` enum('days','months') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `is_default` tinyint(1) NOT NULL DEFAULT 0,
-  `profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `profile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -251,7 +254,7 @@ CREATE TABLE `customers` (
 CREATE TABLE `customer_groups` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `amount` double(8,2) NOT NULL DEFAULT 0.00,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -266,12 +269,19 @@ CREATE TABLE `customer_groups` (
 CREATE TABLE `discount_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
-  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discount_types`
+--
+
+INSERT INTO `discount_types` (`id`, `business_id`, `name`, `created_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'No Discount', 1, NULL, '2021-01-13 10:24:33', '2021-01-13 10:24:33');
 
 -- --------------------------------------------------------
 
@@ -296,9 +306,9 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `gift_cards` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price_value_for` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price value it will take from customer',
   `change_price_value` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price will return customer as card value',
   `card_type` enum('gift_card','vouchar') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'gift_card',
@@ -314,26 +324,90 @@ CREATE TABLE `gift_cards` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE `invoices` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_no` bigint(20) UNSIGNED NOT NULL,
+  `transaction_id` bigint(20) UNSIGNED NOT NULL COMMENT 'Order ID',
+  `business_id` bigint(20) UNSIGNED NOT NULL,
+  `total_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `total_discount` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `grand_total` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `paid_total` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `status` enum('due','paid','delivered','cancelled') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'due',
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `date` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`id`, `invoice_no`, `transaction_id`, `business_id`, `total_amount`, `total_discount`, `grand_total`, `paid_total`, `status`, `created_by`, `updated_by`, `date`, `created_at`, `updated_at`) VALUES
+(1, 1, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 21:51:43', '2021-02-04 21:51:43'),
+(2, 2, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 21:59:09', '2021-02-04 21:59:09'),
+(3, 3, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 22:00:51', '2021-02-04 22:00:51'),
+(4, 1, 3, 4, 640.00, 0.00, 640.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 22:00:51', '2021-02-04 22:00:51');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_items`
+--
+
+CREATE TABLE `invoice_items` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_id` bigint(20) UNSIGNED NOT NULL,
+  `transaction_id` bigint(20) UNSIGNED NOT NULL COMMENT 'Order ID',
+  `business_id` bigint(20) UNSIGNED NOT NULL,
+  `item_id` bigint(20) UNSIGNED NOT NULL,
+  `transaction_sell_line_id` bigint(20) UNSIGNED NOT NULL,
+  `qty` double(8,2) UNSIGNED NOT NULL DEFAULT 1.00,
+  `amount` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `discount_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `grand_total` double(8,2) UNSIGNED NOT NULL DEFAULT 0.00,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoice_items`
+--
+
+INSERT INTO `invoice_items` (`id`, `invoice_id`, `transaction_id`, `business_id`, `item_id`, `transaction_sell_line_id`, `qty`, `amount`, `discount_amount`, `grand_total`, `created_at`, `updated_at`) VALUES
+(1, 3, 3, 1, 1, 3, 1.00, 120.00, 0.00, 120.00, '2021-02-04 22:00:51', '2021-02-04 22:00:51'),
+(2, 3, 3, 1, 4, 5, 3.00, 520.00, 0.00, 1560.00, '2021-02-04 22:00:51', '2021-02-04 22:00:51'),
+(3, 4, 3, 4, 9, 4, 2.00, 320.00, 0.00, 640.00, '2021-02-04 22:00:51', '2021-02-04 22:00:51');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
 CREATE TABLE `items` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `featured_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `short_resolation_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `featured_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `short_resolation_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
   `unit_id` bigint(20) UNSIGNED NOT NULL,
   `brand_id` bigint(20) UNSIGNED DEFAULT NULL,
   `category_id` bigint(20) UNSIGNED DEFAULT NULL,
   `sub_category_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `sub_category_id2` bigint(20) DEFAULT NULL,
   `tax` bigint(20) UNSIGNED DEFAULT NULL,
   `tax_type` enum('inclusive','exclusive') COLLATE utf8mb4_unicode_ci NOT NULL,
   `enable_stock` tinyint(1) NOT NULL DEFAULT 0,
   `alert_quantity` bigint(20) UNSIGNED NOT NULL,
-  `sku` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sku` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `barcode_type` enum('C39','C128','EAN-13','EAN-8','UPC-A','UPC-E','ITF-14') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sku_manual` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sku_manual` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `current_stock` int(10) UNSIGNED DEFAULT 0,
   `default_selling_price` float DEFAULT 0,
   `offer_selling_price` float DEFAULT 0,
@@ -349,15 +423,39 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
-INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `business_id`, `unit_id`, `brand_id`, `category_id`, `sub_category_id`, `tax`, `tax_type`, `enable_stock`, `alert_quantity`, `sku`, `barcode_type`, `sku_manual`, `current_stock`, `default_selling_price`, `offer_selling_price`, `is_offer_enable`, `description`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Samsung Gallaxy A1', 'product-samsung-gallaxy-a1.png', NULL, 1, 1, 2, 2, 5, 1, 'inclusive', 1, 100, 'Samsung-12', 'C39', 'Samsung-12', 0, 12000, NULL, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(2, 'Asus ROG Strix G512LI Core i5 10th GTX 1650Ti Graphics 15.6\" FHD Laptop with Windows 10', 'product-asus.png', NULL, 1, 1, 5, 3, 2, 1, 'inclusive', 1, 100, 'asus-12', 'C39', 'asus-12', 0, 10000, 8000, 1, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(3, 'Samsung Gallaxy J2 New 3GB RAM', 'product-samsung-gallaxy-j2.png', NULL, 1, 1, 2, 2, 5, 1, 'inclusive', 1, 100, 'Samsung-j2', 'C39', 'Samsung-j2', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(4, 'New Sleeve Cotton Shirt', 'product-shirt.png', NULL, 1, 1, 2, 8, 9, 1, 'inclusive', 1, 100, 'shirt-blue', 'C39', 'shirt-blue', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(5, 'New Black HeadPhone ', 'product-headphone.png', NULL, 1, 1, 2, 2, 2, 1, 'inclusive', 1, 100, 'headphone', 'C39', 'headphone', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(6, 'Check Sleeve Cotton Shirt Yellow Shirt', 'product-shirt2.png', NULL, 1, 1, 2, 8, 9, 1, 'inclusive', 1, 100, 'shirt-check', 'C39', 'shirt-check', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(7, 'Red Sleeve Cotton Shirt for Middle Age', 'product-shirt3.png', NULL, 1, 1, NULL, 8, 9, 1, 'inclusive', 1, 100, 'shirt-2', 'C39', 'shirt-2', 0, 450, 400, 1, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
-(8, 'iPhone 11 Pro Max', 'product-iphone-11-pro.png', NULL, 1, 1, NULL, 2, 4, 1, 'inclusive', 1, 100, 'iphone-11-pro', 'C39', 'iphone-11-pro', 0, 120000, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL);
+INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `business_id`, `unit_id`, `brand_id`, `category_id`, `sub_category_id`, `sub_category_id2`, `tax`, `tax_type`, `enable_stock`, `alert_quantity`, `sku`, `barcode_type`, `sku_manual`, `current_stock`, `default_selling_price`, `offer_selling_price`, `is_offer_enable`, `description`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Samsung Gallaxy A1', 'product-samsung-gallaxy-a1.png', NULL, 1, 1, 2, 2, 5, NULL, 1, 'inclusive', 1, 100, 'Samsung-12', 'C39', 'Samsung-12', 0, 12000, NULL, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(2, 'Asus ROG Strix G512LI Core i5 10th GTX 1650Ti Graphics 15.6\" FHD Laptop with Windows 10', 'product-asus.png', NULL, 1, 1, 5, 3, 2, NULL, 1, 'inclusive', 1, 100, 'asus-12', 'C39', 'asus-12', 0, 10000, 8000, 1, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(3, 'Samsung Gallaxy J2 New 3GB RAM', 'product-samsung-gallaxy-j2.png', NULL, 1, 1, 2, 2, 5, NULL, 1, 'inclusive', 1, 100, 'Samsung-j2', 'C39', 'Samsung-j2', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(4, 'New Sleeve Cotton Shirt', 'product-shirt.png', NULL, 1, 1, 2, 8, 9, NULL, 1, 'inclusive', 1, 100, 'shirt-blue', 'C39', 'shirt-blue', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(5, 'New Black HeadPhone ', 'product-headphone.png', NULL, 1, 1, 2, 2, 2, NULL, 1, 'inclusive', 1, 100, 'headphone', 'C39', 'headphone', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(6, 'Check Sleeve Cotton Shirt Yellow Shirt', 'product-shirt2.png', NULL, 1, 1, 2, 8, 9, NULL, 1, 'inclusive', 1, 100, 'shirt-check', 'C39', 'shirt-check', 0, 0, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(7, 'Red Sleeve Cotton Shirt for Middle Age', 'product-shirt3.png', NULL, 1, 1, NULL, 8, 9, NULL, 1, 'inclusive', 1, 100, 'shirt-2', 'C39', 'shirt-2', 0, 450, 400, 1, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(8, 'iPhone 11 Pro Max', 'product-iphone-11-pro.png', NULL, 1, 1, NULL, 2, 4, NULL, 1, 'inclusive', 1, 100, 'iphone-11-pro', 'C39', 'iphone-11-pro', 0, 120000, 0, 0, NULL, 1, '2020-11-12 20:58:50', '2020-11-12 20:58:50', NULL),
+(9, 'Cam20', 'product-1610219218.png', 'product-1610219218.png', 4, 1, 3, 20, 19, NULL, 1, 'inclusive', 1, 12, 'A00839S732014', 'C39', '1212', 0, 0, 0, 0, NULL, 1, '2021-01-09 13:06:58', '2021-01-09 13:06:58', NULL),
+(10, 'string', NULL, NULL, 1, 1, 2, 2, 7, NULL, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 0, 0, 0, 0, NULL, 1, '2021-02-03 11:33:56', '2021-02-03 11:33:56', NULL),
+(11, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-03 11:35:29', '2021-02-03 11:35:29', NULL),
+(12, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-03 11:36:25', '2021-02-03 11:36:25', NULL),
+(14, '34', 'product-1612375875.png', NULL, 2, 1, 10, 2, NULL, 5, 1, 'exclusive', 1, 43, '43', 'C128', '43', 43, 43, 43, 0, '<p>3434</p>', 1, '2021-02-03 12:11:15', '2021-02-03 12:11:15', NULL),
+(15, '34', 'product-1612375976.png', NULL, 3, 1, 10, 2, NULL, 21, 1, 'inclusive', 1, 43, '34', 'C128', '43', 43, 43, 43, 0, '<p>434343</p>', 1, '2021-02-03 12:12:56', '2021-02-03 12:12:56', NULL),
+(16, '34', 'product-1612376117.jpg', NULL, 2, 1, 10, 2, NULL, 21, 1, 'inclusive', 1, 433, '34', 'C128', '43', 43, 43, 34, 0, '<p>434</p>', 1, '2021-02-03 12:15:17', '2021-02-03 14:08:37', '2021-02-03 14:08:37'),
+(17, 'test product-05', 'product-1612458644.jpeg', 'product-1612458645.jpeg', 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 250, '22', 'EAN-13', '22', 22, 22, 22, 0, '<p>test product-05</p>', 1, '2021-02-04 11:10:45', '2021-02-04 11:10:45', NULL),
+(18, 'test product-05', 'product-1612458650.jpeg', 'product-1612458650.jpeg', 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 250, '22', 'EAN-13', '22', 22, 22, 22, 0, '<p>test product-05</p>', 1, '2021-02-04 11:10:50', '2021-02-04 11:10:50', NULL),
+(19, 'test product-05', 'product-1612458651.jpeg', 'product-1612458651.jpeg', 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 250, '22', 'EAN-13', '22', 22, 22, 22, 0, '<p>test product-05</p>', 1, '2021-02-04 11:10:51', '2021-02-04 11:10:51', NULL),
+(20, 'test product-05', 'product-1612458651.jpeg', 'product-1612458651.jpeg', 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 250, '22', 'EAN-13', '22', 22, 22, 22, 0, '<p>test product-05</p>', 1, '2021-02-04 11:10:51', '2021-02-04 11:10:51', NULL),
+(21, 'test product-05', 'product-1612458660.jpeg', 'product-1612458660.jpeg', 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 250, '22', 'EAN-13', '22', 22, 22, 22, 0, '<p>test product-05</p>', 1, '2021-02-04 11:11:00', '2021-02-04 11:11:00', NULL),
+(22, 'test product-05', 'product-1612459595.jpeg', 'product-1612459595.jpeg', 1, 1, 11, 2, NULL, 5, 1, 'exclusive', 1, 254, '22', 'EAN-8', '22', 22, 22, 22, 0, '<p>2test product-05</p>', 1, '2021-02-04 11:26:35', '2021-02-04 11:26:35', NULL),
+(23, 'test', NULL, NULL, 2, 1, 10, 2, NULL, 21, 1, 'exclusive', 1, 33, '33', 'EAN-8', '33', 33, 33, 33, 0, '<p>3333</p>', 1, '2021-02-04 14:08:00', '2021-02-04 14:08:00', NULL),
+(24, 'testing', NULL, NULL, 3, 1, 5, 2, NULL, 5, 1, 'exclusive', 1, 233, '233', 'EAN-8', '233', 233, 233, 2233, 0, '<p>2333</p>', 1, '2021-02-04 22:13:19', '2021-02-04 22:13:19', NULL),
+(25, 'testing', NULL, NULL, 3, 1, 5, 2, NULL, 5, 1, 'exclusive', 1, 233, '233', 'EAN-8', '233', 233, 233, 2233, 0, '<p>2333</p>', 1, '2021-02-04 22:13:59', '2021-02-04 22:13:59', NULL),
+(26, '34', NULL, NULL, 1, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 33, '33', 'EAN-13', '33', 33, 33, 3333, 0, '<p>33333</p>', 1, '2021-02-04 22:20:27', '2021-02-04 22:20:27', NULL),
+(27, '34', NULL, NULL, 1, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 33, '33', 'EAN-13', '33', 33, 33, 3333, 0, '<p>33333</p>', 1, '2021-02-04 22:21:24', '2021-02-04 22:21:24', NULL),
+(28, '22', NULL, NULL, 2, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 22, '22', 'UPC-A', '22', 22, 22, 22, 0, '<p>22222</p>', 1, '2021-02-04 22:24:48', '2021-02-04 22:24:48', NULL),
+(29, 'reee', 'product-featured-1612500132--1612500132.jpeg', 'product-short-resolution-161-1612500132.png', 1, 1, 3, 2, NULL, 20, 1, 'inclusive', 1, 33, '33', 'UPC-A', '33', 33, 33, 33, 0, '<p>33</p>', 1, '2021-02-04 22:42:12', '2021-02-04 22:42:12', NULL),
+(30, 'testing', 'product-featured-1612500429--1612500429.png', 'product-short-resolution-161-1612500429.png', 2, 1, 5, 2, NULL, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:47:09', '2021-02-04 22:47:09', NULL),
+(31, 'testing', 'product-featured-1612500559--1612500559.png', 'product-short-resolution-161-1612500559.png', 2, 1, 5, 2, 2, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:49:19', '2021-02-04 22:49:19', NULL),
+(32, 'Final test', 'product-featured-1612501778--1612501778.png', 'product-short-resolution-161-1612501778.png', 1, 1, 5, 2, 19, 21, 1, 'exclusive', 1, 123, '123', 'UPC-E', '123', 123, 123, 123, 0, '<p>123</p>', 1, '2021-02-04 23:09:38', '2021-02-04 23:09:38', NULL),
+(33, 'FInal testing', NULL, 'product-short-resolution-161-1612502648.png', 1, 1, 10, 2, 7, 20, 1, 'inclusive', 1, 3434, '232', 'C128', '323', 2323, 2323, 2323, 1, '<p>FInal testing</p>', 1, '2021-02-04 23:24:08', '2021-02-05 02:11:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -385,13 +483,36 @@ CREATE TABLE `item_images` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `item_id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_size` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `image_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_size` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `image_title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `item_images`
+--
+
+INSERT INTO `item_images` (`id`, `item_id`, `business_id`, `image`, `image_size`, `image_title`, `image_description`, `created_at`, `updated_at`) VALUES
+(1, 27, 1, 'product-161249888427-1612498884.jpeg', '10', 'photo-1494438639946-1ebd1d20bf85.jpg', NULL, '2021-02-04 22:21:24', '2021-02-04 22:21:24'),
+(2, 28, 2, 'product-161249908828-1612499088.png', '10', '550-5509172_spider-man-tom-holland-png-clipart-spider-man.png', NULL, '2021-02-04 22:24:48', '2021-02-04 22:24:48'),
+(3, 28, 2, 'product-161249908828-1612499088.png', '10', 'unnamed.png', NULL, '2021-02-04 22:24:48', '2021-02-04 22:24:48'),
+(4, 28, 2, 'product-161249908828-1612499088.png', '10', 'spider-man-png-spiderman-11563230518fsdt8a9hyc.png', NULL, '2021-02-04 22:24:48', '2021-02-04 22:24:48'),
+(5, 29, 1, 'product-161250013229-1612500132.png', '10', 'Logo-plus-simple.png', NULL, '2021-02-04 22:42:12', '2021-02-04 22:42:12'),
+(6, 29, 1, 'product-161250013229-1612500132.png', '10', 'unnamed.png', NULL, '2021-02-04 22:42:12', '2021-02-04 22:42:12'),
+(7, 30, 2, 'product-161250042930-1612500429.jpeg', '10', 'tempress-systems-inc-relay-electronic-component-surface-mount-technology-automation-zambeef-products-plc.jpg', NULL, '2021-02-04 22:47:09', '2021-02-04 22:47:09'),
+(8, 30, 2, 'product-161250042930-1612500429.png', '10', 'unnamed (2).png', NULL, '2021-02-04 22:47:09', '2021-02-04 22:47:09'),
+(9, 30, 2, 'product-161250042930-1612500429.png', '10', '140-1404847_samsung-products-hd-png-download.png', NULL, '2021-02-04 22:47:09', '2021-02-04 22:47:09'),
+(10, 31, 2, 'product-161250055931-1612500559.jpeg', '46 kB', 'tempress-systems-inc-relay-electronic-component-surface-mount-technology-automation-zambeef-products-plc.jpg', NULL, '2021-02-04 22:49:19', '2021-02-04 22:49:19'),
+(11, 31, 2, 'product-161250055931-1612500559.png', '211 kB', 'unnamed (2).png', NULL, '2021-02-04 22:49:19', '2021-02-04 22:49:19'),
+(12, 31, 2, 'product-161250055931-1612500559.png', '296 kB', '140-1404847_samsung-products-hd-png-download.png', NULL, '2021-02-04 22:49:19', '2021-02-04 22:49:19'),
+(13, 32, 1, 'product-161250177832-1612501778.png', '26 kB', 'Panasonic-Mixer-Ad-Block.png', NULL, '2021-02-04 23:09:38', '2021-02-04 23:09:38'),
+(14, 32, 1, 'product-161250177832-1612501778.jpeg', '97 kB', 'worlds-best-programmers-primary.jpg-100689098-large.jpeg', NULL, '2021-02-04 23:09:38', '2021-02-04 23:09:38'),
+(15, 32, 1, 'product-161250177832-1612501778.png', '45 kB', 'png-clipart-point-of-sale-payment-terminal-sales-emv-bank-products-real-pos-machine-electronics-service.png', NULL, '2021-02-04 23:09:38', '2021-02-04 23:09:38'),
+(16, 33, 2, 'product-161250264833-1612502648.png', '26 kB', 'Panasonic-Mixer-Ad-Block.png', NULL, '2021-02-04 23:24:08', '2021-02-04 23:24:08'),
+(17, 33, 2, 'product-161250264833-1612502648.png', '23 kB', 'Logo-plus-simple.png', NULL, '2021-02-04 23:24:08', '2021-02-04 23:24:08');
 
 -- --------------------------------------------------------
 
@@ -421,12 +542,39 @@ INSERT INTO `item_ratings` (`id`, `item_id`, `user_id`, `rating_value`, `created
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `media`
+--
+
+CREATE TABLE `media` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `collection_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mime_type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `disk` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `conversions_disk` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `size` bigint(20) UNSIGNED NOT NULL,
+  `manipulations` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `custom_properties` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `generated_conversions` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `responsive_images` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `order_column` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -469,11 +617,16 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (79, '2020_08_21_172801_add_deleted_at_to_items_table', 1),
 (80, '2020_09_07_015212_create_gift_cards_table', 1),
 (81, '2020_09_07_020621_create_polls_table', 1),
-(82, '2020_09_07_021255_create_poll_options_table', 1),
+(82, '2020_09_07_021191_create_poll_options_table', 1),
 (83, '2020_09_07_022016_create_poll_responses_table', 1),
 (84, '2020_10_28_154939_create_item_images_table', 1),
-(85, '2020_10_28_162550_create_vouchers_table', 2),
-(86, '2020_11_13_063952_create_item_ratings_table', 3);
+(85, '2020_10_28_161910_create_vouchers_table', 2),
+(86, '2020_11_13_063952_create_item_ratings_table', 3),
+(87, '2021_01_24_155124_create_media_table', 4),
+(88, '2021_01_29_060051_create_otps_table', 5),
+(89, '2021_01_29_065548_create_sms_table', 5),
+(90, '2021_02_04_181707_create_invoices_table', 6),
+(91, '2021_02_04_182538_create_invoice_items_table', 6);
 
 -- --------------------------------------------------------
 
@@ -483,7 +636,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -495,7 +648,7 @@ CREATE TABLE `model_has_permissions` (
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -509,7 +662,7 @@ CREATE TABLE `oauth_access_tokens` (
   `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `client_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `revoked` tinyint(1) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -522,12 +675,34 @@ CREATE TABLE `oauth_access_tokens` (
 --
 
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
+('061c0bd159542a4b6448b355e3b00f5eb377cefbc7713c761a05bd825034b2578fa43d29cbea18fd', 1, 3, 'authToken', '[]', 0, '2021-02-03 04:26:25', '2021-02-03 04:26:25', '2022-02-03 10:26:25'),
+('0e1c09f49be6d55848bd919c774d141a3624c0b9e78124000df5187c195337f68735a989ea131a8b', 1, 3, 'authToken', '[]', 0, '2021-01-24 08:16:49', '2021-01-24 08:16:49', '2022-01-24 14:16:49'),
+('13ff18f9deafb7b012a62c4ab87b184e6394dc911af67b12f55d2373e07fa0a3540de34692444f3a', 1, 3, 'authToken', '[]', 0, '2021-02-01 14:46:52', '2021-02-01 14:46:52', '2022-02-01 14:46:52'),
+('16b0e0c850071e521b18344b6607038c7630489c564ece415bb40c2ad47f2cb0ec1c357096e52230', 1, 3, 'authToken', '[]', 0, '2021-01-16 11:10:06', '2021-01-16 11:10:06', '2022-01-16 17:10:06'),
+('2ceddd1b6788601c5931d6a5d3b5b90fab29424b282126715ebb63bb5a5a315688d84b0c2574fc30', 1, 3, 'authToken', '[]', 0, '2021-01-24 09:16:38', '2021-01-24 09:16:38', '2022-01-24 15:16:38'),
+('371bf5dae35026aee0702f43485500a89ca9a0681f53fcc11a52664cfd01cb4efef715067f7b5c7c', 1, 3, 'authToken', '[]', 0, '2021-02-02 22:24:52', '2021-02-02 22:24:52', '2022-02-03 04:24:52'),
+('3919c6911def98da2a92899e4b61bde7189e524ff400136b26d22c893aef9233198270aa42c08962', 1, 3, 'authToken', '[]', 0, '2021-02-04 12:11:43', '2021-02-04 12:11:43', '2022-02-04 18:11:43'),
+('3c2d613c9e01bab1486e88c192174152ea484862aea682ca9312140f1fe51d24359f47363db09dc5', 1, 3, 'authToken', '[]', 0, '2021-01-24 08:12:20', '2021-01-24 08:12:20', '2022-01-24 14:12:20'),
+('4191c7a7229f18b1bb147d1d6d0983304083f25f55c5079ce60e77e4881ec8248c903302b33351dc', 1, 3, 'authToken', '[]', 0, '2021-02-05 02:25:22', '2021-02-05 02:25:22', '2022-02-05 08:25:22'),
 ('59503beb9a509c4dcbf479f414d75432a9d31eb666c9e802312f99151019698f407c562e7dd74f31', 1, 1, 'authToken', '[]', 0, '2020-12-11 20:19:33', '2020-12-11 20:19:33', '2021-12-12 02:19:33'),
 ('695fc1e680cb4e66427cd17870195ab5fa4144821b7cd98f090cc4872ccb0dd9cb533e589fa70e8f', 1, 1, 'authToken', '[]', 0, '2020-12-12 08:05:07', '2020-12-12 08:05:07', '2021-12-12 14:05:07'),
+('6a9087f25b5a66979d74de619a14d08a59e5709981afb58228b19de36776d338d1ea74208d8c9707', 1, 3, 'authToken', '[]', 0, '2021-01-24 08:17:21', '2021-01-24 08:17:21', '2022-01-24 14:17:21'),
+('75a021b90fa310530d025314ea12b6279742483dcc700fd4012d7330ffc1a0630ceaf3c05a9f40c9', 1, 3, 'authToken', '[]', 0, '2021-02-03 02:42:56', '2021-02-03 02:42:56', '2022-02-03 08:42:56'),
 ('7af389e3d659ff22247038aebcc42a7f9d1d13067f8ef88ff8a333e450580623a8dc5301840b8659', 1, 1, 'authToken', '[]', 0, '2020-12-06 19:49:39', '2020-12-06 19:49:39', '2021-12-07 01:49:39'),
+('86416ca7335b67c959e279cca366da491a4ac55cbf405a798b21652d22dd1c91fea0b0142e0fdc47', 1, 3, 'authToken', '[]', 0, '2021-02-04 07:15:36', '2021-02-04 07:15:36', '2022-02-04 13:15:36'),
 ('89cc9720c600b230f963066a1b88b6aa8f79168cf5a7bcfe5cc428fb2a99b0cc60d762dfa3fabd0e', 1, 1, 'authToken', '[]', 0, '2020-12-06 19:47:13', '2020-12-06 19:47:13', '2021-12-07 01:47:13'),
 ('930852ac7409118c47567b5ef0d8ada3eb0bcc62fec053819c77017af1fa5190fc5a0b6f0f37b68c', 1, 1, 'authToken', '[]', 0, '2020-12-10 10:54:02', '2020-12-10 10:54:02', '2021-12-10 16:54:02'),
+('9b6ed529fa2905411d0cd520ef96c4ed39cb10648820cd980678ea9fb3ad7966c854794e58d9f9f5', 1, 3, 'authToken', '[]', 0, '2021-02-01 21:51:32', '2021-02-01 21:51:32', '2022-02-01 21:51:32'),
+('9c78d8ac246cddca91bf499256dfa8c90531453113b9835d48786289b9a6e8f1d9023dc5e657a8c5', 1, 3, 'authToken', '[]', 0, '2021-01-26 09:19:51', '2021-01-26 09:19:51', '2022-01-26 15:19:51'),
 ('9f957c91e984cae5aa0b6ab2f77138fd30a966a85c0c987427b095d13e7bd66212eb5a230fd7c060', 1, 1, 'authToken', '[]', 0, '2020-12-12 08:01:17', '2020-12-12 08:01:17', '2021-12-12 14:01:17'),
+('a1977e4f7f147905c9369f8c30caf4af2a6fdab8883199fd1e980d0a8f44649e2dc387a1b15486e9', 1, 3, 'authToken', '[]', 0, '2021-02-02 22:16:03', '2021-02-02 22:16:03', '2022-02-03 04:16:03'),
+('a1ac0b17a792f4b7c6250086caa9169e22bc2daa35c4aebcc460868487b00aa5e4bcbdb2d84350f1', 1, 3, 'authToken', '[]', 0, '2021-01-09 12:51:49', '2021-01-09 12:51:49', '2022-01-09 18:51:49'),
+('ab693792d34a39a26cd29a2d0ec1bbfd83d5955742b880a2da97475dfe099bbd0ed5f3896653192c', 1, 3, 'authToken', '[]', 0, '2021-02-04 22:09:10', '2021-02-04 22:09:10', '2022-02-05 04:09:10'),
+('bf5a8da8343ba80f32c6cae7aed4a2aabb23f8eb511c39a026418175aa91ab7f25a9e11d1c2d99a2', 1, 3, 'authToken', '[]', 0, '2021-02-01 15:34:28', '2021-02-01 15:34:28', '2022-02-01 15:34:28'),
+('c35bda07e20cae5ad3f202b2bb63da9045672e08f6e424100b24259f044926de0ac1e959ce7ad9dc', 1, 3, 'authToken', '[]', 0, '2021-02-04 12:17:30', '2021-02-04 12:17:30', '2022-02-04 18:17:30'),
+('c418adcac2ddd6ab5d4a77761566647ca4abffd81784aa2bb36804483dd412edafba2d560a44a7ae', 1, 3, 'authToken', '[]', 0, '2021-02-03 01:21:28', '2021-02-03 01:21:28', '2022-02-03 07:21:28'),
+('dccba1a8c7f2c5e19f8a789f5edf8b06c12f23484ca40eec919825b9dbc4d76102aa36eb4771457b', 1, 3, 'authToken', '[]', 0, '2021-01-25 10:52:33', '2021-01-25 10:52:33', '2022-01-25 16:52:33'),
+('e7cd908afc6be0d1aec5af78076cfc14bf0db937f0787a683c8cfee10b136cc366ca5ddff6837e53', 2, 3, 'authToken', '[]', 0, '2021-01-16 11:13:14', '2021-01-16 11:13:14', '2022-01-16 17:13:14'),
 ('f580690c46c6b8718ccf61553d9a738d8986438b8f586fc3c8efe62f351c73c64022a7fa812d1ed3', 1, 1, 'authToken', '[]', 0, '2020-12-12 07:38:12', '2020-12-12 07:38:12', '2021-12-12 13:38:12');
 
 -- --------------------------------------------------------
@@ -554,9 +729,9 @@ CREATE TABLE `oauth_auth_codes` (
 CREATE TABLE `oauth_clients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `personal_access_client` tinyint(1) NOT NULL,
   `password_client` tinyint(1) NOT NULL,
@@ -571,7 +746,9 @@ CREATE TABLE `oauth_clients` (
 
 INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
 (1, NULL, 'iApps Personal Access Client', 'glxjqnd2b5WaMAzseMhbjlooZWXV7qt305T1PiAP', NULL, 'http://localhost', 1, 0, 0, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
-(2, NULL, 'iApps Password Grant Client', 'OsNo8CvE0wysryhxXMUMuI3k5SjGhVP9qkVuWOOk', 'users', 'http://localhost', 0, 1, 0, '2020-12-06 19:35:39', '2020-12-06 19:35:39');
+(2, NULL, 'iApps Password Grant Client', 'OsNo8CvE0wysryhxXMUMuI3k5SjGhVP9qkVuWOOk', 'users', 'http://localhost', 0, 1, 0, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
+(3, NULL, 'iApps Personal Access Client', 'IQtabjRKlQYXChq7FXqKqu4hxWjahgKz1s5wsUjc', NULL, 'http://localhost', 1, 0, 0, '2021-01-09 12:23:02', '2021-01-09 12:23:02'),
+(4, NULL, 'iApps Password Grant Client', 'at1ZUajdPn0gfcJmH4kEehkiwgTbXY6EypIDLaxE', 'users', 'http://localhost', 0, 1, 0, '2021-01-09 12:23:02', '2021-01-09 12:23:02');
 
 -- --------------------------------------------------------
 
@@ -591,7 +768,8 @@ CREATE TABLE `oauth_personal_access_clients` (
 --
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2020-12-06 19:35:39', '2020-12-06 19:35:39');
+(1, 1, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
+(2, 3, '2021-01-09 12:23:02', '2021-01-09 12:23:02');
 
 -- --------------------------------------------------------
 
@@ -609,19 +787,43 @@ CREATE TABLE `oauth_refresh_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `otps`
+--
+
+CREATE TABLE `otps` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `phone_no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `otp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expire_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `otps`
+--
+
+INSERT INTO `otps` (`id`, `phone_no`, `otp`, `expire_date`, `created_at`, `updated_at`) VALUES
+(1, '8801951233084', '691525', '2021-01-29 01:53:58', '2021-01-29 01:43:59', '2021-01-29 01:48:58'),
+(2, '8801951233081', '574071', '2021-02-01 16:12:28', '2021-02-01 16:07:28', '2021-02-01 16:07:28');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `pages`
 --
 
 CREATE TABLE `pages` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `meta_description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner_image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner_image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_id` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'Null if page has no category',
+  `article_type_id` bigint(11) UNSIGNED DEFAULT NULL COMMENT 'If Article Belongs to a Type',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
@@ -639,8 +841,8 @@ CREATE TABLE `pages` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -652,9 +854,9 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `permissions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `group_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -667,10 +869,10 @@ CREATE TABLE `permissions` (
 
 CREATE TABLE `polls` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `enable_item_comparison` tinyint(1) NOT NULL DEFAULT 1 COMMENT 'If item comparison is enable, then user need to input for item1 and item2',
   `type` enum('radio','checkbox','select','text') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'radio' COMMENT 'Process of voting system',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
@@ -690,7 +892,7 @@ CREATE TABLE `polls` (
 
 CREATE TABLE `poll_options` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `value` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `item_id` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'if poll is associated with item comparison',
   `poll_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -723,7 +925,7 @@ CREATE TABLE `referrals` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `referee_id` bigint(20) UNSIGNED NOT NULL COMMENT 'Who Registered',
   `referrer_id` bigint(20) UNSIGNED NOT NULL COMMENT 'By Whom Registered',
-  `source_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `source_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `referral_date_time` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -754,8 +956,8 @@ CREATE TABLE `referral_rules` (
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -779,18 +981,32 @@ CREATE TABLE `role_has_permissions` (
 
 CREATE TABLE `sliders` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `image_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_path_sm` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image_path_sm` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_text_enable` tinyint(1) NOT NULL DEFAULT 1,
-  `text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `text_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `text_color` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_button_enable` tinyint(1) NOT NULL DEFAULT 1,
-  `button_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `button_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_text` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_color` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sms`
+--
+
+CREATE TABLE `sms` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `number` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sms` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -804,19 +1020,19 @@ CREATE TABLE `sliders` (
 CREATE TABLE `suppliers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `supplier_business_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `bin` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BIN = Business Identification Number',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `profile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tax_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `landmark` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `landline` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `alternate_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `supplier_business_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `bin` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'BIN = Business Identification Number',
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `profile` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tax_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `state` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `landmark` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `landline` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alternate_number` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pay_term_number` bigint(20) UNSIGNED DEFAULT NULL,
   `pay_term_type` enum('days','months') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
@@ -835,7 +1051,7 @@ CREATE TABLE `suppliers` (
 CREATE TABLE `tax_rates` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `calculation_type` enum('fixed','percentage') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'percentage',
   `amount` double(8,2) NOT NULL,
   `is_tax_group` tinyint(1) NOT NULL DEFAULT 0,
@@ -866,17 +1082,17 @@ CREATE TABLE `transactions` (
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
   `delivery_status` enum('delivered','not_delivered') COLLATE utf8mb4_unicode_ci NOT NULL,
   `payment_status` enum('paid','due') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title needed for all other transactions which needs to store a default title',
-  `invoice_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ref_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Title needed for all other transactions which needs to store a default title',
+  `invoice_no` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ref_no` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `transaction_date` datetime NOT NULL,
   `total_before_tax` decimal(8,2) NOT NULL DEFAULT 0.00 COMMENT 'Total before the purchase/invoice tax, this includeds the indivisual product tax',
   `tax_amount` decimal(8,2) NOT NULL DEFAULT 0.00,
   `discount_type_id` bigint(20) UNSIGNED NOT NULL,
   `tax_id` bigint(20) UNSIGNED NOT NULL,
   `discount_amount` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_details` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `order_quantity` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `shipping_details` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `order_quantity` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `shipping_charges` decimal(8,2) NOT NULL DEFAULT 0.00,
   `additional_notes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `staff_note` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -884,10 +1100,19 @@ CREATE TABLE `transactions` (
   `due_total` decimal(8,2) NOT NULL DEFAULT 0.00,
   `final_total` decimal(8,2) NOT NULL DEFAULT 0.00,
   `created_by` bigint(20) UNSIGNED NOT NULL,
-  `deleted_at` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `business_id`, `type`, `status`, `delivery_status`, `payment_status`, `title`, `invoice_no`, `ref_no`, `transaction_date`, `total_before_tax`, `tax_amount`, `discount_type_id`, `tax_id`, `discount_amount`, `shipping_details`, `order_quantity`, `shipping_charges`, `additional_notes`, `staff_note`, `paid_total`, `due_total`, `final_total`, `created_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-01-30 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
+(2, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '2', '2021-02-04 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
+(3, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-02-05 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
 
 -- --------------------------------------------------------
 
@@ -910,6 +1135,17 @@ CREATE TABLE `transaction_sell_lines` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `transaction_sell_lines`
+--
+
+INSERT INTO `transaction_sell_lines` (`id`, `transaction_id`, `item_id`, `business_id`, `quantity`, `unit_price`, `unit_price_inc_tax`, `discount_amount`, `item_tax`, `created_by`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, 2, '100.00', '120.00', 0.00, '0.00', 1, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
+(2, 2, 1, 1, 2, '100.00', '120.00', 0.00, '0.00', 1, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
+(3, 3, 1, 1, 1, '100.00', '120.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
+(4, 3, 9, 4, 2, '300.00', '320.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
+(5, 3, 4, 1, 3, '500.00', '520.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
+
 -- --------------------------------------------------------
 
 --
@@ -919,8 +1155,8 @@ CREATE TABLE `transaction_sell_lines` (
 CREATE TABLE `units` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `actual_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `short_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `actual_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `short_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `allow_decimal` tinyint(1) NOT NULL,
   `created_by` bigint(20) UNSIGNED NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
@@ -944,17 +1180,19 @@ INSERT INTO `units` (`id`, `business_id`, `actual_name`, `short_name`, `allow_de
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `business_id` bigint(20) UNSIGNED DEFAULT NULL COMMENT 'It will be null if user is totally new',
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `surname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `phone_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_no` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `language` char(4) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `banner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `banner` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `type` enum('customer','vendor','','') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
+  `status` enum('active','inactive','banned','account_deleted') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'inactive',
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -964,8 +1202,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `business_id`, `first_name`, `surname`, `last_name`, `username`, `email`, `phone_no`, `password`, `language`, `avatar`, `banner`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Test User', 'test', 'last', 'testuser', 'akash.corp@akij.net', '01951233084', '$2y$10$PkTIfVRxq3c8I/AscaMbV.E7kj0uq6VRcuX3DwN87a2snFQWDQG5i', 'en', NULL, NULL, NULL, NULL, '2020-11-04 12:14:12', '2020-11-04 12:14:12');
+INSERT INTO `users` (`id`, `business_id`, `first_name`, `surname`, `last_name`, `username`, `email`, `phone_no`, `password`, `language`, `avatar`, `banner`, `remember_token`, `type`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'Test User', 'test', 'last', 'testuser', 'seller@example.com', '01951233084', '$2y$10$AQJKflstCN3rPidQHSqxCOLReBLlQo.HJT5Llwkhg28j9XxZX.rA6', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2020-11-04 12:14:12', '2021-01-29 04:12:39'),
+(9, NULL, 'Maniruzzaman', NULL, 'Akash', 'maniruzzaman', NULL, '01951233081', '$2y$10$t6LIp5wuW.ZWJAtVraozZenX2uaz6yPPE.tw4lxcuWjJ92NmHiBle', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-01 16:07:28', '2021-02-01 16:07:46');
 
 -- --------------------------------------------------------
 
@@ -975,9 +1214,9 @@ INSERT INTO `users` (`id`, `business_id`, `first_name`, `surname`, `last_name`, 
 
 CREATE TABLE `vouchers` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price_value_for` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price value it will take from customer',
   `change_price_value` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price will return customer as card value',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
@@ -997,7 +1236,7 @@ CREATE TABLE `vouchers` (
 
 CREATE TABLE `websockets_statistics_entries` (
   `id` int(10) UNSIGNED NOT NULL,
-  `app_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `app_id` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `peak_connection_count` int(11) NOT NULL,
   `websocket_message_count` int(11) NOT NULL,
   `api_message_count` int(11) NOT NULL,
@@ -1101,6 +1340,25 @@ ALTER TABLE `gift_cards`
   ADD KEY `gift_cards_card_type_index` (`card_type`);
 
 --
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoices_business_id_foreign` (`business_id`),
+  ADD KEY `invoices_transaction_id_foreign` (`transaction_id`),
+  ADD KEY `invoices_created_by_foreign` (`created_by`),
+  ADD KEY `invoices_updated_by_foreign` (`updated_by`);
+
+--
+-- Indexes for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoice_items_business_id_foreign` (`business_id`),
+  ADD KEY `invoice_items_transaction_id_foreign` (`transaction_id`),
+  ADD KEY `invoice_items_item_id_foreign` (`item_id`);
+
+--
 -- Indexes for table `items`
 --
 ALTER TABLE `items`
@@ -1140,6 +1398,13 @@ ALTER TABLE `item_ratings`
   ADD PRIMARY KEY (`id`),
   ADD KEY `item_ratings_item_id_foreign` (`item_id`),
   ADD KEY `item_ratings_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `media`
+--
+ALTER TABLE `media`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `media_model_type_model_id_index` (`model_type`,`model_id`);
 
 --
 -- Indexes for table `migrations`
@@ -1194,6 +1459,12 @@ ALTER TABLE `oauth_personal_access_clients`
 ALTER TABLE `oauth_refresh_tokens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
+
+--
+-- Indexes for table `otps`
+--
+ALTER TABLE `otps`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pages`
@@ -1275,6 +1546,12 @@ ALTER TABLE `role_has_permissions`
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sliders_business_id_foreign` (`business_id`);
+
+--
+-- Indexes for table `sms`
+--
+ALTER TABLE `sms`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `suppliers`
@@ -1364,7 +1641,7 @@ ALTER TABLE `attribute_values`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `business`
@@ -1382,7 +1659,7 @@ ALTER TABLE `business_locations`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `currencies`
@@ -1406,7 +1683,7 @@ ALTER TABLE `customer_groups`
 -- AUTO_INCREMENT for table `discount_types`
 --
 ALTER TABLE `discount_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -1421,10 +1698,22 @@ ALTER TABLE `gift_cards`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `item_attributes`
@@ -1436,7 +1725,7 @@ ALTER TABLE `item_attributes`
 -- AUTO_INCREMENT for table `item_images`
 --
 ALTER TABLE `item_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `item_ratings`
@@ -1445,22 +1734,34 @@ ALTER TABLE `item_ratings`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `media`
+--
+ALTER TABLE `media`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `otps`
+--
+ALTER TABLE `otps`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -1517,6 +1818,12 @@ ALTER TABLE `sliders`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `sms`
+--
+ALTER TABLE `sms`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -1532,13 +1839,13 @@ ALTER TABLE `tax_rates`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `transaction_sell_lines`
 --
 ALTER TABLE `transaction_sell_lines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -1550,7 +1857,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
@@ -1635,6 +1942,23 @@ ALTER TABLE `gift_cards`
   ADD CONSTRAINT `gift_cards_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `gift_cards_deleted_by_foreign` FOREIGN KEY (`deleted_by`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `gift_cards_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_business_id_foreign` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
+  ADD CONSTRAINT `invoices_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `invoices_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`),
+  ADD CONSTRAINT `invoices_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `invoice_items`
+--
+ALTER TABLE `invoice_items`
+  ADD CONSTRAINT `invoice_items_business_id_foreign` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
+  ADD CONSTRAINT `invoice_items_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
+  ADD CONSTRAINT `invoice_items_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`);
 
 --
 -- Constraints for table `items`

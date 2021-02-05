@@ -5556,7 +5556,7 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
-                                    "business_id": {
+                                    "transaction_id": {
                                         "type": "integer",
                                         "example": 1
                                     }

@@ -15,7 +15,7 @@ class Item extends Model
 {
     use SoftDeletes;
     protected $table = "items";
-//    protected $connection = 'DB_iApps';
+    //    protected $connection = 'DB_iApps';
     protected $primaryKey = 'id';
     protected $fillable = [
         'business_id',
@@ -47,12 +47,34 @@ class Item extends Model
 
     public function getFeaturedUrlAttribute()
     {
-        return is_null($this->featured_image) ? null : url('/').'/images/products/'.$this->featured_image;
+        return is_null($this->featured_image) ? null : url('/') . '/images/products/' . $this->featured_image;
     }
 
     public function getShortResolationUrlAttribute()
     {
-        return is_null($this->short_resolation_image) ? null : url('/').'/images/products/'.$this->short_resolation_image;
+        return is_null($this->short_resolation_image) ? null : url('/') . '/images/products/' . $this->short_resolation_image;
+    }
+
+    // public function getShortResolationUrlBase64Attribute()
+    // {
+    //     return $this->getBase64File('images/products/' . $this->short_resolation_image);
+    // }
+
+    // public function getFeaturedUrlBase64Attribute()
+    // {
+    //     return $this->getBase64File('images/products/' . $this->featured_image);
+    // }
+
+    public function getBase64File($path)
+    {
+        try {
+            $type   = pathinfo($path, PATHINFO_EXTENSION);
+            $dataNew   = file_get_contents($path);
+            $base64 = 'data:application/' . $type . ';base64,' . base64_encode($dataNew);
+            return $base64;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /**
@@ -142,7 +164,7 @@ class Item extends Model
     {
         $rating = $this->ratings()->average('rating_value');
 
-        if(is_null($rating)) return 0;
+        if (is_null($rating)) return 0;
         return $rating;
     }
 

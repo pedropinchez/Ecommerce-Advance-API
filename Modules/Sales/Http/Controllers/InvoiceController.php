@@ -59,7 +59,7 @@ class InvoiceController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="business_id", type="integer", example=1)
+     *              @OA\Property(property="transaction_id", type="integer", example=1)
      *          ),
      *      ),
      *     @OA\Response( response=200, description="Create New Sale" ),

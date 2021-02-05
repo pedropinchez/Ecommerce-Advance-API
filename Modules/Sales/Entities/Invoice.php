@@ -3,6 +3,7 @@
 namespace Modules\Sales\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Auth\Entities\User;
 use Modules\Business\Entities\Business;
 
 class Invoice extends Model
@@ -34,5 +35,10 @@ class Invoice extends Model
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

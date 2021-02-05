@@ -101,27 +101,27 @@ class ItemRepository implements ItemInterfaces
      */
     public function store($data)
     {
-        $item = Item::create($data);
         // Upload Featured and Short Resolution Images
-        $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/public/images/products/", 'featured-'.time().$item->id, 'product');
-        $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/public/images/products/", 'short-resolution-'.time().$item->id, 'product');
-        $item->featured_image = $featured_image;
-        $item->short_resolation_image = $short_resolation_image;
+        $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/images/products/", 'featured-'.time().'-'.uniqid(), 'product');
+        $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/images/products/", 'short-resolution-'.time().'-'.uniqid(), 'product');
+        $data['featured_image'] = $featured_image;
+        $data['short_resolation_image'] = $short_resolation_image;
+        $item = Item::create($data);
         $item->save();
 
         // Upload Multiple Images
         if(!is_null($item) && count($data['images']) > 0){
             foreach ($data['images'] as $image) {
                 $fileName = null;
-                if (isset($image['imageFile']) && !is_null($image['imageFile']) && $image['imageFile'] !== "") {
-                    $fileName = Base64Encoder::uploadBase64File($image['imageFile'], "/public/images/products/", time().$item->id, 'product');
+                if (isset($image['base64']) && !is_null($image['base64']) && $image['base64'] !== "") {
+                    $fileName = Base64Encoder::uploadBase64File($image['base64'], "/images/products/", time().$item->id, 'product');
                 }
                 ItemImage::create([
                     'item_id' => $item->id,
                     'business_id' => $item->business_id,
                     'image' => $fileName,
-                    'image_size' => $image['imageSize'],
-                    'image_title' => $image['imageTitle'],
+                    'image_size' => 10,
+                    'image_title' => $image['name'],
                 ]);
             }
         }

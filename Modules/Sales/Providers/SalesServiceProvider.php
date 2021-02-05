@@ -4,6 +4,8 @@ namespace Modules\Sales\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\Sales\Entities\Transaction;
+use Modules\Sales\Observers\TransactionObserver;
 
 class SalesServiceProvider extends ServiceProvider
 {
@@ -29,6 +31,9 @@ class SalesServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        // Observers
+        Transaction::observe(TransactionObserver::class);
     }
 
     /**

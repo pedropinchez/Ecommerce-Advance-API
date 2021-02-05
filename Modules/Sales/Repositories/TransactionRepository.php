@@ -2,6 +2,7 @@
 
 namespace Modules\Sales\Repositories;
 
+use Modules\Item\Entities\Item;
 use Modules\Sales\Entities\Transaction;
 use Modules\Sales\Entities\TransactionSellLine;
 
@@ -19,11 +20,15 @@ class TransactionRepository
 
     public function store($data)
     {
+        $invoiceRepo = new InvoiceRepository();
+        return $invoiceRepo->storeInvoice(3);
+
         $data['transaction_date'] = date('Y-m-d');
         $transaction = Transaction::create($data);
         if($transaction) {
             foreach($data['sale_lines'] as $key => $value) {
-                $saleLine['business_id'] = $data['business_id'];
+                $business_id = Item::where('id', $value['item_id'])->value('business_id');
+                $saleLine['business_id'] = $business_id;
                 $saleLine['created_by'] = $data['created_by'];
                 $saleLine['transaction_id'] = $transaction->id;
                 $saleLine['item_id'] = $value['item_id'];

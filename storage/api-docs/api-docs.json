@@ -5457,7 +5457,7 @@
         "/api/v1/invoices": {
             "get": {
                 "tags": [
-                    "Sales"
+                    "Invoices"
                 ],
                 "summary": "Get Invoices List",
                 "description": "Get Invoices List",
@@ -5500,16 +5500,16 @@
                         }
                     },
                     {
-                        "name": "business_id",
+                        "name": "invoice_no",
                         "in": "query",
+                        "description": "invoice_no, eg; 1",
                         "required": false,
                         "schema": {
                             "type": "integer"
-                        },
-                        "example": 1
+                        }
                     },
                     {
-                        "name": "transaction_id",
+                        "name": "business_id",
                         "in": "query",
                         "required": false,
                         "schema": {
@@ -5546,7 +5546,7 @@
             },
             "post": {
                 "tags": [
-                    "Sales"
+                    "Invoices"
                 ],
                 "summary": "Create New Invoice",
                 "description": "Create New Invoice",
@@ -5582,7 +5582,7 @@
         "/api/v1/invoices/{id}": {
             "get": {
                 "tags": [
-                    "Sales"
+                    "Invoices"
                 ],
                 "summary": "Get Invoice By ID",
                 "description": "Get Invoice By ID",
@@ -5617,7 +5617,7 @@
             },
             "delete": {
                 "tags": [
-                    "Sales"
+                    "Invoices"
                 ],
                 "summary": "Delete Invoices",
                 "description": "Delete Invoices",

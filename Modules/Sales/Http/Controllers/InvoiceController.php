@@ -4,6 +4,7 @@ namespace Modules\Sales\Http\Controllers;
 
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Sales\Http\Requests\TransactionRequest;
@@ -22,7 +23,7 @@ class InvoiceController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/invoices",
-     *     tags={"Sales"},
+     *     tags={"Invoices"},
      *     summary="Get Invoices List",
      *     description="Get Invoices List",
      *     security={{"bearer": {}}},
@@ -30,8 +31,8 @@ class InvoiceController extends Controller
      *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="status", description="status, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="invoice_no", description="invoice_no, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
      *     @OA\Parameter(name="business_id", @OA\Schema(type="integer"), in="query", required=false, example=1),
-     *     @OA\Parameter(name="transaction_id", @OA\Schema(type="integer"), in="query", required=false, example=1),
      *     @OA\Parameter(name="status", @OA\Schema(type="integer"), in="query", required=false, example=1),
      *     operationId="index",
      *     @OA\Response( response=200, description="Get Invoices List" ),
@@ -39,10 +40,10 @@ class InvoiceController extends Controller
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $invoices = $this->invoiceRepository->getInvoiceList();
+            $invoices = $this->invoiceRepository->getInvoiceList($request);
             return $this->responseRepository->ResponseSuccess($invoices, 'Invoice Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
@@ -52,7 +53,7 @@ class InvoiceController extends Controller
     /**
      * @OA\POST(
      *     path="/api/v1/invoices",
-     *     tags={"Sales"},
+     *     tags={"Invoices"},
      *     summary="Create New Invoice",
      *     description="Create New Invoice",
      *     @OA\RequestBody(
@@ -82,7 +83,7 @@ class InvoiceController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/invoices/{id}",
-     *     tags={"Sales"},
+     *     tags={"Invoices"},
      *     summary="Get Invoice By ID",
      *     description="Get Invoice By ID",
      *     security={{"bearer": {}}},
@@ -106,7 +107,7 @@ class InvoiceController extends Controller
     /**
      * @OA\DELETE(
      *     path="/api/v1/invoices/{id}",
-     *     tags={"Sales"},
+     *     tags={"Invoices"},
      *     summary="Delete Invoices",
      *     description="Delete Invoices",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),

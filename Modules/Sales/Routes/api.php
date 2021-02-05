@@ -15,4 +15,5 @@ use Illuminate\Http\Request;
 Route::apiResource('discount-types', 'DiscountController');
 Route::get('discount-types/business/{business_id}', 'DiscountController@getDiscountByBusiness');
 Route::apiResource('sales', 'SalesController');
+Route::apiResource('invoices', 'InvoiceController');
 Route::get('sales/business/{business_id}', 'SalesController@getSaleByBusiness');

@@ -9,28 +9,24 @@ use Modules\Sales\Entities\Transaction;
 
 class InvoiceRepository extends TransactionRepository
 {
-    public function getInvoiceList()
+    public function getInvoiceList($request)
     {
         $query = Invoice::orderBy('id', 'desc');
 
-        if (request()->search) {
-            $query->where('invoice_no', '=', request()->search);
+        if ($request->search) {
+            $query->where('invoice_no', '=', $request->search);
         }
 
-        if (request()->business_id) {
-            $query->where('business_id', request()->business_id);
+        if ($request->business_id) {
+            $query->where('business_id', $request->business_id);
         }
 
-        if (request()->status) {
-            $query->where('status', request()->status);
+        if ($request->status) {
+            $query->where('status', $request->status);
         }
 
-        if (request()->transaction_id) {
-            $query->where('transaction_id', request()->transaction_id);
-        }
-
-        if (request()->isPaginated) {
-            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+        if ($request->isPaginated) {
+            $paginateNo = $request->paginateNo ? $request->paginateNo : 20;
             return $query->paginate($paginateNo);
         } else {
             return $query->get();
@@ -39,7 +35,7 @@ class InvoiceRepository extends TransactionRepository
 
     public function showInvoice($id)
     {
-        return Invoice::with(['items', 'business'])->find($id);
+        return Invoice::with(['items', 'business', 'transaction'])->find($id);
     }
 
     public function storeInvoice($transaction_id)

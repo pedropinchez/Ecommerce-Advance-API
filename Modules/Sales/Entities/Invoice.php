@@ -30,4 +30,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Business::class);
     }
+
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 }

@@ -76,7 +76,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function show($id)
     {
-        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->find($id);
+        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'attributes', 'business'])->find($id);
         return $item;
     }
 
@@ -139,16 +139,16 @@ class ItemRepository implements ItemInterfaces
         $item = Item::find($id);
         if ($item) {
             // Upload Featured and Short Resolution Images
-            if(isset($data['featured_image'])){
+            if (isset($data['featured_image'])) {
                 $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/images/products/", 'featured-' . time() . '-' . uniqid(), 'product');
                 $data['featured_image'] = $featured_image;
-            }else{
+            } else {
                 $data['featured_image'] = $item->featured_image;
             }
-            if(isset($data['short_resolation_image'])){
+            if (isset($data['short_resolation_image'])) {
                 $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/images/products/", 'short-resolution-' . time() . '-' . uniqid(), 'product');
                 $data['short_resolation_image'] = $short_resolation_image;
-            }else{
+            } else {
                 $data['short_resolation_image'] = $item->short_resolation_image;
             }
 
@@ -157,17 +157,19 @@ class ItemRepository implements ItemInterfaces
             // Upload Multiple Images
             if (!is_null($item) && count($data['images']) > 0) {
                 foreach ($data['images'] as $image) {
-                    $fileName = null;
-                    if (isset($image['base64']) && !is_null($image['base64']) && $image['base64'] !== "") {
-                        $fileName = Base64Encoder::uploadBase64File($image['base64'], "/images/products/", time() . $item->id, 'product');
+                    if (is_null($image['id'])) {
+                        $fileName = null;
+                        if (isset($image['base64']) && !is_null($image['base64']) && $image['base64'] !== "") {
+                            $fileName = Base64Encoder::uploadBase64File($image['base64'], "/images/products/", time() . $item->id, 'product');
+                        }
+                        ItemImage::create([
+                            'item_id' => $item->id,
+                            'business_id' => $item->business_id,
+                            'image' => $fileName,
+                            'image_size' => $image['size'],
+                            'image_title' => $image['name'],
+                        ]);
                     }
-                    ItemImage::create([
-                        'item_id' => $item->id,
-                        'business_id' => $item->business_id,
-                        'image' => $fileName,
-                        'image_size' => $image['size'],
-                        'image_title' => $image['name'],
-                    ]);
                 }
             }
         }

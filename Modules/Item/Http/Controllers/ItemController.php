@@ -106,45 +106,8 @@ class ItemController extends Controller
      */
     public function store(ItemRequest $request)
     {
-
-        // return  $request->featured_image;
-
         try {
              $data = $request->all();
-
-            // $imageData = [];
-            // $i = 1;
-            //  $files = $request->file('images');
-            //  return  $files;
-
-            // foreach ($request->images as $images) {
-
-            //     $imagesdata = ImageUploadHelper::upload('images', $request->images, 'product-' . time(), 'images/products');
-            //     return $imagesdata;
-
-                // $fileName = 'products/' . time() . '_' . $files->getClientOriginalName();
-                // $originalImage = Image::make($files);
-                // $originalImage->save($fileName);
-                // $tempImage['image'] = public_path() . '/' . $fileName;
-                // $tempImage['image_title'] = $files->getClientOriginalName();
-                // $tempImage['image_size'] = $originalImage->filesize();
-                // $imageData[] = $tempImage;
-                // $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
-                // $data['featured_image'] =  $featured_image;
-                // $imageData[] = $image_names;
-                // $i++;
-            // }
-
-            // if ($imageData) {
-            //     return $imageData;
-            //     $data['image_data'] = $imageData;
-            // }
-
-            // $featured_image = ImageUploadHelper::upload('featured_image', $request->featured_image, 'product-' . time(), 'images/products');
-            // $data['featured_image'] =  $featured_image;
-            // $short_resolation_image = ImageUploadHelper::upload('short_resolation_image', $request->short_resolation_image, 'product-' . time(), 'images/products/short_resolation');
-            // $data['short_resolation_image'] =  $short_resolation_image;
-
             $item = $this->itemRepository->store($data);
             return $this->responseRepository->ResponseSuccess($item, 'Product Created Successfully');
         } catch (\Exception $exception) {
@@ -155,7 +118,7 @@ class ItemController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/items/{id}",
-     *     tags={"Item"},
+     *     tags={"Items"},
      *     summary="Get Item By ID",
      *     description="Get Item By ID",
      *     security={{"bearer": {}}},

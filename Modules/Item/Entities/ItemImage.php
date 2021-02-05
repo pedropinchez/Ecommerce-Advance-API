@@ -14,4 +14,11 @@ class ItemImage extends Model
         'image_title',
         'image_description'
     ];
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/').'/images/products/'.$this->image;
+    }
 }

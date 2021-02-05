@@ -43,11 +43,16 @@ class Item extends Model
     ];
 
     protected $with = ['images'];
-    protected $appends = ['average_rating', 'featured_url'];
+    protected $appends = ['average_rating', 'featured_url', 'short_resolation_url'];
 
     public function getFeaturedUrlAttribute()
     {
         return is_null($this->featured_image) ? null : url('/').'/images/products/'.$this->featured_image;
+    }
+
+    public function getShortResolationUrlAttribute()
+    {
+        return is_null($this->short_resolation_image) ? null : url('/').'/images/products/'.$this->short_resolation_image;
     }
 
     /**
@@ -56,7 +61,7 @@ class Item extends Model
      */
     public function business()
     {
-        return $this->belongsTo(Business::class);
+        return $this->belongsTo(Business::class)->select('id', 'name');
     }
 
     /**
@@ -65,7 +70,7 @@ class Item extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class)->select('id', 'name');
     }
 
     /**
@@ -74,7 +79,12 @@ class Item extends Model
      */
     public function subCategory()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'sub_category_id', 'id')->select('id', 'name');
+    }
+
+    public function subCategory2()
+    {
+        return $this->belongsTo(Category::class, 'sub_category_id2', 'id')->select('id', 'name');
     }
 
     /**
@@ -83,7 +93,7 @@ class Item extends Model
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->belongsTo(Brand::class)->select('id', 'name');
     }
 
     /**
@@ -92,7 +102,7 @@ class Item extends Model
      */
     public function unit()
     {
-        return $this->belongsTo(Unit::class);
+        return $this->belongsTo(Unit::class)->select('id', 'actual_name');
     }
 
     /**
@@ -101,7 +111,7 @@ class Item extends Model
      */
     public function tax()
     {
-        return $this->belongsTo(TaxRate::class);
+        return $this->belongsTo(TaxRate::class)->select('id', 'name');
     }
 
     /**

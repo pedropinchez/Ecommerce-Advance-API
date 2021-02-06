@@ -1983,6 +1983,44 @@
                 "summary": "Get Attribute List",
                 "description": "Get Attribute List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Attribute List"
@@ -2018,7 +2056,7 @@
                                     },
                                     "category_id": {
                                         "type": "integer",
-                                        "example": 1
+                                        "example": 21
                                     },
                                     "values": {
                                         "type": "array",
@@ -2058,7 +2096,7 @@
         "/api/v1/attributes/{id}": {
             "get": {
                 "tags": [
-                    "Attribute"
+                    "Attributes"
                 ],
                 "summary": "Get Attribute By ID",
                 "description": "Get Attribute By ID",
@@ -2098,21 +2136,45 @@
                 "summary": "Update Attribute",
                 "description": "Update Attribute",
                 "operationId": "Modules\\Item\\Http\\Controllers\\AttributeController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "type": "string"
-                                    },
-                                    "business_id": {
-                                        "type": "integer",
-                                        "example": 1
+                                        "type": "string",
+                                        "example": "Color"
                                     },
                                     "category_id": {
                                         "type": "integer",
-                                        "example": 1
+                                        "example": 21
+                                    },
+                                    "values": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "example": "#902921"
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "Yellow"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -2286,7 +2348,7 @@
         "/api/v1/attributes/values": {
             "get": {
                 "tags": [
-                    "Attributes"
+                    "Attribute Value"
                 ],
                 "summary": "Get Attribute Value List",
                 "description": "Get Attribute Value List",
@@ -2310,7 +2372,7 @@
             },
             "post": {
                 "tags": [
-                    "Attributes"
+                    "Attribute Value"
                 ],
                 "summary": "Create New Attribute Value",
                 "description": "Create New Attribute Value",
@@ -2354,7 +2416,7 @@
         "/api/v1/attributes/values/{id}": {
             "get": {
                 "tags": [
-                    "Attribute"
+                    "Attribute Value"
                 ],
                 "summary": "Get Attribute Value By ID",
                 "description": "Get Attribute Value By ID",
@@ -2389,7 +2451,7 @@
             },
             "put": {
                 "tags": [
-                    "Attributes"
+                    "Attribute Value"
                 ],
                 "summary": "Update Attribute Value",
                 "description": "Update Attribute Value",
@@ -2429,7 +2491,7 @@
             },
             "delete": {
                 "tags": [
-                    "Attributes"
+                    "Attribute Value"
                 ],
                 "summary": "Delete Attribute Value",
                 "description": "Delete Attribute Value",
@@ -2461,7 +2523,7 @@
         "/api/v1/attributes/values/{attribute_id}": {
             "get": {
                 "tags": [
-                    "Attributes"
+                    "Attribute Value"
                 ],
                 "summary": "Get Attribute Value List of Business",
                 "description": "Get Attribute Value List of Business",

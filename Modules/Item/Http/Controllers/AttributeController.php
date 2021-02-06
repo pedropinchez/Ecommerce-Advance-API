@@ -27,6 +27,11 @@ class AttributeController extends Controller
      *     description="Get Attribute List",
      *     security={{"bearer": {}}},
      *     operationId="index",
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="category_id", @OA\Schema(type="integer"), in="query", required=false, example=1),
+
      *      @OA\Response( response=200, description="Get Attribute List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -82,7 +87,7 @@ class AttributeController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/attributes/{id}",
-     *     tags={"Attribute"},
+     *     tags={"Attributes"},
      *     summary="Get Attribute By ID",
      *     description="Get Attribute By ID",
      *     security={{"bearer": {}}},
@@ -109,13 +114,21 @@ class AttributeController extends Controller
      *     tags={"Attributes"},
      *     summary="Update Attribute",
      *     description="Update Attribute",
+     *     @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *               @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="business_id", type="integer", example=1),
-     *              @OA\Property(property="category_id", type="integer", example=1)
-     *          ),
+     *              @OA\Property(property="name", type="string", example="Color"),
+     *              @OA\Property(property="category_id", type="integer", example=21),
+     *              @OA\Property(
+     *                  property="values",
+     *                      type="array",
+     *                      @OA\Items(
+     *                              @OA\Property(property="code", type="string", example="#902921"),
+     *                              @OA\Property(property="value", type="string", example="Yellow")
+     *                          ),
+     *                  ),
+     *              ),
      *      ),
      *      @OA\Response( response=200, description="Update Attribute" ),
      *      @OA\Response(response=400, description="Bad request"),

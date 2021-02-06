@@ -21,7 +21,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/attributes/values",
-     *     tags={"Attributes"},
+     *     tags={"Attribute Value"},
      *     summary="Get Attribute Value List",
      *     description="Get Attribute Value List",
      *     security={{"bearer": {}}},
@@ -44,7 +44,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\POST(
      *     path="/api/v1/attributes/values",
-     *     tags={"Attributes"},
+     *     tags={"Attribute Value"},
      *     summary="Create New Attribute Value",
      *     description="Create New Attribute Value",
      *     @OA\RequestBody(
@@ -74,7 +74,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/attributes/values/{id}",
-     *     tags={"Attribute"},
+     *     tags={"Attribute Value"},
      *     summary="Get Attribute Value By ID",
      *     description="Get Attribute Value By ID",
      *     security={{"bearer": {}}},
@@ -98,7 +98,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\PUT(
      *     path="/api/v1/attributes/values/{id}",
-     *     tags={"Attributes"},
+     *     tags={"Attribute Value"},
      *     summary="Update Attribute Value",
      *     description="Update Attribute Value",
      *     @OA\RequestBody(
@@ -128,7 +128,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\DELETE(
      *     path="/api/v1/attributes/values/{id}",
-     *     tags={"Attributes"},
+     *     tags={"Attribute Value"},
      *     summary="Delete Attribute Value",
      *     description="Delete Attribute Value",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
@@ -151,7 +151,7 @@ class AttributeValueController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/attributes/values/{attribute_id}",
-     *     tags={"Attributes"},
+     *     tags={"Attribute Value"},
      *     summary="Get Attribute Value List of Business",
      *     description="Get Attribute Value List of Business",
      *     security={{"bearer": {}}},

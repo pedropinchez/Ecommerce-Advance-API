@@ -69,6 +69,16 @@ class AttributeValueRepository implements AttributeValueInterface
     }
 
     /**
+     * @param $id
+     * @return bool
+     * delete the attribute values by ID
+     */
+    public function destroyByAttributeID($attribute_id)
+    {
+        return AttributeValue::where('attribute_id', $attribute_id)->delete();
+    }
+
+    /**
      * @param $attributeId
      * @return mixed
      * get the attribute value with attribute

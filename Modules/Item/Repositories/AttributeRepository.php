@@ -16,7 +16,20 @@ class AttributeRepository implements AttributeInterface
      */
     public function index()
     {
-        return Attribute::with(['attributeValues'])->get();
+        // return Attribute::with(['attributeValues'])->get();
+        $query = Attribute::withCount('attributeValues')->orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+        }
+        if (request()->category_id) {
+            $query->where('category_id', request()->category_id);
+        }
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**
@@ -61,24 +74,36 @@ class AttributeRepository implements AttributeInterface
      */
     public function update($id, $data)
     {
-        // $attribute = Attribute::find($id);
-        // if ($attribute) {
-        //     if ($data['name'] != $attribute->name) {
-        //         $data['slug'] = $this->generateSlug($data['name']);
-        //     }
-        //     $attribute->update($data);
-        // }
-
+        $attributeValueRepository = new AttributeValueRepository();
         $attribute = Attribute::find($id);
         if (!is_null($attribute)) {
             $data['business_id'] = Business::getMainBusinessID();
-            $data['slug'] = $this->generateSlug($data['name']);
-            $attribute = Attribute::create($data);
-        }
-        if (count($data['values']) > 0) {
-            foreach ($data['values'] as $key => $value) {
-                $value['attribute_id'] = $attribute->id;
-                AttributeValue::create($value);
+            if ($data['name'] != $attribute->name) {
+                $data['slug'] = $this->generateSlug($data['name']);
+            }
+            $attribute->update($data);
+            $attributeValueRepository->destroyByAttributeID($attribute->id);
+
+            if (count($data['deleted_values']) > 0) {
+                foreach ($data['deleted_values'] as $value) {
+                    $attributeValueRepository->destroy($value['id']);
+                }
+            }
+
+            if (count($data['values']) > 0) {
+                foreach ($data['values'] as $value) {
+                    $value['attribute_id'] = $attribute->id;
+                    if(isset($value['id'])){
+                        $attributeValue = $attributeValueRepository->show($value['id']);
+                        if(!is_null($attributeValue))
+                            $attributeValue->update($value);
+                        else
+                            AttributeValue::create($value);
+                    }else{
+                        AttributeValue::create($value);
+                    }
+
+                }
             }
         }
 

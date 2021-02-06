@@ -39,6 +39,7 @@ class CreateBusinessesTable extends Migration
             $table->string('sku_prefix')->nullable();
             $table->boolean('enable_tooltip')->default(true);
             $table->boolean('enable_referrel_system')->default(false);
+            $table->boolean('is_main_shop')->default(false);
             $table->timestamps();
         });
     }

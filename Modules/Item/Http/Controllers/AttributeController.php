@@ -5,6 +5,7 @@ namespace Modules\Item\Http\Controllers;
 use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
+use Modules\Business\Entities\Business;
 use Modules\Item\Http\Requests\AttributeRequest;
 use Modules\Item\Repositories\AttributeRepository;
 
@@ -50,12 +51,19 @@ class AttributeController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="name", type="string"),
-     *              @OA\Property(property="business_id", type="integer", example=1),
-     *              @OA\Property(property="category_id", type="integer", example=1)
-     *          ),
+     *              @OA\Property(property="name", type="string", example="Color"),
+     *              @OA\Property(property="category_id", type="integer", example=21),
+     *              @OA\Property(
+     *                  property="values",
+     *                      type="array",
+     *                      @OA\Items(
+     *                              @OA\Property(property="code", type="string", example="#902921"),
+     *                              @OA\Property(property="value", type="string", example="Yellow")
+     *                          ),
+     *                  ),
+     *              ),
      *      ),
-     *     @OA\Response( response=200, description="Create New Attribute" ),
+     *     @OA\Response(response=200, description="Create New Attribute"),
      *     @OA\Response(response=400, description="Bad request"),
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )

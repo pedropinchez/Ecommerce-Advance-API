@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequest;
 
 class AttributeRequest extends FormRequest
 {
@@ -15,7 +15,6 @@ class AttributeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'business_id' => 'required',
             'category_id' => 'required'
         ];
     }
@@ -38,7 +37,6 @@ class AttributeRequest extends FormRequest
     {
         return [
             'name.required' => 'Name is required',
-            'business_id.required' => 'Business is required',
             'category_id.required' => 'Category is required'
         ];
     }

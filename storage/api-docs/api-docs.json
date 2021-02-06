@@ -2013,15 +2013,28 @@
                             "schema": {
                                 "properties": {
                                     "name": {
-                                        "type": "string"
-                                    },
-                                    "business_id": {
-                                        "type": "integer",
-                                        "example": 1
+                                        "type": "string",
+                                        "example": "Color"
                                     },
                                     "category_id": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "values": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "code": {
+                                                    "type": "string",
+                                                    "example": "#902921"
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "Yellow"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -5232,6 +5245,424 @@
                 "responses": {
                     "200": {
                         "description": "Delete voucher"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/check-permission": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Check Has Permission",
+                "description": "Check Has Permission",
+                "operationId": "checkPermission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permisson": {
+                                        "type": "string",
+                                        "example": "get-profile"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Role Permissions"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/roles/give-permission": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Give Permission",
+                "description": "Give Permission",
+                "operationId": "givePermission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permisson": {
+                                        "type": "string",
+                                        "example": "get-profile"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Role Permissions"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/roles/getAllPermission": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get CR Report Option Data",
+                "description": "Get CR Report Option Data",
+                "operationId": "getAllPermission",
+                "responses": {
+                    "200": {
+                        "description": "Get CR Report Option Data"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/roles/getAllPermissionByRole/{role_id}": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get CR Report Option Data",
+                "description": "Get CR Report Option Data",
+                "operationId": "getAllPermissionByRole",
+                "parameters": [
+                    {
+                        "name": "role_id",
+                        "in": "path",
+                        "description": "role_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get CR Report Option Data"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/roles/storePermission": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Create Multiple Permissions",
+                "description": "Create Multiple Permissions",
+                "operationId": "storePermission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "role": {
+                                        "type": "string",
+                                        "example": "Admin"
+                                    },
+                                    "groupList": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "user.create"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Role Permissions"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getModulePermissionByUserTypeID": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get Module Permissions By User Type",
+                "description": "Get Module Permissions By User Type",
+                "operationId": "getModulePermissionByUserTypeID",
+                "parameters": [
+                    {
+                        "name": "intUserTypeID",
+                        "in": "query",
+                        "description": "intUserTypeID, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Module Permissions By User Type"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getAllRoles": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get Module Permissions By User Type",
+                "description": "Get Module Permissions By User Type",
+                "operationId": "getModulePermissionByUserTypeID",
+                "responses": {
+                    "200": {
+                        "description": "Get Module Permissions By User Type"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getModulePermissionByUser": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get Module Permissions By User ID and User Type",
+                "description": "Get Module Permissions By User ID and User Type",
+                "operationId": "getModulePermissionByUser",
+                "parameters": [
+                    {
+                        "name": "intUserTypeID",
+                        "in": "query",
+                        "description": "intUserTypeID, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "intUserID",
+                        "in": "query",
+                        "description": "intUserID, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Module Permissions By User ID and User Type"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getModuleList": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get Module Permissions By User ID and User Type",
+                "description": "Get Module Permissions By User ID and User Type",
+                "operationId": "getModuleList",
+                "responses": {
+                    "200": {
+                        "description": "Get Module Permissions By User ID and User Type"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getUserTypeList": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get Module Permissions By User ID and User Type",
+                "description": "Get Module Permissions By User ID and User Type",
+                "operationId": "getUserTypeList",
+                "responses": {
+                    "200": {
+                        "description": "Get Module Permissions By User ID and User Type"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/appPermissionStore": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Post Module Permissions",
+                "description": "Post Module Permissions By User ID and User Type",
+                "operationId": "appPermissionStore",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "intAppsModuleID": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "intUserTypeID": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "intUserID": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "intInsertedBy": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "App Permission Created successfully !"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/multipleAppPermissionStore": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Create Multiple Permissions",
+                "description": "Create Multiple Permissions",
+                "operationId": "multipleAppPermissionStore",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "permissions": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "intAppsModuleID": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "intUserTypeID": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "intUserID": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "intInsertedBy": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Role Permissions"
                     },
                     "400": {
                         "description": "Bad request"

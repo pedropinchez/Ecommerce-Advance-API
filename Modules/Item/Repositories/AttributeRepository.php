@@ -3,6 +3,7 @@
 namespace Modules\Item\Repositories;
 
 use App\Helpers\StringHelper;
+use Modules\Business\Entities\Business;
 use Modules\Item\Entities\Attribute;
 use Modules\Item\Entities\AttributeValue;
 use Modules\Item\Interfaces\AttributeInterface;
@@ -26,8 +27,19 @@ class AttributeRepository implements AttributeInterface
      */
     public function store($data)
     {
-        $data['slug'] = $this->generateSlug($data['name']);
-        return Attribute::create($data);
+        $attribute = Attribute::where('name', $data['name'])->first();
+        if (is_null($attribute)) {
+            $data['business_id'] = Business::getMainBusinessID();
+            $data['slug'] = $this->generateSlug($data['name']);
+            $attribute = Attribute::create($data);
+        }
+        if (count($data['values']) > 0) {
+            foreach ($data['values'] as $key => $value) {
+                $value['attribute_id'] = $attribute->id;
+                AttributeValue::create($value);
+            }
+        }
+        return $attribute;
     }
 
     /**
@@ -49,12 +61,25 @@ class AttributeRepository implements AttributeInterface
      */
     public function update($id, $data)
     {
+        // $attribute = Attribute::find($id);
+        // if ($attribute) {
+        //     if ($data['name'] != $attribute->name) {
+        //         $data['slug'] = $this->generateSlug($data['name']);
+        //     }
+        //     $attribute->update($data);
+        // }
+
         $attribute = Attribute::find($id);
-        if($attribute) {
-            if($data['name'] != $attribute->name) {
-                $data['slug'] = $this->generateSlug($data['name']);
+        if (!is_null($attribute)) {
+            $data['business_id'] = Business::getMainBusinessID();
+            $data['slug'] = $this->generateSlug($data['name']);
+            $attribute = Attribute::create($data);
+        }
+        if (count($data['values']) > 0) {
+            foreach ($data['values'] as $key => $value) {
+                $value['attribute_id'] = $attribute->id;
+                AttributeValue::create($value);
             }
-            $attribute->update($data);
         }
 
         return $attribute;
@@ -68,7 +93,7 @@ class AttributeRepository implements AttributeInterface
     public function destroy($id)
     {
         $attribute = Attribute::find($id);
-        if($attribute) {
+        if ($attribute) {
             $attribute->delete();
             AttributeValue::where('attribute_id', $id)->delete();
             return true;
@@ -84,7 +109,7 @@ class AttributeRepository implements AttributeInterface
      */
     public function getAttributeByBusiness($businessId)
     {
-       return Attribute::with(['attributeValues'])->where('business_id', $businessId)->get();
+        return Attribute::with(['attributeValues'])->where('business_id', $businessId)->get();
     }
 
     /**

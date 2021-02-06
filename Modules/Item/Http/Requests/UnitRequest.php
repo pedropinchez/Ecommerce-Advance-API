@@ -2,7 +2,7 @@
 
 namespace Modules\Item\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequest;
 
 class UnitRequest extends FormRequest
 {

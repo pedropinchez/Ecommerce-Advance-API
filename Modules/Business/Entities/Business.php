@@ -25,7 +25,7 @@ class Business extends Model
         'logo',
         'sku_prefix',
         'enable_tooltip',
-        'banner'
+        'banner',
     ];
 
     protected $appends = ['logo_url'];
@@ -38,5 +38,9 @@ class Business extends Model
     public function location()
     {
         return $this->hasOne(BusinessLocation::class);
+    }
+    public static function getMainBusinessID()
+    {
+        return Business::where('is_main_shop', true)->value('id');
     }
 }

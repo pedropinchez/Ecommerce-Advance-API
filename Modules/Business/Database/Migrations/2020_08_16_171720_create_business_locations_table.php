@@ -25,6 +25,7 @@ class CreateBusinessLocationsTable extends Migration
             $table->string('mobile')->nullable();
             $table->string('alternate_number')->nullable();
             $table->string('email')->nullable();
+            $table->string('website', 100)->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->foreign('business_id')->references('id')->on('business');

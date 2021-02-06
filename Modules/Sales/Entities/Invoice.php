@@ -5,6 +5,7 @@ namespace Modules\Sales\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Entities\User;
 use Modules\Business\Entities\Business;
+use Modules\Business\Entities\BusinessLocation;
 
 class Invoice extends Model
 {
@@ -30,6 +31,11 @@ class Invoice extends Model
     public function business()
     {
         return $this->belongsTo(Business::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(BusinessLocation::class, 'business_id', 'business_id');
     }
 
     public function transaction()

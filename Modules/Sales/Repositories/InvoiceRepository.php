@@ -35,7 +35,7 @@ class InvoiceRepository extends TransactionRepository
 
     public function showInvoice($id)
     {
-        return Invoice::with(['items', 'business', 'transaction', 'createdBy'])->find($id);
+        return Invoice::with(['items', 'business', 'location', 'transaction', 'createdBy'])->find($id);
     }
 
     public function storeInvoice($transaction_id)

@@ -34,4 +34,9 @@ class Business extends Model
     {
         return is_null($this->logo) ? null : url('/').'/images/vendors/'.$this->logo;
     }
+
+    public function location()
+    {
+        return $this->hasOne(BusinessLocation::class);
+    }
 }

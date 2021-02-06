@@ -17,7 +17,7 @@ class AttributeRepository implements AttributeInterface
     public function index()
     {
         // return Attribute::with(['attributeValues'])->get();
-        $query = Attribute::withCount('attributeValues')->orderBy('id', 'desc');
+        $query = Attribute::withCount('attributeValues')->with('category')->orderBy('id', 'desc');
         if (request()->search) {
             $query->where('name', 'like', '%' . request()->search . '%');
         }
@@ -62,7 +62,7 @@ class AttributeRepository implements AttributeInterface
      */
     public function show($id)
     {
-        return Attribute::with(['attributeValues'])->find($id);
+        return Attribute::with(['attributeValues', 'category'])->find($id);
     }
 
     /**

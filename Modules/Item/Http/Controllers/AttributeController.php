@@ -195,13 +195,13 @@ class AttributeController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/attributes/business/category/{category_id}",
+     *     path="/api/v1/attributes/category/{category_id}",
      *     tags={"Attributes"},
      *     summary="Get Attribute List of Category",
      *     description="Get Attribute List of Category",
      *     security={{"bearer": {}}},
      *     operationId="getAttributeByCategory",
-     *      @OA\Parameter( name="business_id", description="category_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="category_id", description="category_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Attribute List of Category"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

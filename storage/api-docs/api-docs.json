@@ -2262,7 +2262,7 @@
                 ]
             }
         },
-        "/api/v1/attributes/business/category/{category_id}": {
+        "/api/v1/attributes/category/{category_id}": {
             "get": {
                 "tags": [
                     "Attributes"
@@ -2272,7 +2272,7 @@
                 "operationId": "getAttributeByCategory",
                 "parameters": [
                     {
-                        "name": "business_id",
+                        "name": "category_id",
                         "in": "path",
                         "description": "category_id, eg; 1",
                         "required": true,

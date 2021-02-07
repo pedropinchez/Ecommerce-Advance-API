@@ -91,7 +91,7 @@
     'name' => 'Auth',
     'defaults' => 
     array (
-      'guard' => 'web',
+      'guard' => 'api',
       'passwords' => 'users',
     ),
     'guards' => 

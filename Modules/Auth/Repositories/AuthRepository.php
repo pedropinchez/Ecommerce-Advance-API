@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Interfaces\AuthInterface;
 
@@ -55,6 +56,11 @@ class AuthRepository implements AuthInterface
                 'language' => $request->language ? $request->language :  'en'
             ]
         );
+        if(Route::is('vendor.register')){
+            $user->assignRole('Vendor');
+        }else{
+            $user->assignRole('Customer');
+        }
         return $user;
     }
 

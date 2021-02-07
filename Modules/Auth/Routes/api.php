@@ -19,7 +19,8 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('register', 'CustomerRegisterController@customerRegister');
     Route::post('register-next', 'CustomerRegisterController@customerRegisterNext');
 
-    Route::post('vendor-register', 'VendorRegisterController@vendorRegister');
+    Route::post('vendor-register', 'VendorRegisterController@vendorRegister')->name('vendor.register');
+    Route::post('vendor-register-next', 'VendorRegisterController@vendorRegisterNext')->name('vendor.register.next');
 
     Route::post('check-user', 'UserController@checkUserIsUnique');
     Route::group(['middleware' => 'auth:api'], function () {

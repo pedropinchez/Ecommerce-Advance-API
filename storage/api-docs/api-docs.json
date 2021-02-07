@@ -408,10 +408,6 @@
                                         "type": "string",
                                         "example": "Test User"
                                     },
-                                    "surname": {
-                                        "type": "string",
-                                        "example": "test"
-                                    },
                                     "last_name": {
                                         "type": "string",
                                         "example": "last"
@@ -424,6 +420,10 @@
                                     "phone_no": {
                                         "type": "string",
                                         "example": "01951233084"
+                                    },
+                                    "business_name": {
+                                        "type": "string",
+                                        "example": "Akash Shop"
                                     },
                                     "password": {
                                         "type": "string",

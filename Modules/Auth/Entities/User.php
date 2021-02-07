@@ -30,6 +30,7 @@ class User extends Authenticatable
         'banner'
     ];
 
+    protected $guard_name = 'api';
 
     /**
      * The attributes that should be hidden for arrays.

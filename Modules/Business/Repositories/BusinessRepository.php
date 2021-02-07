@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Interfaces\AuthInterface;
 use Modules\Business\Entities\Business;
+use Modules\Business\Entities\BusinessLocation;
 
 class BusinessRepository
 {
@@ -65,6 +66,35 @@ class BusinessRepository
         return $business;
     }
 
+    public function registerAsVendor($data, $user)
+    {
+        if (!is_null($user)) {
+            try {
+                // Create Data in Business table
+                $business = Business::create([
+                    'name' => $data['business_name'],
+                    'currency_id' => 1,
+                    'tax_label_1' => 'Tax',
+                    'owner_id' => $user->id,
+                ]);
+
+                // Create Data in Business_Locations table
+                $location = BusinessLocation::create([
+                    'business_id' => $business->id,
+                    'name' => $business->name,
+                    'country' => 'Bangladesh',
+                    'phone_no' => $user->phone_no,
+                    'email' => $user->email,
+                ]);
+            } catch (\Exception $e) {
+                // throw new \Exception("Somethings wrong registering business !");
+                throw new \Exception($e->getMessage());
+            }
+        } else {
+            throw new \Exception("Please register first as a user, then try again !");
+        }
+    }
+
     /**
      * find business by bin no
      *
@@ -100,7 +130,7 @@ class BusinessRepository
     public function updateBusiness($data, $id)
     {
         $business = Business::find($id);
-        if($business) {
+        if ($business) {
             $business->update($data);
         }
 

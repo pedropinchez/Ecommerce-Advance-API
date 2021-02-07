@@ -11,6 +11,7 @@ class Business extends Model
         'name',
         'bin',
         'start_date',
+        'tax_label_1',
         'tax_number_1',
         'tax_number_2',
         'tax_label_2',

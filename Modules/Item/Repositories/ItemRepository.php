@@ -142,6 +142,7 @@ class ItemRepository implements ItemInterfaces
                     ->first();
                 $attribute['item_id'] = $item->id;
                 $attribute['business_id'] = 1;
+                // $attribute['attribute_values'] = $attribute['attribute_values'];
                 array_push($datas, $attribute);
 
                 if (!is_null($attributes)) {

@@ -44,7 +44,7 @@ class ItemAttribute extends Model
                     $attribute_values = $attVal['attribute_values'];
                     $items = [];
                     foreach ($attribute_values as $key3 =>  $value) {
-                        $attribute_value = AttributeValue::find($value);
+                        $attribute_value = AttributeValue::select('id', 'value', 'code')->where('id', $value)->first();
                         if (!is_null($attribute_value)) {
                             array_push($items, $attribute_value);
                         }

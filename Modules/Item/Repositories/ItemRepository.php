@@ -76,8 +76,8 @@ class ItemRepository implements ItemInterfaces
      */
     public function show($id)
     {
-        return ItemAttribute::getAttributeWithValuesByItem($id);
-        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'attributes', 'business'])->find($id);
+        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'business'])->find($id);
+        $item['attributes'] = ItemAttribute::getAttributeWithValuesByItem($id);
         return $item;
     }
 

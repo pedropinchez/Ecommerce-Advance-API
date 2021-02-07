@@ -137,19 +137,18 @@ class ItemRepository implements ItemInterfaces
             $datas = [];
             foreach ($data['attributes'] as $attribute) {
                 $attributes = ItemAttribute::where('item_id', $item->id)
-                ->where('attribute_id', $attribute['attribute_id'])
-                ->first();
+                    ->where('attribute_id', $attribute['attribute_id'])
+                    ->first();
                 $attribute['item_id'] = $item->id;
                 $attribute['business_id'] = 1;
                 array_push($datas, $attribute);
 
-                if(!is_null($attributes)){
+                if (!is_null($attributes)) {
                     $attributeRepository->storeItemAttributes($datas, false);
-                }else{
+                } else {
                     $attributeRepository->storeItemAttributes($datas, true);
                 }
             }
-
         }
         return $item;
     }
@@ -196,6 +195,26 @@ class ItemRepository implements ItemInterfaces
                             'image_size' => $image['size'],
                             'image_title' => $image['name'],
                         ]);
+                    }
+                }
+            }
+
+            // Upload Attribute if it has
+            $attributeRepository = new AttributeRepository();
+            if (!is_null($item) && count($data['attributes']) > 0) {
+                $datas = [];
+                foreach ($data['attributes'] as $attribute) {
+                    $attributes = ItemAttribute::where('item_id', $item->id)
+                        ->where('attribute_id', $attribute['attribute_id'])
+                        ->first();
+                    $attribute['item_id'] = $item->id;
+                    $attribute['business_id'] = 1;
+                    array_push($datas, $attribute);
+
+                    if (!is_null($attributes)) {
+                        $attributeRepository->storeItemAttributes($datas, false);
+                    } else {
+                        $attributeRepository->storeItemAttributes($datas, true);
                     }
                 }
             }

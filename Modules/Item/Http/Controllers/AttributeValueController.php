@@ -150,13 +150,13 @@ class AttributeValueController extends Controller
 
     /**
      * @OA\GET(
-     *     path="/api/v1/attributes/values/{attribute_id}",
+     *     path="/api/v1/attribute/by-attribute/{attribute_id}/values",
      *     tags={"Attribute Value"},
      *     summary="Get Attribute Value List of Business",
      *     description="Get Attribute Value List of Business",
      *     security={{"bearer": {}}},
      *     operationId="getAttributeValueByAttribute",
-     *      @OA\Parameter( name="business_id", description="attribute_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *      @OA\Parameter( name="attribute_id", description="attribute_id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Attribute Value List of Attribute"),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

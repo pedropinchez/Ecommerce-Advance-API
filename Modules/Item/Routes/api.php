@@ -29,7 +29,7 @@ Route::get('attributes/category/{category_id}', 'AttributeController@getAttribut
 Route::get('attributes/{business_id}/{category_id}', 'AttributeController@getAttributeByCategoryAndBusiness');
 
 Route::apiResource('attribute/values', 'AttributeValueController');
-Route::get('attribute/{attribute_id}/values', 'AttributeValueController@getAttributeValueByAttribute');
+Route::get('attribute/by-attribute/{attribute_id}/values', 'AttributeValueController@getAttributeValueByAttribute');
 
 Route::apiResource('items', 'ItemController');
 Route::get('items/business/{business_id}', 'ItemController@getItemByBusiness');

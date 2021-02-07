@@ -2520,7 +2520,7 @@
                 }
             }
         },
-        "/api/v1/attributes/values/{attribute_id}": {
+        "/api/v1/attribute/by-attribute/{attribute_id}/values": {
             "get": {
                 "tags": [
                     "Attribute Value"
@@ -2530,7 +2530,7 @@
                 "operationId": "getAttributeValueByAttribute",
                 "parameters": [
                     {
-                        "name": "business_id",
+                        "name": "attribute_id",
                         "in": "path",
                         "description": "attribute_id, eg; 1",
                         "required": true,

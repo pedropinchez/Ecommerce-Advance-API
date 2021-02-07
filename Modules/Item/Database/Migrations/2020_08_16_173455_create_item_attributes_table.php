@@ -18,7 +18,7 @@ class CreateItemAttributesTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('attribute_id');
             $table->unsignedBigInteger('business_id');
-            $table->text('attribute_values')->comment('comma seperated attribute_value_id');
+            $table->json('attribute_values')->comment('comma seperated attribute_value_id');
             $table->timestamps();
 
             $table->foreign('business_id')->references('id')->on('business');

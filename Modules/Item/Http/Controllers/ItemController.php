@@ -96,6 +96,12 @@ class ItemController extends Controller
      *                      @OA\Property(property="image_size", type="omer"),
      *                      @OA\Property(property="image_title", type="string")
      *                  )
+     *              ),
+     *             @OA\Property(property="attributes", type="array",
+     *                  @OA\Items(
+     *                      @OA\Property(property="attribute_id", type="string", example="11"),
+     *                      @OA\Property(property="attribute_values", type="string", example="[1,2]")
+     *                  )
      *              )
      *          ),
      *      ),

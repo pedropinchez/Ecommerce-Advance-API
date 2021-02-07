@@ -12,4 +12,8 @@ class ItemAttribute extends Model
         'business_id',
         'attribute_values'
     ];
+
+    protected $casts = [
+        'attribute_values' => 'array'
+    ];
 }

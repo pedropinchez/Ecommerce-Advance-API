@@ -102,10 +102,15 @@ class ItemRepository implements ItemInterfaces
     public function store($data)
     {
         // Upload Featured and Short Resolution Images
-        $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/images/products/", 'featured-' . time() . '-' . uniqid(), 'product');
-        $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/images/products/", 'short-resolution-' . time() . '-' . uniqid(), 'product');
-        $data['featured_image'] = $featured_image;
-        $data['short_resolation_image'] = $short_resolation_image;
+        if (isset($data['featured_image'])) {
+            $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/images/products/", 'featured-' . time() . '-' . uniqid(), 'product');
+            $data['featured_image'] = $featured_image;
+        }
+        if (isset($data['short_resolation_image'])) {
+            $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/images/products/", 'short-resolution-' . time() . '-' . uniqid(), 'product');
+            $data['short_resolation_image'] = $short_resolation_image;
+        }
+
         $item = Item::create($data);
         $item->save();
 
@@ -124,6 +129,27 @@ class ItemRepository implements ItemInterfaces
                     'image_title' => $image['name'],
                 ]);
             }
+        }
+
+        // Upload Attribute if it has
+        $attributeRepository = new AttributeRepository();
+        if (!is_null($item) && count($data['attributes']) > 0) {
+            $datas = [];
+            foreach ($data['attributes'] as $attribute) {
+                $attributes = ItemAttribute::where('item_id', $item->id)
+                ->where('attribute_id', $attribute['attribute_id'])
+                ->first();
+                $attribute['item_id'] = $item->id;
+                $attribute['business_id'] = 1;
+                array_push($datas, $attribute);
+
+                if(!is_null($attributes)){
+                    $attributeRepository->storeItemAttributes($datas, false);
+                }else{
+                    $attributeRepository->storeItemAttributes($datas, true);
+                }
+            }
+
         }
         return $item;
     }

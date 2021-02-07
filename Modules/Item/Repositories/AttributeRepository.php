@@ -6,6 +6,7 @@ use App\Helpers\StringHelper;
 use Modules\Business\Entities\Business;
 use Modules\Item\Entities\Attribute;
 use Modules\Item\Entities\AttributeValue;
+use Modules\Item\Entities\ItemAttribute;
 use Modules\Item\Interfaces\AttributeInterface;
 
 class AttributeRepository implements AttributeInterface
@@ -56,6 +57,24 @@ class AttributeRepository implements AttributeInterface
     }
 
     /**
+     * storeItemAttributes
+     */
+    public function storeItemAttributes($datas, $isInsert = true)
+    {
+        if(count($datas) > 0){
+            if($isInsert){
+                ItemAttribute::insert($datas);
+            }else{
+                foreach ($datas as $attribute) {
+                    ItemAttribute::where('item_id', $attribute['item_id'])
+                    ->where('attribute_id', $attribute['attribute_id'])
+                    ->update($attribute);
+                }
+            }
+        }
+    }
+
+    /**
      * @param $id
      * @return mixed
      * details attribute
@@ -82,9 +101,9 @@ class AttributeRepository implements AttributeInterface
                 $data['slug'] = $this->generateSlug($data['name']);
             }
             $attribute->update($data);
-            $attributeValueRepository->destroyByAttributeID($attribute->id);
+            //$attributeValueRepository->destroyByAttributeID($attribute->id);
 
-            if (count($data['deleted_values']) > 0) {
+            if (isset($data['deleted_values']) && count($data['deleted_values']) > 0) {
                 foreach ($data['deleted_values'] as $value) {
                     $attributeValueRepository->destroy($value['id']);
                 }

@@ -14,5 +14,6 @@
     "Analytics": true,
     "Referral": true,
     "Promotional": true,
-    "Document": true
+    "Document": true,
+    "Coupon": true
 }

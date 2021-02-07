@@ -153,7 +153,6 @@ class Item extends Model
         return $this->hasMany(ItemAttribute::class);
     }
 
-
     public function ratings()
     {
         return $this->hasMany(ItemRating::class);

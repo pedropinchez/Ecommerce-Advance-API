@@ -16,4 +16,43 @@ class ItemAttribute extends Model
     protected $casts = [
         'attribute_values' => 'array'
     ];
+
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class)->select('id', 'name');
+    }
+
+    public static function getAttributeWithValuesByItem($item_id)
+    {
+        $item_attributes = ItemAttribute::groupBy('attribute_id')
+            ->select('attribute_id')
+            ->where('item_id', $item_id)
+            ->get();
+
+        $data = [];
+        foreach ($item_attributes as $key => $attribute) {
+            $attribute = Attribute::where('id', $attribute['attribute_id'])->select('id', 'name')->first();
+
+            if (!is_null($attribute)) {
+                $data[$key]['attribute'] = $attribute;
+                $values = ItemAttribute::where('item_id', $item_id)
+                    ->where('attribute_id', $attribute->id)
+                    ->select('id', 'attribute_values')
+                    ->get();
+                foreach ($values as $key2 => $attVal) {
+                    $data[$key]['attribute']['values'] = $attVal;
+                    $attribute_values = $attVal['attribute_values'];
+                    $items = [];
+                    foreach ($attribute_values as $key3 =>  $value) {
+                        $attribute_value = AttributeValue::find($value);
+                        if (!is_null($attribute_value)) {
+                            array_push($items, $attribute_value);
+                        }
+                    }
+                    $data[$key]['attribute']['values']['attribute_values_data'] = $items;
+                }
+            }
+        }
+        return $data;
+    }
 }

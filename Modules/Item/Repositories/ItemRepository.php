@@ -116,7 +116,7 @@ class ItemRepository implements ItemInterfaces
         $item->save();
 
         // Upload Multiple Images
-        if (!is_null($item) && count($data['images']) > 0) {
+        if (!is_null($item) && isset($data['images']) && count($data['images']) > 0) {
             foreach ($data['images'] as $image) {
                 $fileName = null;
                 if (isset($image['base64']) && !is_null($image['base64']) && $image['base64'] !== "") {
@@ -134,7 +134,7 @@ class ItemRepository implements ItemInterfaces
 
         // Upload Attribute if it has
         $attributeRepository = new AttributeRepository();
-        if (!is_null($item) && count($data['attributes']) > 0) {
+        if (!is_null($item) && isset($data['attributes']) && count($data['attributes']) > 0) {
             $datas = [];
             foreach ($data['attributes'] as $attribute) {
                 $attributes = ItemAttribute::where('item_id', $item->id)

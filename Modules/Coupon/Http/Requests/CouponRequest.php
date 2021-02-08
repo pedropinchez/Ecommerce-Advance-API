@@ -14,10 +14,9 @@ class CouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required',
-            'coupon_amount' => 'required',
-            'business_id' => 'required',
-            'coupon_type_id ' => 'required',
+            // 'code' => 'required|unique:coupons',
+            // 'coupon_amount' => 'required',
+            // 'coupon_type_id ' => 'required',
         ];
     }
 
@@ -41,7 +40,6 @@ class CouponRequest extends FormRequest
             'code.required' => 'Coupon code is required',
             'coupon_amount.required' => 'Coupon coupon amount is required',
             'coupon_type_id.required' => 'Coupon type is required',
-            'business_id.required' => 'Business is required',
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Repositories\ResponseRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Coupon\Http\Requests\CouponRequest;
 use Modules\Coupon\Repositories\CouponRepository;
 
 class CouponController extends Controller
@@ -83,11 +84,10 @@ class CouponController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CouponRequest $request)
     {
         try {
-            $data = $request->all();
-            $brand = $this->couponRepository->store($data);
+            $brand = $this->couponRepository->store($request->all());
             return $this->responseRepository->ResponseSuccess($brand, 'Coupon Created Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

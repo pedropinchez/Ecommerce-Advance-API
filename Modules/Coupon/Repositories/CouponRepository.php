@@ -6,6 +6,7 @@ use App\Helpers\ImageUploadHelper;
 use App\Helpers\UploadHelper;
 use Modules\Coupon\Entities\Coupon;
 use Auth;
+use Modules\Business\Entities\Business;
 use Modules\Coupon\Entities\CouponType;
 
 class CouponRepository
@@ -45,9 +46,16 @@ class CouponRepository
      */
     public function store($data)
     {
-        $data['image'] = UploadHelper::upload('image',  $data['image'], 'coupon-' . '-' . time(), 'images/coupons');
-        $coupon = Coupon::create($data);
-        return $coupon;
+        if ($this->checkCouponCodeExists($data['code'])) {
+            throw new \Exception("Coupon Code already exists, Please use another code !");
+        } else {
+            if (isset($data['image'])) {
+                $data['image'] = UploadHelper::upload('image',  $data['image'], 'coupon-' . '-' . time(), 'images/coupons');
+            }
+            $data['business_id'] = Business::getMainBusinessID();
+            $coupon = Coupon::create($data);
+            return $coupon;
+        }
     }
 
     /**
@@ -82,7 +90,7 @@ class CouponRepository
     public function destroy($id)
     {
         $coupon = Coupon::find($id);
-        if($coupon) {
+        if ($coupon) {
             $coupon->delete();
             return true;
         } else {
@@ -98,5 +106,10 @@ class CouponRepository
     public function getCouponByBusiness($businessId)
     {
         return Coupon::with(['business'])->where('business_id', $businessId)->get();
+    }
+
+    public function checkCouponCodeExists($code)
+    {
+        return Coupon::where('code', $code)->exists();
     }
 }

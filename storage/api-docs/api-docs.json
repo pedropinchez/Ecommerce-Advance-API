@@ -6627,6 +6627,80 @@
                 }
             }
         },
+        "/api/v1/sales/order-lifecycle/{transaction_id}": {
+            "get": {
+                "tags": [
+                    "Order Status"
+                ],
+                "summary": "Get Order Status By Transaction ID",
+                "description": "Get Order Status By Transaction ID",
+                "operationId": "getOrderStatusByTransactionID",
+                "parameters": [
+                    {
+                        "name": "transaction_id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Order Status By Transaction ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/sales/invoice-lifecycle/{invoice_id}": {
+            "get": {
+                "tags": [
+                    "Order Status"
+                ],
+                "summary": "Get Invoice Status By Invoice ID",
+                "description": "Get Invoice Status By Invoice ID",
+                "operationId": "getInvoiceStatusByTransactionID",
+                "parameters": [
+                    {
+                        "name": "invoice_id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Invoice Status By Invoice ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/sales": {
             "get": {
                 "tags": [

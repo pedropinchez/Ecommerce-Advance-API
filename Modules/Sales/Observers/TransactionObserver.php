@@ -4,9 +4,18 @@ namespace Modules\Sales\Observers;
 
 use Modules\Sales\Entities\Transaction;
 use Modules\Sales\Repositories\InvoiceRepository;
+use Modules\Sales\Repositories\OrderStatusRepository;
 
 class TransactionObserver
 {
+    private $invoiceRepository;
+    private $orderStatusRepository;
+    public function __construct(InvoiceRepository $invoiceRepository, OrderStatusRepository $orderStatusRepository)
+    {
+        $this->invoiceRepository = $invoiceRepository;
+        $this->orderStatusRepository = $orderStatusRepository;
+    }
+
     /**
      * Handle the Transaction "created" event.
      *
@@ -15,8 +24,8 @@ class TransactionObserver
      */
     public function created(Transaction $transaction)
     {
-        $invoiceRepo = new InvoiceRepository();
-        $invoiceRepo->storeInvoice($transaction->id);
+        $this->invoiceRepository->storeInvoice($transaction->id);
+        $this->orderStatusRepository->storeOrUpdateOrderStatus($transaction->id);
     }
 
     /**

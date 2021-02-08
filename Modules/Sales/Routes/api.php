@@ -17,3 +17,5 @@ Route::get('discount-types/business/{business_id}', 'DiscountController@getDisco
 Route::apiResource('sales', 'SalesController');
 Route::apiResource('invoices', 'InvoiceController');
 Route::get('sales/business/{business_id}', 'SalesController@getSaleByBusiness');
+Route::get('sales/order-lifecycle/{transaction_id}', 'OrderStatusController@getOrderStatusByTransactionID');
+Route::get('sales/invoice-lifecycle/{invoice_id}', 'OrderStatusController@getInvoiceStatusByInvoiceID');

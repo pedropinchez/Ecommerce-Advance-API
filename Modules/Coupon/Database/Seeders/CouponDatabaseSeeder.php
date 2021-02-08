@@ -16,6 +16,6 @@ class CouponDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(CouponTypeSeederTableSeeder::class);
     }
 }

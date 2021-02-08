@@ -1796,6 +1796,430 @@
                 ]
             }
         },
+        "/api/v1/coupons": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get Coupon List",
+                "description": "Get Coupon List",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Coupon List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Create New Coupon",
+                "description": "Create New Coupon",
+                "operationId": "Modules\\Coupon\\Http\\Controllers\\CouponController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "Feb21"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Feb 21"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "coupon_type_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "amount_type": {
+                                        "type": "string",
+                                        "example": "numeric"
+                                    },
+                                    "coupon_amount": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "min_amount": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "max_amount": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "coupon_start_date": {
+                                        "type": "string",
+                                        "example": "2021-01-01"
+                                    },
+                                    "coupon_expiry_date": {
+                                        "type": "string",
+                                        "example": "2021-04-01"
+                                    },
+                                    "is_free_shiping": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "usage_limit": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "usage_count": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "usage_limit_per_user": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "is_individual_use": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "exclude_sale_items": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "product_ids": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "exclude_product_ids": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "product_categories": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "exclude_product_categories": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Coupon"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/coupons/{id}": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get Coupon By ID",
+                "description": "Get Coupon By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Coupon By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Update Coupon",
+                "description": "Update Coupon",
+                "operationId": "Modules\\Coupon\\Http\\Controllers\\CouponController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "Feb21"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Feb 21"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "coupon_type_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "amount_type": {
+                                        "type": "string",
+                                        "example": "numeric"
+                                    },
+                                    "coupon_amount": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "min_amount": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "max_amount": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "coupon_start_date": {
+                                        "type": "string",
+                                        "example": "2021-01-01"
+                                    },
+                                    "coupon_expiry_date": {
+                                        "type": "string",
+                                        "example": "2021-04-01"
+                                    },
+                                    "is_free_shiping": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "usage_limit": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "usage_count": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "usage_limit_per_user": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "is_individual_use": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "exclude_sale_items": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "product_ids": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "exclude_product_ids": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "product_categories": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "exclude_product_categories": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Coupon"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Delete Coupon",
+                "description": "Delete Coupon",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Coupon"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/coupons/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get Coupon List of Business",
+                "description": "Get Coupon List of Business",
+                "operationId": "getCouponByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Coupon List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/coupons/types/list": {
+            "get": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Get Coupon Types List",
+                "description": "Get Coupon Types List",
+                "operationId": "getCouponTypes",
+                "responses": {
+                    "200": {
+                        "description": "Get Coupon Types List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/customer": {
             "get": {
                 "tags": [

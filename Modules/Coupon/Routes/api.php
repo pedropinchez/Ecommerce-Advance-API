@@ -16,3 +16,6 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/coupon', function (Request $request) {
 //     return $request->user();
 // });
+
+Route::apiResource('coupons', 'CouponController');
+Route::get('coupons/types/list', 'CouponTypeController@getCouponTypes');

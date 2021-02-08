@@ -1179,57 +1179,61 @@
   array (
     'name' => 'Accounts',
   ),
-  'analytics' => 
-  array (
-    'name' => 'Analytics',
-  ),
-  'business' => 
-  array (
-    'name' => 'Business',
-  ),
-  'customer' => 
-  array (
-    'name' => 'Customer',
-  ),
-  'document' => 
-  array (
-    'name' => 'Document',
-  ),
-  'expense' => 
-  array (
-    'name' => 'Expense',
-  ),
-  'item' => 
-  array (
-    'name' => 'Item',
-  ),
   'promotional' => 
   array (
     'name' => 'Promotional',
   ),
-  'purchase' => 
+  'supplier' => 
   array (
-    'name' => 'Purchase',
-  ),
-  'referral' => 
-  array (
-    'name' => 'Referral',
-  ),
-  'role' => 
-  array (
-    'name' => 'Role',
-  ),
-  'sales' => 
-  array (
-    'name' => 'Sales',
+    'name' => 'Supplier',
   ),
   'statistic' => 
   array (
     'name' => 'Statistic',
   ),
-  'supplier' => 
+  'sales' => 
   array (
-    'name' => 'Supplier',
+    'name' => 'Sales',
+  ),
+  'role' => 
+  array (
+    'name' => 'Role',
+  ),
+  'referral' => 
+  array (
+    'name' => 'Referral',
+  ),
+  'purchase' => 
+  array (
+    'name' => 'Purchase',
+  ),
+  'item' => 
+  array (
+    'name' => 'Item',
+  ),
+  'analytics' => 
+  array (
+    'name' => 'Analytics',
+  ),
+  'expense' => 
+  array (
+    'name' => 'Expense',
+  ),
+  'document' => 
+  array (
+    'name' => 'Document',
+  ),
+  'customer' => 
+  array (
+    'name' => 'Customer',
+  ),
+  'coupon' => 
+  array (
+    'name' => 'Coupon',
+  ),
+  'business' => 
+  array (
+    'name' => 'Business',
   ),
   'user' => 
   array (

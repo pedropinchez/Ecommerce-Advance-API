@@ -6671,7 +6671,7 @@
                 ],
                 "summary": "Get Invoice Status By Invoice ID",
                 "description": "Get Invoice Status By Invoice ID",
-                "operationId": "getInvoiceStatusByTransactionID",
+                "operationId": "getInvoiceStatusByInvoiceID",
                 "parameters": [
                     {
                         "name": "invoice_id",

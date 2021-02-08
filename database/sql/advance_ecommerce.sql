@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2021 at 03:47 PM
+-- Generation Time: Feb 08, 2021 at 02:55 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -51,7 +51,8 @@ INSERT INTO `attributes` (`id`, `name`, `slug`, `business_id`, `category_id`, `c
 (13, '4', '4', 1, 2, '2021-02-06 11:33:43', '2021-02-06 11:33:43'),
 (17, 'test', 'test', 1, 3, '2021-02-06 11:38:43', '2021-02-06 11:38:43'),
 (18, 'Final Test', 'final-test', 1, 2, '2021-02-06 11:42:16', '2021-02-06 11:42:16'),
-(20, 'Battery Size', 'battery-size', 1, 20, '2021-02-06 13:05:09', '2021-02-06 13:25:29');
+(20, 'Battery Size', 'battery-size', 1, 20, '2021-02-06 13:05:09', '2021-02-06 13:25:29'),
+(21, 'Camera-1', 'camera-1', 1, 20, '2021-02-07 10:54:23', '2021-02-07 10:54:23');
 
 -- --------------------------------------------------------
 
@@ -81,7 +82,11 @@ INSERT INTO `attribute_values` (`id`, `value`, `code`, `attribute_id`, `created_
 (14, '676', '67', 17, '2021-02-06 11:40:39', '2021-02-06 11:40:39'),
 (15, '543', '534', 18, '2021-02-06 11:42:16', '2021-02-06 11:42:16'),
 (16, '67', '67', 18, '2021-02-06 11:42:16', '2021-02-06 11:42:16'),
-(32, '2000MAH', '2000MAH', 20, '2021-02-06 13:25:54', '2021-02-06 13:25:54');
+(32, '2000MAH', '2000MAH', 20, '2021-02-06 13:25:54', '2021-02-06 13:25:54'),
+(33, 'Yellow', '0001', 21, '2021-02-07 10:54:23', '2021-02-07 10:54:23'),
+(34, 'Digital', '0002', 21, '2021-02-07 10:54:23', '2021-02-07 10:54:23'),
+(35, 'Photography', '0003', 21, '2021-02-07 10:54:23', '2021-02-07 10:54:23'),
+(36, 'High Resolution', '0004', 21, '2021-02-07 10:54:23', '2021-02-07 10:54:23');
 
 -- --------------------------------------------------------
 
@@ -236,6 +241,76 @@ INSERT INTO `categories` (`id`, `name`, `short_description`, `description`, `bus
 (19, 'Baby Corner', 'Test', NULL, 1, 'baby-corner', 'category-1607804161.png', NULL, 8, 1, 1, 1, NULL, '2020-12-12 14:16:01', '2020-12-12 14:16:01'),
 (20, 'Sony Camera', 'Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in', '<p>Discover a wide range of Digital Cameras including Canon, Nikon, Sony, Samsung at best price in Bangladesh. Shop online or visit your nearest Star Tech</p>', 4, 'sony-camera', 'category-sony-camera-1612337279.png', NULL, 7, 1, 1, 1, NULL, '2020-12-12 14:21:41', '2021-02-03 01:27:59'),
 (21, 'Test Category', 'Testing now', '<p>Testing </p>', 3, '409', 'category-409-1612337359.png', NULL, 4, 1, 4, 1, NULL, '2021-02-03 01:29:19', '2021-02-03 01:29:19');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coupons`
+--
+
+CREATE TABLE `coupons` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `business_id` bigint(20) UNSIGNED NOT NULL,
+  `coupon_type_id` bigint(20) UNSIGNED NOT NULL,
+  `amount_type` enum('percentage','numeric') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'numeric',
+  `coupon_amount` double(8,2) UNSIGNED NOT NULL,
+  `min_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 100.00,
+  `max_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 1.00,
+  `coupon_start_date` datetime DEFAULT NULL,
+  `coupon_expiry_date` datetime DEFAULT NULL,
+  `is_free_shiping` tinyint(1) NOT NULL DEFAULT 0,
+  `usage_limit` int(11) NOT NULL DEFAULT 1 COMMENT '-1 = Unlimited',
+  `usage_count` int(11) NOT NULL DEFAULT 0,
+  `usage_limit_per_user` int(11) NOT NULL DEFAULT 1 COMMENT '-1 = Unlimited',
+  `is_individual_use` tinyint(1) NOT NULL DEFAULT 0,
+  `exclude_sale_items` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_ids` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exclude_product_ids` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_categories` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `exclude_product_categories` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coupons`
+--
+
+INSERT INTO `coupons` (`id`, `code`, `description`, `image`, `business_id`, `coupon_type_id`, `amount_type`, `coupon_amount`, `min_amount`, `max_amount`, `coupon_start_date`, `coupon_expiry_date`, `is_free_shiping`, `usage_limit`, `usage_count`, `usage_limit_per_user`, `is_individual_use`, `exclude_sale_items`, `product_ids`, `exclude_product_ids`, `product_categories`, `exclude_product_categories`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(2, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:47', '2021-02-07 22:41:47'),
+(3, 'Boishakh', 'Boishakh', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:59', '2021-02-07 22:41:59'),
+(4, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:18:15', '2021-02-07 23:18:15'),
+(5, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:19:19', '2021-02-07 23:19:19'),
+(6, 'Feb2112', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:23:33', '2021-02-07 23:23:33'),
+(7, 'Feb New', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:25:45', '2021-02-07 23:25:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `coupon_types`
+--
+
+CREATE TABLE `coupon_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `coupon_types`
+--
+
+INSERT INTO `coupon_types` (`id`, `name`, `code`, `created_at`, `updated_at`) VALUES
+(1, 'Cart Coupon Discount', 'cart', '2021-02-07 22:15:01', '2021-02-07 22:15:01'),
+(2, 'Order Coupon Discount', 'order', '2021-02-07 22:15:01', '2021-02-07 22:15:01'),
+(3, 'Product Coupon Discount', 'product', '2021-02-07 22:15:01', '2021-02-07 22:15:01'),
+(4, 'Category Coupon Discount', 'category', '2021-02-07 22:15:01', '2021-02-07 22:15:01');
 
 -- --------------------------------------------------------
 
@@ -435,6 +510,25 @@ INSERT INTO `invoice_items` (`id`, `invoice_id`, `transaction_id`, `business_id`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `invoice_statuses`
+--
+
+CREATE TABLE `invoice_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `invoice_id` bigint(20) UNSIGNED NOT NULL,
+  `order_create_date` datetime NOT NULL,
+  `confirmed_by_vendor_date` datetime DEFAULT NULL,
+  `shipped_by_vendor_date` datetime DEFAULT NULL,
+  `delivery_by_vendor_date` datetime DEFAULT NULL,
+  `received_by_customer_date` datetime DEFAULT NULL,
+  `feedback_by_customer_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `items`
 --
 
@@ -516,7 +610,12 @@ INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `
 (43, 'Akij Plastic', 'product-featured-1612708602--1612708602.jpeg', NULL, 6, 1, 10, 2, 4, 21, 1, 'exclusive', 1, 100, '100', 'EAN-13', '100', 100, 100, 100, 0, '<p>Akij House </p>', 1, '2021-02-07 08:36:42', '2021-02-07 08:39:33', '2021-02-07 08:39:33'),
 (44, 'Akij Plastic', 'product-featured-1612708616--1612708616.jpeg', NULL, 6, 1, 10, 2, 4, 21, 1, 'exclusive', 1, 100, '100', 'EAN-13', '100', 100, 100, 100, 0, '<p>Akij House </p>', 1, '2021-02-07 08:36:56', '2021-02-07 08:39:28', '2021-02-07 08:39:28'),
 (45, 'Akij Plastic', 'product-featured-1612708733--1612708733.jpeg', NULL, 5, 1, 5, 2, 4, 5, 1, 'exclusive', 1, 122, '222', 'UPC-A', '222', 222, 222, 22222, 0, '<p>AKij House</p>', 1, '2021-02-07 08:38:53', '2021-02-07 08:39:23', '2021-02-07 08:39:23'),
-(46, 'GLASSES LUXURY LENS FASHION DRIV', 'product-featured-1612709158--1612709158.jpeg', 'product-short-resolution-161-1612709158.jpeg', 6, 1, 2, 2, 7, 20, 1, 'inclusive', 0, 500, '100', 'EAN-13', '100', 100, 699, 599, 0, '<p>SUNGLASSES FOR MEN NEW HD POLARISED SUNGLASSES BRAND DESIGNER CLASSIC SUN GLASSES LUXURY LENS FASHION DRIV</p>', 1, '2021-02-07 08:45:58', '2021-02-07 08:45:58', NULL);
+(46, 'GLASSES LUXURY LENS FASHION DRIV', 'product-featured-1612709158--1612709158.jpeg', 'product-short-resolution-161-1612709158.jpeg', 6, 1, 2, 2, 7, 20, 1, 'inclusive', 0, 500, '100', 'EAN-13', '100', 100, 699, 599, 0, '<p>SUNGLASSES FOR MEN NEW HD POLARISED SUNGLASSES BRAND DESIGNER CLASSIC SUN GLASSES LUXURY LENS FASHION DRIV</p>', 1, '2021-02-07 08:45:58', '2021-02-07 08:45:58', NULL),
+(47, 'Daikin Premium Inverter Split Air Conditioner | JTKJ18TV16UD | 1.5 Ton', 'product-featured-1612723852--1612723852.png', NULL, 6, 1, 11, 2, 4, 5, 1, 'exclusive', 1, 232, '232', 'C128', '323', 32323, 32312, 2323, 0, '<p>Testing.</p>', 1, '2021-02-07 12:50:52', '2021-02-07 12:50:52', NULL),
+(48, 'Daikin Premium Inverter Split Air Conditioner | JTKJ18TV16UD | 1.5 Ton', 'product-featured-1612725385--1612725385.png', NULL, 6, 1, 11, 2, 7, 20, 1, 'exclusive', 1, 10, '23', 'EAN-8', '323', 323, 30000, 25000, 0, '<p>testing</p>', 1, '2021-02-07 13:16:25', '2021-02-07 13:16:25', NULL),
+(49, 'test', 'product-featured-1612726588--1612726588.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:36:28', '2021-02-07 13:36:28', NULL),
+(50, 'test', 'product-featured-1612726765--1612726765.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:39:25', '2021-02-07 13:39:25', NULL),
+(51, 'test', 'product-featured-1612726988--1612726988.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:43:08', '2021-02-07 13:43:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -689,7 +788,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (88, '2021_01_29_060051_create_otps_table', 5),
 (89, '2021_01_29_065548_create_sms_table', 5),
 (90, '2021_02_04_181707_create_invoices_table', 6),
-(91, '2021_02_04_182538_create_invoice_items_table', 6);
+(91, '2021_02_04_182538_create_invoice_items_table', 6),
+(95, '2021_02_07_210330_create_coupon_types_table', 7),
+(96, '2021_02_07_210349_create_coupons_table', 7),
+(97, '2021_02_08_094835_create_order_statuses_table', 8),
+(98, '2021_02_08_103031_create_invoice_statuses_table', 8);
 
 -- --------------------------------------------------------
 
@@ -776,6 +879,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('84f0c5e672b8da202f39c2990d6cbbf4e4923cf2fcdf54a58e71fbaff77037dfc3baec7a3a3f2b96', 1, 3, 'authToken', '[]', 0, '2021-02-05 14:21:38', '2021-02-05 14:21:38', '2022-02-05 20:21:38'),
 ('86416ca7335b67c959e279cca366da491a4ac55cbf405a798b21652d22dd1c91fea0b0142e0fdc47', 1, 3, 'authToken', '[]', 0, '2021-02-04 07:15:36', '2021-02-04 07:15:36', '2022-02-04 13:15:36'),
 ('89cc9720c600b230f963066a1b88b6aa8f79168cf5a7bcfe5cc428fb2a99b0cc60d762dfa3fabd0e', 1, 1, 'authToken', '[]', 0, '2020-12-06 19:47:13', '2020-12-06 19:47:13', '2021-12-07 01:47:13'),
+('9077a1f6305c596771c7a7f7e7792a0abf19f87b0f29d3e4ec46a7ff19c251e1065db42f6f3dbd0b', 1, 3, 'authToken', '[]', 0, '2021-02-07 08:54:55', '2021-02-07 08:54:55', '2022-02-07 14:54:55'),
 ('930852ac7409118c47567b5ef0d8ada3eb0bcc62fec053819c77017af1fa5190fc5a0b6f0f37b68c', 1, 1, 'authToken', '[]', 0, '2020-12-10 10:54:02', '2020-12-10 10:54:02', '2021-12-10 16:54:02'),
 ('9b6ed529fa2905411d0cd520ef96c4ed39cb10648820cd980678ea9fb3ad7966c854794e58d9f9f5', 1, 3, 'authToken', '[]', 0, '2021-02-01 21:51:32', '2021-02-01 21:51:32', '2022-02-01 21:51:32'),
 ('9c78d8ac246cddca91bf499256dfa8c90531453113b9835d48786289b9a6e8f1d9023dc5e657a8c5', 1, 3, 'authToken', '[]', 0, '2021-01-26 09:19:51', '2021-01-26 09:19:51', '2022-01-26 15:19:51'),
@@ -879,6 +983,25 @@ CREATE TABLE `oauth_refresh_tokens` (
   `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `revoked` tinyint(1) NOT NULL,
   `expires_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_statuses`
+--
+
+CREATE TABLE `order_statuses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `transaction_id` bigint(20) UNSIGNED NOT NULL,
+  `order_create_date` datetime NOT NULL,
+  `confirmed_by_vendor_date` datetime DEFAULT NULL,
+  `shipped_by_vendor_date` datetime DEFAULT NULL,
+  `delivery_by_vendor_date` datetime DEFAULT NULL,
+  `received_by_customer_date` datetime DEFAULT NULL,
+  `feedback_by_customer_date` datetime DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1405,6 +1528,20 @@ ALTER TABLE `categories`
   ADD KEY `categories_created_by_foreign` (`created_by`);
 
 --
+-- Indexes for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `coupons_coupon_type_id_foreign` (`coupon_type_id`),
+  ADD KEY `coupons_business_id_foreign` (`business_id`);
+
+--
+-- Indexes for table `coupon_types`
+--
+ALTER TABLE `coupon_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -1467,6 +1604,13 @@ ALTER TABLE `invoice_items`
   ADD KEY `invoice_items_business_id_foreign` (`business_id`),
   ADD KEY `invoice_items_transaction_id_foreign` (`transaction_id`),
   ADD KEY `invoice_items_item_id_foreign` (`item_id`);
+
+--
+-- Indexes for table `invoice_statuses`
+--
+ALTER TABLE `invoice_statuses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `invoice_statuses_invoice_id_foreign` (`invoice_id`);
 
 --
 -- Indexes for table `items`
@@ -1571,6 +1715,13 @@ ALTER TABLE `oauth_personal_access_clients`
 ALTER TABLE `oauth_refresh_tokens`
   ADD PRIMARY KEY (`id`),
   ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
+
+--
+-- Indexes for table `order_statuses`
+--
+ALTER TABLE `order_statuses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_statuses_transaction_id_foreign` (`transaction_id`);
 
 --
 -- Indexes for table `otps`
@@ -1741,13 +1892,13 @@ ALTER TABLE `websockets_statistics_entries`
 -- AUTO_INCREMENT for table `attributes`
 --
 ALTER TABLE `attributes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `attribute_values`
 --
 ALTER TABLE `attribute_values`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `brands`
@@ -1772,6 +1923,18 @@ ALTER TABLE `business_locations`
 --
 ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `coupons`
+--
+ALTER TABLE `coupons`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `coupon_types`
+--
+ALTER TABLE `coupon_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `currencies`
@@ -1822,10 +1985,16 @@ ALTER TABLE `invoice_items`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `invoice_statuses`
+--
+ALTER TABLE `invoice_statuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `item_attributes`
@@ -1855,7 +2024,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -1868,6 +2037,12 @@ ALTER TABLE `oauth_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `order_statuses`
+--
+ALTER TABLE `order_statuses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `otps`
@@ -2028,6 +2203,13 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
 
 --
+-- Constraints for table `coupons`
+--
+ALTER TABLE `coupons`
+  ADD CONSTRAINT `coupons_business_id_foreign` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
+  ADD CONSTRAINT `coupons_coupon_type_id_foreign` FOREIGN KEY (`coupon_type_id`) REFERENCES `coupon_types` (`id`);
+
+--
 -- Constraints for table `customers`
 --
 ALTER TABLE `customers`
@@ -2071,6 +2253,12 @@ ALTER TABLE `invoice_items`
   ADD CONSTRAINT `invoice_items_business_id_foreign` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`),
   ADD CONSTRAINT `invoice_items_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   ADD CONSTRAINT `invoice_items_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`);
+
+--
+-- Constraints for table `invoice_statuses`
+--
+ALTER TABLE `invoice_statuses`
+  ADD CONSTRAINT `invoice_statuses_invoice_id_foreign` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`);
 
 --
 -- Constraints for table `items`
@@ -2117,6 +2305,12 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_statuses`
+--
+ALTER TABLE `order_statuses`
+  ADD CONSTRAINT `order_statuses_transaction_id_foreign` FOREIGN KEY (`transaction_id`) REFERENCES `transactions` (`id`);
 
 --
 -- Constraints for table `pages`

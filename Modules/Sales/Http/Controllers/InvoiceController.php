@@ -44,7 +44,7 @@ class InvoiceController extends Controller
     {
         try {
             $invoices = $this->invoiceRepository->getInvoiceList($request);
-            return $this->responseRepository->ResponseSuccess($invoices, 'Invoice Fetched Successfully');
+            return $this->responseRepository->ResponseSuccess($invoices, 'Invoice Fetched Successfully !');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

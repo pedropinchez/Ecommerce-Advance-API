@@ -43,10 +43,19 @@ class Item extends Model
     ];
 
     protected $with = ['images'];
-    protected $appends = ['average_rating', 'featured_url', 'short_resolation_url'];
+    protected $appends = ['average_rating', 'featured_url', 'short_resolation_url', 'final_selling_price'];
     public function getFeaturedUrlAttribute()
     {
         return is_null($this->featured_image) ? null : url('/') . '/images/products/' . $this->featured_image;
+    }
+
+    public function getFinalSellingPriceAttribute()
+    {
+        $price = $this->default_selling_price;
+        if ($this->is_offer_enable) {
+            $price = (($this->offer_selling_price === null) || ($this->offer_selling_price === 0) || ($this->offer_selling_price < $price)) ? $price : $this->offer_selling_price;
+        }
+        return $price;
     }
 
     public function getShortResolationUrlAttribute()

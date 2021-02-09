@@ -5,6 +5,7 @@ namespace Modules\Item\Repositories;
 use App\Helpers\Base64Encoder;
 use App\Helpers\StringHelper;
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -328,14 +329,60 @@ class ItemRepository implements ItemInterfaces
      * @return mixed
      * get items
      */
-    public function getProductList()
+    public function getProductList($data)
     {
-        return Item::with([
-            'category',
-            'subCategory',
-            'brand',
-        ])
-            ->paginate(40);
+        try {
+            $query = Item::orderBy('id', 'desc');
+            $page = $data['page'];
+
+            if (isset($data['search'])) {
+                $search = trim($data['search']);
+                $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('description', 'like', '%' . $search . '%');
+                $query->orWhere('sku', 'like', '%' . $search . '%');
+            }
+
+            if (isset($data['category'])) {
+                $query->where('category_id', $data['category']);
+            }
+
+            if (isset($data['brand'])) {
+                $query->where('brand_id', $data['brand']);
+            }
+
+            if (isset($data['min_price'])) {
+                $query->where('default_selling_price', '>=', $data['min_price']);
+            }
+
+            if (isset($data['max_price'])) {
+                $query->where('default_selling_price', '<=', $data['max_price']);
+            }
+
+            $output = $query->get();
+            $itemsCollection = collect($output);
+            foreach ($itemsCollection as $key => $item) {
+                // If
+                if (isset($data['attributes'])) {
+                    $attributes = $data['attributes'];
+                    // Get all attributes and separate them using comma
+                    $attributesArray = explode(',', $attributes);
+                    foreach ($attributesArray as $key => $value) {
+                        $trimmedAttribute = trim($value);
+                        $attribute_id = (int) explode(':', $trimmedAttribute)[0];
+                        $attribute_value_id = (int) explode(':', $trimmedAttribute)[1];
+                        $attributesArray[$key] = $attribute_value_id;
+                    }
+                }
+                return $attributesArray;
+
+                $itemsCollection[$key] = $item;
+            }
+
+            return $itemsCollection->forPage($page, 20);
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            throw new Exception('Invalid Query Parameters. Please give a valid query !');
+        }
     }
 
     /**

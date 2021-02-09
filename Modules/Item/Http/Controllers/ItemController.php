@@ -113,7 +113,7 @@ class ItemController extends Controller
     public function store(ItemRequest $request)
     {
         try {
-             $data = $request->all();
+            $data = $request->all();
             $item = $this->itemRepository->store($data);
             return $this->responseRepository->ResponseSuccess($item, 'Product Created Successfully');
         } catch (\Exception $exception) {
@@ -418,15 +418,21 @@ class ItemController extends Controller
      *      summary="Get Item List Frontend",
      *      description="Get Item List Frontend",
      *      operationId="index",
-     *      @OA\Response( response=200, description="Get Item List Frontend" ),
+     *      @OA\Parameter(name="search", description="search by anything, sku, name, description", required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="category", description="category, eg; 2", example=2, required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="brand", description="brand, eg; 2", example=2, required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="min_price", description="min_price, eg; 2", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="max_price", description="max_price, eg; 2", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="attributes", description="attributes, eg; 12:12", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Response(response=200, description="Get Item List Frontend" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-    public function getProductList()
+    public function getProductList(Request $request)
     {
         try {
-            $items = $this->itemRepository->getProductList();
+            $items = $this->itemRepository->getProductList($request->all());
             return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

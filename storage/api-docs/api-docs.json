@@ -4404,6 +4404,67 @@
                 "summary": "Get Item List Frontend",
                 "description": "Get Item List Frontend",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search by anything, sku, name, description",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "category, eg; 2",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 2
+                    },
+                    {
+                        "name": "brand",
+                        "in": "query",
+                        "description": "brand, eg; 2",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 2
+                    },
+                    {
+                        "name": "min_price",
+                        "in": "query",
+                        "description": "min_price, eg; 2",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "max_price",
+                        "in": "query",
+                        "description": "max_price, eg; 2",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "attributes",
+                        "in": "query",
+                        "description": "attributes, eg; 12:12",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 20
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Item List Frontend"

@@ -60,7 +60,6 @@ class CustomerRegisterController extends Controller
             $otp = rand(100000, 999999);
             $otpData = Otp::where('phone_no', $number)->first();
             $request->password = $otp;
-            $user = $this->customerRepository->registerUser($request);
 
             if (NumbersHelper::validateNumber($number)) {
                 Otp::updateOTP($otpData, $otp, $number);
@@ -102,6 +101,9 @@ class CustomerRegisterController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
+     *              @OA\Property(property="first_name", type="string", example="Test Akash"),
+     *              @OA\Property(property="last_name", type="string", example="Akash"),
+     *              @OA\Property(property="email", type="string", example="akash12121212@mail.com"),
      *              @OA\Property(property="phone_no", type="string", example="01951233084"),
      *              @OA\Property(property="otp", type="integer", example="129012"),
      *              @OA\Property(property="password", type="string", example="12345678"),
@@ -127,7 +129,8 @@ class CustomerRegisterController extends Controller
             if(is_null($otpData)){
                 $data['message'] = 'Invalid OTP, Please give valid OTP.';
             }else{
-                $user = $this->customerRepository->findUserByPhoneNo($request->phone_no);
+                $user = $this->customerRepository->registerUser($request);
+                // $user = $this->customerRepository->findUserByPhoneNo($request->phone_no);
                 $request->password = $request->otp;
                 if($otpData->otp !== $request->otp){
                     $data['message'] = 'Invalid OTP, Please give valid OTP.';

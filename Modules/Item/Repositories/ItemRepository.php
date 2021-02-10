@@ -360,23 +360,23 @@ class ItemRepository implements ItemInterfaces
 
             $output = $query->get();
             $itemsCollection = collect($output);
-            foreach ($itemsCollection as $key => $item) {
-                // If
-                if (isset($data['attributes'])) {
-                    $attributes = $data['attributes'];
-                    // Get all attributes and separate them using comma
-                    $attributesArray = explode(',', $attributes);
-                    foreach ($attributesArray as $key => $value) {
-                        $trimmedAttribute = trim($value);
-                        $attribute_id = (int) explode(':', $trimmedAttribute)[0];
-                        $attribute_value_id = (int) explode(':', $trimmedAttribute)[1];
-                        $attributesArray[$key] = $attribute_value_id;
-                    }
-                }
-                return $attributesArray;
+            // foreach ($itemsCollection as $key => $item) {
+            //     // If
+            //     if (isset($data['attributes'])) {
+            //         $attributes = $data['attributes'];
+            //         // Get all attributes and separate them using comma
+            //         $attributesArray = explode(',', $attributes);
+            //         foreach ($attributesArray as $key => $value) {
+            //             $trimmedAttribute = trim($value);
+            //             $attribute_id = (int) explode(':', $trimmedAttribute)[0];
+            //             $attribute_value_id = (int) explode(':', $trimmedAttribute)[1];
+            //             $attributesArray[$key] = $attribute_value_id;
+            //         }
+            //     }
+            //     // return $attributesArray;
 
-                $itemsCollection[$key] = $item;
-            }
+            //     $itemsCollection[$key] = $item;
+            // }
 
             return $itemsCollection->forPage($page, 20);
         } catch (\Exception $e) {

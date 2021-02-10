@@ -86,6 +86,7 @@ class BusinessRepository
                     'phone_no' => $user->phone_no,
                     'email' => $user->email,
                 ]);
+                return $business;
             } catch (\Exception $e) {
                 // throw new \Exception("Somethings wrong registering business !");
                 throw new \Exception($e->getMessage());

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Interfaces\AuthInterface;
+use Modules\Business\Entities\Business;
+use Modules\Business\Repositories\BusinessRepository;
 
 class AuthRepository implements AuthInterface
 {
@@ -56,7 +58,11 @@ class AuthRepository implements AuthInterface
                 'language' => $request->language ? $request->language :  'en'
             ]
         );
-        if(Route::is('vendor.register')){
+        if(Route::is('vendor.register') || Route::is('vendor.register.next')){
+            $buisnessRepository = new BusinessRepository();
+            $business = $buisnessRepository->registerAsVendor($request->all(), $user);
+            $user->business_id = !is_null($business) ? $business->id : null;
+            $user->save();
             $user->assignRole('Vendor');
         }else{
             $user->assignRole('Customer');

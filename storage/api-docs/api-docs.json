@@ -432,24 +432,6 @@
                                     "phone_no": {
                                         "type": "string",
                                         "example": "01951233084"
-                                    },
-                                    "business_name": {
-                                        "type": "string",
-                                        "example": "Akash Shop"
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "123456"
-                                    },
-                                    "password_confirmation": {
-                                        "type": "string",
-                                        "format": "password",
-                                        "example": "123456"
-                                    },
-                                    "language": {
-                                        "type": "string",
-                                        "example": "en"
                                     }
                                 },
                                 "type": "object"
@@ -483,6 +465,18 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Test Akash"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Akash"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "akash12121212@mail.com"
+                                    },
                                     "phone_no": {
                                         "type": "string",
                                         "example": "01951233084"
@@ -490,6 +484,10 @@
                                     "otp": {
                                         "type": "integer",
                                         "example": "129012"
+                                    },
+                                    "business_name": {
+                                        "type": "string",
+                                        "example": "Akash Shop"
                                     },
                                     "password": {
                                         "type": "string",

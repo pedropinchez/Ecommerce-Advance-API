@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 02:55 PM
+-- Generation Time: Feb 10, 2021 at 01:42 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -163,7 +163,9 @@ INSERT INTO `business` (`id`, `name`, `bin`, `currency_id`, `start_date`, `tax_n
 (4, 'Rahim Store', 'rahimstore', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', 'vendor-rahimstore.png', 'vendor-rahim-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
 (5, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 15, 'Asia/Kolkata', 1, 'fifo', NULL, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:28:08', '2021-02-07 05:28:08'),
 (6, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 16, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
-(7, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 18, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:44:24', '2021-02-07 05:44:24');
+(7, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 18, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:44:24', '2021-02-07 05:44:24'),
+(9, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 25, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:05:31', '2021-02-10 00:05:31'),
+(10, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 26, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:14:43', '2021-02-10 00:14:43');
 
 -- --------------------------------------------------------
 
@@ -199,7 +201,9 @@ INSERT INTO `business_locations` (`id`, `business_id`, `name`, `landmark`, `coun
 (3, 4, 'Rahim Main Store', '87/Ka Mohakhali', 'Bangladesh', 'Dhaka', 'Dhaka', '1213', '01951233084', '01951233081', 'rohim@gmail.com', 'rahimstore.com', NULL, '2021-02-06 08:13:56', '2021-02-06 08:13:56'),
 (4, 5, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'akash14@mail.com', NULL, NULL, '2021-02-07 05:28:08', '2021-02-07 05:28:08'),
 (5, 6, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'akash90@mail.com', NULL, NULL, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
-(6, 7, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'akash111@mail.com', NULL, NULL, '2021-02-07 05:44:24', '2021-02-07 05:44:24');
+(6, 7, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'akash111@mail.com', NULL, NULL, '2021-02-07 05:44:24', '2021-02-07 05:44:24'),
+(8, 9, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'vendor41@mail.com', NULL, NULL, '2021-02-10 00:05:31', '2021-02-10 00:05:31'),
+(9, 10, 'Akash Shop', NULL, 'Bangladesh', NULL, NULL, NULL, NULL, NULL, 'vendor42@mail.com', NULL, NULL, '2021-02-10 00:14:43', '2021-02-10 00:14:43');
 
 -- --------------------------------------------------------
 
@@ -259,8 +263,8 @@ CREATE TABLE `coupons` (
   `coupon_amount` double(8,2) UNSIGNED NOT NULL,
   `min_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 100.00,
   `max_amount` double(8,2) UNSIGNED NOT NULL DEFAULT 1.00,
-  `coupon_start_date` datetime DEFAULT NULL,
-  `coupon_expiry_date` datetime DEFAULT NULL,
+  `coupon_start_date` date DEFAULT NULL,
+  `coupon_expiry_date` date DEFAULT NULL,
   `is_free_shiping` tinyint(1) NOT NULL DEFAULT 0,
   `usage_limit` int(11) NOT NULL DEFAULT 1 COMMENT '-1 = Unlimited',
   `usage_count` int(11) NOT NULL DEFAULT 0,
@@ -281,12 +285,12 @@ CREATE TABLE `coupons` (
 --
 
 INSERT INTO `coupons` (`id`, `code`, `description`, `image`, `business_id`, `coupon_type_id`, `amount_type`, `coupon_amount`, `min_amount`, `max_amount`, `coupon_start_date`, `coupon_expiry_date`, `is_free_shiping`, `usage_limit`, `usage_count`, `usage_limit_per_user`, `is_individual_use`, `exclude_sale_items`, `product_ids`, `exclude_product_ids`, `product_categories`, `exclude_product_categories`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(2, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:47', '2021-02-07 22:41:47'),
-(3, 'Boishakh', 'Boishakh', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:59', '2021-02-07 22:41:59'),
-(4, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:18:15', '2021-02-07 23:18:15'),
-(5, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:19:19', '2021-02-07 23:19:19'),
-(6, 'Feb2112', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:23:33', '2021-02-07 23:23:33'),
-(7, 'Feb New', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01 00:00:00', '2021-04-01 00:00:00', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:25:45', '2021-02-07 23:25:45');
+(2, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01', '2021-04-01', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:47', '2021-02-07 22:41:47'),
+(3, 'Boishakh', 'Boishakh', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01', '2021-04-01', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 22:41:59', '2021-02-07 22:41:59'),
+(5, 'Feb21', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01', '2021-04-01', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:19:19', '2021-02-07 23:19:19'),
+(6, 'Feb2112', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01', '2021-04-01', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:23:33', '2021-02-07 23:23:33'),
+(7, 'Feb New', 'Feb 21', NULL, 1, 1, 'numeric', 100.00, 0.00, 0.00, '2021-01-01', '2021-04-01', 0, 100, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-07 23:25:45', '2021-02-07 23:25:45'),
+(8, 'Bijay21', '<p>Bijay 21</p>', 'coupon--1612943819.png', 1, 2, 'percentage', 8.00, 100.00, 1200.00, '2021-02-04', '2021-02-28', 0, 0, 0, 20, 0, NULL, NULL, NULL, NULL, NULL, NULL, '2021-02-10 01:20:07', '2021-02-10 01:57:32');
 
 -- --------------------------------------------------------
 
@@ -434,8 +438,8 @@ CREATE TABLE `gift_cards` (
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `price_value_for` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price value it will take from customer',
   `change_price_value` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price will return customer as card value',
-  `card_type` enum('gift_card','vouchar') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'gift_card',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
@@ -443,6 +447,14 @@ CREATE TABLE `gift_cards` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `gift_cards`
+--
+
+INSERT INTO `gift_cards` (`id`, `title`, `slug`, `image`, `price_value_for`, `change_price_value`, `status`, `description`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`) VALUES
+(1, 'Boishakhi Card 2', 'boishakhi-card', NULL, 12000.00, 2300.00, 1, 'Simple Description 2', '2021-02-10 04:23:48', 1, NULL, NULL, '2021-02-10 03:57:33', '2021-02-10 04:23:48'),
+(2, 'Boishakhi Card', 'boishakhi-card', NULL, 5000.00, 6500.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 04:24:08', '2021-02-10 04:24:08');
 
 -- --------------------------------------------------------
 
@@ -598,7 +610,7 @@ INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `
 (31, 'testing', 'product-featured-1612500559--1612500559.png', 'product-short-resolution-161-1612500559.png', 2, 1, 5, 2, 2, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:49:19', '2021-02-04 22:49:19', NULL),
 (32, 'Final test', 'product-featured-1612501778--1612501778.png', 'product-short-resolution-161-1612501778.png', 1, 1, 5, 2, 19, 21, 1, 'exclusive', 1, 123, '123', 'UPC-E', '123', 123, 123, 123, 0, '<p>123</p>', 1, '2021-02-04 23:09:38', '2021-02-04 23:09:38', NULL),
 (33, 'FInal testing', NULL, 'product-short-resolution-161-1612502648.png', 1, 1, 10, 2, 7, 20, 1, 'inclusive', 1, 3434, '232', 'C128', '323', 2323, 2323, 2323, 1, '<p>FInal testing</p>', 1, '2021-02-04 23:24:08', '2021-02-05 14:25:31', '2021-02-05 14:25:31'),
-(34, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-06 20:00:26', '2021-02-07 08:15:47', '2021-02-07 08:15:47'),
+(34, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 1, NULL, 1, '2021-02-06 20:00:26', '2021-02-07 08:15:47', '2021-02-07 08:15:47'),
 (35, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-06 20:00:41', '2021-02-07 08:14:32', '2021-02-07 08:14:32'),
 (36, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-06 20:01:10', '2021-02-07 08:15:43', '2021-02-07 08:15:43'),
 (37, 'string', NULL, NULL, 1, 1, 2, 2, 7, 20, 1, 'inclusive', 1, 0, 'string', 'C39', 'string', 100, 100, 100, 0, NULL, 1, '2021-02-06 20:01:57', '2021-02-07 08:14:58', '2021-02-07 08:14:58'),
@@ -612,10 +624,10 @@ INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `
 (45, 'Akij Plastic', 'product-featured-1612708733--1612708733.jpeg', NULL, 5, 1, 5, 2, 4, 5, 1, 'exclusive', 1, 122, '222', 'UPC-A', '222', 222, 222, 22222, 0, '<p>AKij House</p>', 1, '2021-02-07 08:38:53', '2021-02-07 08:39:23', '2021-02-07 08:39:23'),
 (46, 'GLASSES LUXURY LENS FASHION DRIV', 'product-featured-1612709158--1612709158.jpeg', 'product-short-resolution-161-1612709158.jpeg', 6, 1, 2, 2, 7, 20, 1, 'inclusive', 0, 500, '100', 'EAN-13', '100', 100, 699, 599, 0, '<p>SUNGLASSES FOR MEN NEW HD POLARISED SUNGLASSES BRAND DESIGNER CLASSIC SUN GLASSES LUXURY LENS FASHION DRIV</p>', 1, '2021-02-07 08:45:58', '2021-02-07 08:45:58', NULL),
 (47, 'Daikin Premium Inverter Split Air Conditioner | JTKJ18TV16UD | 1.5 Ton', 'product-featured-1612723852--1612723852.png', NULL, 6, 1, 11, 2, 4, 5, 1, 'exclusive', 1, 232, '232', 'C128', '323', 32323, 32312, 2323, 0, '<p>Testing.</p>', 1, '2021-02-07 12:50:52', '2021-02-07 12:50:52', NULL),
-(48, 'Daikin Premium Inverter Split Air Conditioner | JTKJ18TV16UD | 1.5 Ton', 'product-featured-1612725385--1612725385.png', NULL, 6, 1, 11, 2, 7, 20, 1, 'exclusive', 1, 10, '23', 'EAN-8', '323', 323, 30000, 25000, 0, '<p>testing</p>', 1, '2021-02-07 13:16:25', '2021-02-07 13:16:25', NULL),
+(48, 'Daikin Premium Inverter Split Air Conditioner | JTKJ18TV16UD | 1.5 Ton', 'product-featured-1612725385--1612725385.png', NULL, 6, 1, 11, 2, 7, 20, 1, 'exclusive', 1, 10, '23', 'EAN-8', '323', 323, 30000, 25000, 1, '<p>testing</p>', 1, '2021-02-07 13:16:25', '2021-02-07 13:16:25', NULL),
 (49, 'test', 'product-featured-1612726588--1612726588.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:36:28', '2021-02-07 13:36:28', NULL),
-(50, 'test', 'product-featured-1612726765--1612726765.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:39:25', '2021-02-07 13:39:25', NULL),
-(51, 'test', 'product-featured-1612726988--1612726988.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 0, '<p>test</p>', 1, '2021-02-07 13:43:08', '2021-02-07 13:43:08', NULL);
+(50, 'test', 'product-featured-1612726765--1612726765.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 1, '<p>test</p>', 1, '2021-02-07 13:39:25', '2021-02-07 13:39:25', NULL),
+(51, 'test', 'product-featured-1612726988--1612726988.png', NULL, 6, 1, 10, 2, 7, 20, 1, 'exclusive', 1, 5, '45', 'C39', '545', 454, 4543, 2345, 1, '<p>test</p>', 1, '2021-02-07 13:43:08', '2021-02-07 13:43:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -825,7 +837,13 @@ CREATE TABLE `model_has_roles` (
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'Modules\\Auth\\Entities\\User', 16),
 (1, 'Modules\\Auth\\Entities\\User', 18),
-(2, 'Modules\\Auth\\Entities\\User', 16);
+(1, 'Modules\\Auth\\Entities\\User', 25),
+(1, 'Modules\\Auth\\Entities\\User', 26),
+(2, 'Modules\\Auth\\Entities\\User', 16),
+(2, 'Modules\\Auth\\Entities\\User', 19),
+(2, 'Modules\\Auth\\Entities\\User', 20),
+(2, 'Modules\\Auth\\Entities\\User', 21),
+(2, 'Modules\\Auth\\Entities\\User', 22);
 
 -- --------------------------------------------------------
 
@@ -853,6 +871,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('03209d4bd90f437e09642454684ba67626cbb66567312fba5625b786eef04c6b744208c217d74ccf', 1, 3, 'authToken', '[]', 0, '2021-02-07 08:18:06', '2021-02-07 08:18:06', '2022-02-07 14:18:06'),
 ('061c0bd159542a4b6448b355e3b00f5eb377cefbc7713c761a05bd825034b2578fa43d29cbea18fd', 1, 3, 'authToken', '[]', 0, '2021-02-03 04:26:25', '2021-02-03 04:26:25', '2022-02-03 10:26:25'),
 ('0e1c09f49be6d55848bd919c774d141a3624c0b9e78124000df5187c195337f68735a989ea131a8b', 1, 3, 'authToken', '[]', 0, '2021-01-24 08:16:49', '2021-01-24 08:16:49', '2022-01-24 14:16:49'),
+('13014c2f5b51a208bfe39625ba19e0fda9e46b9e99132ac9f5b479a4ab970cb24cf307edfa66dfa9', 1, 3, 'authToken', '[]', 0, '2021-02-10 01:11:20', '2021-02-10 01:11:20', '2022-02-10 07:11:20'),
 ('13f478da5c8f31f8c14c9d6cd099b601a31d1d9deaa8828ae30ec6103cd23fdf60d726be11c2c49d', 1, 3, 'authToken', '[]', 0, '2021-02-06 20:27:29', '2021-02-06 20:27:29', '2022-02-07 02:27:29'),
 ('13ff18f9deafb7b012a62c4ab87b184e6394dc911af67b12f55d2373e07fa0a3540de34692444f3a', 1, 3, 'authToken', '[]', 0, '2021-02-01 14:46:52', '2021-02-01 14:46:52', '2022-02-01 14:46:52'),
 ('14c5f802790f8bc785f9e2fb9397da7c19c1dc6fdfc73398e7ae0c1bf7c4f80412cad93b4102161c', 1, 3, 'authToken', '[]', 0, '2021-02-07 08:31:56', '2021-02-07 08:31:56', '2022-02-07 14:31:56'),
@@ -1025,7 +1044,12 @@ CREATE TABLE `otps` (
 
 INSERT INTO `otps` (`id`, `phone_no`, `otp`, `expire_date`, `created_at`, `updated_at`) VALUES
 (1, '8801951233084', '691525', '2021-01-29 01:53:58', '2021-01-29 01:43:59', '2021-01-29 01:48:58'),
-(2, '8801951233081', '574071', '2021-02-01 16:12:28', '2021-02-01 16:07:28', '2021-02-01 16:07:28');
+(2, '8801951233081', '574071', '2021-02-01 16:12:28', '2021-02-01 16:07:28', '2021-02-01 16:07:28'),
+(3, '8801951233123', '282010', '2021-02-09 13:19:59', '2021-02-09 13:13:17', '2021-02-09 13:14:59'),
+(4, '8801951233090', '372042', '2021-02-09 13:20:47', '2021-02-09 13:15:47', '2021-02-09 13:15:47'),
+(5, '8801951233009', '904801', '2021-02-09 23:04:06', '2021-02-09 22:59:06', '2021-02-09 22:59:06'),
+(12, '8801951233041', '561816', '2021-02-10 00:07:28', '2021-02-10 00:02:28', '2021-02-10 00:02:28'),
+(13, '8801951233042', '518541', '2021-02-10 00:15:25', '2021-02-10 00:10:25', '2021-02-10 00:10:25');
 
 -- --------------------------------------------------------
 
@@ -1437,7 +1461,13 @@ INSERT INTO `users` (`id`, `business_id`, `first_name`, `surname`, `last_name`, 
 (11, NULL, 'Test User', NULL, 'last', 'testuser2', 'akash12@mail.com', '01951233012', '$2y$10$DLXFU12LgxXfMtDethv5hu/80dkc55QucYyZAxcA3ztE/9wYQqvRa', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:24:20', '2021-02-07 05:24:20'),
 (15, NULL, 'Test User', NULL, 'last', 'testuser3', 'akash14@mail.com', '019512330114', '$2y$10$7eD5xAPkUeKL/3knh0quLOnnQ0MQx5Sd6yyQsfHOLowQWxTmrXA76', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:28:08', '2021-02-07 05:28:08'),
 (16, NULL, 'Seller Shop', NULL, 'last', 'sellershop', 'akash90@mail.com', '019512330190', '$2y$10$raCpwWcTKR1DrcMY1C87EOVPWF98V3G4kB8amihuzLZ0v0yPv15E2', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
-(18, NULL, 'Seller Shop2', NULL, 'last', 'sellershop2', 'akash111@mail.com', '0195123301111', '$2y$10$IhJVQeFE7DJuQ.AvlLua9O8YL.5Af6R11bzEYLsI5l9Uqh5FWv8ri', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:44:24', '2021-02-07 05:44:24');
+(18, NULL, 'Seller Shop2', NULL, 'last', 'sellershop2', 'akash111@mail.com', '0195123301111', '$2y$10$IhJVQeFE7DJuQ.AvlLua9O8YL.5Af6R11bzEYLsI5l9Uqh5FWv8ri', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:44:24', '2021-02-07 05:44:24'),
+(19, NULL, 'Test Akash', NULL, 'assssd', 'testakash', 'akas121212h@mail.com', '01951233090', '$2y$10$/seRiTWCpqScx9SjXk2wNujUh5CvDmChYoEX3mLyGm2/BOd3VgVsu', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-09 13:16:34', '2021-02-09 13:16:35'),
+(20, NULL, 'Test Akash', NULL, 'Akash', 'testakash1', 'akash12121212@mail.com', '01951233009', '$2y$10$OTBK6ivmu3x6qj/ZqitTyOGnjEB66i3.h9kKqiS81U6.pkx.ExCPG', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-09 22:59:30', '2021-02-09 22:59:30'),
+(21, NULL, 'Test Akash', NULL, 'Akash', 'testakash2', 'akash12121212@mail.com', '01951233009', '$2y$10$7uxiJXRJDDNA8ZASTaGn8.UMoRO51egc3PU9lThWdR5SzE7GzBAbm', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-09 22:59:35', '2021-02-09 22:59:35'),
+(22, NULL, 'Test Akash', NULL, 'Akash', 'testakash3', 'akash12121212@mail.com', '01951233009', '$2y$10$26byavDYjjIXTTPJlkahMuUshio8QZULVlWzm/iXeQW1rw8Hh438a', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-09 22:59:41', '2021-02-09 22:59:41'),
+(25, 9, 'Test Vendor', NULL, NULL, 'testvendor', 'vendor41@mail.com', '01951233041', '$2y$10$3eRk7Wr6bRRmi819eoLtXu6ZToGLh6qMYscLSqCOqWXroVKA2gdJq', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-10 00:05:31', '2021-02-10 00:05:31'),
+(26, 10, 'Test Vendor', NULL, NULL, 'testvendor1', 'vendor42@mail.com', '01951233042', '$2y$10$HJ9W9uA.yBBZPfx92XBlBu4.C/BHfSIdQdGDz59BnwZADrOd6WchG', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-10 00:14:43', '2021-02-10 00:14:43');
 
 -- --------------------------------------------------------
 
@@ -1453,6 +1483,7 @@ CREATE TABLE `vouchers` (
   `price_value_for` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price value it will take from customer',
   `change_price_value` double(8,2) NOT NULL DEFAULT 0.00 COMMENT 'What Price will return customer as card value',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active, 0=>inactive',
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `updated_by` bigint(20) UNSIGNED DEFAULT NULL,
@@ -1460,6 +1491,14 @@ CREATE TABLE `vouchers` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `vouchers`
+--
+
+INSERT INTO `vouchers` (`id`, `title`, `slug`, `image`, `price_value_for`, `change_price_value`, `status`, `description`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`) VALUES
+(1, 'Boishakhi Card', 'boishakhi-card', NULL, 5000.00, 6500.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 04:33:13', '2021-02-10 04:33:13'),
+(2, 'Boishakhi Card 2', 'boishakhi-card-2', NULL, 50020.00, 65200.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 06:38:04', '2021-02-10 06:38:04');
 
 -- --------------------------------------------------------
 
@@ -1583,8 +1622,7 @@ ALTER TABLE `gift_cards`
   ADD PRIMARY KEY (`id`),
   ADD KEY `gift_cards_created_by_foreign` (`created_by`),
   ADD KEY `gift_cards_updated_by_foreign` (`updated_by`),
-  ADD KEY `gift_cards_deleted_by_foreign` (`deleted_by`),
-  ADD KEY `gift_cards_card_type_index` (`card_type`);
+  ADD KEY `gift_cards_deleted_by_foreign` (`deleted_by`);
 
 --
 -- Indexes for table `invoices`
@@ -1910,13 +1948,13 @@ ALTER TABLE `brands`
 -- AUTO_INCREMENT for table `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `business_locations`
 --
 ALTER TABLE `business_locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -1928,7 +1966,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `coupons`
 --
 ALTER TABLE `coupons`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `coupon_types`
@@ -1970,7 +2008,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `gift_cards`
 --
 ALTER TABLE `gift_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -2048,7 +2086,7 @@ ALTER TABLE `order_statuses`
 -- AUTO_INCREMENT for table `otps`
 --
 ALTER TABLE `otps`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pages`
@@ -2144,13 +2182,13 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `vouchers`
 --
 ALTER TABLE `vouchers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `websockets_statistics_entries`

@@ -333,7 +333,7 @@ class ItemRepository implements ItemInterfaces
     {
         try {
             $query = Item::orderBy('id', 'desc');
-            $page = $data['page'];
+            $page = isset($data['page']) ? $data['page'] : 1;
 
             if (isset($data['search'])) {
                 $search = trim($data['search']);

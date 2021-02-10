@@ -77,7 +77,10 @@ class CouponRepository
     public function update($id, $data)
     {
         $coupon = Coupon::find($id);
-        $data['image'] = is_null($data['image']) ? $coupon->image : UploadHelper::update('image',  $data['image'], 'coupon-' . '-' . time(), 'images/coupons', $coupon->image);
+        // if (isset($data['image'])) {
+        //     $data['image'] = UploadHelper::upload('image',  $data['image'], 'coupon-' . '-' . time(), 'images/coupons');
+        // }
+        $data['image'] = !isset($data['image']) ? $coupon->image : UploadHelper::update('image',  $data['image'], 'coupon-' . '-' . time(), 'images/coupons', $coupon->image);
         $coupon->update($data);
         return $coupon;
     }

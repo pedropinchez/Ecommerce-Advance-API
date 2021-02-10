@@ -31,6 +31,12 @@ class Coupon extends Model
         'exclude_product_categories'
     ];
 
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/') . '/images/coupons/' . $this->image;
+    }
+
     public function business()
     {
         return $this->belongsTo(Business::class);

@@ -3,7 +3,8 @@
 namespace Modules\Promotional\Repositories;
 
 use App\Helpers\StringHelper;
-use Modules\Promotional\Entities\GiftCard;
+use App\Helpers\UploadHelper;
+use Exception;
 use Modules\Promotional\Entities\Voucher;
 use Modules\Promotional\Interfaces\GiftCardInterface;
 
@@ -11,7 +12,7 @@ class VoucherRepository implements GiftCardInterface
 {
     /**
      * @return mixed
-     * get all the voucher
+     * get all the gift cards
      */
     public function index()
     {
@@ -32,36 +33,44 @@ class VoucherRepository implements GiftCardInterface
     /**
      * @param $id
      * @return mixed
-     * get a voucher
+     * get a gift card
      */
     public function show($id)
     {
-        return Voucher::where('id', $id)->orWhere('slug', $id)->first();
+        return Voucher::where('id', $id)
+        ->orWhere('slug', $id)
+        ->first();
     }
 
     /**
      * @param $data
      * @return mixed
      * @throws Exception
-     * @throws \Exception
-     * store a voucher
+     * store a gift card
      */
     public function store($data)
     {
+        $data['status'] = 1;
+        $data['created_by'] = 1;
+        if (isset($data['image'])) {
+            $data['image'] = UploadHelper::upload('image',  $data['image'], 'vouchers-' . '-' . time(), 'images/vouchers');
+        }
         $data['slug'] = $this->generateSlug($data['title']);
-        return Voucher::create($data);
+        $voucher = Voucher::create($data);
+        return $voucher;
     }
 
     /**
      * @param $id
      * @param $data
      * @return mixed
-     * update a voucher
+     * update a gift card
      */
     public function update($id, $data)
     {
         $voucher = Voucher::find($id);
         if($voucher) {
+            $data['image'] = !isset($data['image']) ? $voucher->image : UploadHelper::update('image',  $data['image'], 'giftCard-' . '-' . time(), 'images/vouchers', $voucher->image);
             $voucher->update($data);
         }
 
@@ -71,7 +80,7 @@ class VoucherRepository implements GiftCardInterface
     /**
      * @param $id
      * @return bool
-     * delete a voucher
+     * delete a gift card
      */
     public function destroy($id)
     {
@@ -88,7 +97,6 @@ class VoucherRepository implements GiftCardInterface
      * @param $value
      * @return string|string[]|null
      * @throws Exception
-     * @throws \Exception
      * generate slug
      */
     public function generateSlug($value)

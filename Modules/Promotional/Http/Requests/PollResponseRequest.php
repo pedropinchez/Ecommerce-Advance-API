@@ -2,7 +2,7 @@
 
 namespace Modules\Promotional\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequest;
 
 class PollResponseRequest extends FormRequest
 {

@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 Route::apiResource('vouchers', 'VoucherController');
+Route::apiResource('gift-cards', 'GiftCardController');
 Route::post('giftcards/transactions', 'TransactionDetailController@giftCardStore');
 Route::post('vouchers/transactions', 'TransactionDetailController@voucherStore');
 Route::put('giftcards/transactions/{id}', 'TransactionDetailController@updatePaymentStatus');
@@ -22,4 +23,3 @@ Route::apiResource('polls', 'PollController');
 Route::get('polls/customer/{id}', 'PollController@getByCustomerId');
 Route::apiResource('poll-options', 'PollOptionController');
 Route::post('polls-response', 'PollResponseController@store');
-Route::apiResource('gift-cards', 'GiftCardController');

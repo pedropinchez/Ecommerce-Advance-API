@@ -5685,6 +5685,35 @@
                 "summary": "Get voucher List",
                 "description": "Get voucher List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get voucher List"
@@ -5719,28 +5748,21 @@
                                         "example": "Boishakhi Card"
                                     },
                                     "price_value_for": {
-                                        "type": "string",
-                                        "example": "5000"
+                                        "type": "integer",
+                                        "example": 5000
                                     },
                                     "change_price_value": {
-                                        "type": "string",
-                                        "example": "6500"
-                                    },
-                                    "card_type": {
-                                        "type": "string",
-                                        "example": "vouchar"
-                                    },
-                                    "status": {
-                                        "type": "boolean",
-                                        "example": 1
-                                    },
-                                    "created_by": {
                                         "type": "integer",
-                                        "example": 1
+                                        "example": 6500
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Simple Description"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "binary"
+                                        "format": "binary",
+                                        "example": "Image File"
                                     }
                                 },
                                 "type": "object"
@@ -5801,9 +5823,20 @@
                 "tags": [
                     "Vouchers"
                 ],
-                "summary": "Update voucher",
-                "description": "Update voucher",
+                "summary": "Vouchers Updated",
+                "description": "Vouchers Updated",
                 "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -5814,36 +5847,21 @@
                                         "example": "Boishakhi Card"
                                     },
                                     "price_value_for": {
-                                        "type": "string",
-                                        "example": "5000"
+                                        "type": "integer",
+                                        "example": 5000
                                     },
                                     "change_price_value": {
+                                        "type": "integer",
+                                        "example": 6500
+                                    },
+                                    "description": {
                                         "type": "string",
-                                        "example": "6500"
-                                    },
-                                    "card_type": {
-                                        "type": "string",
-                                        "example": "vouchar"
-                                    },
-                                    "status": {
-                                        "type": "boolean",
-                                        "example": 1
-                                    },
-                                    "created_by": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
-                                    "updated_by": {
-                                        "type": "integer",
-                                        "example": 2
-                                    },
-                                    "deleted_by": {
-                                        "type": "integer",
-                                        "example": 2
+                                        "example": "Simple Description"
                                     },
                                     "image": {
                                         "type": "string",
-                                        "format": "binary"
+                                        "format": "binary",
+                                        "example": "Image File"
                                     }
                                 },
                                 "type": "object"
@@ -5853,7 +5871,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Update voucher"
+                        "description": "Vouchers Updated"
                     },
                     "400": {
                         "description": "Bad request"

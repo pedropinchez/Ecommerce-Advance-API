@@ -4,7 +4,7 @@ namespace Modules\Promotional\Http\Requests;
 
 use App\Http\Requests\FormRequest;
 
-class PollOptionRequest extends FormRequest
+class VoucherRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,7 +14,10 @@ class PollOptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'poll_id' => 'required'
+            'title' => 'required',
+            'price_value_for' => 'required',
+            'change_price_value' => 'required',
+            'image' => 'nullable|image',
         ];
     }
 
@@ -35,7 +38,9 @@ class PollOptionRequest extends FormRequest
     public function messages()
     {
         return [
-            'poll_id.required' => 'Poll is required'
+            'title.required' => 'Title is required',
+            'price_value_for.required' => 'Price is required',
+            'change_price_value.required' => 'Customer Price Value is required',
         ];
     }
 }

@@ -358,7 +358,7 @@ class ItemRepository implements ItemInterfaces
                 $query->where('default_selling_price', '<=', $data['max_price']);
             }
 
-            $output = $query->get();
+            $output = $query->paginate(20);
             $itemsCollection = collect($output);
             // foreach ($itemsCollection as $key => $item) {
             //     // If
@@ -378,7 +378,8 @@ class ItemRepository implements ItemInterfaces
             //     $itemsCollection[$key] = $item;
             // }
 
-            return $itemsCollection->forPage($page, 20);
+            // return $itemsCollection->forPage($page, 20);
+            return $output;
         } catch (\Exception $e) {
             return $e->getMessage();
             throw new Exception('Invalid Query Parameters. Please give a valid query !');

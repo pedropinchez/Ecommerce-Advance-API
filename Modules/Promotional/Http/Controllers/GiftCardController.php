@@ -27,6 +27,9 @@ class GiftCardController extends Controller
      *     description="Get Gift Card List",
      *     security={{"bearer": {}}},
      *     operationId="index",
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get Gift Card List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -52,12 +55,10 @@ class GiftCardController extends Controller
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
-     *              @OA\Property(property="price_value_for", type="string", example="5000"),
-     *              @OA\Property(property="change_price_value", type="string", example="6500"),
-     *              @OA\Property(property="card_type", type="string", example="gift_card"),
-     *              @OA\Property(property="status", type="boolean", example=1),
-     *              @OA\Property(property="created_by", type="integer", example=1),
-     *              @OA\Property(property="image", type="string", format="binary")
+     *              @OA\Property(property="price_value_for", type="integer", example=5000),
+     *              @OA\Property(property="change_price_value", type="integer", example=6500),
+     *              @OA\Property(property="description", type="string", example="Simple Description"),
+     *              @OA\Property(property="image", type="string", example="Image File", format="binary"),
      *          ),
      *      ),
      *      operationId="store",
@@ -72,13 +73,6 @@ class GiftCardController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('image')){
-                $file = $request->file('image');;
-                $fileName = 'giftcards/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
-            }
             $giftCard = $this->giftCardRepository->store($data);
             return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Created Successfully');
         } catch (\Exception $exception) {
@@ -116,18 +110,15 @@ class GiftCardController extends Controller
      *     tags={"Gift Cards"},
      *     summary="Update Gift Card",
      *     description="Update Gift Card",
+     *     @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *             @OA\Property(property="title", type="string", example="Boishakhi Card"),
-     *              @OA\Property(property="price_value_for", type="string", example="5000"),
-     *              @OA\Property(property="change_price_value", type="string", example="6500"),
-     *              @OA\Property(property="card_type", type="string", example="gift_card"),
-     *              @OA\Property(property="status", type="boolean", example=1),
-     *              @OA\Property(property="created_by", type="integer", example=1),
-     *              @OA\Property(property="updated_by", type="integer", example=2),
-     *              @OA\Property(property="deleted_by", type="integer", example=2),
-     *              @OA\Property(property="image", type="string", format="binary")
+     *              @OA\Property(property="title", type="string", example="Boishakhi Card"),
+     *              @OA\Property(property="price_value_for", type="integer", example=5000),
+     *              @OA\Property(property="change_price_value", type="integer", example=6500),
+     *              @OA\Property(property="description", type="string", example="Simple Description"),
+     *              @OA\Property(property="image", type="string", example="Image File", format="binary"),
      *          ),
      *      ),
      *      operationId="update",
@@ -142,15 +133,7 @@ class GiftCardController extends Controller
     public function update(GiftCardRequest $request, $id)
     {
         try {
-            $data = $request->all();
-            if ($request->hasFile('image')){
-                $file = $request->file('image');;
-                $fileName = 'giftcards/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['image'] = public_path().'/'.$fileName;
-            }
-            $giftCard = $this->giftCardRepository->update($id, $data);
+            $giftCard = $this->giftCardRepository->update($id, $request->all());
             return $this->responseRepository->ResponseSuccess($giftCard, 'Gift Card Updated Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
@@ -163,7 +146,7 @@ class GiftCardController extends Controller
      *     tags={"Gift Cards"},
      *     summary="Delete Gift Card",
      *     description="Delete Gift Card",
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     operationId="destroy",
      *      @OA\Response( response=200, description="Delete Gift Card" ),
      *      @OA\Response(response=400, description="Bad request"),

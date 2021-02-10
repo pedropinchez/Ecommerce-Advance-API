@@ -18,6 +18,7 @@ class CreateVouchersTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('image')->nullable();
+            $table->text('description')->nullable();
             $table->float('price_value_for')->default(0)->comment('What Price value it will take from customer');
             $table->float('change_price_value')->default(0)->comment('What Price will return customer as card value');
 

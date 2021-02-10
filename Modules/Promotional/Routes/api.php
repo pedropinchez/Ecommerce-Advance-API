@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::apiResource('giftcards', 'GiftCardController');
 Route::apiResource('vouchers', 'VoucherController');
 Route::post('giftcards/transactions', 'TransactionDetailController@giftCardStore');
 Route::post('vouchers/transactions', 'TransactionDetailController@voucherStore');

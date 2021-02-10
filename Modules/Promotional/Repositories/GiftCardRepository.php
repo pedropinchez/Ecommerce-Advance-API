@@ -3,6 +3,7 @@
 namespace Modules\Promotional\Repositories;
 
 use App\Helpers\StringHelper;
+use App\Helpers\UploadHelper;
 use Exception;
 use Modules\Promotional\Entities\GiftCard;
 use Modules\Promotional\Interfaces\GiftCardInterface;
@@ -15,7 +16,18 @@ class GiftCardRepository implements GiftCardInterface
      */
     public function index()
     {
-        return GiftCard::get();
+        $query = GiftCard::orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('title', 'like', '%' . request()->search . '%');
+            $query->orWhere('slug', 'like', '%' . request()->search . '%');
+            $query->orWhere('description', 'like', '%' . request()->search . '%');
+        }
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**
@@ -25,8 +37,9 @@ class GiftCardRepository implements GiftCardInterface
      */
     public function show($id)
     {
-        return GiftCard::with(['transactions'])->where('id', $id)->orWhere('slug', $id)->first();
-        return GiftCard::where('id', $id)->orWhere('slug', $id)->first();
+        return GiftCard::where('id', $id)
+        ->orWhere('slug', $id)
+        ->first();
     }
 
     /**
@@ -37,6 +50,11 @@ class GiftCardRepository implements GiftCardInterface
      */
     public function store($data)
     {
+        $data['status'] = 1;
+        $data['created_by'] = 1;
+        if (isset($data['image'])) {
+            $data['image'] = UploadHelper::upload('image',  $data['image'], 'giftcards-' . '-' . time(), 'images/giftcards');
+        }
         $data['slug'] = $this->generateSlug($data['title']);
         $giftCard = GiftCard::create($data);
         return $giftCard;
@@ -52,6 +70,7 @@ class GiftCardRepository implements GiftCardInterface
     {
         $giftCard = GiftCard::find($id);
         if($giftCard) {
+            $data['image'] = !isset($data['image']) ? $giftCard->image : UploadHelper::update('image',  $data['image'], 'giftCard-' . '-' . time(), 'images/giftcards', $giftCard->image);
             $giftCard->update($data);
         }
 

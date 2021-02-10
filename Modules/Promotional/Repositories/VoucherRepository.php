@@ -15,7 +15,18 @@ class VoucherRepository implements GiftCardInterface
      */
     public function index()
     {
-        return Voucher::get();
+        $query = Voucher::orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('title', 'like', '%' . request()->search . '%');
+            $query->orWhere('slug', 'like', '%' . request()->search . '%');
+            $query->orWhere('description', 'like', '%' . request()->search . '%');
+        }
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**

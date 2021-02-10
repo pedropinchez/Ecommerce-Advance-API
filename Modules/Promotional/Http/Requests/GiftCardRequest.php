@@ -2,7 +2,7 @@
 
 namespace Modules\Promotional\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\FormRequest;
 
 class GiftCardRequest extends FormRequest
 {
@@ -17,8 +17,7 @@ class GiftCardRequest extends FormRequest
             'title' => 'required',
             'price_value_for' => 'required',
             'change_price_value' => 'required',
-            'card_type' => 'required',
-            'status' => 'required'
+            'image' => 'nullable|image',
         ];
     }
 
@@ -42,8 +41,6 @@ class GiftCardRequest extends FormRequest
             'title.required' => 'Title is required',
             'price_value_for.required' => 'Price is required',
             'change_price_value.required' => 'Customer Price Value is required',
-            'card_type.required' => 'Card Type is required',
-            'status.required' => 'Status is required'
         ];
     }
 }

@@ -14,8 +14,8 @@ class GiftCard extends Model
         'image',
         'price_value_for',
         'change_price_value',
-        'card_type',
         'status',
+        'description',
         'created_by',
         'updated_by',
         'deleted_by'
@@ -24,5 +24,11 @@ class GiftCard extends Model
     public function transactions()
     {
         return $this->hasMany(TransactionDetail::class);
+    }
+
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/') . '/images/giftcards/' . $this->image;
     }
 }

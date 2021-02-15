@@ -17,8 +17,7 @@ class CreateSlidersTable extends Migration
             $table->id();
             $table->string('title');
             $table->unsignedBigInteger('business_id');
-            $table->string('image_path');
-            $table->string('image_path_sm');
+            $table->string('image')->nullable();
             $table->boolean('is_text_enable')->default(1);
             $table->string('text')->nullable();
             $table->string('text_color')->nullable();

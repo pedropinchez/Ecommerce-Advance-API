@@ -1547,6 +1547,349 @@
                 }
             }
         },
+        "/api/v1/sliders": {
+            "get": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Get Slider List",
+                "description": "Get Slider List",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Slider List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Create New Slider",
+                "description": "Create New Slider",
+                "operationId": "Modules\\Business\\Http\\Controllers\\SliderController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Simple Slider"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A reputaed brand"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "is_text_enable": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "text_color": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "is_button_enable": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "button_text": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "button_link": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "button_color": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Slider"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/sliders/{id}": {
+            "get": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Get Slider By ID",
+                "description": "Get Slider By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Slider By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Update Slider",
+                "description": "Update Slider",
+                "operationId": "Modules\\Business\\Http\\Controllers\\SliderController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Simple Slider"
+                                    },
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "A reputaed brand"
+                                    },
+                                    "created_by": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "is_text_enable": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "text": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "text_color": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "is_button_enable": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "button_text": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "button_link": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "button_color": {
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Slider"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Delete Slider",
+                "description": "Delete Slider",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Slider"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/sliders/business/{business_id}": {
+            "get": {
+                "tags": [
+                    "Sliders"
+                ],
+                "summary": "Get Slider List of Business",
+                "description": "Get Slider List of Business",
+                "operationId": "getSliderByBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "path",
+                        "description": "business_id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Slider List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/tax": {
             "get": {
                 "tags": [

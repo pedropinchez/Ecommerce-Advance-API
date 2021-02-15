@@ -10,6 +10,9 @@ use Modules\Business\Entities\Slider;
 class SliderRepository
 {
     /**
+     * index()
+     * Get all slider items
+     *
      * @return mixed
      * get all the sliders with business
      */
@@ -29,6 +32,9 @@ class SliderRepository
     }
 
     /**
+     * store()
+     * Create New Slider Item
+     *
      * @param $data
      * @return mixed
      * insert slider to db

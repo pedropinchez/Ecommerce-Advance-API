@@ -5027,6 +5027,35 @@
                 "summary": "Get poll List",
                 "description": "Get poll List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get poll List"
@@ -5065,10 +5094,12 @@
                                         "example": "filename"
                                     },
                                     "description": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "Test"
                                     },
                                     "type": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "example": "radio"
                                     },
                                     "status": {
                                         "type": "boolean",
@@ -5081,6 +5112,22 @@
                                     "created_by": {
                                         "type": "integer",
                                         "example": 1
+                                    },
+                                    "options": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "Yellow"
+                                                },
+                                                "item_id": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -5098,7 +5145,12 @@
                     "404": {
                         "description": "Resource Not Found"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/polls/{id}": {
@@ -5144,6 +5196,17 @@
                 "summary": "Update poll",
                 "description": "Update poll",
                 "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -5171,17 +5234,49 @@
                                         "type": "boolean",
                                         "example": 1
                                     },
-                                    "created_by": {
-                                        "type": "integer",
-                                        "example": 1
-                                    },
                                     "updated_by": {
                                         "type": "integer",
                                         "example": 2
                                     },
-                                    "deleted_by": {
-                                        "type": "integer",
-                                        "example": 2
+                                    "options": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "option_id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "Seller 2"
+                                                },
+                                                "item_id": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "deleted_options": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "value": {
+                                                    "type": "string",
+                                                    "example": "Seller 2"
+                                                },
+                                                "item_id": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"

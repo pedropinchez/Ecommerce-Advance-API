@@ -3,6 +3,8 @@
 namespace Modules\Promotional\Repositories;
 
 use App\Helpers\StringHelper;
+use App\Helpers\UploadHelper;
+use Illuminate\Support\Facades\DB;
 use Modules\Promotional\Entities\Poll;
 use Modules\Promotional\Entities\PollOption;
 use Modules\Promotional\Entities\PollResponse;
@@ -11,25 +13,78 @@ class PollRepository
 {
     public function pollList()
     {
-        return Poll::get();
+        $query = Poll::orderBy('id', 'desc');
+        if (request()->search) {
+            $query->where('title', 'like', '%' . request()->search . '%');
+            $query->orWhere('slug', 'like', '%' . request()->search . '%');
+            $query->orWhere('description', 'like', '%' . request()->search . '%');
+        }
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     public function view($id)
     {
-        return Poll::with('pollResponse')->where('id', $id)->orWhere('slug', $id)->first();
+        return Poll::with('pollResponse', 'options')
+        ->where('id', $id)
+        ->orWhere('slug', $id)
+        ->first();
     }
 
     public function store($data)
     {
         $data['slug'] = $this->generateSlug($data['title']);
-        return Poll::create($data);
+        if (isset($data['image'])) {
+            $data['image'] = UploadHelper::upload('image',  $data['image'], 'polls-' . '-' . time(), 'images/polls');
+        }
+        $poll = Poll::create($data);
+        if (count($data['options']) > 0) {
+            foreach ($data['options'] as $key => $value) {
+                $value['value'] = $value['value'];
+                $value['item_id'] = $value['item_id'];
+                $value['poll_id'] = $poll->id;
+                PollOption::create($value);
+            }
+        }
     }
 
     public function update($id, $data)
     {
         $poll = Poll::where('id', $id)->orWhere('slug', $id)->first();
-        if($poll) {
+        if ($poll) {
+
+            if (isset($data['image'])) {
+                $data['image'] = UploadHelper::update('image',  $data['image'], 'polls-' . '-' . time(), 'images/polls', $poll->image);
+            }
+
             $poll->update($data);
+
+            // Delete if deleted selected
+            if (isset($data['deleted_options']) && count($data['deleted_options']) > 0) {
+                foreach ($data['deleted_options'] as $value) {
+                    $this->deletePollOption($value['id']);
+                }
+            }
+
+            // Insert or Update
+            if (count($data['options']) > 0) {
+                foreach ($data['options'] as $key => $value) {
+                    $value['item_id'] = $value['item_id'];
+                    $value['value'] = $value['value'];
+                    $value['poll_id'] = $poll->id;
+
+                    if(isset($value['id'])){
+                        // $value['id'] = $value['id'];
+                        $this->updatePollOption($value['id'], $value);
+                    }else{
+                        PollOption::create($value);
+                    }
+                }
+            }
         }
 
         return $poll;
@@ -38,7 +93,7 @@ class PollRepository
     public function destroy($id)
     {
         $poll = Poll::where('id', $id)->orWhere('slug', $id)->first();
-        if($poll) {
+        if ($poll) {
             $poll->delete();
             return true;
         } else {
@@ -59,7 +114,7 @@ class PollRepository
     public function updatePollOption($id, $data)
     {
         $pollOption = PollOption::where('id', $id)->first();
-        if($pollOption) {
+        if ($pollOption) {
             $pollOption->update($data);
         }
 
@@ -69,7 +124,7 @@ class PollRepository
     public function deletePollOption($id)
     {
         $pollOption = PollOption::where('id', $id)->first();
-        if($pollOption) {
+        if ($pollOption) {
             $pollOption->delete();
             return true;
         } else {

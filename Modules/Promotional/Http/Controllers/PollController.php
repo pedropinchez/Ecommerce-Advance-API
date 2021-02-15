@@ -30,6 +30,9 @@ class PollController extends Controller
      *     description="Get poll List",
      *     security={{"bearer": {}}},
      *     operationId="index",
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
      *      @OA\Response( response=200, description="Get poll List" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -51,16 +54,25 @@ class PollController extends Controller
      *     tags={"Polls"},
      *     summary="Create New poll",
      *     description="Create New poll",
+     *     security={{"bearer": {}}},
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
      *              @OA\Property(property="title", type="string", example="Service"),
      *              @OA\Property(property="image", type="string", example="filename"),
-     *              @OA\Property(property="description", type="string"),
-     *              @OA\Property(property="type", type="string"),
+     *              @OA\Property(property="description", type="string", example="Test"),
+     *              @OA\Property(property="type", type="string", example="radio"),
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="enable_item_comparison", type="boolean", example=1),
-     *              @OA\Property(property="created_by", type="integer", example=1)
+     *              @OA\Property(property="created_by", type="integer", example=1),
+     *              @OA\Property(
+     *                  property="options",
+     *                      type="array",
+     *                      @OA\Items(
+     *                              @OA\Property(property="value", type="string", example="Yellow"),
+     *                              @OA\Property(property="item_id", type="integer", example=0)
+     *                          ),
+     *                  ),
      *          ),
      *      ),
      *      operationId="store",
@@ -99,7 +111,7 @@ class PollController extends Controller
     public function show($id)
     {
         try {
-            $poll= $this->pollRepository->view($id);
+            $poll = $this->pollRepository->view($id);
             return $this->responseRepository->ResponseSuccess($poll, 'Poll Details By ID');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
@@ -112,6 +124,7 @@ class PollController extends Controller
      *     tags={"Polls"},
      *     summary="Update poll",
      *     description="Update poll",
+     *     @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
@@ -121,9 +134,25 @@ class PollController extends Controller
      *              @OA\Property(property="type", type="string"),
      *              @OA\Property(property="status", type="boolean", example=1),
      *              @OA\Property(property="enable_item_comparison", type="boolean", example=1),
-     *              @OA\Property(property="created_by", type="integer", example=1),
      *              @OA\Property(property="updated_by", type="integer", example=2),
-     *              @OA\Property(property="deleted_by", type="integer", example=2)
+     *               @OA\Property(
+     *                  property="options",
+     *                      type="array",
+     *                      @OA\Items(
+     *                              @OA\Property(property="option_id", type="integer", example=1),
+     *                              @OA\Property(property="value", type="string", example="Seller 2"),
+     *                              @OA\Property(property="item_id", type="integer", example=0)
+     *                          ),
+     *                  ),
+     *              @OA\Property(
+     *                  property="deleted_options",
+     *                      type="array",
+     *                      @OA\Items(
+     *                              @OA\Property(property="id", type="integer", example=1),
+     *                              @OA\Property(property="value", type="string", example="Seller 2"),
+     *                              @OA\Property(property="item_id", type="integer", example=0)
+     *                          ),
+     *                  ),
      *          ),
      *      ),
      *      operationId="update",
@@ -152,7 +181,7 @@ class PollController extends Controller
      *     tags={"Polls"},
      *     summary="Delete poll",
      *     description="Delete poll",
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
      *     operationId="destroy",
      *      @OA\Response( response=200, description="Delete poll" ),
      *      @OA\Response(response=400, description="Bad request"),
@@ -188,7 +217,7 @@ class PollController extends Controller
     public function getByCustomerId($id)
     {
         try {
-            $poll= $this->pollRepository->getCustomerPolls($id);
+            $poll = $this->pollRepository->getCustomerPolls($id);
             return $this->responseRepository->ResponseSuccess($poll, 'Poll Details By customer id');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

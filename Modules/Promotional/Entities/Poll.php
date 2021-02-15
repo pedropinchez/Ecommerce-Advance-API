@@ -21,6 +21,11 @@ class Poll extends Model
         'deleted_by'
     ];
 
+    public function options()
+    {
+        return $this->hasMany(PollOption::class);
+    }
+
     public function pollResponse()
     {
         return $this->hasMany(PollResponse::class);

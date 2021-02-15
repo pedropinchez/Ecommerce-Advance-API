@@ -36,21 +36,41 @@ class CategoryRepository implements CategoryInterface
     public function getSubCategoriesByParentID($parent_id)
     {
         $query = Category::where('parent_id', $parent_id)->select('id', 'name')
-        ->orderBy('name', 'asc');
+            ->orderBy('name', 'asc');
         return $query->get();
     }
 
     public function categoryListFrontend()
     {
-        $query = Category::with('childs')->select('id', 'name', 'parent_id', 'short_code');
-        $query->where('deleted_at', null);
-        $query->where('is_visible_homepage', 1);
+        $data = [];
 
-        if (request()->searchText) {
-            $query->where('name', 'like', '%' . request()->searchText . '%');
+        $categoriesLabel1 = Category::select('id', 'name', 'parent_id', 'short_code')
+            ->where('parent_id', null)
+            ->get();
+
+        foreach ($categoriesLabel1 as $key => $category) {
+            $data[$key] = $category;
+            // get categoriesLabel2 child categories
+            $data[$key]['childs'] = Category::select('id', 'name', 'parent_id', 'short_code')
+                ->where('parent_id', $category->id)
+                ->get();
+            foreach ($data[$key]['childs'] as $key2 => $categoryLabel2) {
+                $categoryLabel2['childs'] = Category::select('id', 'name', 'parent_id', 'short_code')
+                ->where('parent_id', $categoryLabel2->id)
+                ->get();
+            }
         }
-        $query->orderBy('id', 'desc');
-        return $query->get();
+
+        return $data;
+        // $query = Category::with('childs')->select('id', 'name', 'parent_id', 'short_code');
+        // $query->where('deleted_at', null);
+        // $query->where('is_visible_homepage', 1);
+
+        // if (request()->searchText) {
+        //     $query->where('name', 'like', '%' . request()->searchText . '%');
+        // }
+        // $query->orderBy('id', 'desc');
+        // return $query->get();
     }
 
     /**

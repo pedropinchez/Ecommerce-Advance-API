@@ -8,6 +8,7 @@ class Slider extends Model
 {
     protected $fillable = [
         'title',
+        'description',
         'business_id',
         'image',
         'is_text_enable',
@@ -19,5 +20,17 @@ class Slider extends Model
         'button_color',
         'status'
     ];
+
+    protected $appends = ['image_url'];
+    public function getImageUrlAttribute()
+    {
+        return is_null($this->image) ? null : url('/') . '/images/sliders/' . $this->image;
+    }
+
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class)->select('id', 'name');
+    }
 
 }

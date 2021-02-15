@@ -2149,6 +2149,71 @@
                 ]
             }
         },
+        "/api/v1/wishlist": {
+            "get": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Get Wishlist Items",
+                "description": "Get Wishlist Items",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "Get Wishlist Items"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Wishlist"
+                ],
+                "summary": "Add Wishlist",
+                "description": "Add Wishlist",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Tax"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/coupons": {
             "get": {
                 "tags": [

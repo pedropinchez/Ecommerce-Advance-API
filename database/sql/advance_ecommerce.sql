@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 10, 2021 at 01:42 PM
+-- Generation Time: Feb 16, 2021 at 07:29 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -454,7 +454,8 @@ CREATE TABLE `gift_cards` (
 
 INSERT INTO `gift_cards` (`id`, `title`, `slug`, `image`, `price_value_for`, `change_price_value`, `status`, `description`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`) VALUES
 (1, 'Boishakhi Card 2', 'boishakhi-card', NULL, 12000.00, 2300.00, 1, 'Simple Description 2', '2021-02-10 04:23:48', 1, NULL, NULL, '2021-02-10 03:57:33', '2021-02-10 04:23:48'),
-(2, 'Boishakhi Card', 'boishakhi-card', NULL, 5000.00, 6500.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 04:24:08', '2021-02-10 04:24:08');
+(2, 'Boishakhi Card', 'boishakhi-card', 'giftCard--1613337422.png', 5000.00, 6500.00, 1, '<p>Simple Description</p>', NULL, 1, NULL, NULL, '2021-02-10 04:24:08', '2021-02-14 15:17:02'),
+(3, 'Test Card 1', 'test-card-1', 'giftcards--1613337496.jpg', 12.00, 1212.00, 1, '<p>12</p>', NULL, 1, NULL, NULL, '2021-02-14 15:18:16', '2021-02-14 15:18:16');
 
 -- --------------------------------------------------------
 
@@ -604,9 +605,9 @@ INSERT INTO `items` (`id`, `name`, `featured_image`, `short_resolation_image`, `
 (25, 'testing', NULL, NULL, 3, 1, 5, 2, NULL, 5, 1, 'exclusive', 1, 233, '233', 'EAN-8', '233', 233, 233, 2233, 0, '<p>2333</p>', 1, '2021-02-04 22:13:59', '2021-02-07 08:16:27', '2021-02-07 08:16:27'),
 (26, '34', NULL, NULL, 1, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 33, '33', 'EAN-13', '33', 33, 33, 3333, 0, '<p>33333</p>', 1, '2021-02-04 22:20:27', '2021-02-07 08:16:19', '2021-02-07 08:16:19'),
 (27, '34', NULL, NULL, 1, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 33, '33', 'EAN-13', '33', 33, 33, 3333, 0, '<p>33333</p>', 1, '2021-02-04 22:21:24', '2021-02-07 08:16:23', '2021-02-07 08:16:23'),
-(28, '22', NULL, NULL, 2, 1, 10, 2, NULL, 5, 1, 'inclusive', 1, 22, '22', 'UPC-A', '22', 22, 22, 22, 0, '<p>22222</p>', 1, '2021-02-04 22:24:48', '2021-02-07 08:16:15', '2021-02-07 08:16:15'),
-(29, 'reee', 'product-featured-1612500132--1612500132.jpeg', 'product-short-resolution-161-1612500132.png', 1, 1, 3, 2, NULL, 20, 1, 'inclusive', 1, 33, '33', 'UPC-A', '33', 33, 33, 33, 0, '<p>33</p>', 1, '2021-02-04 22:42:12', '2021-02-04 22:42:12', NULL),
-(30, 'Final Product', 'product-featured-1612546159--1612546159.jpeg', 'product-image-1612546305-601-1612546305.jpeg', 2, 1, 5, 2, NULL, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:47:09', '2021-02-05 11:31:45', NULL),
+(28, '22', NULL, NULL, 2, 1, 10, 2, 4, 5, 1, 'inclusive', 1, 22, '22', 'UPC-A', '22', 22, 22, 22, 0, '<p>22222</p>', 1, '2021-02-04 22:24:48', '2021-02-07 08:16:15', '2021-02-07 08:16:15'),
+(29, 'reee', 'product-featured-1612500132--1612500132.jpeg', 'product-short-resolution-161-1612500132.png', 1, 1, 3, 2, 6, 20, 1, 'inclusive', 1, 33, '33', 'UPC-A', '33', 33, 33, 33, 0, '<p>33</p>', 1, '2021-02-04 22:42:12', '2021-02-04 22:42:12', NULL),
+(30, 'Final Product', 'product-featured-1612546159--1612546159.jpeg', 'product-image-1612546305-601-1612546305.jpeg', 2, 1, 5, 2, 9, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:47:09', '2021-02-05 11:31:45', NULL),
 (31, 'testing', 'product-featured-1612500559--1612500559.png', 'product-short-resolution-161-1612500559.png', 2, 1, 5, 2, 2, 6, 1, 'inclusive', 0, 33, '23', 'UPC-E', '23', 23, 23, 23, 0, '<p>23</p>', 1, '2021-02-04 22:49:19', '2021-02-04 22:49:19', NULL),
 (32, 'Final test', 'product-featured-1612501778--1612501778.png', 'product-short-resolution-161-1612501778.png', 1, 1, 5, 2, 19, 21, 1, 'exclusive', 1, 123, '123', 'UPC-E', '123', 123, 123, 123, 0, '<p>123</p>', 1, '2021-02-04 23:09:38', '2021-02-04 23:09:38', NULL),
 (33, 'FInal testing', NULL, 'product-short-resolution-161-1612502648.png', 1, 1, 10, 2, 7, 20, 1, 'inclusive', 1, 3434, '232', 'C128', '323', 2323, 2323, 2323, 1, '<p>FInal testing</p>', 1, '2021-02-04 23:24:08', '2021-02-05 14:25:31', '2021-02-05 14:25:31'),
@@ -804,7 +805,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (95, '2021_02_07_210330_create_coupon_types_table', 7),
 (96, '2021_02_07_210349_create_coupons_table', 7),
 (97, '2021_02_08_094835_create_order_statuses_table', 8),
-(98, '2021_02_08_103031_create_invoice_statuses_table', 8);
+(98, '2021_02_08_103031_create_invoice_statuses_table', 8),
+(99, '2021_02_15_100453_create_wishlists_table', 9);
 
 -- --------------------------------------------------------
 
@@ -889,6 +891,8 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('548b289831fa54be75d9216c6da6264aef9903a08997ba40dc2e45229c4462b9353234b1809a1b60', 1, 3, 'authToken', '[]', 0, '2021-02-05 14:44:09', '2021-02-05 14:44:09', '2022-02-05 20:44:09'),
 ('59503beb9a509c4dcbf479f414d75432a9d31eb666c9e802312f99151019698f407c562e7dd74f31', 1, 1, 'authToken', '[]', 0, '2020-12-11 20:19:33', '2020-12-11 20:19:33', '2021-12-12 02:19:33'),
 ('5a4bdd023c42d57734e98a79c7318283482c91ab126e18f7dde4c492997e263a31452561cd3449aa', 1, 3, 'authToken', '[]', 0, '2021-02-06 07:09:33', '2021-02-06 07:09:33', '2022-02-06 13:09:33'),
+('655b320f55d4d040577c4d3146f1e094fb06f2bc0d99261af498f7a64a9b803482e1a0a174732de0', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:10:24', '2021-02-14 15:10:24', '2022-02-14 21:10:24'),
+('6704636202efb938a26cffb6e8118c99a8ab6d16a241062375529a422d76550b8324d72784cf3202', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:25:01', '2021-02-14 15:25:01', '2022-02-14 21:25:01'),
 ('67cbdc3aeab824c529143efa1e84d43eb9cf5838a4cc923282e3e2aeee210f8f2f718f2fd47d1fd1', 1, 3, 'authToken', '[]', 0, '2021-02-06 07:12:13', '2021-02-06 07:12:13', '2022-02-06 13:12:13'),
 ('695fc1e680cb4e66427cd17870195ab5fa4144821b7cd98f090cc4872ccb0dd9cb533e589fa70e8f', 1, 1, 'authToken', '[]', 0, '2020-12-12 08:05:07', '2020-12-12 08:05:07', '2021-12-12 14:05:07'),
 ('6a9087f25b5a66979d74de619a14d08a59e5709981afb58228b19de36776d338d1ea74208d8c9707', 1, 3, 'authToken', '[]', 0, '2021-01-24 08:17:21', '2021-01-24 08:17:21', '2022-01-24 14:17:21'),
@@ -912,15 +916,21 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('ab693792d34a39a26cd29a2d0ec1bbfd83d5955742b880a2da97475dfe099bbd0ed5f3896653192c', 1, 3, 'authToken', '[]', 0, '2021-02-04 22:09:10', '2021-02-04 22:09:10', '2022-02-05 04:09:10'),
 ('aef3c5baa7c7eb970a272f8a28f167f8197de850214c2eb67134da71f44b6253da92b39a471a86f1', 1, 3, 'authToken', '[]', 0, '2021-02-05 13:57:47', '2021-02-05 13:57:47', '2022-02-05 19:57:47'),
 ('b11c36801c5d608357465db171a897208d69416c9c9c34cb852a51e50c31ebda28aed719ad145c78', 1, 3, 'authToken', '[]', 0, '2021-02-05 23:08:35', '2021-02-05 23:08:35', '2022-02-06 05:08:35'),
+('b190dfa58703a80dbb6a5978788944317b5563a6a79914d5ac795094320a523f781678f2a09a3d9b', 1, 3, 'authToken', '[]', 0, '2021-02-15 05:19:57', '2021-02-15 05:19:57', '2022-02-15 11:19:57'),
+('bbcbfe7c262293009c020042805433966fb0f033dac0a63a9af3a09b8c1c75d72aa7c0c85d1eabd1', 1, 3, 'authToken', '[]', 0, '2021-02-15 09:27:47', '2021-02-15 09:27:47', '2022-02-15 15:27:47'),
+('bd02119d980bca2512892cb8f1e94be93aa6c0b73bc813a47a49c3fd970a37f93d03e06ffc01c8cc', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:29:53', '2021-02-14 15:29:53', '2022-02-14 21:29:53'),
 ('bf5a8da8343ba80f32c6cae7aed4a2aabb23f8eb511c39a026418175aa91ab7f25a9e11d1c2d99a2', 1, 3, 'authToken', '[]', 0, '2021-02-01 15:34:28', '2021-02-01 15:34:28', '2022-02-01 15:34:28'),
 ('c35bda07e20cae5ad3f202b2bb63da9045672e08f6e424100b24259f044926de0ac1e959ce7ad9dc', 1, 3, 'authToken', '[]', 0, '2021-02-04 12:17:30', '2021-02-04 12:17:30', '2022-02-04 18:17:30'),
 ('c418adcac2ddd6ab5d4a77761566647ca4abffd81784aa2bb36804483dd412edafba2d560a44a7ae', 1, 3, 'authToken', '[]', 0, '2021-02-03 01:21:28', '2021-02-03 01:21:28', '2022-02-03 07:21:28'),
 ('cacde64fab30e99e2f32ac81fe173463bbc94972d6e86e5ae6e9e1ef2ec7e9b67109155e19c66d18', 1, 3, 'authToken', '[]', 0, '2021-02-07 07:34:59', '2021-02-07 07:34:59', '2022-02-07 13:34:59'),
 ('cd46ca8b58476807ae29e3b5f0a3c1d52ed73cb67e2a9e9923764f9e40b46fa9d98b87f69c067647', 1, 3, 'authToken', '[]', 0, '2021-02-06 03:46:42', '2021-02-06 03:46:42', '2022-02-06 09:46:42'),
 ('d0f6013cdba5a13aed1f830d6d9317bc8d5ab5a7a8cdbd485ef6a856bd2ee20e8f2db66176cb856a', 1, 3, 'authToken', '[]', 0, '2021-02-07 08:23:32', '2021-02-07 08:23:32', '2022-02-07 14:23:32'),
+('d1d128fd3c71a8f8c87ed7e44068d3e0a23a9499051b93b4a235693bcc66bf5266a4e738e42f173c', 1, 3, 'authToken', '[]', 0, '2021-02-15 11:48:23', '2021-02-15 11:48:23', '2022-02-15 17:48:23'),
 ('d8839c9cb01291a992b82abebe5335b3255c55099ff34266cc0054fbab774990667ee2cfd0a8bbd5', 16, 3, 'authToken', '[]', 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20', '2022-02-07 11:39:20'),
+('d9e3cc4649454e7fb9c095a33a009197bdb37173e77a6e0e4cedc102ef7ecbd66b69f20168360990', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:26:27', '2021-02-14 15:26:27', '2022-02-14 21:26:27'),
 ('dccba1a8c7f2c5e19f8a789f5edf8b06c12f23484ca40eec919825b9dbc4d76102aa36eb4771457b', 1, 3, 'authToken', '[]', 0, '2021-01-25 10:52:33', '2021-01-25 10:52:33', '2022-01-25 16:52:33'),
 ('e7cd908afc6be0d1aec5af78076cfc14bf0db937f0787a683c8cfee10b136cc366ca5ddff6837e53', 2, 3, 'authToken', '[]', 0, '2021-01-16 11:13:14', '2021-01-16 11:13:14', '2022-01-16 17:13:14'),
+('ed5fbdf1518ec672e4cb60d18d8bb0073e02541a66e018dc4137c70559fd7df60410a6bcc46a2c2b', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:28:18', '2021-02-14 15:28:18', '2022-02-14 21:28:18'),
 ('f580690c46c6b8718ccf61553d9a738d8986438b8f586fc3c8efe62f351c73c64022a7fa812d1ed3', 1, 1, 'authToken', '[]', 0, '2020-12-12 07:38:12', '2020-12-12 07:38:12', '2021-12-12 13:38:12'),
 ('fb206b24342ea1ef7572cdeac731fa45d9566e8fc5b3d6254a03d8b21e48080429b462b90ee9ee05', 1, 3, 'authToken', '[]', 0, '2021-02-05 13:19:35', '2021-02-05 13:19:35', '2022-02-05 19:19:35'),
 ('fc4e4b1a10dbb4f84acf4f237db4163d05620d80e43c81f07851d30f7270a3d7ddd60414fe528d7c', 1, 3, 'authToken', '[]', 0, '2021-02-07 08:08:59', '2021-02-07 08:08:59', '2022-02-07 14:08:59');
@@ -1128,6 +1138,14 @@ CREATE TABLE `polls` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `polls`
+--
+
+INSERT INTO `polls` (`id`, `title`, `description`, `slug`, `image`, `enable_item_comparison`, `type`, `status`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`) VALUES
+(1, 'Service', 'Test', 'service', NULL, 1, 'radio', 1, NULL, 1, NULL, NULL, '2021-02-14 15:51:19', '2021-02-14 15:51:19'),
+(2, 'Service Updated', 'string', 'which-seller-is-favorite-seller-', NULL, 0, 'radio', 1, NULL, 1, 1, NULL, '2021-02-14 21:17:46', '2021-02-14 21:35:33');
+
 -- --------------------------------------------------------
 
 --
@@ -1142,6 +1160,15 @@ CREATE TABLE `poll_options` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `poll_options`
+--
+
+INSERT INTO `poll_options` (`id`, `value`, `item_id`, `poll_id`, `created_at`, `updated_at`) VALUES
+(1, 'Seller 1', NULL, 2, '2021-02-14 21:17:46', '2021-02-14 21:17:46'),
+(2, 'Seller Final 2', NULL, 2, '2021-02-14 21:17:46', '2021-02-14 21:37:23'),
+(3, 'Seller Final New', NULL, 2, '2021-02-14 21:37:52', '2021-02-14 21:37:52');
 
 -- --------------------------------------------------------
 
@@ -1234,9 +1261,9 @@ CREATE TABLE `role_has_permissions` (
 CREATE TABLE `sliders` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
-  `image_path` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image_path_sm` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_text_enable` tinyint(1) NOT NULL DEFAULT 1,
   `text` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `text_color` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1245,9 +1272,21 @@ CREATE TABLE `sliders` (
   `button_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `button_color` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1,
+  `priority` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sliders`
+--
+
+INSERT INTO `sliders` (`id`, `title`, `description`, `business_id`, `image`, `is_text_enable`, `text`, `text_color`, `is_button_enable`, `button_text`, `button_link`, `button_color`, `status`, `priority`, `created_at`, `updated_at`) VALUES
+(4, 'Checking', NULL, 6, 'slider--1613403488.webp', 1, 'Testing', '#df0c0c', 1, 'test', 'https://devsenv.atlassian.net/', NULL, 1, 1, '2021-02-15 09:38:08', '2021-02-15 09:38:08'),
+(5, 'Test', NULL, 5, 'slider--1613404397.jpeg', 1, '45r', '#d70909', 1, 'we', 'https://devsenv.atlassian.net/', NULL, 1, 1, '2021-02-15 09:53:17', '2021-02-15 09:53:17'),
+(9, '234234', NULL, 5, 'slider--1613404442.png', 0, NULL, NULL, 0, NULL, NULL, NULL, 1, 1, '2021-02-15 09:54:02', '2021-02-15 09:54:02'),
+(15, '345345', '<p>5453453</p>', 7, 'slider--1613408638.webp', 1, '35345', '#ff0505', 1, '4535', 'https://mail.google.com/mail/u/0/#inbox', NULL, 1, 1, '2021-02-15 09:54:53', '2021-02-15 11:03:58'),
+(17, 'Ecommerce', '<p>This is testing description.</p>', 1, 'slider--1613411401.png', 1, 'Testing text', '#1ecc72', 1, 'Preview', 'https://devsenv.atlassian.net/', '#f0a35c', 1, 1, '2021-02-15 11:50:01', '2021-02-15 11:50:01');
 
 -- --------------------------------------------------------
 
@@ -1497,8 +1536,8 @@ CREATE TABLE `vouchers` (
 --
 
 INSERT INTO `vouchers` (`id`, `title`, `slug`, `image`, `price_value_for`, `change_price_value`, `status`, `description`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`) VALUES
-(1, 'Boishakhi Card', 'boishakhi-card', NULL, 5000.00, 6500.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 04:33:13', '2021-02-10 04:33:13'),
-(2, 'Boishakhi Card 2', 'boishakhi-card-2', NULL, 50020.00, 65200.00, 1, 'Simple Description', NULL, 1, NULL, NULL, '2021-02-10 06:38:04', '2021-02-10 06:38:04');
+(1, 'Boishakhi Card', 'boishakhi-card', 'giftCard--1613337328.jpg', 5000.00, 6500.00, 1, '<p>Simple Description</p>', NULL, 1, NULL, NULL, '2021-02-10 04:33:13', '2021-02-14 15:15:28'),
+(2, 'Boishakhi Card 2', 'boishakhi-card-2', 'giftCard--1613337317.png', 50020.00, 65200.00, 1, '<p>Simple Description</p>', NULL, 1, NULL, NULL, '2021-02-10 06:38:04', '2021-02-14 15:15:17');
 
 -- --------------------------------------------------------
 
@@ -1515,6 +1554,27 @@ CREATE TABLE `websockets_statistics_entries` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `item_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wishlists`
+--
+
+INSERT INTO `wishlists` (`id`, `user_id`, `item_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 51, '2021-02-15 05:21:35', '2021-02-15 05:21:35');
 
 --
 -- Indexes for dumped tables
@@ -1923,6 +1983,14 @@ ALTER TABLE `websockets_statistics_entries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `wishlists_user_id_foreign` (`user_id`),
+  ADD KEY `wishlists_item_id_foreign` (`item_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -2008,7 +2076,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `gift_cards`
 --
 ALTER TABLE `gift_cards`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `invoices`
@@ -2062,7 +2130,7 @@ ALTER TABLE `media`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `oauth_clients`
@@ -2104,19 +2172,19 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `polls`
 --
 ALTER TABLE `polls`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `poll_options`
 --
 ALTER TABLE `poll_options`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `poll_responses`
 --
 ALTER TABLE `poll_responses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `referrals`
@@ -2140,7 +2208,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `sms`
@@ -2195,6 +2263,12 @@ ALTER TABLE `vouchers`
 --
 ALTER TABLE `websockets_statistics_entries`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -2442,6 +2516,13 @@ ALTER TABLE `vouchers`
   ADD CONSTRAINT `vouchers_created_by_foreign` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `vouchers_deleted_by_foreign` FOREIGN KEY (`deleted_by`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `vouchers_updated_by_foreign` FOREIGN KEY (`updated_by`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD CONSTRAINT `wishlists_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
+  ADD CONSTRAINT `wishlists_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

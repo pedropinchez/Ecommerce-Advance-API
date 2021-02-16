@@ -44,6 +44,32 @@ class SliderController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+    /**
+     * @OA\GET(
+     *     path="/api/v1/sliders-frontend",
+     *     tags={"Sliders"},
+     *     summary="Get Slider List For Frontend",
+     *     description="Get Slider List For Frontend",
+     *     security={{"bearer": {}}},
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="status", description="status, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
+     *     operationId="getAllSliderForFrontend",
+     *      @OA\Response( response=200, description="Get Slider List For Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getAllSliderForFrontend()
+    {
+        try {
+            $sliders = $this->sliderRepository->getAllSliderForFrontend();
+            return $this->responseRepository->ResponseSuccess($sliders, 'Slider Fetched Successfully For Website !');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
      * @OA\POST(

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::apiResource('business', 'BusinessController');
 Route::apiResource('sliders', 'SliderController');
+Route::get('sliders-frontend', 'SliderController@getAllSliderForFrontend');
 Route::get('business/bin/{id}', 'BusinessController@getBusinessByBin');
 Route::get('shops', 'BusinessController@getShopList');
 

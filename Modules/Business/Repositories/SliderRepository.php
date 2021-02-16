@@ -20,7 +20,7 @@ class SliderRepository
     {
         $query = Slider::orderBy('id', 'desc');
         if (request()->search) {
-            $query->where('name', 'like', '%' . request()->search . '%');
+            $query->where('title', 'like', '%' . request()->search . '%');
             $query->orWhere('description', 'like', '%' . request()->search . '%');
         }
         if (request()->isPaginated) {
@@ -29,6 +29,12 @@ class SliderRepository
         } else {
             return $query->get();
         }
+    }
+
+    public function getAllSliderForFrontend()
+    {
+        $query = Slider::orderBy('priority', 'asc');
+        return $query->get();
     }
 
     /**

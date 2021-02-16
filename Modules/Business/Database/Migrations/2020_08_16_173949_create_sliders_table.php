@@ -27,6 +27,7 @@ class CreateSlidersTable extends Migration
             $table->string('button_link')->nullable();
             $table->string('button_color')->nullable();
             $table->boolean('status')->default(1);
+            $table->unsignedInteger('priority')->default(1);
             $table->timestamps();
             $table->foreign('business_id')->references('id')->on('business');
         });

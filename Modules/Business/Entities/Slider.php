@@ -18,7 +18,8 @@ class Slider extends Model
         'button_text',
         'button_link',
         'button_color',
-        'status'
+        'status',
+        'priority'
     ];
 
     protected $appends = ['image_url'];

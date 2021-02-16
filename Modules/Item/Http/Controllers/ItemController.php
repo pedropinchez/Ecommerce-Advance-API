@@ -439,6 +439,29 @@ class ItemController extends Controller
         }
     }
 
+    /**
+     * @OA\GET(
+     *      path="/api/v1/get-items/search",
+     *      tags={"Frontend Items"},
+     *      summary="Get Item Search Frontend",
+     *      description="Get Item Search Frontend",
+     *      operationId="searchItemFrontend",
+     *      @OA\Parameter(name="search", description="search by anything, sku, name, description", required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Response(response=200, description="Get Item Search Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function searchItemFrontend(Request $request)
+    {
+        try {
+            $items = $this->itemRepository->searchItemFrontend($request->all());
+            return $this->responseRepository->ResponseSuccess($items, 'Item Searched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     /**
      * @OA\GET(

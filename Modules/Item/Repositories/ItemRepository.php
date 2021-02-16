@@ -386,6 +386,36 @@ class ItemRepository implements ItemInterfaces
         }
     }
 
+    public function searchItemFrontend($data)
+    {
+        try {
+            $query = Item::orderBy('id', 'desc')
+            ->select(
+                "name",
+                "sku",
+                "description",
+                "current_stock",
+                "default_selling_price",
+                "offer_selling_price",
+                "is_offer_enable",
+            );
+
+
+            if (isset($data['search'])) {
+                $search = trim($data['search']);
+                $query->where('name', 'like', '%' . $search . '%');
+                $query->orWhere('description', 'like', '%' . $search . '%');
+                $query->orWhere('sku', 'like', '%' . $search . '%');
+            }
+
+            $output = $query->paginate(10);
+            return $output;
+        } catch (\Exception $e) {
+            return $e->getMessage();
+            throw new Exception('Invalid Query Parameters. Please give a valid query !');
+        }
+    }
+
     /**
      * @return mixed
      * get items

@@ -4999,6 +4999,38 @@
                 }
             }
         },
+        "/api/v1/get-items/search": {
+            "get": {
+                "tags": [
+                    "Frontend Items"
+                ],
+                "summary": "Get Item Search Frontend",
+                "description": "Get Item Search Frontend",
+                "operationId": "searchItemFrontend",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search by anything, sku, name, description",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item Search Frontend"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/get-item-detail/{slug}": {
             "get": {
                 "tags": [

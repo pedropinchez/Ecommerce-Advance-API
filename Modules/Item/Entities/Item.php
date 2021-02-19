@@ -141,7 +141,7 @@ class Item extends Model
      */
     public function tax()
     {
-        return $this->belongsTo(TaxRate::class)->select('id', 'name');
+        return $this->belongsTo(TaxRate::class, 'tax', 'id')->select('id', 'name');
     }
 
     /**

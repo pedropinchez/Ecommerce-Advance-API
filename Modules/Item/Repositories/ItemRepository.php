@@ -77,7 +77,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function show($id)
     {
-        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'business'])->find($id);
+        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'business', 'tax'])->find($id);
         $item['attributes'] = ItemAttribute::getAttributeWithValuesByItem($id);
         return $item;
     }
@@ -90,7 +90,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function showBySlug($slug)
     {
-        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
+        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business', 'tax'])
             ->where('sku', $slug)
             ->first();
         return $item;

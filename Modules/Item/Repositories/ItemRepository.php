@@ -103,6 +103,18 @@ class ItemRepository implements ItemInterfaces
      */
     public function store($data)
     {
+        if(!isset($data['sku']) || strlen($data['sku']) === 0){
+            $data['sku'] = $this->generateSlug($data['name']);
+        }else{
+            // Check if SKU is already exist or not else create new with embedding something
+            $SKUItem = Item::where('sku', $data['sku'])->first();
+            if(!is_null($SKUItem))
+                $data['sku'] = $this->generateSlug($data['sku']);
+            else
+                $this->generateSlug($data['name']);
+        }
+        $data['barcode_type'] = isset($data['barcode_type']) ?$data['barcode_type'] : 'C39';
+
         // Upload Featured and Short Resolution Images
         if (isset($data['featured_image'])) {
             $featured_image = Base64Encoder::uploadBase64File($data['featured_image'], "/images/products/", 'featured-' . time() . '-' . uniqid(), 'product');
@@ -141,6 +153,7 @@ class ItemRepository implements ItemInterfaces
                 $attributes = ItemAttribute::where('item_id', $item->id)
                     ->where('attribute_id', $attribute['attribute_id'])
                     ->first();
+                // $attribute['attribute_values'] = json_encode($attribute['attribute_values']);
                 $attribute['item_id'] = $item->id;
                 $attribute['business_id'] = 1;
                 // $attribute['attribute_values'] = $attribute['attribute_values'];
@@ -430,5 +443,10 @@ class ItemRepository implements ItemInterfaces
             ->where('category_id', $category_id)
             ->orWhere('sub_category_id', $category_id)
             ->paginate(40);
+    }
+
+    public function generateSlug($value)
+    {
+        return StringHelper::createSlug($value, 'Modules\Item\Entities\Item', 'sku');
     }
 }

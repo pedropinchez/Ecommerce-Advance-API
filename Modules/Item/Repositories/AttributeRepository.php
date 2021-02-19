@@ -59,13 +59,22 @@ class AttributeRepository implements AttributeInterface
     /**
      * storeItemAttributes
      */
-    public function storeItemAttributes($datas, $isInsert = true)
+    public function storeItemAttributes($attributes, $isInsert = true)
     {
-        if(count($datas) > 0){
+        if(count($attributes) > 0){
             if($isInsert){
-                ItemAttribute::insert($datas);
+                foreach ($attributes as $attribute) {
+                    $attributeValue = ItemAttribute::where('item_id', $attribute['item_id'])
+                    ->where('attribute_id', $attribute['attribute_id'])->first();
+                    if(!is_null($attributeValue)){
+                        $attributeValue->update($attribute);
+                    }else{
+                        ItemAttribute::create($attribute);
+                    }
+                }
+                // ItemAttribute::insert($attributes);
             }else{
-                foreach ($datas as $attribute) {
+                foreach ($attributes as $attribute) {
                     ItemAttribute::where('item_id', $attribute['item_id'])
                     ->where('attribute_id', $attribute['attribute_id'])
                     ->update($attribute);

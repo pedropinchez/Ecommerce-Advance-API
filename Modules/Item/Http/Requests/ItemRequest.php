@@ -19,9 +19,9 @@ class ItemRequest extends FormRequest
             'unit_id' => 'required',
             'tax_type' => 'required',
             'alert_quantity' => 'required',
-            'sku' => 'required',
-            'barcode_type' => 'required',
-            'created_by' => 'required'
+            // 'sku' => 'required',
+            // 'barcode_type' => 'required',
+            // 'created_by' => 'required'
         ];
     }
 

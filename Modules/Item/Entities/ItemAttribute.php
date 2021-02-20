@@ -34,13 +34,14 @@ class ItemAttribute extends Model
             $attribute = Attribute::where('id', $attribute['attribute_id'])->select('id', 'name')->first();
 
             if (!is_null($attribute)) {
-                $data[$key]['attribute'] = $attribute;
+                $data[$key] = $attribute;
                 $values = ItemAttribute::where('item_id', $item_id)
                     ->where('attribute_id', $attribute->id)
-                    ->select('id', 'attribute_values')
+                    ->select('id', 'attribute_id', 'attribute_values')
                     ->get();
                 foreach ($values as $key2 => $attVal) {
-                    $data[$key]['attribute']['values'] = $attVal;
+                    $data[$key]['attribute_id'] = $attVal['attribute_id'];
+                    $data[$key]['values'] = $attVal;
                     $attribute_values = $attVal['attribute_values'];
                     $items = [];
                     foreach ($attribute_values as $key3 =>  $value) {
@@ -49,7 +50,7 @@ class ItemAttribute extends Model
                             array_push($items, $attribute_value);
                         }
                     }
-                    $data[$key]['attribute']['values']['attribute_values_data'] = $items;
+                    $data[$key]['values']['attribute_values_data'] = $items;
                 }
             }
         }

@@ -35,7 +35,9 @@ class CategoryRepository implements CategoryInterface
 
     public function getSubCategoriesByParentID($parent_id)
     {
-        $query = Category::where('parent_id', $parent_id)->select('id', 'name')
+        if ($parent_id == "null") $parent_id = null;
+        $query = Category::where('parent_id', $parent_id)
+            ->select('id', 'name')
             ->orderBy('name', 'asc');
         return $query->get();
     }
@@ -43,21 +45,13 @@ class CategoryRepository implements CategoryInterface
     public function categoryListFrontend()
     {
         $data = [];
-
-        $categoriesLabel1 = Category::select('id', 'name', 'parent_id', 'short_code')
-            ->where('parent_id', null)
-            ->get();
-
+        $categoriesLabel1 = $this->getCategoriesByParentID(null);
         foreach ($categoriesLabel1 as $key => $category) {
             $data[$key] = $category;
             // get categoriesLabel2 child categories
-            $data[$key]['childs'] = Category::select('id', 'name', 'parent_id', 'short_code')
-                ->where('parent_id', $category->id)
-                ->get();
+            $data[$key]['childs'] = $this->getCategoriesByParentID($category->id);
             foreach ($data[$key]['childs'] as $key2 => $categoryLabel2) {
-                $categoryLabel2['childs'] = Category::select('id', 'name', 'parent_id', 'short_code')
-                ->where('parent_id', $categoryLabel2->id)
-                ->get();
+                $categoryLabel2['childs'] = $this->getCategoriesByParentID($categoryLabel2->id);
             }
         }
 
@@ -71,6 +65,14 @@ class CategoryRepository implements CategoryInterface
         // }
         // $query->orderBy('id', 'desc');
         // return $query->get();
+    }
+
+    public function getCategoriesByParentID($parent_id)
+    {
+        if ($parent_id == "null") $parent_id = null;
+        return Category::select('id', 'name', 'parent_id', 'short_code')
+            ->where('parent_id', $parent_id)
+            ->get();
     }
 
     /**

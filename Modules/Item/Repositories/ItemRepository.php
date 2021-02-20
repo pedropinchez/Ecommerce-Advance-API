@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Modules\Item\Entities\Item;
 
@@ -103,17 +104,17 @@ class ItemRepository implements ItemInterfaces
      */
     public function store($data)
     {
-        if(!isset($data['sku']) || strlen($data['sku']) === 0){
+        if (!isset($data['sku']) || strlen($data['sku']) === 0) {
             $data['sku'] = $this->generateSlug($data['name']);
-        }else{
+        } else {
             // Check if SKU is already exist or not else create new with embedding something
             $SKUItem = Item::where('sku', $data['sku'])->first();
-            if(!is_null($SKUItem))
+            if (!is_null($SKUItem))
                 $data['sku'] = $this->generateSlug($data['sku']);
             else
                 $this->generateSlug($data['name']);
         }
-        $data['barcode_type'] = isset($data['barcode_type']) ?$data['barcode_type'] : 'C39';
+        $data['barcode_type'] = isset($data['barcode_type']) ? $data['barcode_type'] : 'C39';
 
         // Upload Featured and Short Resolution Images
         if (isset($data['featured_image'])) {
@@ -196,6 +197,13 @@ class ItemRepository implements ItemInterfaces
 
             $item->update($data);
 
+            // Delete if deleted any image selected
+            if (isset($data['deleted_images']) && count($data['deleted_images']) > 0) {
+                foreach ($data['deleted_images'] as $image) {
+                    $this->deleteItemImage($image);
+                }
+            }
+
             // Upload Multiple Images
             if (!is_null($item) && count($data['images']) > 0) {
                 foreach ($data['images'] as $image) {
@@ -216,16 +224,46 @@ class ItemRepository implements ItemInterfaces
             }
 
             // Upload Attribute if it has
+            // if (!is_null($item) && count($data['attributes']) > 0) {
+            //     $datas = [];
+            //     foreach ($data['attributes'] as $attribute) {
+            //         $attributes = ItemAttribute::where('item_id', $item->id)
+            //             ->where('attribute_id', $attribute['attribute_id'])
+            //             ->first();
+            //         $attribute['item_id'] = $item->id;
+            //         $attribute['business_id'] = 1;
+            //         array_push($datas, $attribute);
+
+            //         if (!is_null($attributes)) {
+            //             $attributeRepository->storeItemAttributes($datas, false);
+            //         } else {
+            //             $attributeRepository->storeItemAttributes($datas, true);
+            //         }
+            //     }
+            // }
+
+            // Delete if deleted any attribute selected
+            if (isset($data['deleted_attributes']) && count($data['deleted_attributes']) > 0) {
+                foreach ($data['deleted_attributes'] as $attribute) {
+                    $this->deleteItemAttribute($attribute['id'], $item->id);
+                }
+            }
+
+            // Upload Attribute if it has
             $attributeRepository = new AttributeRepository();
-            if (!is_null($item) && count($data['attributes']) > 0) {
+            if (!is_null($item) && isset($data['attributes']) && count($data['attributes']) > 0) {
                 $datas = [];
                 foreach ($data['attributes'] as $attribute) {
                     $attributes = ItemAttribute::where('item_id', $item->id)
                         ->where('attribute_id', $attribute['attribute_id'])
                         ->first();
-                    $attribute['item_id'] = $item->id;
-                    $attribute['business_id'] = 1;
-                    array_push($datas, $attribute);
+                    // $attribute['attribute_values'] = json_encode($attribute['attribute_values']);
+                    $newAttribute['item_id'] = $item->id;
+                    $newAttribute['attribute_id'] = $attribute['attribute_id'];
+                    $newAttribute['attribute_values'] = isset($attribute['values']['attribute_values']) ? $attribute['values']['attribute_values'] : $attribute['attribute_values'];
+                    $newAttribute['business_id'] = 1;
+                    // $attribute['attribute_values'] = $attribute['attribute_values'];
+                    array_push($datas, $newAttribute);
 
                     if (!is_null($attributes)) {
                         $attributeRepository->storeItemAttributes($datas, false);
@@ -239,6 +277,26 @@ class ItemRepository implements ItemInterfaces
         return $item;
     }
 
+    public function deleteItemAttribute($attribute_id, $item_id)
+    {
+        ItemAttribute::where('item_id', $item_id)->where('attribute_id', $attribute_id)->delete();
+        return true;
+    }
+
+    public function deleteItemImage($item_image)
+    {
+        $item_image = ItemImage::find($item_image['id']);
+        if(!is_null($item_image)){
+            $location = public_path(). '/images/products/' .$item_image['image'];
+            if (File::exists($location)) {
+                File::delete($location);
+            }
+
+            $item_image->delete();
+            return true;
+        }
+        return false;
+    }
     /**
      * @param $id
      * @return bool
@@ -403,15 +461,15 @@ class ItemRepository implements ItemInterfaces
     {
         try {
             $query = Item::orderBy('id', 'desc')
-            ->select(
-                "name",
-                "sku",
-                "description",
-                "current_stock",
-                "default_selling_price",
-                "offer_selling_price",
-                "is_offer_enable",
-            );
+                ->select(
+                    "name",
+                    "sku",
+                    "description",
+                    "current_stock",
+                    "default_selling_price",
+                    "offer_selling_price",
+                    "is_offer_enable",
+                );
 
 
             if (isset($data['search'])) {

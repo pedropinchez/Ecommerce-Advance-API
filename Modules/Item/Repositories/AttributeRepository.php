@@ -41,7 +41,7 @@ class AttributeRepository implements AttributeInterface
      */
     public function store($data)
     {
-        $attribute = Attribute::where('name', $data['name'])->first();
+        $attribute = Attribute::where('name', $data['name'])->where('category_id', $data['category_id'])->first();
         if (is_null($attribute)) {
             $data['business_id'] = Business::getMainBusinessID();
             $data['slug'] = $this->generateSlug($data['name']);

@@ -45,6 +45,8 @@ class ItemRepository implements ItemInterfaces
 
         if (request()->category_id) {
             $query->where('category_id', request()->category_id);
+            $query->orWhere('sub_category_id', request()->category_id);
+            $query->orWhere('sub_category_id2', request()->category_id);
         }
 
         if (request()->sub_category_id) {

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Role\Entities\Module;
 use Modules\Role\Http\Requests\PermissionCheckRequest;
 use Modules\Role\Repositories\PermissionRepository;
 
@@ -115,7 +116,8 @@ class PermissionController extends Controller
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
-   /**
+
+    /**
      * @OA\GET(
      *     path="/api/v1/roles/getAllPermissionByRole/{role_id}",
      *     tags={"Module Permission"},
@@ -129,7 +131,6 @@ class PermissionController extends Controller
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
-
     public function getAllPermissionByRole($role_id){
         try {
             $data = $this->permissionRepository->getAllPermissionByRole($role_id);
@@ -150,7 +151,7 @@ class PermissionController extends Controller
      *              type="object",
      *              @OA\Property(property="role", type="string", example="Admin"),
      *              @OA\Property(
-     *                      property="groupList",
+     *                      property="permissions",
      *                      type="array",
      *                      @OA\Items(
      *                             @OA\Property(property="name", type="string", example="user.create")
@@ -168,10 +169,62 @@ class PermissionController extends Controller
     public function storePermission(Request $request){
         try {
             $data = $this->permissionRepository->storePermission($request);
-            return $this->responseRepository->ResponseSuccess($data, 'New Role Created Successfully !');
+            return $this->responseRepository->ResponseSuccess($data, 'Permission Updated !');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
+    /**
+     * @OA\GET(
+     *     path="/api/v1/roles/getUserPermissions",
+     *     tags={"User Role and Permissions"},
+     *     summary="Get User Permissions By User ID",
+     *     description="Get User Permissions By User ID",
+     *     operationId="getUserPermissions",
+     *     @OA\Parameter(name="is_all_data", description="is_all_data, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Response(response=200,description="Get User Permissions By User ID"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getUserPermissions(Request $request)
+    {
+        $user = $request->user();
+        $is_all_data = $request->is_all_data == 1 ? true: false;
+
+        try {
+            $data = $this->permissionRepository->getUserPermissions($user, $is_all_data);
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Module List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$user->first_name);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/roles/getUserModules",
+     *     tags={"User Role and Permissions"},
+     *     summary="Get User Modules By User ID",
+     *     description="Get User Modules By User ID",
+     *     operationId="getUserModules",
+     *     @OA\Response(response=200,description="Get User Modules By User ID"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getUserModules(Request $request)
+    {
+        $user = $request->user();
+        try {
+            $data = $this->permissionRepository->getUserPermittedModules();
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Module List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$user->first_name);
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

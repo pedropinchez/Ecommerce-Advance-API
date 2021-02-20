@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Illuminate\Support\Carbon as SupportCarbon;
+use Modules\Auth\Entities\User;
 use Modules\Role\Entities\LaravelRole;
 
 class RolesRepository
@@ -190,5 +191,10 @@ class RolesRepository
     public function getAllRoles()
     {
         return LaravelRole::with('permissions')->paginate(20);
+    }
+
+    public function getUserRoles($user){
+        $getUserRoles = $user->getRoleNames();
+        return $getUserRoles;
     }
 }

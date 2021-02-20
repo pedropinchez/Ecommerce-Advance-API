@@ -1,10 +1,12 @@
 <?php
+
 namespace Modules\Role\Entities;
 
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 
-class LaravelRole extends Role{
+class LaravelRole extends Role
+{
 
     public static function getpermissionGroups()
     {

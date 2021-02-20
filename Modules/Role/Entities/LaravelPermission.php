@@ -15,13 +15,13 @@ class LaravelPermission extends Permission
             'group_name'
     ];
     protected $table = "permissions";
-    // protected $connection = 'imarine-sql';
+    protected $connection = 'imarine-sql';
     protected $primaryKey = 'id';
     public $timestamps = false;
     public $appends = ['printable_name'];
 
-    public function getPrintableName()
+    public function getPrintableNameAttribute()
     {
-        return Str::title(str_replace(".", " ", $this->name)) ;
+        return Str::title(str_replace(".", " ", $this->name));
     }
 }

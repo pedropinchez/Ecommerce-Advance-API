@@ -52,9 +52,9 @@ class RoleController extends Controller
      * @OA\GET(
      *     path="/api/v1/roles/getAllRoles",
      *     tags={"Module Permission"},
-     *     summary="Get Module Permissions By User Type",
-     *     description="Get Module Permissions By User Type",
-     *     operationId="getModulePermissionByUserTypeID",
+     *     summary="Get Module Permissions By User Type - Updated DOC",
+     *     description="Get Module Permissions By User Type - Updated DOC",
+     *     operationId="getAllRoles",
      *     @OA\Response(response=200,description="Get Module Permissions By User Type"),
      *     @OA\Response(response=404, description="Resource Not Found"),
      * )
@@ -215,6 +215,31 @@ class RoleController extends Controller
         try {
             $data = $this->rolesRepository->multipleAppPermissionStore($request);
             return $this->responseRepository->ResponseSuccess($data, 'Multiple Permission Given successfully !');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/roles/getUserRoles",
+     *     tags={"User Role and Permissions"},
+     *     summary="Get User Role By User ID",
+     *     description="Get User Role By User ID",
+     *     operationId="getUserRoles",
+     *     @OA\Response(response=200,description="Get User Role By User ID"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getUserRoles(Request $request)
+    {
+        $user = $request->user();
+        try {
+            $data = $this->rolesRepository->getUserRoles($user);
+            if (is_null($data)) {
+                return $this->responseRepository->ResponseError(null, 'Module List Not Found', Response::HTTP_NOT_FOUND);
+            }
+            return $this->responseRepository->ResponseSuccess($data, 'Module List By '.$user->first_name);
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

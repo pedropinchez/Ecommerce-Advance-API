@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|string|max:50',
             'password' => 'required',
         ];
     }
@@ -38,9 +38,8 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => trans('auth.email.required'),
-            'email.email' => trans('auth.email.email'),
-            'password.required' => trans('auth.password.required'),
+            'email.required' => 'Please give your email or username or phone no',
+            'password.required' => 'Please give your password',
         ];
     }
 }

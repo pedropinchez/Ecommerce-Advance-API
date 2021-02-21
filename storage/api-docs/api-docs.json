@@ -268,7 +268,7 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "akash@mail.com"
+                                        "example": "seller@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -6712,7 +6712,7 @@
                                         "type": "string",
                                         "example": "Admin"
                                     },
-                                    "groupList": {
+                                    "permissions": {
                                         "type": "array",
                                         "items": {
                                             "properties": {
@@ -6736,6 +6736,53 @@
                     },
                     "400": {
                         "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getUserPermissions": {
+            "get": {
+                "tags": [
+                    "User Role and Permissions"
+                ],
+                "summary": "Get User Permissions By User ID",
+                "description": "Get User Permissions By User ID",
+                "operationId": "getUserPermissions",
+                "parameters": [
+                    {
+                        "name": "is_all_data",
+                        "in": "query",
+                        "description": "is_all_data, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get User Permissions By User ID"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getUserModules": {
+            "get": {
+                "tags": [
+                    "User Role and Permissions"
+                ],
+                "summary": "Get User Modules By User ID",
+                "description": "Get User Modules By User ID",
+                "operationId": "getUserModules",
+                "responses": {
+                    "200": {
+                        "description": "Get User Modules By User ID"
                     },
                     "404": {
                         "description": "Resource Not Found"
@@ -6777,9 +6824,9 @@
                 "tags": [
                     "Module Permission"
                 ],
-                "summary": "Get Module Permissions By User Type",
-                "description": "Get Module Permissions By User Type",
-                "operationId": "getModulePermissionByUserTypeID",
+                "summary": "Get Module Permissions By User Type - Updated DOC",
+                "description": "Get Module Permissions By User Type - Updated DOC",
+                "operationId": "getAllRoles",
                 "responses": {
                     "200": {
                         "description": "Get Module Permissions By User Type"
@@ -6958,6 +7005,316 @@
                 "responses": {
                     "200": {
                         "description": "Create Role Permissions"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getUserRoles": {
+            "get": {
+                "tags": [
+                    "User Role and Permissions"
+                ],
+                "summary": "Get User Role By User ID",
+                "description": "Get User Role By User ID",
+                "operationId": "getUserRoles",
+                "responses": {
+                    "200": {
+                        "description": "Get User Role By User ID"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/getAllUser": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Get User List Data",
+                "description": "Get User List Data",
+                "operationId": "getAllUser",
+                "responses": {
+                    "200": {
+                        "description": "Get User List Data"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/roles/editUser/{id}": {
+            "put": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Update User Information",
+                "description": "Update User Information",
+                "operationId": "editUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "First Name"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Surname"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Last Name"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "Username"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "email"
+                                    },
+                                    "phone_no": {
+                                        "type": "string",
+                                        "example": "phone_no"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update User Information"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/userDetails/{id}": {
+            "get": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Show User Details",
+                "description": "Show User Details",
+                "operationId": "userDetails",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Show User Details"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/multipleUserRoleStore": {
+            "post": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Create User",
+                "description": "Create User",
+                "operationId": "multipleUserRoleStore",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Shakib"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Robin"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Labib"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "shakib"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "shakib.corp@akij.net"
+                                    },
+                                    "phone_no": {
+                                        "type": "string",
+                                        "example": "1866"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "robinLabib"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "remember_token": {
+                                        "type": "string",
+                                        "example": "token"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "writer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create User"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/roles/multipleUserRoleUpdate/{id}": {
+            "put": {
+                "tags": [
+                    "Module Permission"
+                ],
+                "summary": "Update User",
+                "description": "Update User",
+                "operationId": "multipleUserRoleUpdate",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "first_name": {
+                                        "type": "string",
+                                        "example": "Shakib"
+                                    },
+                                    "surname": {
+                                        "type": "string",
+                                        "example": "Robin"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "example": "Labib"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "shakib"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "shakib.corp@akij.net"
+                                    },
+                                    "phone_no": {
+                                        "type": "string",
+                                        "example": "1866"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "robinLabib"
+                                    },
+                                    "language": {
+                                        "type": "string",
+                                        "example": "en"
+                                    },
+                                    "remember_token": {
+                                        "type": "string",
+                                        "example": "token"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "writer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Role Permissions"
                     },
                     "400": {
                         "description": "Bad request"
@@ -7714,6 +8071,32 @@
                 "responses": {
                     "200": {
                         "description": "Get Dashboard List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/statistics/get-best-sale-products": {
+            "get": {
+                "tags": [
+                    "Dashboard"
+                ],
+                "summary": "Get Best Sold Product List",
+                "description": "Get Best Sold Product List",
+                "operationId": "getBestSellingProducts",
+                "responses": {
+                    "200": {
+                        "description": "Get Best Sold Product List"
                     },
                     "400": {
                         "description": "Bad request"

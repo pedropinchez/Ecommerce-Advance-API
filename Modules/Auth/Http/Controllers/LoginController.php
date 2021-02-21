@@ -30,7 +30,7 @@ class LoginController extends Controller
      *     @OA\RequestBody(
      *          @OA\JsonContent(
      *              type="object",
-     *              @OA\Property(property="email", type="string", example="akash@mail.com"),
+     *              @OA\Property(property="email", type="string", example="seller@example.com"),
      *              @OA\Property(property="password", type="string", example="123456")
      *          )
      *      ),
@@ -42,8 +42,9 @@ class LoginController extends Controller
      */
     public function login(LoginRequest $request)
     {
-        if ($this->authRepository->checkIfAuthenticated($request)) {
-            $user = $this->authRepository->findUserByEmailAddress($request->email);
+        $authenticatedData = $this->authRepository->checkIfAuthenticated($request);
+        if ($authenticatedData['status']) {
+            $user = $this->authRepository->findByEmailOrPhoneOrUsername($request->email);
             $tokenCreated = $user->createToken('authToken');
             $data = [
                 'user' => $user,
@@ -51,9 +52,9 @@ class LoginController extends Controller
                 'token_type' => 'Bearer',
                 'expires_at' => Carbon::parse($tokenCreated->token->expires_at)->toDateTimeString()
             ];
-            return $this->responseRepository->ResponseSuccess($data, 'Logged in Successfully');
+            return $this->responseRepository->ResponseSuccess($data, $authenticatedData['message']);
         } else {
-            return $this->responseRepository->ResponseError(null, 'Sorry, Invalid Email and Password');
+            return $this->responseRepository->ResponseError(null, $authenticatedData['message']);
         }
     }
 }

@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('statistics/get-dashboard-data', 'DashboardDataController@getDashboardData');
+Route::get('statistics/get-best-sale-products', 'DashboardDataController@getBestSellingProducts');

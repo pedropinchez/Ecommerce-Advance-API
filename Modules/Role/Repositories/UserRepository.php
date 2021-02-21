@@ -15,12 +15,12 @@ class UserRepository
     public function getUserList()
     {
         $query = User::orderBy('users.id', 'desc')->select(
-            'users.id', 'role_id', 'strBusinessUnitName as business_name', 'roles.name as role_name', 'business_id','first_name','surname','last_name','username','email','phone_no'
+            'users.id', 'role_id', 'business.name as business_name', 'roles.name as role_name', 'business_id','first_name','surname','last_name','username','email','phone_no'
         );
 
         $query->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
         ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->leftJoin('tblBusinessUnit', 'tblBusinessUnit.intCompanyID', '=', 'users.business_id');
+        ->leftJoin('business', 'business.id', '=', 'users.business_id');
 
         if (request()->search) {
             $query->where('users.first_name', 'like', '%' . request()->search . '%');
@@ -30,9 +30,9 @@ class UserRepository
             $query->orWhere('users.username', 'like', '%' . request()->search . '%');
             $query->orWhere('roles.name', 'like', '%' . request()->search . '%');
             $query->orWhere('users.phone_no', 'like', '%' . request()->search . '%');
-            $query->orWhere('tblBusinessUnit.strBusinessUnitName', 'like', '%' . request()->search . '%');
+            $query->orWhere('business.name', 'like', '%' . request()->search . '%');
         }
-
+        $query->where('business_id', request()->user()->business_id);
         if (isset(request()->isActive)) {
             $query->where('users.isActive', request()->isActive);
         }
@@ -45,12 +45,12 @@ class UserRepository
 
     }
 
-    public function multipleUserRoleStore(Request $request)
+    public function multipleUserRoleStore($request)
     {
         try {
             $user = User::create(
                 [
-                    'business_id' =>$request['business_id'],
+                    'business_id' => request()->user()->business_id,
                     'first_name' => $request['first_name'],
                     'surname' => $request['surname'],
                     'last_name' => $request['last_name'],
@@ -73,10 +73,10 @@ class UserRepository
 
     public function getByID($id)
     {
-        $user = User::select('users.id', 'role_id', 'strBusinessUnitName as business_name', 'roles.name as role_name', 'business_id','first_name','surname','last_name','username','email','phone_no')
+        $user = User::select('users.id', 'role_id', 'business.name as business_name', 'roles.name as role_name', 'business_id','first_name','surname','last_name','username','email','phone_no')
         ->leftJoin('model_has_roles', 'model_has_roles.model_id', '=', 'users.id')
         ->leftJoin('roles', 'roles.id', '=', 'model_has_roles.role_id')
-        ->leftJoin('tblBusinessUnit', 'tblBusinessUnit.intCompanyID', '=', 'users.business_id')
+        ->leftJoin('business', 'business.id', '=', 'users.business_id')
         ->where('users.id', $id)
         ->first();
         return $user;
@@ -86,7 +86,6 @@ class UserRepository
             try {
                 $user = User::find($id);
                 $user->update([
-                        'business_id' =>$request['business_id'],
                         'first_name' => $request['first_name'],
                         'surname' => $request['surname'],
                         'last_name' => $request['last_name'],
@@ -99,7 +98,7 @@ class UserRepository
                     ]
                 );
 
-                $user->assignRole($request->name);
+                $user->syncRoles($request->name);
                 return $user;
         }   catch (\Exception $e) {
             return false;

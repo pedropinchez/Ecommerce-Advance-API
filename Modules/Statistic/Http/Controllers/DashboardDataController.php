@@ -41,4 +41,27 @@ class DashboardDataController extends Controller
             return $this->responseRepository->ResponseError(null,  $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/statistics/get-best-sale-products",
+     *     tags={"Dashboard"},
+     *     summary="Get Best Sold Product List",
+     *     description="Get Best Sold Product List",
+     *     security={{"bearer": {}}},
+     *     operationId="getBestSellingProducts",
+     *      @OA\Response( response=200, description="Get Best Sold Product List" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getBestSellingProducts()
+    {
+        try {
+            $data = $this->dashboardDataRepository->getBestSellingProducts(10);
+            return $this->responseRepository->ResponseSuccess($data, 'Get Best Sold Product List Fetched Successfully !');
+        } catch (\Exception $e) {
+            return $this->responseRepository->ResponseError(null,  $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

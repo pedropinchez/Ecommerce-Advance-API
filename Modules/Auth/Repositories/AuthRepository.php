@@ -3,16 +3,13 @@
 namespace Modules\Auth\Repositories;
 
 use App\Helpers\StringHelper;
-use App\Models\Project;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Modules\Auth\Entities\User;
 use Modules\Auth\Interfaces\AuthInterface;
-use Modules\Business\Entities\Business;
 use Modules\Business\Repositories\BusinessRepository;
 
 class AuthRepository implements AuthInterface
@@ -21,18 +18,35 @@ class AuthRepository implements AuthInterface
      * check if user is authenticated
      *
      * @param Request $request
-     * @return boolean
+     * @return object status and message of check
      */
     public function checkIfAuthenticated(Request $request)
     {
-        $user = $this->findUserByEmailAddress($request->email);
+        $user = $this->findByEmailOrPhoneOrUsername($request->email);
+        $data = [
+            'status' => false,
+            'message' => 'Sorry, Invalid Email and Password',
+        ];
 
         if (!is_null($user)) {
             if (Hash::check($request->password, $user->password)) {
-                return true;
+                if($user->status === 'active'){
+                    $data['status'] = true;
+                    $data['message'] = 'Logged in Successfully !';
+                }else{
+                    if($user->status === 'banned'){
+                        $data['message'] = "Sorry ! Your account has been banned for bad activities. Please contact with support center !";
+                    }else if($user->status === 'account_deleted'){
+                        $data['message'] = "Sorry ! Your account has been deleted. Please contact with support center to access it again !";
+                    }else{
+                        $data['message'] = "Sorry ! Your account status is $user->status. Please activate your account first !";
+                    }
+                }
+            }else{
+                $data['message'] = 'Sorry, Invalid Email and Password';
             }
         }
-        return false;
+        return $data;
     }
 
     /**
@@ -78,8 +92,7 @@ class AuthRepository implements AuthInterface
      */
     public function findUserByEmailAddress($email)
     {
-        $user = User::where('email', $email)->first();
-        return $user;
+        return User::with('business')->where('email', $email)->first();
     }
 
     /**
@@ -90,8 +103,22 @@ class AuthRepository implements AuthInterface
      */
     public function findUserByPhoneNo($phone_no)
     {
-        $user =  User::where('phone_no', $phone_no)->first();
-        return $user;
+        return User::with('business')->where('phone_no', $phone_no)->first();
+    }
+
+    /**
+     * find User By Email Or Phone Or User name
+     *
+     * @param string $value
+     * @return object $user
+     */
+    public function findByEmailOrPhoneOrUsername($value)
+    {
+        return User::with('business')
+        ->where('email', $value)
+        ->orWhere('phone_no', $value)
+        ->orWhere('username', $value)
+        ->first();
     }
 
     /**

@@ -74,9 +74,9 @@ class UserController extends Controller
         try {
             $data = $this->userRepository->update($id, $request);
             if(is_null($data))
-                return $this->responseRepository->ResponseError(null, 'User Information List Not Found', Response::HTTP_NOT_FOUND);
+                return $this->responseRepository->ResponseError(null, 'User Not Found', Response::HTTP_NOT_FOUND);
 
-            return $this->responseRepository->ResponseSuccess($data, 'User Information List Updated Successfully !');
+            return $this->responseRepository->ResponseSuccess($data, 'User Updated Successfully !');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

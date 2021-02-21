@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
+use Modules\Business\Entities\Business;
 use Modules\Business\Entities\Wishlist;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -16,9 +17,9 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = "users";
-//    protected $connection = 'DB_iApps';
     protected $primaryKey = 'id';
     protected $fillable = [
+        'business_id',
         'first_name',
         'surname',
         'last_name',
@@ -54,5 +55,10 @@ class User extends Authenticatable
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function business()
+    {
+        return $this->belongsTo(Business::class);
     }
 }

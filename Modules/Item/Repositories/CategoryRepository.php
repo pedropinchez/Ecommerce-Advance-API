@@ -88,7 +88,8 @@ class CategoryRepository implements CategoryInterface
         $data['is_visible_homepage'] = !$data['is_visible_homepage'] ? 0 : 1;
         $data['banner'] = ImageUploadHelper::upload('banner', $data['banner'], 'category-banner-' . $data['short_code'] . '-' . time(), 'images/categories');
         $data['image'] = ImageUploadHelper::upload('image',  $data['image'], 'category-' . $data['short_code'] . '-' . time(), 'images/categories');
-
+        $data['business_id'] = request()->user()->business_id;
+        $data['created_by'] = request()->user()->id;
         $category = Category::create($data);
         return $category;
     }

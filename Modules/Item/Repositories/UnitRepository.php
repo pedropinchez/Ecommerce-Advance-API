@@ -31,6 +31,8 @@ class UnitRepository implements UnitInterface
      */
     public function store($data)
     {
+        $data['business_id'] = request()->user()->business_id;
+        $data['created_by'] = request()->user()->id;
         $unit = Unit::create($data);
         return $unit;
     }

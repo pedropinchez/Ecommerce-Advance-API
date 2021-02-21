@@ -43,7 +43,7 @@ class AttributeRepository implements AttributeInterface
     {
         $attribute = Attribute::where('name', $data['name'])->where('category_id', $data['category_id'])->first();
         if (is_null($attribute)) {
-            $data['business_id'] = Business::getMainBusinessID();
+            $data['business_id'] = request()->user()->business_id;
             $data['slug'] = $this->generateSlug($data['name']);
             $attribute = Attribute::create($data);
         }

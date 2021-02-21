@@ -60,10 +60,14 @@ class ItemRepository implements ItemInterfaces
         if (request()->unit_id) {
             $query->where('unit_id', request()->unit_id);
         }
-
-        if (request()->business_id) {
-            $query->where('business_id', request()->business_id);
+        if(request()->user()->hasPermissionTo('all_business.view')){
+            if (request()->business_id) {
+                $query->where('business_id', request()->business_id);
+            }
+        }else{
+            $query->where('business_id', request()->user()->business_id);
         }
+
 
         if (request()->isPaginated) {
             $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
@@ -127,7 +131,8 @@ class ItemRepository implements ItemInterfaces
             $short_resolation_image = Base64Encoder::uploadBase64File($data['short_resolation_image'], "/images/products/", 'short-resolution-' . time() . '-' . uniqid(), 'product');
             $data['short_resolation_image'] = $short_resolation_image;
         }
-
+        $data['business_id'] = request()->user()->business_id;
+        $data['created_by'] = request()->user()->id;
         $item = Item::create($data);
         $item->save();
 
@@ -197,6 +202,7 @@ class ItemRepository implements ItemInterfaces
                 $data['short_resolation_image'] = $item->short_resolation_image;
             }
 
+            $data['business_id'] = request()->user()->business_id;
             $item->update($data);
 
             // Delete if deleted any image selected

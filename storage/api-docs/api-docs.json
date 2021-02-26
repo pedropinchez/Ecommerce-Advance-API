@@ -4482,6 +4482,32 @@
                 }
             }
         },
+        "/api/v1/items/all/for-dropdown": {
+            "get": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Get Product List For Dropdown",
+                "description": "Get Product List For Dropdown",
+                "operationId": "getItemsForDropdown",
+                "responses": {
+                    "200": {
+                        "description": "Get Product List For Dropdown"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/items/{id}": {
             "get": {
                 "tags": [

@@ -29,7 +29,7 @@ class PollRepository
 
     public function view($id)
     {
-        return Poll::with('pollResponse', 'options')
+        return Poll::with('pollResponse', 'options' , 'options.item')
         ->where('id', $id)
         ->orWhere('slug', $id)
         ->first();

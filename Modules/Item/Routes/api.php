@@ -39,6 +39,7 @@ Route::get('items/brand/{brand_id}', 'ItemController@getItemByBrand');
 Route::put('items/attribute/{item_id}', 'ItemController@updateItemAttribute');
 Route::post('items/{item_id}/upload', 'ItemController@uploadFile');
 Route::delete('items/image/{image_id}/delete', 'ItemController@destroyImage');
+Route::get('items/all/for-dropdown', 'ItemController@getItemsForDropdown');
 
 /**
  * Frontend Routes

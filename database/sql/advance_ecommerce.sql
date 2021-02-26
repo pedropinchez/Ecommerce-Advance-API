@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2021 at 09:51 AM
+-- Generation Time: Feb 21, 2021 at 10:19 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -116,8 +116,8 @@ INSERT INTO `attribute_values` (`id`, `value`, `code`, `attribute_id`, `created_
 
 CREATE TABLE `barcode_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `business_id` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -307,9 +307,9 @@ INSERT INTO `categories` (`id`, `name`, `short_description`, `description`, `bus
 
 CREATE TABLE `coupons` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `business_id` bigint(20) UNSIGNED NOT NULL,
   `coupon_type_id` bigint(20) UNSIGNED NOT NULL,
   `amount_type` enum('percentage','numeric') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'numeric',
@@ -353,8 +353,8 @@ INSERT INTO `coupons` (`id`, `code`, `description`, `image`, `business_id`, `cou
 
 CREATE TABLE `coupon_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -541,7 +541,7 @@ INSERT INTO `invoices` (`id`, `invoice_no`, `transaction_id`, `business_id`, `to
 (1, 1, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 21:51:43', '2021-02-04 21:51:43'),
 (2, 2, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 21:59:09', '2021-02-04 21:59:09'),
 (3, 3, 3, 1, 1680.00, 0.00, 1680.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 22:00:51', '2021-02-04 22:00:51'),
-(4, 1, 3, 4, 640.00, 0.00, 640.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 22:00:51', '2021-02-04 22:00:51');
+(4, 4, 3, 4, 640.00, 0.00, 640.00, 0.00, 'due', 1, NULL, '2021-02-05', '2021-02-04 22:00:51', '2021-02-04 22:00:51');
 
 -- --------------------------------------------------------
 
@@ -591,6 +591,16 @@ CREATE TABLE `invoice_statuses` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `invoice_statuses`
+--
+
+INSERT INTO `invoice_statuses` (`id`, `invoice_id`, `order_create_date`, `confirmed_by_vendor_date`, `shipped_by_vendor_date`, `delivery_by_vendor_date`, `received_by_customer_date`, `feedback_by_customer_date`, `created_at`, `updated_at`) VALUES
+(1, 1, '2021-02-01 15:15:58', '2021-02-02 15:15:58', '2021-02-03 15:15:58', NULL, NULL, NULL, '2021-02-21 09:16:16', '2021-02-21 09:16:16'),
+(2, 2, '2021-02-01 15:15:58', '2021-02-02 15:15:58', '2021-02-03 15:15:58', '2021-02-04 15:16:21', NULL, NULL, '2021-02-21 09:16:16', '2021-02-21 09:16:16'),
+(3, 3, '2021-02-01 15:15:58', '2021-02-02 15:15:58', '2021-02-03 15:15:58', '2021-02-04 15:16:21', '2021-02-16 15:16:34', NULL, '2021-02-21 09:16:16', '2021-02-21 09:16:16'),
+(4, 4, '2021-02-01 15:15:58', '2021-02-02 15:15:58', NULL, NULL, NULL, NULL, '2021-02-21 09:16:16', '2021-02-21 09:16:16');
 
 -- --------------------------------------------------------
 
@@ -1017,7 +1027,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('d1d128fd3c71a8f8c87ed7e44068d3e0a23a9499051b93b4a235693bcc66bf5266a4e738e42f173c', 1, 3, 'authToken', '[]', 0, '2021-02-15 11:48:23', '2021-02-15 11:48:23', '2022-02-15 17:48:23'),
 ('d3bf925f8e16a8d6af206f52295a0beff995c112c1df6ea6af49550702acd0dc1b231e990ca1259e', 1, 3, 'authToken', '[]', 0, '2021-02-20 23:36:27', '2021-02-20 23:36:27', '2022-02-21 05:36:27'),
 ('d5df8f83baedd72c80de7727ad7b7c70d74cc2e5fa18c205abb64d93e47d2860b68186ac8c70aca9', 1, 3, 'authToken', '[]', 0, '2021-02-20 23:32:28', '2021-02-20 23:32:28', '2022-02-21 05:32:28'),
-('d8839c9cb01291a992b82abebe5335b3255c55099ff34266cc0054fbab774990667ee2cfd0a8bbd5', 16, 3, 'authToken', '[]', 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20', '2022-02-07 11:39:20'),
+('d8839c9cb01291a992b82abebe5335b3191c55099ff34266cc0054fbab774990667ee2cfd0a8bbd5', 16, 3, 'authToken', '[]', 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20', '2022-02-07 11:39:20'),
 ('d9e3cc4649454e7fb9c095a33a009197bdb37173e77a6e0e4cedc102ef7ecbd66b69f20168360990', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:26:27', '2021-02-14 15:26:27', '2022-02-14 21:26:27'),
 ('dc787504970c44a3c099796dca973cc5a9be6757c298b69baa3cd4941d93e0e724337adcf914d5df', 1, 3, 'authToken', '[]', 0, '2021-02-21 01:54:00', '2021-02-21 01:54:00', '2022-02-21 07:54:00'),
 ('dccba1a8c7f2c5e19f8a789f5edf8b06c12f23484ca40eec919825b9dbc4d76102aa36eb4771457b', 1, 3, 'authToken', '[]', 0, '2021-01-25 10:52:33', '2021-01-25 10:52:33', '2022-01-25 16:52:33'),
@@ -1126,6 +1136,15 @@ CREATE TABLE `order_statuses` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_statuses`
+--
+
+INSERT INTO `order_statuses` (`id`, `transaction_id`, `order_create_date`, `confirmed_by_vendor_date`, `shipped_by_vendor_date`, `delivery_by_vendor_date`, `received_by_customer_date`, `feedback_by_customer_date`, `created_at`, `updated_at`) VALUES
+(1, 1, '2021-02-03 15:17:26', '2021-02-05 15:17:26', '2021-02-09 15:17:26', '2021-02-12 15:17:26', '2021-02-13 15:17:26', '2021-02-14 15:17:26', '2021-02-21 09:17:57', '2021-02-21 09:17:57'),
+(2, 2, '2021-02-03 15:17:26', '2021-02-05 15:17:26', '2021-02-09 15:17:26', NULL, NULL, NULL, '2021-02-21 09:17:57', '2021-02-21 09:17:57'),
+(3, 3, '2021-02-03 15:17:26', '2021-02-05 15:17:26', '2021-02-09 15:17:26', '2021-02-11 15:18:13', NULL, NULL, '2021-02-21 09:17:57', '2021-02-21 09:17:57');
 
 -- --------------------------------------------------------
 
@@ -2294,7 +2313,7 @@ ALTER TABLE `invoice_items`
 -- AUTO_INCREMENT for table `invoice_statuses`
 --
 ALTER TABLE `invoice_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `items`
@@ -2348,7 +2367,7 @@ ALTER TABLE `oauth_personal_access_clients`
 -- AUTO_INCREMENT for table `order_statuses`
 --
 ALTER TABLE `order_statuses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `otps`

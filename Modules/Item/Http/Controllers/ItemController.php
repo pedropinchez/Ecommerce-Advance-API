@@ -61,6 +61,29 @@ class ItemController extends Controller
     }
 
     /**
+     * @OA\GET(
+     *     path="/api/v1/items/all/for-dropdown",
+     *     tags={"Items"},
+     *     summary="Get Product List For Dropdown",
+     *     description="Get Product List For Dropdown",
+     *     security={{"bearer": {}}},
+     *     operationId="getItemsForDropdown",
+     *      @OA\Response( response=200, description="Get Product List For Dropdown" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getItemsForDropdown(Request $request)
+    {
+        try {
+            $items = $this->itemRepository->getItemsForDropdown();
+            return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
      * @OA\POST(
      *     path="/api/v1/items",
      *     tags={"Items"},

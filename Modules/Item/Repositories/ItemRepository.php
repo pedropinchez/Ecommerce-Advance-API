@@ -28,6 +28,19 @@ class ItemRepository implements ItemInterfaces
         $items = Item::get();
         return $items;
     }
+
+    public function getItemsForDropdown()
+    {
+        $items = DB::table('items')->select(
+            'id',
+            'id as value',
+            'name',
+            DB::raw('CONCAT(name, " (", sku, ") ", "#", id) as label'),
+            'sku'
+            )->get();
+        return $items;
+    }
+
     /**
      * @return mixed
      * get all the items by pagination

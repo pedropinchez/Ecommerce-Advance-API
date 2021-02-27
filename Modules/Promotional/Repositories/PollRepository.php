@@ -73,7 +73,9 @@ class PollRepository
             // Insert or Update
             if (count($data['options']) > 0) {
                 foreach ($data['options'] as $key => $value) {
-                    $value['item_id'] = $value['item_id'];
+                    if(isset($value['item_id']))
+                        $value['item_id'] = $value['item_id'];
+
                     $value['value'] = $value['value'];
                     $value['poll_id'] = $poll->id;
 

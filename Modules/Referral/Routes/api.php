@@ -13,7 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-
-Route::prefix('referral')->group(function () {
-    Route::get('/', 'ReferralController@index');
-});
+Route::apiResource('referrals', 'ReferralController');

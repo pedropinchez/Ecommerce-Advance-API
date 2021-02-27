@@ -30,19 +30,19 @@ class AuthRepository implements AuthInterface
 
         if (!is_null($user)) {
             if (Hash::check($request->password, $user->password)) {
-                if($user->status === 'active'){
+                if ($user->status === 'active') {
                     $data['status'] = true;
                     $data['message'] = 'Logged in Successfully !';
-                }else{
-                    if($user->status === 'banned'){
+                } else {
+                    if ($user->status === 'banned') {
                         $data['message'] = "Sorry ! Your account has been banned for bad activities. Please contact with support center !";
-                    }else if($user->status === 'account_deleted'){
+                    } else if ($user->status === 'account_deleted') {
                         $data['message'] = "Sorry ! Your account has been deleted. Please contact with support center to access it again !";
-                    }else{
+                    } else {
                         $data['message'] = "Sorry ! Your account status is $user->status. Please activate your account first !";
                     }
                 }
-            }else{
+            } else {
                 $data['message'] = 'Sorry, Invalid Email and Password';
             }
         }
@@ -72,14 +72,20 @@ class AuthRepository implements AuthInterface
                 'language' => $request->language ? $request->language :  'en'
             ]
         );
-        if(Route::is('vendor.register') || Route::is('vendor.register.next')){
+        if (Route::is('vendor.register') || Route::is('vendor.register.next')) {
             $buisnessRepository = new BusinessRepository();
             $business = $buisnessRepository->registerAsVendor($request->all(), $user);
             $user->business_id = !is_null($business) ? $business->id : null;
             $user->save();
             $user->assignRole('Vendor');
-        }else{
+        } else {
             $user->assignRole('Customer');
+        }
+
+        if (request()->referral_user) {
+            $referral_value = request()->referral_user; // User Code or username/email/phone no of referral user
+            $referral = $this->authRepository->findByEmailOrPhoneOrUsername($referral_value);
+            $this->referralRepository->store($user->id, $referral->id, request()->source_link);
         }
         return $user;
     }
@@ -115,10 +121,10 @@ class AuthRepository implements AuthInterface
     public function findByEmailOrPhoneOrUsername($value)
     {
         return User::with('business')
-        ->where('email', $value)
-        ->orWhere('phone_no', $value)
-        ->orWhere('username', $value)
-        ->first();
+            ->where('email', $value)
+            ->orWhere('phone_no', $value)
+            ->orWhere('username', $value)
+            ->first();
     }
 
     /**
@@ -143,12 +149,12 @@ class AuthRepository implements AuthInterface
      */
     public function updateUserProfile($data, $id)
     {
-        if(isset($data['password'])) {
+        if (isset($data['password'])) {
             $data['password'] = Hash::make($data['password']);
         }
 
         $user = User::find($id);
-        if($user) {
+        if ($user) {
             $user->update($data);
         }
 

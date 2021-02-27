@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Modules\Business\Entities\Business;
 use Modules\Business\Entities\Wishlist;
+use Modules\Referral\Entities\Referral;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -60,5 +61,10 @@ class User extends Authenticatable
     public function business()
     {
         return $this->belongsTo(Business::class);
+    }
+
+    public function referral_info()
+    {
+        return $this->hasOne(Referral::class, 'user_id', 'referee_id');
     }
 }

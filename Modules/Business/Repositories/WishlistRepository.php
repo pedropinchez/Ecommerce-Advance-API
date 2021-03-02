@@ -19,9 +19,14 @@ class WishlistRepository
 
     public function store($data)
     {
-        $data['user_id'] = request()->user()->id;
-        $wishlist = Wishlist::create($data);
-        return $wishlist;
+        if(is_null(request()->user())){
+            throw new \Exception("Please login first to item in wishlist");
+        }else{
+            $data['user_id'] = request()->user()->id;
+            $wishlist = Wishlist::create($data);
+            return $wishlist;
+        }
+        return false;
     }
 
     public function delete($id)

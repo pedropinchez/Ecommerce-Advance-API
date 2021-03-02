@@ -70,8 +70,7 @@ class WishlistController extends Controller
             $wishlist = $this->wishlistRepository->store($data);
             return $this->responseRepository->ResponseSuccess($wishlist, 'Product has been added to wishlist');
         } catch (\Exception $e) {
-            return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
-            // return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

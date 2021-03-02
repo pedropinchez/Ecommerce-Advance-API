@@ -6,7 +6,7 @@
     'debug' => true,
     'url' => 'http://localhost/api/v1',
     'asset_url' => NULL,
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Dhaka',
     'locale' => 'en',
     'fallback_locale' => 'en',
     'faker_locale' => 'en_US',

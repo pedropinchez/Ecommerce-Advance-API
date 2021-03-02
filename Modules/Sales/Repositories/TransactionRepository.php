@@ -21,7 +21,7 @@ class TransactionRepository
     public function store($data)
     {
         $invoiceRepo = new InvoiceRepository();
-        return $invoiceRepo->storeInvoice(3);
+        // return $invoiceRepo->storeInvoice(3);
 
         $data['transaction_date'] = date('Y-m-d');
         $transaction = Transaction::create($data);

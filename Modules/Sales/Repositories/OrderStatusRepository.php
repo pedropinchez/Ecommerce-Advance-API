@@ -16,7 +16,8 @@ class OrderStatusRepository extends TransactionRepository
         $transaction = $this->show($transaction_id);
         if (!is_null($transaction)) {
             $orderStatus = OrderStatus::where('transaction_id', $transaction_id)->first();
-            $orderStatus->updateOrCreate([
+            OrderStatus::where('transaction_id', $transaction_id)
+            ->updateOrCreate([
                 'transaction_id' => $transaction_id,
                 'order_create_date' => is_null($orderStatus) ? $transaction->created_at : $orderStatus->order_create_date,
                 'confirmed_by_vendor_date' => is_null($orderStatus) ? request()->confirmed_by_vendor_date : $orderStatus->confirmed_by_vendor_date,

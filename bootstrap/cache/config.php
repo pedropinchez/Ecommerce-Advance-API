@@ -183,7 +183,7 @@
       'file' => 
       array (
         'driver' => 'file',
-        'path' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\framework/cache/data',
+        'path' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/framework/cache/data',
       ),
       'memcached' => 
       array (
@@ -272,7 +272,7 @@
         'port' => '3306',
         'database' => 'advance_ecommerce',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -292,7 +292,7 @@
         'port' => '3306',
         'database' => 'advance_ecommerce',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'unix_socket' => '',
         'charset' => 'utf8mb4',
         'collation' => 'utf8mb4_unicode_ci',
@@ -312,7 +312,7 @@
         'port' => '3306',
         'database' => 'advance_ecommerce',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -327,7 +327,7 @@
         'port' => '3306',
         'database' => 'advance_ecommerce',
         'username' => 'root',
-        'password' => '',
+        'password' => 'root',
         'charset' => 'utf8',
         'prefix' => '',
         'prefix_indexes' => true,
@@ -369,12 +369,12 @@
       'local' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\app',
+        'root' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/app',
       ),
       'public' => 
       array (
         'driver' => 'local',
-        'root' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\app/public',
+        'root' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/app/public',
         'url' => 'http://localhost/api/v1/storage',
         'visibility' => 'public',
       ),
@@ -391,7 +391,7 @@
     ),
     'links' => 
     array (
-      'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\public\\storage' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\app/public',
+      '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/public/storage' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/app/public',
     ),
   ),
   'hashing' => 
@@ -437,15 +437,15 @@
     ),
     'paths' => 
     array (
-      'docs' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\api-docs',
+      'docs' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/api-docs',
       'docs_json' => 'api-docs.json',
       'docs_yaml' => 'api-docs.yaml',
       'annotations' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\app',
-        1 => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\Modules',
+        0 => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/app',
+        1 => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/Modules',
       ),
-      'views' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\resources/views/vendor/l5-swagger',
+      'views' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/resources/views/vendor/l5-swagger',
       'base' => NULL,
       'swagger_ui_assets_path' => 'vendor/swagger-api/swagger-ui/dist/',
       'excludes' => 
@@ -492,13 +492,13 @@
       'single' => 
       array (
         'driver' => 'single',
-        'path' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\logs/laravel.log',
+        'path' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/logs/laravel.log',
         'level' => 'debug',
       ),
       'daily' => 
       array (
         'driver' => 'daily',
-        'path' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\logs/laravel.log',
+        'path' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/logs/laravel.log',
         'level' => 'debug',
         'days' => 14,
       ),
@@ -548,7 +548,7 @@
       ),
       'emergency' => 
       array (
-        'path' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\logs/laravel.log',
+        'path' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/logs/laravel.log',
       ),
     ),
   ),
@@ -605,7 +605,7 @@
       'theme' => 'default',
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\resources\\views/vendor/mail',
+        0 => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/resources/views/vendor/mail',
       ),
     ),
   ),
@@ -688,7 +688,7 @@
     'stubs' => 
     array (
       'enabled' => false,
-      'path' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API/vendor/nwidart/laravel-modules/src/Commands/stubs',
+      'path' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/vendor/nwidart/laravel-modules/src/Commands/stubs',
       'files' => 
       array (
         'routes/web' => 'Routes/web.php',
@@ -752,9 +752,9 @@
     ),
     'paths' => 
     array (
-      'modules' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\Modules',
-      'assets' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\public\\Modules',
-      'migration' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\database/migrations',
+      'modules' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/Modules',
+      'assets' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/public/Modules',
+      'migration' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/database/migrations',
       'generator' => 
       array (
         'config' => 
@@ -889,7 +889,7 @@
       'enabled' => false,
       'paths' => 
       array (
-        0 => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\vendor/*/*',
+        0 => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/vendor/*/*',
       ),
     ),
     'composer' => 
@@ -917,7 +917,7 @@
       'file' => 
       array (
         'class' => 'Nwidart\\Modules\\Activators\\FileActivator',
-        'statuses-file' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\modules_statuses.json',
+        'statuses-file' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/modules_statuses.json',
         'cache-key' => 'activator.installed',
         'cache-lifetime' => 604800,
       ),
@@ -1047,7 +1047,7 @@
     'lifetime' => '120',
     'expire_on_close' => false,
     'encrypt' => false,
-    'files' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\framework/sessions',
+    'files' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/framework/sessions',
     'connection' => NULL,
     'table' => 'sessions',
     'store' => NULL,
@@ -1067,9 +1067,9 @@
   array (
     'paths' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\resources\\views',
+      0 => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/resources/views',
     ),
-    'compiled' => 'C:\\xampp\\htdocs\\Ecommerce\\Ecommerce-Advance-API\\storage\\framework\\views',
+    'compiled' => '/Applications/MAMP/htdocs/Ecommerce/Ecommerce-Advance-API/storage/framework/views',
   ),
   'websockets' => 
   array (
@@ -1130,6 +1130,8 @@
       'report_query_bindings' => true,
       'report_view_data' => true,
       'grouping_type' => NULL,
+      'report_logs' => true,
+      'maximum_number_of_collected_logs' => 200,
     ),
     'send_logs_as_events' => true,
   ),

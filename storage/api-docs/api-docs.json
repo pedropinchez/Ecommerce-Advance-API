@@ -13,16 +13,6 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/": {
-            "get": {
-                "description": "Home page",
-                "responses": {
-                    "default": {
-                        "description": "Welcome page"
-                    }
-                }
-            }
-        },
         "/api/v1/auth/updateUserProfile": {
             "put": {
                 "tags": [
@@ -8408,6 +8398,16 @@
                         "bearer": []
                     }
                 ]
+            }
+        },
+        "/": {
+            "get": {
+                "description": "Home page",
+                "responses": {
+                    "default": {
+                        "description": "Welcome page"
+                    }
+                }
             }
         }
     },

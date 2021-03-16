@@ -1,25 +1,17 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.4
+-- version 4.9.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 01, 2021 at 09:56 AM
--- Server version: 5.6.41-84.1
--- PHP Version: 7.3.6
+-- Generation Time: Mar 16, 2021 at 04:55 PM
+-- Server version: 5.7.32
+-- PHP Version: 7.4.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `allgbenb_ecommerce`
+-- Database: `advance_ecommerce`
 --
 
 -- --------------------------------------------------------
@@ -211,15 +203,15 @@ CREATE TABLE `business` (
 --
 
 INSERT INTO `business` (`id`, `name`, `bin`, `currency_id`, `start_date`, `tax_number_1`, `tax_label_1`, `tax_number_2`, `tax_label_2`, `default_profit_percent`, `owner_id`, `time_zone`, `fy_start_month`, `accounting_method`, `default_sales_discount`, `sell_price_tax`, `logo`, `banner`, `sku_prefix`, `enable_tooltip`, `enable_referrel_system`, `is_main_shop`, `created_at`, `updated_at`) VALUES
-(1, 'Maccaf Mall', 'Maccaf12019212', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', 'vendor-maccaf.png', 'vendor-maccaf-banner.png', NULL, 1, 0, 1, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
-(2, 'Bata Store', 'Bata121209', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', 'vendor-bata.png', 'vendor-bata-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
-(3, 'Shopno Bazaar', 'Shopnobazar', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', 'vendor-shopno.jpg', 'vendor-shopno-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
-(4, 'Rahim Store', 'rahimstore', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', 'vendor-rahimstore.png', 'vendor-rahim-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
+(1, 'Maccaf Mall', 'Maccaf12019212', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', 'vendor-maccaf.png', 'vendor-maccaf-banner.png', NULL, 1, 0, 1, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
+(2, 'Bata Store', 'Bata121209', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', 'vendor-bata.png', 'vendor-bata-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
+(3, 'Shopno Bazaar', 'Shopnobazar', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', 'vendor-shopno.jpg', 'vendor-shopno-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
+(4, 'Rahim Store', 'rahimstore', 1, '2020-11-01', '121212', 'Tax', '121212', 'Tax2', 10.00, 1, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', 'vendor-rahimstore.png', 'vendor-rahim-banner.png', NULL, 1, 0, 0, '2020-11-04 18:32:32', '2020-11-04 18:32:32'),
 (5, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 15, 'Asia/Kolkata', 1, 'fifo', NULL, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:28:08', '2021-02-07 05:28:08'),
-(6, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 16, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
-(7, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 18, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:44:24', '2021-02-07 05:44:24'),
-(9, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 25, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:05:31', '2021-02-10 00:05:31'),
-(10, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 26, 'Asia/Kolkata', 1, 'fifo', 0.00, 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:14:43', '2021-02-10 00:14:43');
+(6, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 16, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
+(7, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 18, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-07 05:44:24', '2021-02-07 05:44:24'),
+(9, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 25, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:05:31', '2021-02-10 00:05:31'),
+(10, 'Akash Shop', NULL, 1, NULL, NULL, 'Tax', NULL, NULL, 0.00, 26, 'Asia/Kolkata', 1, 'fifo', '0.00', 'includes', NULL, NULL, NULL, 1, 0, 0, '2021-02-10 00:14:43', '2021-02-10 00:14:43');
 
 -- --------------------------------------------------------
 
@@ -1000,6 +992,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('548b289831fa54be75d9216c6da6264aef9903a08997ba40dc2e45229c4462b9353234b1809a1b60', 1, 3, 'authToken', '[]', 0, '2021-02-05 14:44:09', '2021-02-05 14:44:09', '2022-02-05 20:44:09'),
 ('59503beb9a509c4dcbf479f414d75432a9d31eb666c9e802312f99151019698f407c562e7dd74f31', 1, 1, 'authToken', '[]', 0, '2020-12-11 20:19:33', '2020-12-11 20:19:33', '2021-12-12 02:19:33'),
 ('5a4bdd023c42d57734e98a79c7318283482c91ab126e18f7dde4c492997e263a31452561cd3449aa', 1, 3, 'authToken', '[]', 0, '2021-02-06 07:09:33', '2021-02-06 07:09:33', '2022-02-06 13:09:33'),
+('5b5e6b15d7303b2d8f7bbf887713f65fd8fc824f2a9b7e093c5932fac1db55e0ea144354b51696be', 1, 5, 'authToken', '[]', 0, '2021-03-03 18:11:09', '2021-03-03 18:11:09', '2022-03-04 00:11:09'),
 ('5b886250456bb2a18fb4e9370aed9f08bca0f9e45be3931d53beda9d9794af49bfa15d8eeffbe5ba', 1, 3, 'authToken', '[]', 0, '2021-02-21 09:51:50', '2021-02-21 09:51:50', '2022-02-21 09:51:50'),
 ('5dc2ede2473638bff50a73822aeeb70626932523486e283646120ae6763222bcd582b423064e96e2', 1, 3, 'authToken', '[]', 0, '2021-02-21 02:27:50', '2021-02-21 02:27:50', '2022-02-21 08:27:50'),
 ('655b320f55d4d040577c4d3146f1e094fb06f2bc0d99261af498f7a64a9b803482e1a0a174732de0', 1, 3, 'authToken', '[]', 0, '2021-02-14 15:10:24', '2021-02-14 15:10:24', '2022-02-14 21:10:24'),
@@ -1103,7 +1096,9 @@ INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `red
 (1, NULL, 'iApps Personal Access Client', 'glxjqnd2b5WaMAzseMhbjlooZWXV7qt305T1PiAP', NULL, 'http://localhost', 1, 0, 0, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
 (2, NULL, 'iApps Password Grant Client', 'OsNo8CvE0wysryhxXMUMuI3k5SjGhVP9qkVuWOOk', 'users', 'http://localhost', 0, 1, 0, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
 (3, NULL, 'iApps Personal Access Client', 'IQtabjRKlQYXChq7FXqKqu4hxWjahgKz1s5wsUjc', NULL, 'http://localhost', 1, 0, 0, '2021-01-09 12:23:02', '2021-01-09 12:23:02'),
-(4, NULL, 'iApps Password Grant Client', 'at1ZUajdPn0gfcJmH4kEehkiwgTbXY6EypIDLaxE', 'users', 'http://localhost', 0, 1, 0, '2021-01-09 12:23:02', '2021-01-09 12:23:02');
+(4, NULL, 'iApps Password Grant Client', 'at1ZUajdPn0gfcJmH4kEehkiwgTbXY6EypIDLaxE', 'users', 'http://localhost', 0, 1, 0, '2021-01-09 12:23:02', '2021-01-09 12:23:02'),
+(5, NULL, 'iApps Personal Access Client', 'UNIMMxImo58G3Ssi2aC3hfZUUYOq0j3tE9zJlvMp', NULL, 'http://localhost', 1, 0, 0, '2021-03-03 18:10:06', '2021-03-03 18:10:06'),
+(6, NULL, 'iApps Password Grant Client', 'G9ZX2EJBmPRggjhU8x4sfcrfZaZShQrSGV6FL6rW', 'users', 'http://localhost', 0, 1, 0, '2021-03-03 18:10:06', '2021-03-03 18:10:06');
 
 -- --------------------------------------------------------
 
@@ -1124,7 +1119,8 @@ CREATE TABLE `oauth_personal_access_clients` (
 
 INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
 (1, 1, '2020-12-06 19:35:39', '2020-12-06 19:35:39'),
-(2, 3, '2021-01-09 12:23:02', '2021-01-09 12:23:02');
+(2, 3, '2021-01-09 12:23:02', '2021-01-09 12:23:02'),
+(3, 5, '2021-03-03 18:10:06', '2021-03-03 18:10:06');
 
 -- --------------------------------------------------------
 
@@ -1634,9 +1630,9 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `business_id`, `type`, `status`, `delivery_status`, `payment_status`, `title`, `invoice_no`, `ref_no`, `transaction_date`, `total_before_tax`, `tax_amount`, `discount_type_id`, `tax_id`, `discount_amount`, `shipping_details`, `order_quantity`, `shipping_charges`, `additional_notes`, `staff_note`, `paid_total`, `due_total`, `final_total`, `created_by`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-01-30 00:00:00', 0.00, 0.00, 1, 1, '0', 'string', '2', 0.00, 'string', 'string', 200.00, 200.00, 200.00, 1, NULL, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
-(2, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '2', '2021-02-04 00:00:00', 0.00, 0.00, 1, 1, '0', 'string', '2', 0.00, 'string', 'string', 200.00, 200.00, 200.00, 1, NULL, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
-(3, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-02-05 00:00:00', 0.00, 0.00, 1, 1, '0', 'string', '2', 0.00, 'string', 'string', 200.00, 200.00, 200.00, 1, NULL, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
+(1, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-01-30 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
+(2, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '2', '2021-02-04 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
+(3, 1, 'sell', 1, 'not_delivered', 'due', 'string', '1', '1', '2021-02-05 00:00:00', '0.00', '0.00', 1, 1, '0', 'string', '2', '0.00', 'string', 'string', '200.00', '200.00', '200.00', 1, NULL, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
 
 -- --------------------------------------------------------
 
@@ -1664,11 +1660,11 @@ CREATE TABLE `transaction_sell_lines` (
 --
 
 INSERT INTO `transaction_sell_lines` (`id`, `transaction_id`, `item_id`, `business_id`, `quantity`, `unit_price`, `unit_price_inc_tax`, `discount_amount`, `item_tax`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 2, 100.00, 120.00, 0.00, 0.00, 1, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
-(2, 2, 1, 1, 2, 100.00, 120.00, 0.00, 0.00, 1, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
-(3, 3, 1, 1, 1, 100.00, 120.00, 0.00, 0.00, 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
-(4, 3, 9, 4, 2, 300.00, 320.00, 0.00, 0.00, 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
-(5, 3, 4, 1, 3, 500.00, 520.00, 0.00, 0.00, 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
+(1, 1, 1, 1, 2, '100.00', '120.00', 0.00, '0.00', 1, '2021-01-30 20:02:15', '2021-01-30 20:02:15'),
+(2, 2, 1, 1, 2, '100.00', '120.00', 0.00, '0.00', 1, '2021-02-04 13:41:14', '2021-02-04 13:41:14'),
+(3, 3, 1, 1, 1, '100.00', '120.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
+(4, 3, 9, 4, 2, '300.00', '320.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01'),
+(5, 3, 4, 1, 3, '500.00', '520.00', 0.00, '0.00', 1, '2021-02-04 21:07:01', '2021-02-04 21:07:01');
 
 -- --------------------------------------------------------
 
@@ -1727,7 +1723,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `business_id`, `first_name`, `surname`, `last_name`, `username`, `email`, `phone_no`, `password`, `language`, `avatar`, `banner`, `remember_token`, `type`, `status`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Main Seller', 'test', 'last', 'testuser', 'seller@example.com', '01951233084', '$2y$10$AQJKflstCN3rPidQHSqxCOLReBLlQo.HJT5Llwkhg28j9XxZX.rA6', 'en', NULL, NULL, NULL, 'vendor', 'active', NULL, '2020-11-04 12:14:12', '2021-01-29 04:12:39'),
+(1, 1, 'string', 'string', 'string', 'string', 'string', 'string', '$2y$10$BZ0mKKebs.T9E05Z/rot9eYH1LbvCZERJZFFmuBFRi2P2ZhubIyNa', 'stri', 'string', 'string', NULL, 'vendor', 'active', NULL, '2020-11-04 12:14:12', '2021-03-03 18:11:49'),
 (9, NULL, 'Maniruzzaman', NULL, 'Akash', 'maniruzzaman', NULL, '01951233081', '$2y$10$t6LIp5wuW.ZWJAtVraozZenX2uaz6yPPE.tw4lxcuWjJ92NmHiBle', 'en', NULL, NULL, NULL, 'customer', 'active', NULL, '2021-02-01 16:07:28', '2021-02-01 16:07:46'),
 (15, NULL, 'Test User', NULL, 'last', 'testuser3', 'akash14@mail.com', '019512330114', '$2y$10$7eD5xAPkUeKL/3knh0quLOnnQ0MQx5Sd6yyQsfHOLowQWxTmrXA76', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:28:08', '2021-02-07 05:28:08'),
 (16, NULL, 'Seller Shop', NULL, 'last', 'sellershop', 'akash90@mail.com', '019512330190', '$2y$10$raCpwWcTKR1DrcMY1C87EOVPWF98V3G4kB8amihuzLZ0v0yPv15E2', 'en', NULL, NULL, NULL, 'customer', 'inactive', NULL, '2021-02-07 05:39:20', '2021-02-07 05:39:20'),
@@ -2377,13 +2373,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `order_statuses`
@@ -2425,7 +2421,7 @@ ALTER TABLE `poll_options`
 -- AUTO_INCREMENT for table `poll_responses`
 --
 ALTER TABLE `poll_responses`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `referrals`
@@ -2764,8 +2760,3 @@ ALTER TABLE `vouchers`
 ALTER TABLE `wishlists`
   ADD CONSTRAINT `wishlists_item_id_foreign` FOREIGN KEY (`item_id`) REFERENCES `items` (`id`),
   ADD CONSTRAINT `wishlists_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -2,7 +2,9 @@
 
 namespace Modules\Sales\Repositories;
 
+use Illuminate\Support\Facades\DB;
 use Modules\Item\Entities\Item;
+use Modules\Item\Repositories\ItemRepository;
 use Modules\Sales\Entities\Transaction;
 use Modules\Sales\Entities\TransactionSellLine;
 
@@ -58,5 +60,26 @@ class TransactionRepository
     public function getTransactionByBusiness($businessId)
     {
         return Transaction::with(['saleLines', 'business'])->where('business_id', $businessId)->paginate(20);
+    }
+
+    /**
+     * Get Sales Items By User
+     *
+     * @return array
+     */
+    public function getSaleItemsByUser()
+    {
+        $user = request()->user();
+
+        $transaction_sell_lines_by_user = DB::table('transaction_sell_lines')
+        ->where('created_by', $user->id)
+        ->pluck('item_id')
+        ->toArray();
+
+        $items_ids       = array_unique($transaction_sell_lines_by_user);
+        $item_repository = new ItemRepository();
+        $items           = $item_repository->get_items_short_info_by_ids($items_ids);
+
+        return $items;
     }
 }

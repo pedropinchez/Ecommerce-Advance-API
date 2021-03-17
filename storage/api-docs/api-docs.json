@@ -2710,8 +2710,8 @@
                 "tags": [
                     "Coupons"
                 ],
-                "summary": "Check Coupon by coupon code",
-                "description": "Check Coupon by coupon code",
+                "summary": "Frontend - Check Coupon by coupon code",
+                "description": "Frontend - Check Coupon by coupon code",
                 "operationId": "checkCouponByCode",
                 "requestBody": {
                     "content": {
@@ -5164,6 +5164,114 @@
                         "description": "Resource Not Found"
                     }
                 }
+            }
+        },
+        "/api/v1/item-review/get-by-item": {
+            "get": {
+                "tags": [
+                    "Item Review"
+                ],
+                "summary": "Get Item Review By Item ID",
+                "description": "Get Item Review By Item ID",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "item_id",
+                        "in": "query",
+                        "description": "item ID, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "user ID, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Item Review By Item ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/item-review/create": {
+            "post": {
+                "tags": [
+                    "Item Review"
+                ],
+                "summary": "Create New Item Review",
+                "description": "Create New Item Review",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "rating_value": {
+                                        "type": "integer",
+                                        "example": 4
+                                    },
+                                    "comment": {
+                                        "type": "string",
+                                        "example": "Good Product"
+                                    },
+                                    "images": {
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Item Review"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/api/v1/units": {
@@ -8114,6 +8222,32 @@
                 "responses": {
                     "200": {
                         "description": "Get Sales List of Business"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/sales/sale-items/by-user": {
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Get Sales Items For User",
+                "description": "Get Sales Items For User",
+                "operationId": "saleItemsByUser",
+                "responses": {
+                    "200": {
+                        "description": "Get Sales Items For User"
                     },
                     "400": {
                         "description": "Bad request"

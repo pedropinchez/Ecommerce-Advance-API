@@ -18,7 +18,10 @@ class CreateItemRatingsTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedInteger('rating_value')->default(5);
-            
+            $table->text('comment')->nullable();
+            $table->text('images')->nullable();
+            $table->boolean('status')->comment('1=>Approved, 0=>Unapproved')->default(1);
+
             $table->foreign('item_id')->references('id')->on('items');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

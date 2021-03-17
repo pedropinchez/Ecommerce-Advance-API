@@ -221,8 +221,8 @@ class CouponController extends Controller
      * @OA\POST(
      *     path="/api/v1/coupons/check-by/code",
      *     tags={"Coupons"},
-     *     summary="Check Coupon by coupon code",
-     *     description="Check Coupon by coupon code",
+     *     summary="Frontend - Check Coupon by coupon code",
+     *     description="Frontend - Check Coupon by coupon code",
      *     security={{"bearer": {}}},
      *     operationId="checkCouponByCode",
      *      @OA\RequestBody(

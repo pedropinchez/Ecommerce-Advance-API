@@ -50,3 +50,7 @@ Route::get('get-flash-sale-items/{sortBy}', 'ItemController@getFlashSaleItems');
 Route::get('get-category-products/{no}', 'CategoryController@getCategoryByProductForHomePage');
 Route::get('frontend-categories', 'CategoryController@categoryListFrontend');
 Route::get('get-items/search', 'ItemController@searchItemFrontend');
+
+// Frontend - Item Review
+Route::get('item-review/get-by-item', 'ItemRatingsController@index');
+Route::post('item-review/create', 'ItemRatingsController@store');

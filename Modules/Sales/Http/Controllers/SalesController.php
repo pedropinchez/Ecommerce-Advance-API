@@ -179,4 +179,28 @@ class SalesController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\GET(
+     *     path="/api/v1/sales/sale-items/by-user",
+     *     tags={"Sales"},
+     *     summary="Get Sales Items For User",
+     *     description="Get Sales Items For User",
+     *     security={{"bearer": {}}},
+     *     operationId="saleItemsByUser",
+     *      @OA\Response( response=200, description="Get Sales Items For User"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     * @return Response
+     */
+    public function saleItemsByUser()
+    {
+        try {
+            $discount = $this->transactionRepository->getSaleItemsByUser();
+            return $this->responseRepository->ResponseSuccess($discount, 'Sales By Business ID');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

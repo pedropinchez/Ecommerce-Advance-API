@@ -19,3 +19,4 @@ Route::apiResource('invoices', 'InvoiceController');
 Route::get('sales/business/{business_id}', 'SalesController@getSaleByBusiness');
 Route::get('sales/order-lifecycle/{transaction_id}', 'OrderStatusController@getOrderStatusByTransactionID');
 Route::get('sales/invoice-lifecycle/{invoice_id}', 'OrderStatusController@getInvoiceStatusByInvoiceID');
+Route::get('sales/sale-items/by-user', 'SalesController@saleItemsByUser');

@@ -260,7 +260,6 @@ class CouponController extends Controller
 
         try {
             $coupon = $this->couponRepository->checkCouponByCode($code, $carts);
-            return $coupon;
 
             if ($coupon['status']) {
                 return $this->responseRepository->ResponseSuccess($coupon, $coupon['message']);

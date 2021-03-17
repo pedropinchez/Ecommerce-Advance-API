@@ -2729,6 +2729,10 @@
                                                 "productID": {
                                                     "type": "integer",
                                                     "example": 1
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": 2
                                                 }
                                             },
                                             "type": "object"
@@ -5259,6 +5263,88 @@
                 "responses": {
                     "200": {
                         "description": "Create New Item Review"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/item-review/update-status": {
+            "put": {
+                "tags": [
+                    "Item Review"
+                ],
+                "summary": "Update Review Status",
+                "description": "Update Review Status",
+                "operationId": "updateStatus",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Review Status"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/item-review/destroy": {
+            "delete": {
+                "tags": [
+                    "Item Review"
+                ],
+                "summary": "Delete Review",
+                "description": "Delete Review",
+                "operationId": "destroy",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Delete Review"
                     },
                     "400": {
                         "description": "Bad request"

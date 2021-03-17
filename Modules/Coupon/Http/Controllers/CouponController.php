@@ -232,6 +232,7 @@ class CouponController extends Controller
      *                  @OA\Property(property="carts", type="array",
      *                      @OA\Items(
      *                          @OA\Property(property="productID", type="integer", example=1),
+     *                          @OA\Property(property="quantity", type="integer", example=2),
      *                      )
      *                  ),
      *           ),
@@ -259,6 +260,7 @@ class CouponController extends Controller
 
         try {
             $coupon = $this->couponRepository->checkCouponByCode($code, $carts);
+            return $coupon;
 
             if ($coupon['status']) {
                 return $this->responseRepository->ResponseSuccess($coupon, $coupon['message']);

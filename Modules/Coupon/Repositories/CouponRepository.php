@@ -154,6 +154,7 @@ class CouponRepository
                 $coupon_response['coupon_amount_type'] = $coupon_amount_type;
                 $coupon_response['cart_items']         = $cart_items;
 
+                return $coupon_response;
 
                 switch ($coupon_type_id) {
                     case 1:     // Cart

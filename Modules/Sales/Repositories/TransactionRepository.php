@@ -27,8 +27,8 @@ class TransactionRepository
 
         $data['transaction_date'] = date('Y-m-d');
         $transaction = Transaction::create($data);
-        if($transaction) {
-            foreach($data['sale_lines'] as $key => $value) {
+        if ($transaction) {
+            foreach ($data['sale_lines'] as $key => $value) {
                 $business_id = Item::where('id', $value['item_id'])->value('business_id');
                 $saleLine['business_id'] = $business_id;
                 $saleLine['created_by'] = $data['created_by'];
@@ -49,7 +49,7 @@ class TransactionRepository
     public function destroy($id)
     {
         $transaction = Transaction::find($id);
-        if($transaction) {
+        if ($transaction) {
             $transaction->delete();
             return true;
         } else {
@@ -72,9 +72,9 @@ class TransactionRepository
         $user = request()->user();
 
         $transaction_sell_lines_by_user = DB::table('transaction_sell_lines')
-        ->where('created_by', $user->id)
-        ->pluck('item_id')
-        ->toArray();
+            ->where('created_by', $user->id)
+            ->pluck('item_id')
+            ->toArray();
 
         $items_ids       = array_unique($transaction_sell_lines_by_user);
         $item_repository = new ItemRepository();

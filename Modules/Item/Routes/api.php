@@ -54,3 +54,5 @@ Route::get('get-items/search', 'ItemController@searchItemFrontend');
 // Frontend - Item Review
 Route::get('item-review/get-by-item', 'ItemRatingsController@index');
 Route::post('item-review/create', 'ItemRatingsController@store');
+Route::put('item-review/update-status', 'ItemRatingsController@updateStatus');
+Route::delete('item-review/delete', 'ItemRatingsController@destroy');

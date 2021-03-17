@@ -95,4 +95,80 @@ class ItemRatingsController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\PUT(
+     *     path="/api/v1/item-review/update-status",
+     *     tags={"Item Review"},
+     *     summary="Update Review Status",
+     *     description="Update Review Status",
+     *     operationId="updateStatus",
+     *     security={{"bearer": {}}},
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example=1),
+     *          ),
+     *      ),
+     *      @OA\Response( response=200, description="Update Review Status" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function updateStatus(Request $request)
+    {
+        $request->validate(
+            [
+                'id'      => 'required|numeric',
+            ],
+            [
+                'id'      => 'Please select an review to update status',
+            ]
+        );
+
+        try {
+            $review = $this->itemRatingRepository->updateStatus($request->id);
+            return $this->responseRepository->ResponseSuccess($review, 'Successfull. Review Status Updated !');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\DELETE(
+     *     path="/api/v1/item-review/destroy",
+     *     tags={"Item Review"},
+     *     summary="Delete Review",
+     *     description="Delete Review",
+     *     operationId="destroy",
+     *     security={{"bearer": {}}},
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="id", type="integer", example=1),
+     *          ),
+     *      ),
+     *      @OA\Response( response=200, description="Delete Review" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function destroy(Request $request)
+    {
+        $request->validate(
+            [
+                'id' => 'required|numeric',
+            ],
+            [
+                'id' => 'Please select an review to update status',
+            ]
+        );
+
+        try {
+            $review = $this->itemRatingRepository->deleteItemRating($request->id);
+            return $this->responseRepository->ResponseSuccess($review, 'Successfull. Review Deleted !');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

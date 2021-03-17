@@ -79,4 +79,42 @@ class ItemRatingRepository
 
         return $rating;
     }
+
+    /**
+     * Update Rating status
+     *
+     * Update to true, if it was false, else false
+     *
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function updateStatus($id)
+    {
+        $item_rating = ItemRating::find($id);
+
+        if ( !is_null( $item_rating)) {
+            $item_rating->update([
+                'status' => $item_rating->status == 1 ? 0 : 1
+            ]);
+        }
+        return true;
+    }
+
+    /**
+     * Delete Item Rating
+     *
+     * @param integer $id
+     *
+     * @return boolean
+     */
+    public function deleteItemRating($id)
+    {
+        $item_rating = ItemRating::find($id);
+
+        if ( !is_null( $item_rating)) {
+            $item_rating->delete();
+        }
+        return true;
+    }
 }

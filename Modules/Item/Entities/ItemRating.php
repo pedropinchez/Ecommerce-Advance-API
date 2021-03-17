@@ -9,6 +9,8 @@ class ItemRating extends Model
     protected $fillable = [
         'item_id',
         'user_id',
-        'rating_value'
+        'rating_value',
+        'comment',
+        'status'
     ];
 }

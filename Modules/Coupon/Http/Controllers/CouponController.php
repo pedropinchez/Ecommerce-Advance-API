@@ -216,4 +216,56 @@ class CouponController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\POST(
+     *     path="/api/v1/coupons/check-by/code",
+     *     tags={"Coupons"},
+     *     summary="Check Coupon by coupon code",
+     *     description="Check Coupon by coupon code",
+     *     security={{"bearer": {}}},
+     *     operationId="checkCouponByCode",
+     *      @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *                  @OA\Property(property="code", type="string", example="Bijay21"),
+     *                  @OA\Property(property="carts", type="array",
+     *                      @OA\Items(
+     *                          @OA\Property(property="productID", type="integer", example=1),
+     *                      )
+     *                  ),
+     *           ),
+     *       ),
+     *      @OA\Response( response=200, description="Check Coupon by coupon code"),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function checkCouponByCode(Request $request)
+    {
+        $request->validate(
+            [
+                'code'         => 'required|string',
+                'order_amount' => 'nullable|numeric',
+            ],
+            [
+                'code.required' => 'Please give coupon code',
+                'order_amount.numeric' => 'Please give numeric order amount',
+            ]
+        );
+
+        $code  = $request->code;
+        $carts = $request->carts;
+
+        try {
+            $coupon = $this->couponRepository->checkCouponByCode($code, $carts);
+
+            if ($coupon['status']) {
+                return $this->responseRepository->ResponseSuccess($coupon, $coupon['message']);
+            }
+            return $this->responseRepository->ResponseError($coupon, 'Coupon is invalid', JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

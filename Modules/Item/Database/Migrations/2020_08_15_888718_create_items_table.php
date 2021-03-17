@@ -40,6 +40,8 @@ class CreateItemsTable extends Migration
             $table->float('default_selling_price')->default(0);
             $table->float('offer_selling_price')->default(0)->nullable();
             $table->boolean('is_offer_enable')->default(false);
+            $table->float('shipping_charge_city')->default(0)->nullable();
+            $table->float('shipping_charge_local')->default(0)->nullable();
 
             $table->unsignedBigInteger('created_by');
             $table->timestamps();

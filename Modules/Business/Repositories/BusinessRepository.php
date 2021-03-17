@@ -31,6 +31,25 @@ class BusinessRepository
         return $Businesses;
     }
 
+    /**
+     * Get Shipping Charge By Business ID
+     *
+     * @param int $business_id
+     *
+     * @return object
+     */
+    public function get_shipping_charge_by_business_id ( $business_id )
+    {
+        return DB::table('business')
+        ->select(
+            'shipping_charge_city',
+            'shipping_charge_city as shipping_charge',
+            'shipping_charge_local'
+        )
+        ->where('id', $business_id)
+        ->first();
+    }
+
 
     /**
      * create new business

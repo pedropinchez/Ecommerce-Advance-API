@@ -37,7 +37,7 @@ class ItemRepository implements ItemInterfaces
             'name',
             DB::raw('CONCAT(name, " (", sku, ") ", "#", id) as label'),
             'sku'
-            )->get();
+        )->get();
         return $items;
     }
 
@@ -73,11 +73,11 @@ class ItemRepository implements ItemInterfaces
         if (request()->unit_id) {
             $query->where('unit_id', request()->unit_id);
         }
-        if(request()->user()->hasPermissionTo('all_business.view')){
+        if (request()->user()->hasPermissionTo('all_business.view')) {
             if (request()->business_id) {
                 $query->where('business_id', request()->business_id);
             }
-        }else{
+        } else {
             $query->where('business_id', request()->user()->business_id);
         }
 
@@ -88,6 +88,57 @@ class ItemRepository implements ItemInterfaces
         } else {
             return $query->get();
         }
+    }
+
+    /**
+     * Get Item Short Informations by Item IDS
+     *
+     * @param array $ids
+     *
+     * @return array items list
+     */
+    public function get_items_short_info_by_ids($ids = [])
+    {
+        $items = DB::table('items')
+            ->leftJoin('tax_rates', 'tax_rates.id', '=', 'items.tax')
+            ->leftJoin('business', 'items.business_id', '=', 'business.id')
+            ->select(
+                'items.id as item_id',
+                'items.name as item_name',
+                'items.sku as item_sku',
+                'items.is_offer_enable',
+                'items.default_selling_price',
+                'items.offer_selling_price',
+                'items.business_id',
+                'tax_rates.amount as tax_amount',
+                'tax_rates.calculation_type as tax_calculation_type',
+                'business.shipping_charge_city as shipping_charge',
+                'business.name as business_name',
+            )
+            ->whereIn('items.id', $ids)
+            ->get();
+
+        $item_rendered = [];
+
+        foreach ($items as $item) {
+            if( $item->is_offer_enable ) {
+                $item->selling_price = $item->offer_selling_price;
+            }else{
+                $item->selling_price = $item->default_selling_price;
+            }
+
+            // if($item->tax_amount > 0) {
+            //     // $item_price =
+            //     if( $item->tax_calculation_type === 'fixed') {
+            //         $item->selling_price = $item->selling_price - $item->tax_amount;
+            //     } else {
+            //         $item->selling_price = $item->selling_price + ( $item->selling_price * $item->tax_amount / 100);
+            //     }
+            // }
+            $item_rendered[] = $item;
+        }
+
+        return $item_rendered;
     }
 
     /**
@@ -307,8 +358,8 @@ class ItemRepository implements ItemInterfaces
     public function deleteItemImage($item_image)
     {
         $item_image = ItemImage::find($item_image['id']);
-        if(!is_null($item_image)){
-            $location = public_path(). '/images/products/' .$item_image['image'];
+        if (!is_null($item_image)) {
+            $location = public_path() . '/images/products/' . $item_image['image'];
             if (File::exists($location)) {
                 File::delete($location);
             }

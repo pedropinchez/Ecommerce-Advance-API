@@ -2705,6 +2705,59 @@
                 ]
             }
         },
+        "/api/v1/coupons/check-by/code": {
+            "post": {
+                "tags": [
+                    "Coupons"
+                ],
+                "summary": "Check Coupon by coupon code",
+                "description": "Check Coupon by coupon code",
+                "operationId": "checkCouponByCode",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "example": "Bijay21"
+                                    },
+                                    "carts": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "productID": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check Coupon by coupon code"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/coupons/types/list": {
             "get": {
                 "tags": [

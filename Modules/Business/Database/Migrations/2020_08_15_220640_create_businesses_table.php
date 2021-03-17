@@ -40,6 +40,8 @@ class CreateBusinessesTable extends Migration
             $table->boolean('enable_tooltip')->default(true);
             $table->boolean('enable_referrel_system')->default(false);
             $table->boolean('is_main_shop')->default(false);
+            $table->float('shipping_charge_city')->default(0)->nullable();
+            $table->float('shipping_charge_local')->default(0)->nullable();
             $table->timestamps();
         });
     }

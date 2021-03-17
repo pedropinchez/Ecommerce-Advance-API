@@ -19,3 +19,4 @@ use Illuminate\Http\Request;
 
 Route::apiResource('coupons', 'CouponController');
 Route::get('coupons/types/list', 'CouponTypeController@getCouponTypes');
+Route::post('coupons/check-by/code', 'CouponController@checkCouponByCode');

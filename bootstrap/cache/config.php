@@ -1209,13 +1209,17 @@
   array (
     'name' => 'Purchase',
   ),
-  'item' => 
+  'payment' => 
   array (
-    'name' => 'Item',
+    'name' => 'Payment',
   ),
   'analytics' => 
   array (
     'name' => 'Analytics',
+  ),
+  'item' => 
+  array (
+    'name' => 'Item',
   ),
   'expense' => 
   array (

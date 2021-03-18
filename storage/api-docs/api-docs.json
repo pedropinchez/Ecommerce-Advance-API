@@ -5590,6 +5590,27 @@
                 ]
             }
         },
+        "/api/v1/payments/methods/get-payment-methods": {
+            "get": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "Get Payment Methods",
+                "description": "Get Payment Methods",
+                "operationId": "getPaymentMethods",
+                "responses": {
+                    "200": {
+                        "description": "Get Payment Methods"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/gift-cards": {
             "get": {
                 "tags": [

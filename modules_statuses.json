@@ -15,5 +15,6 @@
     "Referral": true,
     "Promotional": true,
     "Document": true,
-    "Coupon": true
+    "Coupon": true,
+    "Payment": true
 }

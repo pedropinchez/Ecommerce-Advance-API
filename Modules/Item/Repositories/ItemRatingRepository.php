@@ -25,6 +25,7 @@ class ItemRatingRepository
             ->join('items', 'items.id', '=', 'item_ratings.item_id')
             ->select(
                 'users.first_name as rating_by',
+                'item_ratings.id',
                 'item_ratings.rating_value',
                 'item_ratings.status',
                 'item_ratings.comment',

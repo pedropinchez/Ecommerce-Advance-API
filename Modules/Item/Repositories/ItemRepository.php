@@ -121,9 +121,9 @@ class ItemRepository implements ItemInterfaces
         $item_rendered = [];
 
         foreach ($items as $item) {
-            if( $item->is_offer_enable ) {
+            if ($item->is_offer_enable) {
                 $item->selling_price = $item->offer_selling_price;
-            }else{
+            } else {
                 $item->selling_price = $item->default_selling_price;
             }
 
@@ -529,34 +529,100 @@ class ItemRepository implements ItemInterfaces
         }
     }
 
+    /**
+     * Search Item for frontend
+     *
+     * @param string $data
+     *
+     * @return array searched result with merging items, categories and tags array
+     */
     public function searchItemFrontend($data)
     {
-        try {
-            $query = Item::orderBy('id', 'desc')
-                ->select(
-                    "name",
-                    "sku",
-                    "description",
-                    "current_stock",
-                    "default_selling_price",
-                    "offer_selling_price",
-                    "is_offer_enable",
-                );
 
+        try {
 
             if (isset($data['search'])) {
                 $search = trim($data['search']);
-                $query->where('name', 'like', '%' . $search . '%');
-                $query->orWhere('description', 'like', '%' . $search . '%');
-                $query->orWhere('sku', 'like', '%' . $search . '%');
-            }
 
-            $output = $query->paginate(10);
-            return $output;
+                // Get 4 items
+                $itemsArray = $this->getItemForSearchingByItem($search, 4);
+
+                // Get 4 categories
+                $categoryItemsArray = $this->getItemForSearchingByCategory($search, 4);
+
+                // Get 3 tags
+                // Future Task
+
+                $searchedItems = array_merge($itemsArray, $categoryItemsArray);
+
+                return $searchedItems;
+            }
         } catch (\Exception $e) {
             return $e->getMessage();
             throw new Exception('Invalid Query Parameters. Please give a valid query !');
         }
+    }
+
+    public function getItemForSearchingByItem($search = '', $limit = 4)
+    {
+        $query = DB::table('items')
+            ->select(
+                'name',
+                'sku',
+                'current_stock',
+                'default_selling_price',
+                'offer_selling_price',
+                'is_offer_enable',
+                'featured_image'
+            );
+
+        $query->where('name', 'like', '%' . $search . '%');
+        $query->orWhere('sku', 'like', '%' . $search . '%');
+
+        $items = $query->limit($limit)->get();
+        foreach ($items as $key => $item) {
+            $data = [
+                'slug' => $item->sku,
+                'search_name' => $item->name,
+                'search_image_url' => url('public/images/products/' . $item->featured_image),
+                'is_item' => true,
+                'search_price' => $item->is_offer_enable ? $item->offer_selling_price  : $item->default_selling_price,
+                'is_category' => false,
+                'is_tag' => false,
+            ];
+            $items[$key] = $data;
+        }
+        return $items->toArray();
+    }
+
+
+    public function getItemForSearchingByCategory($search = '', $limit = 3)
+    {
+        $query = DB::table('categories')
+            ->select(
+                'name',
+                'short_code as sku',
+                'image'
+            );
+
+        $query->where('name', 'like', '%' . $search . '%');
+        $query->orWhere('short_code', 'like', '%' . $search . '%');
+
+        $items = $query->limit($limit)->get();
+
+        foreach ($items as $key => $item) {
+            $data = [
+                'slug' => $item->sku,
+                'search_name' => $item->name,
+                'search_image_url' => url('public/images/categories/' . $item->image),
+                'is_item' => false,
+                'search_price' => null,
+                'is_category' => true,
+                'is_tag' => false,
+            ];
+            $items[$key] = $data;
+        }
+        return $items->toArray();
     }
 
     /**

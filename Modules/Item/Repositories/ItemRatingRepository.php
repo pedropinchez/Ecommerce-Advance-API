@@ -4,6 +4,7 @@ namespace Modules\Item\Repositories;
 
 use App\Helpers\Base64Encoder;
 use Illuminate\Support\Facades\DB;
+use Modules\Item\Entities\Item;
 use Modules\Item\Entities\ItemRating;
 use Modules\Item\Entities\Unit;
 
@@ -78,6 +79,14 @@ class ItemRatingRepository
             'status'       => 0
         ]);
 
+        // Update items table average_rating column value
+        $item = Item::find($data['item_id']);
+        if (!is_null($item)) {
+            $average_value = $item->ratings()->average('rating_value');
+            $item->average_rating = $average_value;
+            $item->save();
+        }
+
         return $rating;
     }
 
@@ -94,7 +103,7 @@ class ItemRatingRepository
     {
         $item_rating = ItemRating::find($id);
 
-        if ( !is_null( $item_rating)) {
+        if (!is_null($item_rating)) {
             $item_rating->update([
                 'status' => $item_rating->status == 1 ? 0 : 1
             ]);
@@ -113,7 +122,7 @@ class ItemRatingRepository
     {
         $item_rating = ItemRating::find($id);
 
-        if ( !is_null( $item_rating)) {
+        if (!is_null($item_rating)) {
             $item_rating->delete();
         }
         return true;

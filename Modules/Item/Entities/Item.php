@@ -43,7 +43,7 @@ class Item extends Model
     ];
 
     protected $with = ['images'];
-    protected $appends = ['average_rating', 'featured_url', 'short_resolation_url', 'final_selling_price'];
+    protected $appends = ['featured_url', 'short_resolation_url', 'final_selling_price'];
     public function getFeaturedUrlAttribute()
     {
         return is_null($this->featured_image) ? null : url('/') . '/images/products/' . $this->featured_image;
@@ -167,13 +167,13 @@ class Item extends Model
         return $this->hasMany(ItemRating::class);
     }
 
-    public function getAverageRatingAttribute()
-    {
-        $rating = $this->ratings()->average('rating_value');
+    // public function getAverageRatingAttribute()
+    // {
+    //     $rating = $this->ratings()->average('rating_value');
 
-        if (is_null($rating)) return 0;
-        return $rating;
-    }
+    //     if (is_null($rating)) return 0;
+    //     return $rating;
+    // }
 
     public function images()
     {

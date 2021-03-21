@@ -105,6 +105,18 @@ class CategoryRepository implements CategoryInterface
     }
 
     /**
+     * Get Category By Slug
+     *
+     * @param string $slug
+     *
+     * @return object|\App\Models\Category
+     */
+    public function getCategoryBySlug($slug)
+    {
+        return Category::where('short_code', $slug)->first();
+    }
+
+    /**
      * @param $id
      * @param $data
      * @return mixed

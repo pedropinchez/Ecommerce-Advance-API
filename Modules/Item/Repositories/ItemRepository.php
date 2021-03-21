@@ -478,7 +478,7 @@ class ItemRepository implements ItemInterfaces
     public function getProductList($data)
     {
         try {
-            $query = Item::orderBy('id', 'desc');
+            $query = DB::table('items')->orderBy('id', 'desc');
             $page  = isset($data['page']) ? $data['page'] : 1;
 
             if (isset($data['search'])) {
@@ -489,7 +489,15 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['category'])) {
-                $category = intval($data['category']);
+                $category = trim($data['category']);
+
+                if (is_numeric($category)) {
+                    $category = intval($category);
+                } else { // Slug/Short Code is passed
+                    $cRepo    = new CategoryRepository();
+                    $cat      = $cRepo->getCategoryBySlug($category);
+                    $category = $cat ? $cat->id : 0;
+                }
 
                 $query->where('category_id', $category)
                     ->orWhere('sub_category_id', $category)
@@ -507,6 +515,31 @@ class ItemRepository implements ItemInterfaces
             if (isset($data['max_price'])) {
                 $query->where('default_selling_price', '<=', $data['max_price']);
             }
+
+            if (isset($data['average_rating'])) {
+                $average_rating = (float) $data['average_rating'];
+                $min_value      = floor($average_rating);
+                $max_value      = ceil($min_value + 0.9);
+
+                $query->where(function ($query) use ($min_value, $max_value) {
+                    $query->where('average_rating', '>=', $min_value)
+                    ->where('average_rating', '<', $max_value);
+                });
+            }
+
+            // Selective field only to make query faster
+            $query->select(
+                'items.id',
+                'name',
+                'sku',
+                'featured_image',
+                'featured_image',
+                'default_selling_price',
+                'offer_selling_price',
+                'is_offer_enable',
+                'current_stock',
+                'average_rating'
+            );
 
             $output = $query->paginate(20);
             $itemsCollection = collect($output);

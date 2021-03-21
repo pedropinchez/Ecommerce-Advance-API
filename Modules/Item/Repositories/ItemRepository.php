@@ -421,7 +421,10 @@ class ItemRepository implements ItemInterfaces
      */
     public function getItemByCategory($categoryId)
     {
-        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])->where('category_id', $categoryId)->get();
+        $items = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
+            ->where('category_id', $categoryId)
+            ->get();
+
         return $items;
     }
 
@@ -476,7 +479,7 @@ class ItemRepository implements ItemInterfaces
     {
         try {
             $query = Item::orderBy('id', 'desc');
-            $page = isset($data['page']) ? $data['page'] : 1;
+            $page  = isset($data['page']) ? $data['page'] : 1;
 
             if (isset($data['search'])) {
                 $search = trim($data['search']);
@@ -486,7 +489,11 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['category'])) {
-                $query->where('category_id', $data['category']);
+                $category = intval($data['category']);
+
+                $query->where('category_id', $category)
+                    ->orWhere('sub_category_id', $category)
+                    ->orWhere('sub_category_id2', $category);
             }
 
             if (isset($data['brand'])) {

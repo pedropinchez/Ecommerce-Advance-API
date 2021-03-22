@@ -161,7 +161,7 @@ class ItemRepository implements ItemInterfaces
      */
     public function showBySlug($slug)
     {
-        $item = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business', 'tax'])
+        $item = Item::with(['category', 'subCategory', 'subCategory2', 'unit', 'brand', 'business', 'tax'])
             ->where('sku', $slug)
             ->first();
         return $item;
@@ -509,6 +509,7 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['min_price'])) {
+
                 $query->where('default_selling_price', '>=', $data['min_price']);
             }
 
@@ -516,8 +517,8 @@ class ItemRepository implements ItemInterfaces
                 $query->where('default_selling_price', '<=', $data['max_price']);
             }
 
-            if (isset($data['average_rating'])) {
-                $average_rating = (float) $data['average_rating'];
+            if (isset($data['rating'])) {
+                $average_rating = (float) $data['rating'];
                 $min_value      = floor($average_rating);
                 $max_value      = ceil($min_value + 0.9);
 
@@ -624,7 +625,7 @@ class ItemRepository implements ItemInterfaces
             $data = [
                 'slug' => $item->sku,
                 'search_name' => $item->name,
-                'search_image_url' => url('public/images/products/' . $item->featured_image),
+                'search_image_url' => url('images/products/' . $item->featured_image),
                 'is_item' => true,
                 'search_price' => $item->is_offer_enable ? $item->offer_selling_price  : $item->default_selling_price,
                 'is_category' => false,
@@ -654,7 +655,7 @@ class ItemRepository implements ItemInterfaces
             $data = [
                 'slug' => $item->sku,
                 'search_name' => $item->name,
-                'search_image_url' => url('public/images/categories/' . $item->image),
+                'search_image_url' => url('images/categories/' . $item->image),
                 'is_item' => false,
                 'search_price' => null,
                 'is_category' => true,

@@ -100,7 +100,7 @@ class Item extends Model
      */
     public function category()
     {
-        return $this->belongsTo(Category::class)->select('id', 'name');
+        return $this->belongsTo(Category::class)->select('id', 'name', 'short_code as slug');
     }
 
     /**
@@ -109,12 +109,12 @@ class Item extends Model
      */
     public function subCategory()
     {
-        return $this->belongsTo(Category::class, 'sub_category_id', 'id')->select('id', 'name');
+        return $this->belongsTo(Category::class, 'sub_category_id', 'id')->select('id', 'name', 'short_code as slug');
     }
 
     public function subCategory2()
     {
-        return $this->belongsTo(Category::class, 'sub_category_id2', 'id')->select('id', 'name');
+        return $this->belongsTo(Category::class, 'sub_category_id2', 'id')->select('id', 'name', 'short_code as slug');
     }
 
     /**

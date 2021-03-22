@@ -82,8 +82,10 @@ class ItemRatingRepository
         // Update items table average_rating column value
         $item = Item::find($data['item_id']);
         if (!is_null($item)) {
-            $average_value = $item->ratings()->average('rating_value');
+            $all_ratings          = $item->ratings();
+            $average_value        = $all_ratings->average('rating_value');
             $item->average_rating = $average_value;
+            $item->total_rating   = count($item->ratings);
             $item->save();
         }
 

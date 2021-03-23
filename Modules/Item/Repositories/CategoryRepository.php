@@ -95,13 +95,23 @@ class CategoryRepository implements CategoryInterface
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * Get Category Details
+     *
+     * @param int|string $id
+     *
+     * @return object|Category
+     *
      * get single category
      */
     public function show($id)
     {
-        return Category::with(['childs', 'business', 'parent_category'])->find($id);
+        if(is_numeric($id)){
+            return Category::with(['childs', 'business', 'parent_category'])->find($id);
+        }else {
+            return Category::where('short_code', $id)
+            ->with(['childs', 'business', 'parent_category'])
+            ->first();
+        }
     }
 
     /**

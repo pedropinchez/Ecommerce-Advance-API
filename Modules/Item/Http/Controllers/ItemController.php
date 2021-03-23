@@ -13,15 +13,19 @@ use Image;
 use Modules\Auth\Repositories\AuthRepository;
 use Modules\Item\Http\Requests\ItemAttributeRequest;
 use Modules\Item\Http\Requests\ItemRequest;
+use Modules\Item\Repositories\CategoryRepository;
 use Modules\Item\Repositories\ItemRepository;
 
 class ItemController extends Controller
 {
     private $itemRepository;
+    private $categoryRepository;
     private $responseRepository;
-    public function __construct(ItemRepository $itemRepository, ResponseRepository $responseRepository)
+
+    public function __construct(ItemRepository $itemRepository, CategoryRepository $categoryRepository, ResponseRepository $responseRepository)
     {
-        $this->itemRepository = $itemRepository;
+        $this->itemRepository     = $itemRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->responseRepository = $responseRepository;
     }
 
@@ -456,6 +460,35 @@ class ItemController extends Controller
     {
         try {
             $items = $this->itemRepository->getProductList($request->all());
+            return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *      path="/api/v1/get-items-by-category/{category}",
+     *      tags={"Frontend Items"},
+     *      summary="Get Item List By Category Frontend",
+     *      description="Get Item List By Category Frontend",
+     *      operationId="getProductListByCategory",
+     *      @OA\Parameter(name="search", description="search by anything, sku, name, description", required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="category", description="category, eg; 2", example=2, required=true, in="path", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="brand", description="brand, eg; 2", example=2, required=false, in="query", @OA\Schema(type="string")),
+     *      @OA\Parameter(name="min_price", description="min_price, eg; 2", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="max_price", description="max_price, eg; 2", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Parameter(name="attributes", description="attributes, eg; 12:12", example=20, required=false, in="query", @OA\Schema(type="integer")),
+     *      @OA\Response(response=200, description="Get Item List By Category Frontend" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     */
+    public function getProductListByCategory(Request $request)
+    {
+        try {
+            $category = $this->categoryRepository->getCategoryBySlug( $request->category );
+            $items = $this->itemRepository->getProductList($category->id);
             return $this->responseRepository->ResponseSuccess($items, 'Item Fetched Successfully');
         } catch (\Exception $exception) {
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);

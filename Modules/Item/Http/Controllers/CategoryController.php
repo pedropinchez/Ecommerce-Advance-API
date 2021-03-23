@@ -140,7 +140,7 @@ class CategoryController extends Controller
      *     description="Get Category By ID",
      *     security={{"bearer": {}}},
      *     operationId="show",
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="string")),
      *      @OA\Response( response=200, description="Get Category By ID" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -150,7 +150,7 @@ class CategoryController extends Controller
     {
         try {
             $category = $this->categoryRepository->show($id);
-            return $this->responseRepository->ResponseSuccess($category, 'Category Details By ID');
+            return $this->responseRepository->ResponseSuccess($category, 'Category Details By ID|Slug');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, $e->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }

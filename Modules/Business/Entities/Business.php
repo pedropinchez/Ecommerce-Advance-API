@@ -10,6 +10,7 @@ class Business extends Model
     protected $fillable = [
         'name',
         'bin',
+        'slug',
         'start_date',
         'tax_label_1',
         'tax_number_1',
@@ -33,7 +34,7 @@ class Business extends Model
 
     public function getLogoUrlAttribute()
     {
-        return is_null($this->logo) ? null : url('/').'/images/vendors/'.$this->logo;
+        return is_null($this->logo) ? null : url('/') . '/images/vendors/' . $this->logo;
     }
 
     public function location()

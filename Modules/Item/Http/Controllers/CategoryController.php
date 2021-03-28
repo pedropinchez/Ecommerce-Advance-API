@@ -135,9 +135,9 @@ class CategoryController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/categories/{id}",
-     *     tags={"Category"},
-     *     summary="Get Category By ID",
-     *     description="Get Category By ID",
+     *     tags={"Categories"},
+     *     summary="Get Category By ID/slug",
+     *     description="Get Category By ID/slug",
      *     security={{"bearer": {}}},
      *     operationId="show",
      *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="string")),

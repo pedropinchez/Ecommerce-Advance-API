@@ -63,6 +63,7 @@ class BusinessRepository
             [
                 'name' => $request->name,
                 'bin' => $request->bin,
+                'slug' => StringHelper::createSlug($request->name, Modules\Business\Entities\Business::class, 'slug', ''),
                 'start_date' => $request->start_date,
                 'tax_number_1' => $request->tax_number_1,
                 'tax_number_2' => $request->tax_number_2,
@@ -92,6 +93,7 @@ class BusinessRepository
                 // Create Data in Business table
                 $business = Business::create([
                     'name' => $data['business_name'],
+                    'slug' => StringHelper::createSlug($data['business_name'], 'Modules\Business\Entities\Business', 'slug', ''),
                     'currency_id' => 1,
                     'tax_label_1' => 'Tax',
                     'owner_id' => $user->id,
@@ -130,13 +132,19 @@ class BusinessRepository
     /**
      * find Business by ID
      *
-     * @param integer $id
-     * @return object $Business
+     * @param int|string $column_value
+     *
+     * @return object Business
      */
-    public function findBusinessById($id)
+    public function findBusinessById($column_value)
     {
-        $Business =  DB::table('business')->where('id', $id)->first();
-        return $Business;
+        if (is_numeric($column_value)) {
+            $business = Business::find($column_value);
+        } else {
+            $business = Business::where('slug', $column_value)->first();
+        }
+
+        return $business;
     }
 
 

@@ -3,6 +3,7 @@
 namespace Modules\Item\Repositories;
 
 use App\Helpers\ImageUploadHelper;
+use App\Helpers\StringHelper;
 use App\Helpers\UploadHelper;
 use Modules\Item\Entities\Brand;
 use Modules\Item\Interfaces\BrandInterface;
@@ -36,22 +37,33 @@ class BrandRepository implements BrandInterface
      */
     public function store($data)
     {
-        $data['banner'] = UploadHelper::upload('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands');
-        $data['image'] = UploadHelper::upload('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands');
+        $data['banner']      = UploadHelper::upload('banner', $data['banner'], 'brand-banner-' . '-' . time(), 'images/brands');
+        $data['image']       = UploadHelper::upload('image',  $data['image'], 'brand-' . '-' . time(), 'images/brands');
         $data['business_id'] = request()->user()->business_id;
-        $data['created_by'] = request()->user()->id;
-        $brand = Brand::create($data);
+        $data['created_by']  = request()->user()->id;
+        $data['slug']        = StringHelper::createSlug($data['name'], 'Modules\Item\Entities\Brand', 'sku');
+        $brand               = Brand::create($data);
         return $brand;
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * Show Brand By ID or Slug
+     *
+     * @param int|string $icolumn_valued
+     *
+     * @return object|Modules\Item\Entities\Brand
+     *
      * get single brand
      */
-    public function show($id)
+    public function show($column_value)
     {
-        return Brand::with(['business'])->find($id);
+        if (is_numeric($column_value)) {
+            $brand = Brand::with(['business'])->find($column_value);
+        } else {
+            $brand = Brand::with(['business'])->where('slug', $column_value)->first();
+        }
+
+        return $brand;
     }
 
     /**
@@ -77,7 +89,7 @@ class BrandRepository implements BrandInterface
     public function destroy($id)
     {
         $brand = Brand::find($id);
-        if($brand) {
+        if ($brand) {
             $brand->delete();
             return true;
         } else {

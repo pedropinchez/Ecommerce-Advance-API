@@ -636,17 +636,17 @@
                 "tags": [
                     "Business"
                 ],
-                "summary": "Get Business By ID",
-                "description": "Get Business By ID",
+                "summary": "Get Business By ID/Slug",
+                "description": "Get Business By ID/Slug",
                 "operationId": "show",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id, eg; 1",
+                        "description": "id or slug, eg; 1 or maccaf",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -3717,25 +3717,25 @@
         "/api/v1/brands/{id}": {
             "get": {
                 "tags": [
-                    "Brand"
+                    "Brands"
                 ],
-                "summary": "Get Brand By ID",
-                "description": "Get Brand By ID",
+                "summary": "Get Brand By ID/Slug",
+                "description": "Get Brand By ID/Slug",
                 "operationId": "show",
                 "parameters": [
                     {
                         "name": "id",
                         "in": "path",
-                        "description": "id, eg; 1",
+                        "description": "id or slug, eg; 1 or apple",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Get Brand By ID"
+                        "description": "Get Brand By ID/Slug"
                     },
                     "400": {
                         "description": "Bad request"
@@ -4071,10 +4071,10 @@
         "/api/v1/categories/{id}": {
             "get": {
                 "tags": [
-                    "Category"
+                    "Categories"
                 ],
-                "summary": "Get Category By ID",
-                "description": "Get Category By ID",
+                "summary": "Get Category By ID/slug",
+                "description": "Get Category By ID/slug",
                 "operationId": "show",
                 "parameters": [
                     {

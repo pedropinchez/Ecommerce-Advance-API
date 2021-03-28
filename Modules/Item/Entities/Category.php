@@ -30,7 +30,7 @@ class Category extends Model
      */
     public function childs()
     {
-        return $this->hasMany(\Modules\Item\Entities\Category::class, 'parent_id')->select('id', 'name', 'parent_id', 'short_code');
+        return $this->hasMany(\Modules\Item\Entities\Category::class, 'parent_id');
     }
 
     public function parent_category()

@@ -84,13 +84,13 @@ class BrandController extends Controller
     /**
      * @OA\GET(
      *     path="/api/v1/brands/{id}",
-     *     tags={"Brand"},
-     *     summary="Get Brand By ID",
-     *     description="Get Brand By ID",
+     *     tags={"Brands"},
+     *     summary="Get Brand By ID/Slug",
+     *     description="Get Brand By ID/Slug",
      *     security={{"bearer": {}}},
      *     operationId="show",
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
-     *      @OA\Response( response=200, description="Get Brand By ID" ),
+     *     @OA\Parameter( name="id", description="id or slug, eg; 1 or apple", required=true, in="path", @OA\Schema(type="string")),
+     *      @OA\Response( response=200, description="Get Brand By ID/Slug" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
      * )

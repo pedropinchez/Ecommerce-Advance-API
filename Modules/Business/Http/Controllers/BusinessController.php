@@ -105,11 +105,11 @@ class BusinessController extends Controller
      * @OA\GET(
      *     path="/api/v1/business/{id}",
      *     tags={"Business"},
-     *     summary="Get Business By ID",
-     *     description="Get Business By ID",
+     *     summary="Get Business By ID/Slug",
+     *     description="Get Business By ID/Slug",
      *     security={{"bearer": {}}},
      *     operationId="show",
-     *     @OA\Parameter( name="id", description="id, eg; 1", required=true, in="path", @OA\Schema(type="integer")),
+     *     @OA\Parameter( name="id", description="id or slug, eg; 1 or maccaf", required=true, in="path", @OA\Schema(type="string")),
      *      @OA\Response( response=200, description="Get Business By ID" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),
@@ -119,7 +119,7 @@ class BusinessController extends Controller
     {
         try {
             $business = $this->businessRepository->findBusinessById($id);
-            return $this->responseRepository->ResponseSuccess($business, 'Business Details By ID');
+            return $this->responseRepository->ResponseSuccess($business, 'Business Details By ID/Slug');
         } catch (\Exception $e) {
             return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
         }

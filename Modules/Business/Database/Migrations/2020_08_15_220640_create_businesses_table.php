@@ -16,6 +16,7 @@ class CreateBusinessesTable extends Migration
         Schema::create('business', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
+            $table->string('slug')->unique();
             $table->string('bin', 255)->comment('Business Identification No');
             $table->unsignedBigInteger('currency_id');
 

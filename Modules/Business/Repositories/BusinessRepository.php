@@ -3,6 +3,7 @@
 namespace Modules\Business\Repositories;
 
 use App\Helpers\StringHelper;
+use App\Helpers\UploadHelper;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,12 +24,23 @@ class BusinessRepository
      */
     public function all()
     {
-        $Businesses = DB::table('business')
+        $query = DB::table('business')
             ->join('currencies', 'business.currency_id', '=', 'currencies.id')
             ->select('business.*', 'currencies.currency')
-            ->orderBy('id', 'desc')
-            ->get();
-        return $Businesses;
+            ->orderBy('id', 'desc');
+
+        if (request()->search) {
+            $query->where('name', 'like', '%' . request()->search . '%');
+            $query->orWhere('bin', 'like', '%' . request()->search . '%');
+            $query->orWhere('slug', 'like', '%' . request()->search . '%');
+        }
+
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**
@@ -54,35 +66,21 @@ class BusinessRepository
     /**
      * create new business
      *
-     * @param Request $request
+     * @param array $data
      * @return object $user
      */
-    public function create(Request $request)
+    public function create($data)
     {
-        $business_id = DB::table('business')->insertGetId(
-            [
-                'name' => $request->name,
-                'bin' => $request->bin,
-                'slug' => StringHelper::createSlug($request->name, Modules\Business\Entities\Business::class, 'slug', ''),
-                'start_date' => $request->start_date,
-                'tax_number_1' => $request->tax_number_1,
-                'tax_number_2' => $request->tax_number_2,
-                'tax_label_1' => $request->tax_label_1,
-                'tax_label_2' => $request->tax_label_2,
-                'default_profit_percent' => $request->default_profit_percent,
-                'owner_id' => $request->owner_id,
-                'time_zone' => $request->time_zone,
-                'fy_start_month' => $request->fy_start_month,
-                'default_sales_discount' => $request->default_sales_discount,
-                'accounting_method' => $request->accounting_method,
-                'sell_price_tax' => $request->sell_price_tax,
-                'currency_id' => $request->currency_id,
-                'logo' => $request->logo,
-                'sku_prefix' => $request->sku_prefix,
-                'enable_tooltip' => $request->enable_tooltip
-            ]
-        );
-        $business = $this->findBusinessById(($business_id));
+        if (isset($data['logo'])) {
+            $data['logo'] = UploadHelper::upload('logo',  $data['logo'], 'vendor-logo-' . '-' . time(), 'images/vendors');
+        }
+
+        if (isset($data['banner'])) {
+            $data['banner'] = UploadHelper::upload('banner',  $data['banner'], 'vendor-banner-' . '-' . time(), 'images/vendors');
+        }
+
+        $data['slug'] = StringHelper::createSlug($data['name'], Modules\Business\Entities\Business::class, 'slug', '');
+        $business     = Business::create($data);
         return $business;
     }
 
@@ -159,6 +157,14 @@ class BusinessRepository
     {
         $business = Business::find($id);
         if ($business) {
+            if (isset($data['logo'])) {
+                $data['logo'] = UploadHelper::update('logo',  $data['logo'], 'vendor-logo-' . '-' . time(), 'images/vendors', $business->logo);
+            }
+
+            if (isset($data['banner'])) {
+                $data['banner'] = UploadHelper::update('banner',  $data['banner'], 'vendor-banner-' . '-' . time(), 'images/vendors', $business->banner);
+            }
+
             $business->update($data);
         }
 

@@ -27,6 +27,10 @@ class BusinessController extends Controller
      *     summary="Get Business List",
      *     description="Get Business List",
      *     security={{"bearer": {}}},
+     *     @OA\Parameter(name="search", description="search value, eg; 1", required=false, in="query", @OA\Schema(type="string")),
+     *     @OA\Parameter(name="isPaginated", description="isPaginated, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="paginateNo", description="paginateNo, eg; 0", required=false, in="query", @OA\Schema(type="integer")),
+     *     @OA\Parameter(name="status", description="status, eg; 1", required=false, in="query", @OA\Schema(type="integer")),
      *     operationId="index",
      *      @OA\Response( response=200, description="Get Business List" ),
      *      @OA\Response(response=400, description="Bad request"),
@@ -86,17 +90,9 @@ class BusinessController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
-                $file = $request->file('banner');;
-                $fileName = 'businesses/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
-            }
             $business = $this->businessRepository->create($data);
-            return $this->responseRepository->ResponseSuccess($business, 'Business Created');
+            return $this->responseRepository->ResponseSuccess($business, 'Business has been created successfully !');
         } catch (\Exception $e) {
-            // return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
             return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
@@ -194,13 +190,6 @@ class BusinessController extends Controller
     {
         try {
             $data = $request->all();
-            if ($request->hasFile('banner')){
-                $file = $request->file('banner');;
-                $fileName = 'businesses/'.time().'_'.$file->getClientOriginalName();
-                $originalImage = Image::make($file);
-                $originalImage->save($fileName);
-                $data['banner'] = public_path().'/'.$fileName;
-            }
             $business = $this->businessRepository->updateBusiness($data, $id);
             if (is_null($business)) {
                 return $this->responseRepository->ResponseError(null, 'No Business Found', Response::HTTP_NOT_FOUND);

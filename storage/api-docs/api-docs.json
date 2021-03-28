@@ -514,6 +514,44 @@
                 "summary": "Get Business List",
                 "description": "Get Business List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "status, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Business List"

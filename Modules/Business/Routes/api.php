@@ -26,4 +26,4 @@ Route::apiResource('locations', 'BusinessLocationController');
 Route::get('locations/business/{business_id}', 'BusinessLocationController@findLocationByBusiness');
 
 Route::apiResource('wishlist', 'WishlistController');
-Route::apiResource('currencies', 'CurrenciesController');
+Route::apiResource('currencies', 'CurrencyController');

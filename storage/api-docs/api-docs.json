@@ -1165,216 +1165,6 @@
                 ]
             }
         },
-        "/api/v1/currencies/store": {
-            "post": {
-                "tags": [
-                    "Currencies"
-                ],
-                "summary": "Create New Supplier",
-                "description": "Create New Cusotmer",
-                "operationId": "store",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "business_id": {
-                                        "type": "integer"
-                                    },
-                                    "supplier_business_name": {
-                                        "type": "string"
-                                    },
-                                    "bin": {
-                                        "type": "string"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "tax_number": {
-                                        "type": "string"
-                                    },
-                                    "state": {
-                                        "type": "string"
-                                    },
-                                    "country": {
-                                        "type": "string"
-                                    },
-                                    "landmark": {
-                                        "type": "string"
-                                    },
-                                    "mobile": {
-                                        "type": "string"
-                                    },
-                                    "landline": {
-                                        "type": "string"
-                                    },
-                                    "alternate_number": {
-                                        "type": "string"
-                                    },
-                                    "pay_term_number": {
-                                        "type": "integer"
-                                    },
-                                    "pay_term_type": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Create New Supplier"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                }
-            }
-        },
-        "/api/v1/currencies/show": {
-            "get": {
-                "tags": [
-                    "Currencies"
-                ],
-                "summary": "Get Supplier",
-                "description": "Get Supplier",
-                "operationId": "show",
-                "responses": {
-                    "200": {
-                        "description": "Get Supplier"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/currencies/update": {
-            "put": {
-                "tags": [
-                    "Currencies"
-                ],
-                "summary": "Update Supplier",
-                "description": "Update Supplier",
-                "operationId": "updateMasterAccount",
-                "parameters": [
-                    {
-                        "name": "intCusID",
-                        "in": "query",
-                        "description": "intCusID, eg; 1",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "properties": {
-                                    "business_id": {
-                                        "type": "integer"
-                                    },
-                                    "supplier_business_name": {
-                                        "type": "string"
-                                    },
-                                    "bin": {
-                                        "type": "string"
-                                    },
-                                    "name": {
-                                        "type": "string"
-                                    },
-                                    "tax_number": {
-                                        "type": "string"
-                                    },
-                                    "state": {
-                                        "type": "string"
-                                    },
-                                    "country": {
-                                        "type": "string"
-                                    },
-                                    "landmark": {
-                                        "type": "string"
-                                    },
-                                    "mobile": {
-                                        "type": "string"
-                                    },
-                                    "landline": {
-                                        "type": "string"
-                                    },
-                                    "alternate_number": {
-                                        "type": "string"
-                                    },
-                                    "pay_term_number": {
-                                        "type": "integer"
-                                    },
-                                    "pay_term_type": {
-                                        "type": "string"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Update New Supplier"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
-        "/api/v1/currencies/destroy": {
-            "delete": {
-                "tags": [
-                    "Currencies"
-                ],
-                "summary": "Delete Supplier",
-                "description": "Delete Account",
-                "operationId": "deleteSupplierAccount",
-                "responses": {
-                    "200": {
-                        "description": "Deleted Supplier Account"
-                    },
-                    "400": {
-                        "description": "Bad request"
-                    },
-                    "404": {
-                        "description": "Resource Not Found"
-                    }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
-            }
-        },
         "/api/v1/currencies": {
             "get": {
                 "tags": [
@@ -1383,6 +1173,35 @@
                 "summary": "Get Currency List",
                 "description": "Get Currency List",
                 "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Currency List"

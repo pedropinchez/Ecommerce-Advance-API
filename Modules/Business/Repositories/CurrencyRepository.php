@@ -13,7 +13,21 @@ class CurrencyRepository implements CurrencyInterface
      */
     public function index()
     {
-        return Currency::get();
+        $query = Currency::orderBy('id', 'desc');
+
+        if (request()->search) {
+            $query->where('country', 'like', '%' . request()->search . '%');
+            $query->orWhere('currency', 'like', '%' . request()->search . '%');
+            $query->orWhere('code', 'like', '%' . request()->search . '%');
+            $query->orWhere('symbol', 'like', '%' . request()->search . '%');
+        }
+
+        if (request()->isPaginated) {
+            $paginateNo = request()->paginateNo ? request()->paginateNo : 20;
+            return $query->paginate($paginateNo);
+        } else {
+            return $query->get();
+        }
     }
 
     /**

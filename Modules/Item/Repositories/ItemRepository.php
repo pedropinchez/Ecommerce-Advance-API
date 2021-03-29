@@ -47,8 +47,14 @@ class ItemRepository implements ItemInterfaces
      */
     public function indexByPaginate($perPage = 20)
     {
-        $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business'])
-            ->orderBy('id', 'desc');
+        $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business']);
+            // ->orderBy('id', 'desc');
+
+        if (request()->orderby) {
+            $query->orderBy('id', request()->orderby);
+        }else {
+            $query->orderBy('id', 'desc');
+        }
 
         if (request()->search) {
             $query->where('name', 'like', '%' . request()->search . '%');
@@ -478,8 +484,15 @@ class ItemRepository implements ItemInterfaces
     public function getProductList($data)
     {
         try {
-            $query = DB::table('items')->orderBy('id', 'desc');
+            $query = DB::table('items');
+
             $page  = isset($data['page']) ? $data['page'] : 1;
+
+            if (request()->orderby) {
+                $query->orderBy('id', request()->orderby);
+            }else {
+                $query->orderBy('id', 'desc');
+            }
 
             if (isset($data['search'])) {
                 $search = trim($data['search']);
@@ -509,7 +522,6 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['min_price'])) {
-
                 $query->where('default_selling_price', '>=', $data['min_price']);
             }
 
@@ -524,7 +536,7 @@ class ItemRepository implements ItemInterfaces
 
                 $query->where(function ($query) use ($min_value, $max_value) {
                     $query->where('average_rating', '>=', $min_value)
-                    ->where('average_rating', '<', $max_value);
+                        ->where('average_rating', '<', $max_value);
                 });
             }
 

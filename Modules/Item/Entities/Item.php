@@ -91,7 +91,7 @@ class Item extends Model
      */
     public function business()
     {
-        return $this->belongsTo(Business::class)->select('id', 'name');
+        return $this->belongsTo(Business::class)->select('id', 'name', 'slug');
     }
 
     /**
@@ -123,7 +123,7 @@ class Item extends Model
      */
     public function brand()
     {
-        return $this->belongsTo(Brand::class)->select('id', 'name');
+        return $this->belongsTo(Brand::class)->select('id', 'name', 'slug');
     }
 
     /**

@@ -31,13 +31,20 @@ class ItemRepository implements ItemInterfaces
 
     public function getItemsForDropdown()
     {
-        $items = DB::table('items')->select(
+        $query = DB::table('items')->select(
             'id',
             'id as value',
             'name',
             DB::raw('CONCAT(name, " (", sku, ") ", "#", id) as label'),
             'sku'
-        )->get();
+        )
+        ->where('deleted_at', null);
+
+        if(request()->business_id){
+            $query->where('business_id', request()->business_id);
+        }
+
+        $items = $query->get();
         return $items;
     }
 

@@ -4440,6 +4440,17 @@
                 "summary": "Get Product List For Dropdown",
                 "description": "Get Product List For Dropdown",
                 "operationId": "getItemsForDropdown",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Get Product List For Dropdown"
@@ -5612,6 +5623,10 @@
                                     "order_id": {
                                         "type": "integer",
                                         "example": 20
+                                    },
+                                    "token": {
+                                        "type": "string",
+                                        "example": "test_token"
                                     }
                                 },
                                 "type": "object"

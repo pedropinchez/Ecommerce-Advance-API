@@ -72,9 +72,10 @@ class ItemController extends Controller
      *     description="Get Product List For Dropdown",
      *     security={{"bearer": {}}},
      *     operationId="getItemsForDropdown",
-     *      @OA\Response( response=200, description="Get Product List For Dropdown" ),
-     *      @OA\Response(response=400, description="Bad request"),
-     *      @OA\Response(response=404, description="Resource Not Found"),
+     *     @OA\Parameter(name="business_id", @OA\Schema(type="integer"), in="query", required=false, example=1),
+     *     @OA\Response( response=200, description="Get Product List For Dropdown" ),
+     *     @OA\Response(response=400, description="Bad request"),
+     *     @OA\Response(response=404, description="Resource Not Found"),
      * )
      */
     public function getItemsForDropdown(Request $request)

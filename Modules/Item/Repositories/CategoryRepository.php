@@ -4,6 +4,7 @@ namespace Modules\Item\Repositories;
 
 use App\Helpers\ImageUploadHelper;
 use App\Helpers\StringHelper;
+use Illuminate\Support\Facades\DB;
 use Modules\Item\Entities\Category;
 use Modules\Item\Interfaces\CategoryInterface;
 
@@ -106,12 +107,21 @@ class CategoryRepository implements CategoryInterface
     public function show($id)
     {
         if(is_numeric($id)){
-            return Category::with(['childs', 'business', 'parent_category'])->find($id);
+            $category = Category::with(['childs', 'business', 'parent_category'])->find($id);
         }else {
-            return Category::where('short_code', $id)
+            $category = Category::where('short_code', $id)
             ->with(['childs', 'business', 'parent_category'])
             ->first();
         }
+
+        if(request()->count_products){
+            $category->count_products = DB::table('items')
+            ->where('category_id', $category->id)
+            ->where('deleted_at', null)
+            ->count('id');
+        }
+
+        return $category;
     }
 
     /**

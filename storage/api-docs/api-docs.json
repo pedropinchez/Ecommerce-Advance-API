@@ -3588,6 +3588,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "count_products",
+                        "in": "query",
+                        "description": "1 or 0",
+                        "required": false,
+                        "schema": {
+                            "type": "int"
+                        }
                     }
                 ],
                 "responses": {

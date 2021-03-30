@@ -90,6 +90,7 @@ class BrandController extends Controller
      *     security={{"bearer": {}}},
      *     operationId="show",
      *     @OA\Parameter( name="id", description="id or slug, eg; 1 or apple", required=true, in="path", @OA\Schema(type="string")),
+     *     @OA\Parameter( name="count_products", description="1 or 0", required=false, in="query", @OA\Schema(type="int")),
      *      @OA\Response( response=200, description="Get Brand By ID/Slug" ),
      *      @OA\Response(response=400, description="Bad request"),
      *      @OA\Response(response=404, description="Resource Not Found"),

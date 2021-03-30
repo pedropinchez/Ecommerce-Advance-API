@@ -142,6 +142,13 @@ class BusinessRepository
             $business = Business::where('slug', $column_value)->first();
         }
 
+        if(request()->count_products){
+            $business->count_products = DB::table('items')
+            ->where('business_id', $business->id)
+            ->where('deleted_at', null)
+            ->count('id');
+        }
+
         return $business;
     }
 

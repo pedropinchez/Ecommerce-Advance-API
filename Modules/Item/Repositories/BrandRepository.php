@@ -8,6 +8,7 @@ use App\Helpers\UploadHelper;
 use Modules\Item\Entities\Brand;
 use Modules\Item\Interfaces\BrandInterface;
 use Auth;
+use Illuminate\Support\Facades\DB;
 
 class BrandRepository implements BrandInterface
 {
@@ -57,13 +58,24 @@ class BrandRepository implements BrandInterface
      */
     public function show($column_value)
     {
-        if (is_numeric($column_value)) {
-            $brand = Brand::with(['business'])->find($column_value);
-        } else {
-            $brand = Brand::with(['business'])->where('slug', $column_value)->first();
-        }
+        try {
+            if (is_numeric($column_value)) {
+                $brand = Brand::with(['business'])->find($column_value);
+            } else {
+                $brand = Brand::with(['business'])->where('slug', $column_value)->first();
+            }
 
-        return $brand;
+            if(request()->count_products){
+                $brand->count_products = DB::table('items')
+                ->where('brand_id', $brand->id)
+                ->where('deleted_at', null)
+                ->count('id');
+            }
+
+            return $brand;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /**

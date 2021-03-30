@@ -484,7 +484,7 @@ class ItemRepository implements ItemInterfaces
     public function getProductList($data)
     {
         try {
-            $query = DB::table('items');
+            $query = DB::table('items')->where('deleted_at', null);
 
             $page  = isset($data['page']) ? $data['page'] : 1;
 

@@ -40,4 +40,37 @@ class PaymentController extends Controller
             return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * @OA\POST(
+     *     path="/api/v1/payments",
+     *     tags={"Payment"},
+     *     summary="New Payment",
+     *     description="New Payment",
+     *     security={{"bearer": {}}},
+     *     @OA\RequestBody(
+     *          @OA\JsonContent(
+     *              type="object",
+     *              @OA\Property(property="order_id", type="integer", example=20),
+     *              @OA\Property(property="token", type="string", example="test_token"),
+     *          ),
+     *      ),
+     *      operationId="store",
+     *      @OA\Response( response=200, description="New Payment" ),
+     *      @OA\Response(response=400, description="Bad request"),
+     *      @OA\Response(response=404, description="Resource Not Found"),
+     * )
+     * @param Request $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            $data      = $request->all();
+            $offerItem = $this->paymentRepository->store($data);
+            return $this->responseRepository->ResponseSuccess($offerItem, 'Payment created successfully');
+        } catch (\Exception $exception) {
+            return $this->responseRepository->ResponseError(null, $exception->getMessage(), JsonResponse::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
 }

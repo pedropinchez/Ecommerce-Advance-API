@@ -2,6 +2,7 @@
 
 namespace Modules\Business\Repositories;
 
+use Modules\Analytics\Entities\Country;
 use Modules\Business\Entities\Currency;
 use Modules\Business\interfaces\CurrencyInterface;
 
@@ -13,7 +14,9 @@ class CurrencyRepository implements CurrencyInterface
      */
     public function index()
     {
-        $query = Currency::orderBy('id', 'desc');
+        $query = Currency::orderBy('id', 'desc')
+            ->join('countries', 'countries.id', '=', 'currencies.country')
+            ->select('currencies.*', 'countries.name as country_name');
 
         if (request()->search) {
             $query->where('country', 'like', '%' . request()->search . '%');
@@ -37,7 +40,10 @@ class CurrencyRepository implements CurrencyInterface
      */
     public function show($id)
     {
-        return Currency::find($id);
+        return Currency::where('currencies.id', $id)
+        ->join('countries', 'countries.id', '=', 'currencies.country')
+        ->select('currencies.*', 'countries.name as country_name')
+        ->first();
     }
 
     /**

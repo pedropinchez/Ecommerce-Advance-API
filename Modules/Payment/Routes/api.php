@@ -14,3 +14,4 @@ use Illuminate\Http\Request;
 */
 
 Route::get('payments/methods/get-payment-methods', 'PaymentController@getPaymentMethods');
+Route::post('payments', 'PaymentController@store');

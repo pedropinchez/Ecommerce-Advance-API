@@ -5596,6 +5596,47 @@
                 }
             }
         },
+        "/api/v1/payments": {
+            "post": {
+                "tags": [
+                    "Payment"
+                ],
+                "summary": "New Payment",
+                "description": "New Payment",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "order_id": {
+                                        "type": "integer",
+                                        "example": 20
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "New Payment"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/gift-cards": {
             "get": {
                 "tags": [

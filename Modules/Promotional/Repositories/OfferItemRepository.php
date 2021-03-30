@@ -5,7 +5,7 @@ namespace Modules\Promotional\Repositories;
 use App\Helpers\StringHelper;
 use App\Helpers\UploadHelper;
 use Exception;
-
+use Modules\Item\Entities\Item;
 use Modules\Promotional\Entities\OfferItem;
 use Modules\Promotional\Interfaces\OfferItemInterface;
 
@@ -18,12 +18,12 @@ class OfferItemRepository
     public function index()
     {
         $query = OfferItem::orderBy('id', 'desc')
-        ->select('offer_items.*', 'items.name as item_name', 'items.sku as item_sku', 'items.featured_image as item_featured_image')
-        ->join('items', 'items.id', '=', 'offer_items.item_id');
+            ->select('offer_items.*', 'items.name as item_name', 'items.sku as item_sku', 'items.featured_image as item_featured_image')
+            ->join('items', 'items.id', '=', 'offer_items.item_id');
 
         if (request()->search) {
             $query->where('items.name', 'like', '%' . request()->search . '%')
-            ->orWhere('items.sku', 'like', '%' . request()->search . '%');
+                ->orWhere('items.sku', 'like', '%' . request()->search . '%');
         }
 
         if (request()->type) {
@@ -65,11 +65,28 @@ class OfferItemRepository
     public function store($data)
     {
         $user = request()->user();
-        $data['is_visible'] = 1;
-        $data['offer_percent_discount'] = (float) (($data['current_price'] - $data['offer_price']) * 100 ) / $data['current_price'];
-        $data['created_by'] = $user->id;
-        $data['business_id'] = $user->business_id;
-        return OfferItem::create($data);
+        $item = Item::find($data['item_id']);
+
+        if ($item) {
+            $data['is_visible'] = 1;
+            $data['current_price'] = $item->default_selling_price;
+            $data['offer_percent_discount'] = (float) (($data['current_price'] - $data['offer_price']) * 100) / $data['current_price'];
+            $data['created_by'] = $user->id;
+            $data['business_id'] = $user->business_id;
+
+            $match = ['item_id'=> $item->id, 'offer_type' => $data['offer_type']];
+            $offerItem = OfferItem::updateOrCreate($match, $data);
+
+            // Update in items table also
+            $item->update([
+                'offer_selling_price' => $data['offer_price'],
+                'is_offer_enable'     => 1
+            ]);
+
+            return $offerItem;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -81,13 +98,22 @@ class OfferItemRepository
     public function update($id, $data)
     {
         $offerItem = OfferItem::find($id);
+        $item = Item::find($data['item_id']);
+        if ($item) {
+            if ($offerItem) {
+                $user = request()->user();
+                $data['is_visible'] = $data['is_visible'];
+                $data['current_price'] = $item->default_selling_price;
+                $data['offer_percent_discount'] = (float) (($data['current_price'] - $data['offer_price']) * 100) / $data['current_price'];
+                $data['updated_by'] = $user->id;
+                $offerItem->update($data);
+            }
 
-        if($offerItem) {
-            $user = request()->user();
-            $data['is_visible'] = $data['is_visible'];
-            $data['offer_percent_discount'] = (float) (($data['current_price'] - $data['offer_price']) * 100 ) / $data['current_price'];
-            $data['updated_by'] = $user->id;
-            $offerItem->update($data);
+            // Update in items table also
+            $item->update([
+                'offer_selling_price' => $data['offer_price'],
+                'is_offer_enable'     => $data['is_visible']
+            ]);
         }
 
         return $offerItem;
@@ -101,7 +127,7 @@ class OfferItemRepository
     public function destroy($id)
     {
         $offerItem = OfferItem::find($id);
-        if($offerItem) {
+        if ($offerItem) {
             $offerItem->delete();
             return true;
         } else {

@@ -13,6 +13,43 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/v1/countries": {
+            "get": {
+                "tags": [
+                    "Countries"
+                ],
+                "summary": "Get Country Lists",
+                "description": "Get Country Lists",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Country Lists"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/v1/auth/updateUserProfile": {
             "put": {
                 "tags": [

@@ -11,6 +11,7 @@ class WishlistRepository
     public function index()
     {
         $user = request()->user();
+
         return Wishlist::where('user_id', $user->id)
             ->with('item')
             ->orderBy('id', 'desc')

@@ -117,6 +117,8 @@ class CategoryRepository implements CategoryInterface
         if(request()->count_products){
             $category->count_products = DB::table('items')
             ->where('category_id', $category->id)
+            ->orWhere('sub_category_id', $category->id)
+            ->orWhere('sub_category_id2', $category->id)
             ->where('deleted_at', null)
             ->count('id');
         }

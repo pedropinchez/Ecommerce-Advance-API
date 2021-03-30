@@ -36,16 +36,16 @@ class ItemRepository implements ItemInterfaces
             'id as value',
             'name',
             DB::raw('CONCAT(name, " (", sku, ") ", "#", id) as label'),
+            'default_selling_price as price',
             'sku'
         )
-        ->where('deleted_at', null);
+            ->where('deleted_at', null);
 
-        if(request()->business_id){
+        if (request()->business_id) {
             $query->where('business_id', request()->business_id);
         }
 
-        $items = $query->get();
-        return $items;
+        return $query->get();
     }
 
     /**
@@ -55,11 +55,11 @@ class ItemRepository implements ItemInterfaces
     public function indexByPaginate($perPage = 20)
     {
         $query = Item::with(['category', 'subCategory', 'unit', 'brand', 'attributes', 'business']);
-            // ->orderBy('id', 'desc');
+        // ->orderBy('id', 'desc');
 
         if (request()->orderby) {
             $query->orderBy('id', request()->orderby);
-        }else {
+        } else {
             $query->orderBy('id', 'desc');
         }
 
@@ -497,7 +497,7 @@ class ItemRepository implements ItemInterfaces
 
             if (request()->orderby) {
                 $query->orderBy('id', request()->orderby);
-            }else {
+            } else {
                 $query->orderBy('id', 'desc');
             }
 
@@ -519,10 +519,10 @@ class ItemRepository implements ItemInterfaces
                     $category = $cat ? $cat->id : 0;
                 }
 
-                $query->where(function($query) use ($category) {
+                $query->where(function ($query) use ($category) {
                     $query->where('category_id', $category)
-                          ->orWhere('sub_category_id', $category)
-                          ->orWhere('sub_category_id2', $category);
+                        ->orWhere('sub_category_id', $category)
+                        ->orWhere('sub_category_id2', $category);
                 });
             }
 

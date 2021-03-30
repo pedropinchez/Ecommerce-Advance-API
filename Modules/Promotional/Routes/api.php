@@ -23,3 +23,7 @@ Route::apiResource('polls', 'PollController');
 Route::get('polls/customer/{id}', 'PollController@getByCustomerId');
 Route::apiResource('poll-options', 'PollOptionController');
 Route::post('polls-response', 'PollResponseController@store');
+
+// Route::group(function () {
+    Route::apiResource('offers', 'OfferItemsController');
+// })->middleware('auth');

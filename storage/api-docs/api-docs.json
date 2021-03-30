@@ -5794,6 +5794,291 @@
                 }
             }
         },
+        "/api/v1/offers": {
+            "get": {
+                "tags": [
+                    "Offer Items"
+                ],
+                "summary": "Get Offer Items",
+                "description": "Get Offer Items",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isPaginated",
+                        "in": "query",
+                        "description": "isPaginated, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "paginateNo",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "type, eg; normal_offer",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "description": "business_id, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Offer Items"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Offer Items"
+                ],
+                "summary": "Create New Offer Item",
+                "description": "Create New Offer Item",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer",
+                                        "example": 20
+                                    },
+                                    "current_price": {
+                                        "type": "integer",
+                                        "example": 5000
+                                    },
+                                    "offer_price": {
+                                        "type": "integer",
+                                        "example": 6500
+                                    },
+                                    "offer_type": {
+                                        "type": "string",
+                                        "example": "normal_offer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2021-03-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "example": "2021-05-01"
+                                    },
+                                    "is_unlimited": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "is_visible": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Offer Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/offers/{id}": {
+            "get": {
+                "tags": [
+                    "Offer Items"
+                ],
+                "summary": "Get Offer Item Detail",
+                "description": "Get Offer Item Detail",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Offer Item Detail"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Offer Items"
+                ],
+                "summary": "Update Offer Item",
+                "description": "Update Offer Item",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer",
+                                        "example": 20
+                                    },
+                                    "current_price": {
+                                        "type": "integer",
+                                        "example": 5000
+                                    },
+                                    "offer_price": {
+                                        "type": "integer",
+                                        "example": 6500
+                                    },
+                                    "offer_type": {
+                                        "type": "string",
+                                        "example": "normal_offer"
+                                    },
+                                    "start_date": {
+                                        "type": "string",
+                                        "example": "2021-03-01"
+                                    },
+                                    "end_date": {
+                                        "type": "string",
+                                        "example": "2021-05-01"
+                                    },
+                                    "is_unlimited": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "is_visible": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Offer Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Offer Items"
+                ],
+                "summary": "Delete Offer Item",
+                "description": "Delete Offer Item",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Offer Item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/polls": {
             "get": {
                 "tags": [

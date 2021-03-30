@@ -512,9 +512,11 @@ class ItemRepository implements ItemInterfaces
                     $category = $cat ? $cat->id : 0;
                 }
 
-                $query->where('category_id', $category)
-                    ->orWhere('sub_category_id', $category)
-                    ->orWhere('sub_category_id2', $category);
+                $query->where(function($query) use ($category) {
+                    $query->where('category_id', $category)
+                          ->orWhere('sub_category_id', $category)
+                          ->orWhere('sub_category_id2', $category);
+                });
             }
 
             if (isset($data['brand'])) {
@@ -555,7 +557,7 @@ class ItemRepository implements ItemInterfaces
             );
 
             $output = $query->paginate(20);
-            $itemsCollection = collect($output);
+            // $itemsCollection = collect($output);
             // foreach ($itemsCollection as $key => $item) {
             //     // If
             //     if (isset($data['attributes'])) {

@@ -4,13 +4,10 @@ namespace Modules\Business\Repositories;
 
 use App\Helpers\StringHelper;
 use App\Helpers\UploadHelper;
-use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Modules\Auth\Entities\User;
-use Modules\Auth\Interfaces\AuthInterface;
 use Modules\Business\Entities\Business;
 use Modules\Business\Entities\BusinessLocation;
 
@@ -50,16 +47,16 @@ class BusinessRepository
      *
      * @return object
      */
-    public function get_shipping_charge_by_business_id ( $business_id )
+    public function get_shipping_charge_by_business_id($business_id)
     {
         return DB::table('business')
-        ->select(
-            'shipping_charge_city',
-            'shipping_charge_city as shipping_charge',
-            'shipping_charge_local'
-        )
-        ->where('id', $business_id)
-        ->first();
+            ->select(
+                'shipping_charge_city',
+                'shipping_charge_city as shipping_charge',
+                'shipping_charge_local'
+            )
+            ->where('id', $business_id)
+            ->first();
     }
 
 
@@ -79,7 +76,7 @@ class BusinessRepository
             $data['banner'] = UploadHelper::upload('banner',  $data['banner'], 'vendor-banner-' . '-' . time(), 'images/vendors');
         }
 
-        $data['slug'] = StringHelper::createSlug($data['name'], Modules\Business\Entities\Business::class, 'slug', '');
+        $data['slug'] = StringHelper::createSlug($data['name'], 'Modules\Business\Entities\Business', 'slug', '');
         $business     = Business::create($data);
         return $business;
     }
@@ -136,17 +133,27 @@ class BusinessRepository
      */
     public function findBusinessById($column_value)
     {
-        if (is_numeric($column_value)) {
-            $business = Business::find($column_value);
-        } else {
-            $business = Business::where('slug', $column_value)->first();
-        }
+        try {
+            if (is_numeric($column_value)) {
+                $business = Business::where('business.id', $column_value)
+                    ->join('currencies', 'currencies.id',  '=', 'business.currency_id')
+                    ->select('business.*', 'currencies.currency as currency_name', 'currencies.symbol as currency_symbol')
+                    ->first();
+            } else {
+                $business = Business::where('slug', $column_value)
+                    ->join('currencies', 'currencies.id',  '=', 'business.currency_id')
+                    ->select('business.*', 'currencies.currency as currency_name', 'currencies.symbol as currency_symbol')
+                    ->first();
+            }
 
-        if(request()->count_products){
-            $business->count_products = DB::table('items')
-            ->where('business_id', $business->id)
-            ->where('deleted_at', null)
-            ->count('id');
+            if (request()->count_products) {
+                $business->count_products = DB::table('items')
+                    ->where('business_id', $business->id)
+                    ->where('deleted_at', null)
+                    ->count('business.id');
+            }
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
         }
 
         return $business;
@@ -163,13 +170,19 @@ class BusinessRepository
     public function updateBusiness($data, $id)
     {
         $business = Business::find($id);
+
         if ($business) {
+
             if (isset($data['logo'])) {
                 $data['logo'] = UploadHelper::update('logo',  $data['logo'], 'vendor-logo-' . '-' . time(), 'images/vendors', $business->logo);
+            } else {
+                $data['logo'] = $business->logo;
             }
 
             if (isset($data['banner'])) {
                 $data['banner'] = UploadHelper::update('banner',  $data['banner'], 'vendor-banner-' . '-' . time(), 'images/vendors', $business->banner);
+            } else {
+                $data['banner'] = $business->banner;
             }
 
             $business->update($data);

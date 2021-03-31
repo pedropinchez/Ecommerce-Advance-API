@@ -117,7 +117,7 @@ class BusinessController extends Controller
             $business = $this->businessRepository->findBusinessById($id);
             return $this->responseRepository->ResponseSuccess($business, 'Business Details By ID/Slug');
         } catch (\Exception $e) {
-            return $this->responseRepository->ResponseError(null, trans('common.something_wrong'), Response::HTTP_INTERNAL_SERVER_ERROR);
+            return $this->responseRepository->ResponseError(null, $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 

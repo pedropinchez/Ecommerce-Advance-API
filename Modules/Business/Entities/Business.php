@@ -30,11 +30,16 @@ class Business extends Model
         'banner',
     ];
 
-    protected $appends = ['logo_url'];
+    protected $appends = ['logo_url', 'banner_url'];
 
     public function getLogoUrlAttribute()
     {
         return is_null($this->logo) ? null : url('/') . '/images/vendors/' . $this->logo;
+    }
+
+    public function getBannerUrlAttribute()
+    {
+        return is_null($this->banner) ? null : url('/') . '/images/vendors/' . $this->banner;
     }
 
     public function location()

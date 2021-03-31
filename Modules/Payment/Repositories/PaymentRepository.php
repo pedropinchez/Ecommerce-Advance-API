@@ -23,25 +23,16 @@ class PaymentRepository
         if (is_null($transaction)) {
             throw new \Exception('Sorry, Transacton not found for this payment !');
         } else {
-            // Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             Stripe\Stripe::setApiKey('sk_test_kCfiZz6HkYFUvicGovlxWAMS');
 
-            // $paymentIntent = \Stripe\PaymentIntent::create([
-            //     'amount' => 101,
-            //     'currency' => 'bdt',
-            // ]);
-
-            // $output = [
-            //     'clientSecret' => $paymentIntent->client_secret,
-            // ];
-            $secret_token = "pi_1IaefTC5YyJJKXWL9jwoe8j1_secret_tqj5BRWJSIwEhiNfof7ovE0u3";
-
-            Stripe\Charge::create([
-                "amount" => 101,
-                "currency" => "bdt",
-                "source" => $secret_token,
-                "description" => "Test payment from Ecommerce Store."
+            $stripe_payment = Stripe\Charge::create([
+                "amount"      => 1020000,
+                "currency"    => "bdt",
+                "source"      => $data['payload'],
+                "description" =>  "Test payment from Ecommerce Store."
             ]);
+
+            return $stripe_payment;
         }
     }
 }

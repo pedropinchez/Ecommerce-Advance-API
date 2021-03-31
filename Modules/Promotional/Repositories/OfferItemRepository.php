@@ -53,7 +53,10 @@ class OfferItemRepository
      */
     public function show($id)
     {
-        return OfferItem::find($id);
+        return OfferItem::select('offer_items.*', 'items.name as item_name', 'items.sku as item_sku', 'items.featured_image as item_featured_image')
+        ->join('items', 'items.id', '=', 'offer_items.item_id')
+        ->where('offer_items.id', $id)
+        ->first();
     }
 
     /**

@@ -13,17 +13,17 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/v1/countries": {
+        "/api/v1/areas": {
             "get": {
                 "tags": [
-                    "Countries"
+                    "Master Data"
                 ],
-                "summary": "Get Country Lists",
-                "description": "Get Country Lists",
+                "summary": "Get Area Lists",
+                "description": "Get Area Lists",
                 "operationId": "index",
                 "parameters": [
                     {
-                        "name": "search",
+                        "name": "city",
                         "in": "query",
                         "description": "search value, eg; 1",
                         "required": false,
@@ -32,6 +32,69 @@
                         }
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "Get Area Lists"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/cities": {
+            "get": {
+                "tags": [
+                    "Master Data"
+                ],
+                "summary": "Get City Lists",
+                "description": "Get City Lists",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "search value, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get City Lists"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/countries": {
+            "get": {
+                "tags": [
+                    "Master Data"
+                ],
+                "summary": "Get Country Lists",
+                "description": "Get Country Lists",
+                "operationId": "index",
                 "responses": {
                     "200": {
                         "description": "Get Country Lists"

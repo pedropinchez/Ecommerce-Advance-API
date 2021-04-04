@@ -14,3 +14,8 @@ use Illuminate\Http\Request;
 */
 
 Route::get('countries', 'CountriesController@index');
+Route::get('countries/bulk-insert', 'CountriesController@insert_countries');
+Route::get('cities', 'CitiesController@index');
+Route::get('cities/bulk-insert', 'CitiesController@insert_cities_for_bangladesh');
+Route::get('areas', 'AreasController@index');
+Route::get('areas/bulk-insert', 'AreasController@insert_areas_for_bangladesh');

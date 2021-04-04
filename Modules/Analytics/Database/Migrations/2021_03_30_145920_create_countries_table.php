@@ -19,6 +19,10 @@ class CreateCountriesTable extends Migration
             $table->string('code')->nullable();
             $table->string('phone_code')->nullable();
             $table->string('flag')->nullable();
+
+            $table->string('lat')->nullable();
+            $table->string('lon')->nullable();
+            $table->string('url')->nullable();
         });
     }
 

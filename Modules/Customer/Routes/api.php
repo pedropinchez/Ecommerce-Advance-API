@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 
 Route::apiResource('customer', 'CustomerController');
+Route::apiResource('address', 'AddressController');
 // Route::prefix('customer')->group(function () {
 //     Route::get('/', 'CustomerController@index');
 //     Route::post('/store', 'CustomerController@store');

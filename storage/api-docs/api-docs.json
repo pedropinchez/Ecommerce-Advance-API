@@ -2745,6 +2745,292 @@
                 ]
             }
         },
+        "/api/v1/address": {
+            "get": {
+                "tags": [
+                    "Addresss"
+                ],
+                "summary": "Get Address List",
+                "description": "Get Address List",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "eg; billing_address/shipping_address/other",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "query",
+                        "description": "user id, eg; 1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "transaction_id",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "transaction_id",
+                        "in": "query",
+                        "description": "paginateNo, eg; 0",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Address List"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Addresss"
+                ],
+                "summary": "Create New Address",
+                "description": "Create New Address",
+                "operationId": "Modules\\Customer\\Http\\Controllers\\AddressController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "example": "billing_address"
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 0
+                                    },
+                                    "transaction_id": {
+                                        "type": "integer",
+                                        "example": null
+                                    },
+                                    "country_id": {
+                                        "type": "integer",
+                                        "example": 19
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Bangladesh"
+                                    },
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "area_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "area": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "street1": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "street2": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "is_default": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create New Address"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
+        "/api/v1/address/{id}": {
+            "get": {
+                "tags": [
+                    "Addresss"
+                ],
+                "summary": "Get Address By ID",
+                "description": "Get Address By ID",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Address By ID"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Addresss"
+                ],
+                "summary": "Update Address",
+                "description": "Update Address",
+                "operationId": "Modules\\Customer\\Http\\Controllers\\AddressController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "country_id": {
+                                        "type": "integer",
+                                        "example": 19
+                                    },
+                                    "country": {
+                                        "type": "string",
+                                        "example": "Bangladesh"
+                                    },
+                                    "city_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "area_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "area": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "street1": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "street2": {
+                                        "type": "string",
+                                        "example": "Dhaka"
+                                    },
+                                    "is_default": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Address"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Addresss"
+                ],
+                "summary": "Delete Address",
+                "description": "Delete Address",
+                "operationId": "destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id, eg; 1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete Address"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/customer": {
             "get": {
                 "tags": [

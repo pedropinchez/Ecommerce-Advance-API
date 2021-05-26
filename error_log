@@ -1,0 +1,7 @@
+[26-May-2021 12:59:23 America/New_York] PHP Warning:  require_once(/home/allguezc/repositories/api/vendor/composer/autoload_real.php): failed to open stream: No such file or directory in /home/allguezc/repositories/api/vendor/autoload.php on line 5
+[26-May-2021 12:59:23 America/New_York] PHP Fatal error:  require_once(): Failed opening required '/home/allguezc/repositories/api/vendor/composer/autoload_real.php' (include_path='.:/opt/alt/php73/usr/share/pear') in /home/allguezc/repositories/api/vendor/autoload.php on line 5
+[26-May-2021 13:01:51 America/New_York] PHP Fatal error:  Uncaught Error: Class 'Illuminate\Foundation\Application' not found in /home/allguezc/repositories/api/bootstrap/app.php:17
+Stack trace:
+#0 /home/allguezc/repositories/api/artisan(20): require_once()
+#1 {main}
+  thrown in /home/allguezc/repositories/api/bootstrap/app.php on line 17

@@ -58,7 +58,7 @@ class AddressRepository
         try {
             if (empty($data['transaction_id'])) {
                 $data['user_id'] = request()->user()->id;
-                $data['transaction_id'] = $data['transaction_id'];
+                $data['transaction_id'] = null;
             } else {
                 $data['user_id'] = null;
             }

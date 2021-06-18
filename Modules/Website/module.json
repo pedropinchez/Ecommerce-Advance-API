@@ -1,0 +1,13 @@
+{
+    "name": "Website",
+    "alias": "website",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\Website\\Providers\\WebsiteServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

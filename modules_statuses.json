@@ -16,5 +16,6 @@
     "Promotional": true,
     "Document": true,
     "Coupon": true,
-    "Payment": true
+    "Payment": true,
+    "Website": true
 }

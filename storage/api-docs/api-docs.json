@@ -5297,7 +5297,7 @@
                         "description": "min_price, eg; 2",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         },
                         "example": 20
                     },
@@ -5307,7 +5307,27 @@
                         "description": "max_price, eg; 2",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
+                        },
+                        "example": 20
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",
+                        "description": "rating, eg; 4",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": 4
+                    },
+                    {
+                        "name": "paginate_no",
+                        "in": "query",
+                        "description": "paginate_no, eg; 2",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
                         },
                         "example": 20
                     },
@@ -5317,7 +5337,7 @@
                         "description": "attributes, eg; 12:12",
                         "required": false,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         },
                         "example": 20
                     }
@@ -9415,6 +9435,38 @@
                         "bearer": []
                     }
                 ]
+            }
+        },
+        "/api/v1/website/info": {
+            "get": {
+                "tags": [
+                    "Website Info"
+                ],
+                "summary": "Get Website Information Data",
+                "description": "Get Website Information Data",
+                "operationId": "info",
+                "parameters": [
+                    {
+                        "name": "short_data",
+                        "in": "query",
+                        "description": "short_data ex: 1 or 0",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get Website Information Data"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
             }
         },
         "/": {

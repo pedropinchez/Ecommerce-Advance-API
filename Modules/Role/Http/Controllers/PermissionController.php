@@ -16,7 +16,6 @@ class PermissionController extends Controller
     public $permissionRepository;
     public $responseRepository;
 
-
     public function __construct(PermissionRepository $permissionRepository, ResponseRepository $rp)
     {
         $this->permissionRepository = $permissionRepository;

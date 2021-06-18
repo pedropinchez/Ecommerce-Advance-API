@@ -493,10 +493,8 @@ class ItemRepository implements ItemInterfaces
         try {
             $query = DB::table('items')->where('deleted_at', null);
 
-            $page  = isset($data['page']) ? $data['page'] : 1;
-
-            if (request()->orderby) {
-                $query->orderBy('id', request()->orderby);
+            if (isset($data['orderby'])) {
+                $query->orderBy('id', $data['orderby']);
             } else {
                 $query->orderBy('id', 'desc');
             }
@@ -527,7 +525,17 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['brand'])) {
-                $query->where('brand_id', $data['brand']);
+                $brand = trim($data['brand']);
+
+                if (is_numeric($brand)) {
+                    $brand = intval($brand);
+                } else { // Slug/Short Code is passed
+                    $bRepo = new BrandRepository();
+                    $brand = $bRepo->show($brand);
+                    $brand = $brand ? $brand->id: 0;
+                }
+
+                $query->where('brand_id', $brand);
             }
 
             if (isset($data['min_price'])) {
@@ -536,6 +544,11 @@ class ItemRepository implements ItemInterfaces
 
             if (isset($data['max_price'])) {
                 $query->where('default_selling_price', '<=', $data['max_price']);
+            }
+
+            $paginate_no = 20;
+            if(isset($data['paginate_no'])) {
+                $paginate_no = $data['paginate_no'];
             }
 
             if (isset($data['rating'])) {
@@ -563,7 +576,7 @@ class ItemRepository implements ItemInterfaces
                 'average_rating'
             );
 
-            $output = $query->paginate(20);
+            $output = $query->paginate($paginate_no);
             // $itemsCollection = collect($output);
             // foreach ($itemsCollection as $key => $item) {
             //     // If

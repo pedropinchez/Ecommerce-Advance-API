@@ -14,10 +14,11 @@ use Modules\Business\Entities\TaxRate;
 class Item extends Model
 {
     use SoftDeletes;
-    protected $table = "items";
-    //    protected $connection = 'DB_iApps';
+
+    protected $table      = "items";
     protected $primaryKey = 'id';
-    protected $fillable = [
+
+    protected $fillable   = [
         'business_id',
         'name',
         'unit_id',
@@ -42,11 +43,17 @@ class Item extends Model
         'description'
     ];
 
-    protected $with = ['images'];
-    protected $appends = ['featured_url', 'short_resolation_url', 'final_selling_price'];
+    protected $with    = ['images'];
+    protected $appends = ['featured_url', 'short_resolation_url', 'final_selling_price', 'short_description'];
+
     public function getFeaturedUrlAttribute()
     {
         return is_null($this->featured_image) ? null : url('/') . '/images/products/' . $this->featured_image;
+    }
+
+    public function getShortDescriptionAttribute()
+    {
+        return ! is_null($this->description) ? substr(strip_tags( $this->description ), 0, 100) . "..." : '';
     }
 
     public function getFinalSellingPriceAttribute()

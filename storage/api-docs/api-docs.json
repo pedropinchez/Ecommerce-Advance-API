@@ -4519,6 +4519,42 @@
                 ]
             }
         },
+        "/api/v1/items/featured/toggle": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Toggle Featured Item",
+                "description": "Create or Delete a featured item",
+                "operationId": "Modules\\Item\\Http\\Controllers\\FeaturedItemsController::toggleFeaturedItem",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create or Delete a featured item"
+                    },
+                    "400": {
+                        "description": "Bad request"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                }
+            }
+        },
         "/api/v1/items": {
             "get": {
                 "tags": [
@@ -5274,12 +5310,12 @@
                     {
                         "name": "category",
                         "in": "query",
-                        "description": "category, eg; 2",
+                        "description": "category, eg; 2,3,samsung",
                         "required": false,
                         "schema": {
                             "type": "string"
                         },
-                        "example": 2
+                        "example": "2,3"
                     },
                     {
                         "name": "brand",
@@ -5289,7 +5325,7 @@
                         "schema": {
                             "type": "string"
                         },
-                        "example": 2
+                        "example": "2,10,apple"
                     },
                     {
                         "name": "min_price",
@@ -5340,6 +5376,16 @@
                             "type": "string"
                         },
                         "example": 20
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "All possible type items - eg: featured|best-sold|fastest-delivery",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "featured"
                     }
                 ],
                 "responses": {

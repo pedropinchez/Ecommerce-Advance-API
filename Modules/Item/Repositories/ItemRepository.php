@@ -487,30 +487,44 @@ class ItemRepository implements ItemInterfaces
     /**
      * Get Product List for frontend
      *
+     * It is the mother api for fetching products for all parts of frontend.
+     * It can search by following parameters - search, orderby, category, brand, type,
+     * rating, min_price, max_price, paginate_no
+     *
+     * category would be => 1,2,samsung,apple,3.
+     * brand would be => 1,2,samsung,apple,3.
+     * type would be => feature, best-sold, hot-deals, fastest-delivery
+     *
      * @since 1.0.0
-     * @param array $data
+     *
+     * @param array $data sent from request
      *
      * @return array
      */
     public function getProductList($data)
     {
         try {
-            $query = DB::table('items')->where('deleted_at', null);
+            $query = DB::table('items')->where('items.deleted_at', null)
+                    ->join('business', 'items.business_id', '=', 'business.id');
 
-            if (isset($data['orderby'])) {
+            if ( ! empty ($data['orderby'])) {
                 $query->orderBy('id', $data['orderby']);
             } else {
-                $query->orderBy('id', 'desc');
+                if ( ! empty ( $data['type'] ) && $data['type'] !== 'best-sold' ) {
+                    $query->orderBy('id', 'desc');
+                }
             }
 
-            if (isset($data['search'])) {
-                $search = trim($data['search']);
+            // Check if anything in search
+            if ( ! empty ( $data['search'] ) ) {
+                $search = trim( $data['search'] );
                 $query->where('name', 'like', '%' . $search . '%');
                 $query->orWhere('description', 'like', '%' . $search . '%');
                 $query->orWhere('sku', 'like', '%' . $search . '%');
             }
 
-            if (isset($data['category'])) {
+            // Check if any single or multiple category provided or not
+            if ( ! empty ( $data['category'] ) ) {
                 $categories     = trim($data['category']);
                 $category_array = explode(',', $categories);
                 $category_ids   = [];
@@ -536,7 +550,8 @@ class ItemRepository implements ItemInterfaces
                 });
             }
 
-            if (isset($data['brand'])) {
+            // Check if any single or multiple brand provided or not
+            if ( ! empty ( $data['brand'] ) ) {
                 $brands       = trim($data['brand']);
                 $brands_array = explode(',', $brands);
                 $brand_ids    = [];
@@ -558,20 +573,23 @@ class ItemRepository implements ItemInterfaces
                 $query->whereIn('brand_id', $brand_ids);
             }
 
-            if (isset($data['min_price'])) {
+            // Check pricing
+            if ( ! empty ( $data['min_price'] ) ) {
                 $query->where('default_selling_price', '>=', $data['min_price']);
             }
 
-            if (isset($data['max_price'])) {
+            if ( ! empty ( $data['max_price'] ) ) {
                 $query->where('default_selling_price', '<=', $data['max_price']);
             }
 
+            // If pagination need to change
             $paginate_no = 20;
-            if (isset($data['paginate_no'])) {
+            if ( ! empty ( $data['paginate_no'] ) ) {
                 $paginate_no = $data['paginate_no'];
             }
 
-            if (isset($data['rating'])) {
+            // If custom rating wise filtered needed
+            if ( ! empty ( $data['rating'] ) ) {
                 $average_rating = (float) $data['rating'];
                 $min_value      = floor($average_rating);
                 $max_value      = ceil($min_value + 0.9);
@@ -582,10 +600,8 @@ class ItemRepository implements ItemInterfaces
                 });
             }
 
-            $query->join('business', 'items.business_id', '=', 'business.id');
-
             // Selective field only to make query faster
-            $query->select(
+            $fields = [
                 'items.id',
                 'items.name',
                 'items.sku',
@@ -597,7 +613,47 @@ class ItemRepository implements ItemInterfaces
                 'items.average_rating',
                 'business.id as seller_id',
                 'business.name as seller_name'
-            );
+            ];
+
+            // If type is provided, process data's like => featured, hot-deals, best-sold, fastest-delivery
+            if ( ! empty ( $data['type'] ) ) {
+                $type = $data['type'];
+
+                if ( $type === 'featured' ) {
+                    $query->join('featured_items', 'items.id', '=', 'featured_items.item_id');
+                }
+
+                if ( $type === 'hot-deals' ) {
+                    $query->join('offer_items', 'items.id', '=', 'offer_items.item_id')
+                        ->join('categories', 'items.category_id', '=', 'categories.id')
+                        ->where('offer_items.offer_type', 'hot_deal');
+
+                    $fields[] = 'categories.banner as category_image';
+                }
+
+                if ( $type === 'best-sold' ) {
+                    $query->join('transaction_sell_lines as tsl', 'tsl.item_id', '=', 'items.id')
+                            ->groupBy('tsl.item_id')
+                            ->orderBy('total_sold', 'desc');
+
+                    $fields[] = 'sum(tsl.quantity) as total_sold';
+                }
+
+                if ( $type === 'fastest-delivery' ) {
+                    // @todo process it latter
+                }
+            }
+
+            // Make the fields to a string to run selectRaw()
+            $query_string = '';
+            foreach ( $fields as $key => $value ) {
+                $query_string .= $value ;
+                if ( (count( $fields ) !== $key + 1 ) && count($fields) !== 1 ){
+                    $query_string .= ',' ;
+                }
+            }
+
+            $query->selectRaw( $query_string );
 
             $output = $query->paginate($paginate_no);
             // $itemsCollection = collect($output);

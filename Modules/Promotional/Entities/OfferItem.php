@@ -14,7 +14,7 @@ class OfferItem extends Model
         'current_price',
         'offer_price',
         'offer_percent_discount',
-        'offer_type',
+        'offer_type', // normal_offer, first_purchase_offer, hot_deals
         'start_date',
         'end_date',
         'is_unlimited',

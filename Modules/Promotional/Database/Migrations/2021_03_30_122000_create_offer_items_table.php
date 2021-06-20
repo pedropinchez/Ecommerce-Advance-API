@@ -20,7 +20,7 @@ class CreateOfferItemsTable extends Migration
             $table->unsignedFloat('current_price')->default(0);
             $table->unsignedFloat('offer_price')->default(0);
             $table->unsignedFloat('offer_percent_discount')->default(0);
-            $table->enum('offer_type', ['normal_offer', 'first_purchase_offer'])->default('normal_offer')->index();
+            $table->enum('offer_type', ['normal_offer', 'first_purchase_offer', 'hot_deals'])->default('normal_offer')->index();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->boolean('is_unlimited')->default(0);

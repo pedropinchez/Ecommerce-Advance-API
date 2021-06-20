@@ -23,6 +23,9 @@ Route::get('categories/sub-categories/{parent_category_id}', 'CategoryController
 Route::apiResource('units', 'UnitController');
 Route::get('units/business/{business_id}', 'UnitController@getUnitByBusiness');
 
+// Featured Item routes
+Route::post('items/featured/toggle', 'FeaturedItemsController@toggleFeaturedItem');
+
 Route::apiResource('attributes', 'AttributeController');
 Route::get('attributes/business/{business_id}', 'AttributeController@getAttributeByBusiness');
 Route::get('attributes/category/{category_id}', 'AttributeController@getAttributeByCategory');

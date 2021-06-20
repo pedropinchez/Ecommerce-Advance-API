@@ -39,6 +39,7 @@ class CreateItemsTable extends Migration
             $table->unsignedBigInteger('current_stock')->default(0);
             $table->unsignedInteger('total_rating')->default(0);
             $table->unsignedFloat('average_rating')->default(0);
+            $table->unsignedFloat('approx_delivery_time')->default(0)->comment('Time in Minutes');
             $table->float('default_selling_price')->default(0);
             $table->float('offer_selling_price')->default(0)->nullable();
             $table->boolean('is_offer_enable')->default(false);

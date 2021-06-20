@@ -485,8 +485,12 @@ class ItemRepository implements ItemInterfaces
     }
 
     /**
-     * @return mixed
-     * get items
+     * Get Product List for frontend
+     *
+     * @since 1.0.0
+     * @param array $data
+     *
+     * @return array
      */
     public function getProductList($data)
     {
@@ -507,35 +511,51 @@ class ItemRepository implements ItemInterfaces
             }
 
             if (isset($data['category'])) {
-                $category = trim($data['category']);
+                $categories     = trim($data['category']);
+                $category_array = explode(',', $categories);
+                $category_ids   = [];
 
-                if (is_numeric($category)) {
-                    $category = intval($category);
-                } else { // Slug/Short Code is passed
-                    $cRepo    = new CategoryRepository();
-                    $cat      = $cRepo->getCategoryBySlug($category);
-                    $category = $cat ? $cat->id : 0;
+                foreach ($category_array as $value) {
+                    $category = trim($value);
+
+                    if (is_numeric($category)) {
+                        $category = intval($category);
+                    } else { // Slug/Short Code is passed
+                        $cRepo    = new CategoryRepository();
+                        $cat      = $cRepo->getCategoryBySlug($category);
+                        $category = $cat ? $cat->id : 0;
+                    }
+
+                    $category_ids[] = $category;
                 }
 
-                $query->where(function ($query) use ($category) {
-                    $query->where('category_id', $category)
-                        ->orWhere('sub_category_id', $category)
-                        ->orWhere('sub_category_id2', $category);
+                $query->where(function ($query) use ($category_ids) {
+                    $query->whereIn('category_id', $category_ids)
+                        ->orWhereIn('sub_category_id', $category_ids)
+                        ->orWhereIn('sub_category_id2', $category_ids);
                 });
             }
 
             if (isset($data['brand'])) {
-                $brand = trim($data['brand']);
+                $brands       = trim($data['brand']);
+                $brands_array = explode(',', $brands);
+                $brand_ids    = [];
 
-                if (is_numeric($brand)) {
-                    $brand = intval($brand);
-                } else { // Slug/Short Code is passed
-                    $bRepo = new BrandRepository();
-                    $brand = $bRepo->show($brand);
-                    $brand = $brand ? $brand->id: 0;
+                foreach ($brands_array as $value) {
+                    $brand = trim($value);
+
+                    if (is_numeric($brand)) {
+                        $brand = intval($brand);
+                    } else { // Slug/Short Code is passed
+                        $bRepo = new BrandRepository();
+                        $brand = $bRepo->show($brand);
+                        $brand = $brand ? $brand->id : 0;
+                    }
+
+                    $brand_ids[] = $brand;
                 }
 
-                $query->where('brand_id', $brand);
+                $query->whereIn('brand_id', $brand_ids);
             }
 
             if (isset($data['min_price'])) {
@@ -547,7 +567,7 @@ class ItemRepository implements ItemInterfaces
             }
 
             $paginate_no = 20;
-            if(isset($data['paginate_no'])) {
+            if (isset($data['paginate_no'])) {
                 $paginate_no = $data['paginate_no'];
             }
 
@@ -562,18 +582,21 @@ class ItemRepository implements ItemInterfaces
                 });
             }
 
+            $query->join('business', 'items.business_id', '=', 'business.id');
+
             // Selective field only to make query faster
             $query->select(
                 'items.id',
-                'name',
-                'sku',
-                'featured_image',
-                'featured_image',
-                'default_selling_price',
-                'offer_selling_price',
-                'is_offer_enable',
-                'current_stock',
-                'average_rating'
+                'items.name',
+                'items.sku',
+                'items.featured_image',
+                'items.default_selling_price',
+                'items.offer_selling_price',
+                'items.is_offer_enable',
+                'items.current_stock',
+                'items.average_rating',
+                'business.id as seller_id',
+                'business.name as seller_name'
             );
 
             $output = $query->paginate($paginate_no);
